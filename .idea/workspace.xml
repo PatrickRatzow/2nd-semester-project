@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f4586b86-afa6-412b-ba06-925ace2b9b99" name="Default Changelist" comment="" />
+    <list default="true" id="f4586b86-afa6-412b-ba06-925ace2b9b99" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/controller/ProductPriceCalculatorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Semester2/controller/ProductPriceCalculatorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/ui/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Semester2/ui/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ProductPriceCalculatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ProductPriceCalculatorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/ProductType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Specification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Roof.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Roof.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,7 +26,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1jNdy4AbLDcBHl4crpRej6JrUWT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -28,6 +42,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -129,10 +144,10 @@
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
     <state x="1229" y="333" width="1522" height="910" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.5120.1410@0.0.5120.1410" timestamp="1603665051952" />
-    <state x="1745" y="461" key="#com.intellij.ide.util.MemberChooser" timestamp="1603664714222">
+    <state x="1745" y="461" key="#com.intellij.ide.util.MemberChooser" timestamp="1603666431931">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state x="1745" y="461" key="#com.intellij.ide.util.MemberChooser/0.0.5120.1410@0.0.5120.1410" timestamp="1603664714222" />
+    <state x="1745" y="461" key="#com.intellij.ide.util.MemberChooser/0.0.5120.1410@0.0.5120.1410" timestamp="1603666431931" />
     <state x="1720" y="535" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603660481841">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
@@ -141,22 +156,22 @@
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
     <state x="2152" y="455" key="FileChooserDialogImpl/0.0.5120.1410@0.0.5120.1410" timestamp="1603662084593" />
-    <state width="1662" height="302" key="GridCell.Tab.0.bottom" timestamp="1603665625191">
+    <state width="1662" height="302" key="GridCell.Tab.0.bottom" timestamp="1603666063210">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="302" key="GridCell.Tab.0.bottom/0.0.5120.1410@0.0.5120.1410" timestamp="1603665625191" />
-    <state width="1662" height="302" key="GridCell.Tab.0.center" timestamp="1603665625191">
+    <state width="1662" height="302" key="GridCell.Tab.0.bottom/0.0.5120.1410@0.0.5120.1410" timestamp="1603666063210" />
+    <state width="1662" height="302" key="GridCell.Tab.0.center" timestamp="1603666063210">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="302" key="GridCell.Tab.0.center/0.0.5120.1410@0.0.5120.1410" timestamp="1603665625191" />
-    <state width="1662" height="302" key="GridCell.Tab.0.left" timestamp="1603665625190">
+    <state width="1662" height="302" key="GridCell.Tab.0.center/0.0.5120.1410@0.0.5120.1410" timestamp="1603666063210" />
+    <state width="1662" height="302" key="GridCell.Tab.0.left" timestamp="1603666063210">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="302" key="GridCell.Tab.0.left/0.0.5120.1410@0.0.5120.1410" timestamp="1603665625190" />
-    <state width="1662" height="302" key="GridCell.Tab.0.right" timestamp="1603665625191">
+    <state width="1662" height="302" key="GridCell.Tab.0.left/0.0.5120.1410@0.0.5120.1410" timestamp="1603666063210" />
+    <state width="1662" height="302" key="GridCell.Tab.0.right" timestamp="1603666063210">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="302" key="GridCell.Tab.0.right/0.0.5120.1410@0.0.5120.1410" timestamp="1603665625191" />
+    <state width="1662" height="302" key="GridCell.Tab.0.right/0.0.5120.1410@0.0.5120.1410" timestamp="1603666063210" />
     <state width="1662" height="372" key="GridCell.Tab.1.bottom" timestamp="1603664701808">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
@@ -173,10 +188,10 @@
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
     <state width="1662" height="372" key="GridCell.Tab.1.right/0.0.5120.1410@0.0.5120.1410" timestamp="1603664701808" />
-    <state x="2150" y="607" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1603663590427">
+    <state x="2150" y="607" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1603666028214">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state x="2150" y="607" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.5120.1410@0.0.5120.1410" timestamp="1603663590427" />
+    <state x="2150" y="607" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.5120.1410@0.0.5120.1410" timestamp="1603666028214" />
     <state x="1761" y="491" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1603665465120">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
@@ -185,9 +200,9 @@
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
     <state x="1828" y="334" key="new project wizard/0.0.5120.1410@0.0.5120.1410" timestamp="1603648743386" />
-    <state x="1603" y="468" width="672" height="678" key="search.everywhere.popup" timestamp="1603660966652">
+    <state x="1603" y="468" width="672" height="678" key="search.everywhere.popup" timestamp="1603666431283">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state x="1603" y="468" width="672" height="678" key="search.everywhere.popup/0.0.5120.1410@0.0.5120.1410" timestamp="1603660966652" />
+    <state x="1603" y="468" width="672" height="678" key="search.everywhere.popup/0.0.5120.1410@0.0.5120.1410" timestamp="1603666431283" />
   </component>
 </project>

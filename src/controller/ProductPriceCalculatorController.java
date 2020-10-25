@@ -1,6 +1,7 @@
 package controller;
 
 import model.Product;
+import model.Specification;
 
 import java.util.Collection;
 
@@ -13,7 +14,13 @@ public class ProductPriceCalculatorController {
      */
     ProductController productController = new ProductController();
 
-    public Collection<Product> findAll() {
-        return productController.findAll();
+    private Product findCheapestProduct(Specification specification, Collection<Product> products) {
+        // TODO: Threads n stuff
+        final int size = products.size();
+        for (int i = 0; i < size; i++) {
+
+        }
+
+        return null;
     }
 }

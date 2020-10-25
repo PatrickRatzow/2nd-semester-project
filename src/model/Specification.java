@@ -5,11 +5,12 @@ import java.util.*;
 /**
  * The type Product type.
  */
-public abstract class ProductType {
+public abstract class Specification {
     private Map<String, Object> params = new HashMap<>();
     private Set<String> categories = new HashSet<>();
     private Product product;
     private int quantity;
+    public abstract boolean isValid(Product product);
 
     /**
      * Gets price.
