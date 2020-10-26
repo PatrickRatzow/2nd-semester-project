@@ -1,8 +1,10 @@
 package database;
 
+import model.DataExistsException;
 import model.ProductCategory;
 
 import java.util.Collection;
+import java.util.List;
 
 public class ProductCategoryDB implements IProductCategoryDB {
     @Override
@@ -16,12 +18,12 @@ public class ProductCategoryDB implements IProductCategoryDB {
     }
 
     @Override
-    public Collection<ProductCategory> findByName(String name) {
+    public List<ProductCategory> findByName(String name) {
         return null;
     }
 
     @Override
-    public ProductCategory create(String name, String desc) {
+    public ProductCategory create(String name, String desc) throws DataExistsException {
         return null;
     }
 
