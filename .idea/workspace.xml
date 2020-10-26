@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f4586b86-afa6-412b-ba06-925ace2b9b99" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="f4586b86-afa6-412b-ba06-925ace2b9b99" name="Default Changelist" comment="Remove out">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Semester2/controller/ProductPriceCalculatorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Semester2/controller/ProductPriceCalculatorController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Semester2/ui/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Semester2/ui/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ProductPriceCalculatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ProductPriceCalculatorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ProductType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Specification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Roof.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Roof.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/controller/ProductCategoryController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/controller/ProductCategoryControllerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/controller/ProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/controller/ProductControllerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/controller/ProductPriceCalculatorController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/controller/ProductPriceCalculatorControllerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/database/DBConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/database/IProductCategoryDB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/database/IProductDB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/database/ProductCategoryDB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/database/ProductDB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/model/Price.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/model/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/model/ProductCategory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/model/ProductType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/model/Roof.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Semester2/ui/Main.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="223" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -60,7 +72,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in Semester2">
+  <component name="RunManager" selected="JUnit.ProductCategoryControllerTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ui.Main" />
       <module name="Semester2" />
@@ -113,10 +125,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProductCategoryControllerTest.testCantCreateCategory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Semester2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="controller" />
+      <option name="MAIN_CLASS_NAME" value="controller.ProductCategoryControllerTest" />
+      <option name="METHOD_NAME" value="testCantCreateCategory" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in Semester2" />
         <item itemvalue="JUnit.ProductCategoryControllerTest" />
+        <item itemvalue="JUnit.ProductCategoryControllerTest.testCantCreateCategory" />
+        <item itemvalue="JUnit.All in Semester2" />
         <item itemvalue="JUnit.ProductCategoryControllerTest.testCanCreateCategory" />
         <item itemvalue="Application.Main" />
       </list>
@@ -133,7 +162,35 @@
       <option name="presentableId" value="Default" />
       <updated>1603648734472</updated>
     </task>
+    <task id="LOCAL-00001" summary="Working on tests">
+      <created>1603723703639</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1603723703639</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Working on tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working on tests" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2038" y="372" key="#Project_Structure" timestamp="1603663596383">
@@ -152,42 +209,54 @@
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
     <state x="1720" y="535" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.5120.1410@0.0.5120.1410" timestamp="1603660481841" />
+    <state x="1644" y="382" key="CommitChangelistDialog2" timestamp="1603723821729">
+      <screen x="0" y="0" width="5120" height="1410" />
+    </state>
+    <state x="1644" y="382" key="CommitChangelistDialog2/0.0.5120.1410@0.0.5120.1410" timestamp="1603723821729" />
+    <state x="1229" y="333" width="1522" height="910" key="DiffContextDialog" timestamp="1603723738028">
+      <screen x="0" y="0" width="5120" height="1410" />
+    </state>
+    <state x="1229" y="333" width="1522" height="910" key="DiffContextDialog/0.0.5120.1410@0.0.5120.1410" timestamp="1603723738028" />
     <state x="2152" y="455" key="FileChooserDialogImpl" timestamp="1603662084593">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
     <state x="2152" y="455" key="FileChooserDialogImpl/0.0.5120.1410@0.0.5120.1410" timestamp="1603662084593" />
-    <state width="1662" height="302" key="GridCell.Tab.0.bottom" timestamp="1603666063210">
+    <state width="1662" height="302" key="GridCell.Tab.0.bottom" timestamp="1603723653865">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="302" key="GridCell.Tab.0.bottom/0.0.5120.1410@0.0.5120.1410" timestamp="1603666063210" />
-    <state width="1662" height="302" key="GridCell.Tab.0.center" timestamp="1603666063210">
+    <state width="1662" height="302" key="GridCell.Tab.0.bottom/0.0.5120.1410@0.0.5120.1410" timestamp="1603723653865" />
+    <state width="1662" height="302" key="GridCell.Tab.0.center" timestamp="1603723653865">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="302" key="GridCell.Tab.0.center/0.0.5120.1410@0.0.5120.1410" timestamp="1603666063210" />
-    <state width="1662" height="302" key="GridCell.Tab.0.left" timestamp="1603666063210">
+    <state width="1662" height="302" key="GridCell.Tab.0.center/0.0.5120.1410@0.0.5120.1410" timestamp="1603723653865" />
+    <state width="1662" height="302" key="GridCell.Tab.0.left" timestamp="1603723653865">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="302" key="GridCell.Tab.0.left/0.0.5120.1410@0.0.5120.1410" timestamp="1603666063210" />
-    <state width="1662" height="302" key="GridCell.Tab.0.right" timestamp="1603666063210">
+    <state width="1662" height="302" key="GridCell.Tab.0.left/0.0.5120.1410@0.0.5120.1410" timestamp="1603723653865" />
+    <state width="1662" height="302" key="GridCell.Tab.0.right" timestamp="1603723653865">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="302" key="GridCell.Tab.0.right/0.0.5120.1410@0.0.5120.1410" timestamp="1603666063210" />
-    <state width="1662" height="372" key="GridCell.Tab.1.bottom" timestamp="1603664701808">
+    <state width="1662" height="302" key="GridCell.Tab.0.right/0.0.5120.1410@0.0.5120.1410" timestamp="1603723653865" />
+    <state width="1662" height="372" key="GridCell.Tab.1.bottom" timestamp="1603699417698">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="372" key="GridCell.Tab.1.bottom/0.0.5120.1410@0.0.5120.1410" timestamp="1603664701808" />
-    <state width="1662" height="372" key="GridCell.Tab.1.center" timestamp="1603664701808">
+    <state width="1662" height="372" key="GridCell.Tab.1.bottom/0.0.5120.1410@0.0.5120.1410" timestamp="1603699417698" />
+    <state width="1662" height="372" key="GridCell.Tab.1.center" timestamp="1603699417695">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="372" key="GridCell.Tab.1.center/0.0.5120.1410@0.0.5120.1410" timestamp="1603664701808" />
-    <state width="1662" height="372" key="GridCell.Tab.1.left" timestamp="1603664701808">
+    <state width="1662" height="372" key="GridCell.Tab.1.center/0.0.5120.1410@0.0.5120.1410" timestamp="1603699417695" />
+    <state width="1662" height="372" key="GridCell.Tab.1.left" timestamp="1603699417695">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="372" key="GridCell.Tab.1.left/0.0.5120.1410@0.0.5120.1410" timestamp="1603664701808" />
-    <state width="1662" height="372" key="GridCell.Tab.1.right" timestamp="1603664701808">
+    <state width="1662" height="372" key="GridCell.Tab.1.left/0.0.5120.1410@0.0.5120.1410" timestamp="1603699417695" />
+    <state width="1662" height="372" key="GridCell.Tab.1.right" timestamp="1603699417697">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state width="1662" height="372" key="GridCell.Tab.1.right/0.0.5120.1410@0.0.5120.1410" timestamp="1603664701808" />
+    <state width="1662" height="372" key="GridCell.Tab.1.right/0.0.5120.1410@0.0.5120.1410" timestamp="1603699417697" />
+    <state x="1582" y="521" key="Vcs.Push.Dialog.v2" timestamp="1603723704969">
+      <screen x="0" y="0" width="5120" height="1410" />
+    </state>
+    <state x="1582" y="521" key="Vcs.Push.Dialog.v2/0.0.5120.1410@0.0.5120.1410" timestamp="1603723704969" />
     <state x="2150" y="607" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1603666028214">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
@@ -204,5 +273,10 @@
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
     <state x="1603" y="468" width="672" height="678" key="search.everywhere.popup/0.0.5120.1410@0.0.5120.1410" timestamp="1603666431283" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Semester2$ProductCategoryControllerTest.ic" NAME="ProductCategoryControllerTest Coverage Results" MODIFIED="1603723525428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>controller.*</FILTER>
+    </SUITE>
   </component>
 </project>
