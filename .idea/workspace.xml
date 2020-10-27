@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4586b86-afa6-412b-ba06-925ace2b9b99" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/model/DataAccessException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/1_create_tables.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/2_prodecures.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/3_views.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/4_data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/IProductDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/IProductDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/ProductDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/ProductDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +31,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1jNdy4AbLDcBHl4crpRej6JrUWT" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -62,6 +62,9 @@
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\patri\eclipse-workspace\Semester2\src" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -175,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603789573701</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ProductController finished">
+      <created>1603797191381</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1603797191381</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -197,7 +207,8 @@
     <MESSAGE value="Working on tests" />
     <MESSAGE value="Remove out" />
     <MESSAGE value="Sync" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sync" />
+    <MESSAGE value="ProductController finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="ProductController finished" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -219,10 +230,10 @@
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
     <state x="1720" y="535" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.5120.1410@0.0.5120.1410" timestamp="1603660481841" />
-    <state x="1829" y="195" width="1049" height="1069" key="CommitChangelistDialog2" timestamp="1603789573155">
+    <state x="1829" y="195" width="1049" height="1069" key="CommitChangelistDialog2" timestamp="1603797190744">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state x="1829" y="195" width="1049" height="1069" key="CommitChangelistDialog2/0.0.5120.1410@0.0.5120.1410" timestamp="1603789573155" />
+    <state x="1829" y="195" width="1049" height="1069" key="CommitChangelistDialog2/0.0.5120.1410@0.0.5120.1410" timestamp="1603797190744" />
     <state x="1229" y="333" width="1522" height="910" key="DiffContextDialog" timestamp="1603723738028">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
@@ -267,10 +278,10 @@
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
     <state x="1913" y="333" key="SettingsEditor/0.0.5120.1410@0.0.5120.1410" timestamp="1603791692149" />
-    <state x="1582" y="521" key="Vcs.Push.Dialog.v2" timestamp="1603789574906">
+    <state x="1582" y="521" key="Vcs.Push.Dialog.v2" timestamp="1603797192529">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
-    <state x="1582" y="521" key="Vcs.Push.Dialog.v2/0.0.5120.1410@0.0.5120.1410" timestamp="1603789574906" />
+    <state x="1582" y="521" key="Vcs.Push.Dialog.v2/0.0.5120.1410@0.0.5120.1410" timestamp="1603797192529" />
     <state x="2150" y="607" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1603786754155">
       <screen x="0" y="0" width="5120" height="1410" />
     </state>
