@@ -1,6 +1,7 @@
 package model;
 
 abstract public class Person {
+    private int personId;
     private String firstName;
     private String lastName;
     private String email;
@@ -55,5 +56,13 @@ abstract public class Person {
 
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 }
