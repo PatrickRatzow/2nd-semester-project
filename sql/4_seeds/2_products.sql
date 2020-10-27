@@ -1,7 +1,3 @@
-INSERT INTO products_categories(name, description)
-VALUES ('Mursten', ''),
-       ('Tagsten', '')
-
 EXEC InsertProduct 'Lille sten', '', 'Mursten', 100000;
 EXEC InsertProduct 'Sten', '', 'Mursten', 150000;
 EXEC InsertProduct 'Stor sten', '', 'Mursten', 200000;

@@ -2,7 +2,8 @@ package controller;
 
 import model.DataExistsException;
 import model.ProductCategory;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductCategoryControllerTest {
     private static ProductCategoryController productCategoryController = new ProductCategoryController();
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUp() {
+
     }
 
     @Test
@@ -92,5 +94,10 @@ class ProductCategoryControllerTest {
     @DisplayName("Can delete category")
     void testCanDeleteCategory() {
         fail();
+    }
+
+    @AfterAll
+    static void tearDown() {
+
     }
 }

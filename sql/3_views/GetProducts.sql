@@ -1,4 +1,4 @@
-CREATE OR ALTER VIEW GetProducts AS
+CREATE VIEW GetProducts AS
 SELECT
     p.id AS productId,
     p.name AS productName,

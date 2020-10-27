@@ -1,9 +1,8 @@
 package ui;
 
 import controller.ProductPriceCalculatorController;
-import model.DataAccessException;
+import database.DBConnection;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -18,7 +17,8 @@ public class Main {
      *
      * @param args the input arguments
      */
-    public static void main(String[] args) throws DataAccessException, SQLException {
-
+    public static void main(String[] args) {
+        DBConnection.getInstance();
+        System.out.println("Here");
     }
 }

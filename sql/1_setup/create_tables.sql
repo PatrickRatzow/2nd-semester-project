@@ -1,30 +1,9 @@
-DECLARE @Sql NVARCHAR(500) DECLARE @Cursor CURSOR
-
-SET @Cursor = CURSOR FAST_FORWARD FOR
-SELECT DISTINCT sql = 'ALTER TABLE [' + tc2.TABLE_SCHEMA + '].[' +  tc2.TABLE_NAME + '] DROP [' + rc1.CONSTRAINT_NAME + '];'
-FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc1
-LEFT JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc2 ON tc2.CONSTRAINT_NAME =rc1.CONSTRAINT_NAME
-
-OPEN @Cursor FETCH NEXT FROM @Cursor INTO @Sql
-
-WHILE (@@FETCH_STATUS = 0)
-BEGIN
-Exec sp_executesql @Sql
-FETCH NEXT FROM @Cursor INTO @Sql
-END
-
-CLOSE @Cursor DEALLOCATE @Cursor
-GO
-
-EXEC sp_MSforeachtable 'DROP TABLE ?'
-GO;
-
 CREATE TABLE products_categories (
     id INT IDENTITY(1, 1),
     name NVARCHAR(255) NOT NULL,
     description NVARCHAR(MAX) NOT NULL,
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE products (
     id INT IDENTITY(1, 1),
@@ -33,7 +12,7 @@ CREATE TABLE products (
     categoryId INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY (categoryId) REFERENCES products_categories(id)
-)
+);
 
 CREATE TABLE products_prices (
     productId INT,
@@ -42,4 +21,4 @@ CREATE TABLE products_prices (
     price INT NOT NULL,
     PRIMARY KEY(productId, startTime),
     FOREIGN KEY(productId) REFERENCES products(id)
-)
+);

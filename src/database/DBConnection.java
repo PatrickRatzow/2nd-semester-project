@@ -1,5 +1,10 @@
 package database;
 
+import util.JUnit;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
 
 /**
@@ -10,15 +15,16 @@ public class DBConnection {
     private static DBConnection dbConnection;
 
     private static final String driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static final String dbName = "dmaa0220_1083750";
     private static final String serverAddress = "hildur.ucn.dk";
     private static final int    serverPort = 1433;
-    private static final String userName = "dmaa0220_1083750";
     private static final String password = "Password1!";
 
     private DBConnection() {
+        boolean isJUnit = JUnit.isJUnitTest();
+        final String name = isJUnit ? "dmaa0220_1083802" : "dmaa0220_1083750";
+
         String connectionString = String.format("jdbc:sqlserver://%s:%s;database=%s;user=%s;password=%s",
-                serverAddress, serverPort, dbName, userName, password);
+                serverAddress, serverPort, name, name, password);
         try {
             Class.forName(driverClass);
             connection = DriverManager.getConnection(connectionString);
@@ -26,9 +32,33 @@ public class DBConnection {
             System.err.println("Could not load JDBC driver");
             e.printStackTrace();
         } catch (SQLException e) {
-            System.err.println("Could not connect to database " + dbName + "@" + serverAddress + ":" + serverPort + " as user " + userName + " using password ******");
+            System.err.println("Could not connect to database " + name + "@" + serverAddress + ":" + serverPort + " as user " + name + " using password ******");
             System.out.println("Connection string was: " + connectionString.substring(0, connectionString.length() - password.length()) + "....");
             e.printStackTrace();
+        }
+
+        if (isJUnit) {
+            try {
+                startTransaction();
+                try {
+                    Files.walk(Paths.get("./sql/"))
+                            .filter(Files::isRegularFile)
+                            .forEach(f -> {
+                                try {
+                                    String sql = Files.readString(f.toAbsolutePath());
+                                    PreparedStatement ps = prepareStatement(sql);
+                                    ps.execute();
+                                } catch (IOException | SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                commitTransaction();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

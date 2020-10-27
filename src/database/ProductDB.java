@@ -17,12 +17,12 @@ public class ProductDB implements IProductDB {
     private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE productId = ?";
     private PreparedStatement findByIdPS;
     private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE productName = ?";
-    private static final String FIND_BY_CATEGORY_Q = FIND_ALL_Q + " WHERE productCategoryName = ?";
-    private static final String INSERT_Q = "{CALL InsertProduct(?, ?, ?, ?, ?)}";
-    private static final String UPDATE_Q = "{CALL UpdateProduct(?, ?, ?, ?, ?)}";
     private PreparedStatement findByNamePS;
+    private static final String FIND_BY_CATEGORY_Q = FIND_ALL_Q + " WHERE productCategoryName = ?";
     private PreparedStatement findByCategoryPS;
+    private static final String INSERT_Q = "{CALL InsertProduct(?, ?, ?, ?, ?)}";
     private CallableStatement insertPC;
+    private static final String UPDATE_Q = "{CALL UpdateProduct(?, ?, ?, ?, ?)}";
     private CallableStatement updatePC;
 
     /**
