@@ -1,9 +1,6 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * The type Db connection.
@@ -95,6 +92,10 @@ public class DBConnection {
      */
     public PreparedStatement prepareStatement(String sql) throws SQLException {
         return connection.prepareStatement(sql);
+    }
+
+    public CallableStatement prepareCall(String sql) throws SQLException {
+        return connection.prepareCall(sql);
     }
 
     /**
