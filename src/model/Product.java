@@ -1,20 +1,24 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * The type Product.
  */
 public class Product {
+    private int id;
     private String name;
     private String desc;
     private Price price;
-    private ProductCategory category;
+    private Map<String, Object> attributes = new HashMap<>();
 
-    public ProductCategory getCategory() {
-        return category;
+    public int getId() {
+        return id;
     }
 
-    public void setCategory(ProductCategory category) {
-        this.category = category;
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**

@@ -2,14 +2,20 @@ package database;
 
 import model.Product;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface IProductDB {
-    Collection<Product> findAll();
+    List<Product> findAll();
+
     Product findById(int id);
-    Collection<Product> findByName(String name);
-    Collection<Product> findByCategoryName(String name);
+
+    List<Product> findByName(String name);
+
+    List<Product> findByCategoryName(String name);
+
     Product create(Product product);
+
     void update(Product product);
+
     void delete(Product product);
 }
