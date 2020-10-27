@@ -1,6 +1,7 @@
 package database;
 
 import model.DataAccessException;
+import model.DataWriteException;
 import model.Price;
 import model.Product;
 
@@ -108,22 +109,31 @@ public class ProductDB implements IProductDB {
     }
 
     @Override
-    public List<Product> findByName(String name) {
-        List<Product> products = new ArrayList<>();
+    public Product findByName(String name) throws DataAccessException {
+        Product product = null;
 
         try {
             findByNamePS.setString(1, name);
             ResultSet rs = findByNamePS.executeQuery();
-            products = buildObjects(rs);
+
+            if (!rs.next()) {
+                throw new DataAccessException("Unable to find any product with this name");
+            }
+
+            product = buildObject(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return products;
+        if (product == null) {
+            throw new DataAccessException("Unable to find any product with this name");
+        }
+
+        return product;
     }
 
     @Override
-    public List<Product> findByCategoryName(String name) {
+    public List<Product> findByCategoryName(String name) throws DataAccessException {
         List<Product> products = new ArrayList<>();
 
         try {
@@ -134,12 +144,17 @@ public class ProductDB implements IProductDB {
             e.printStackTrace();
         }
 
+        if (products.size() == 0) {
+            throw new DataAccessException("Couldn't find any products that has that category name");
+        }
+
+
         return products;
     }
 
     @Override
-    public Product create(String name, String description, String categoryName, int price) {
-        Product product = null;
+    public Product create(String name, String description, String categoryName, int price) throws DataWriteException {
+        Product product = new Product();
 
         try {
             insertPC.setString(1, name);
@@ -149,32 +164,32 @@ public class ProductDB implements IProductDB {
             insertPC.registerOutParameter(5, Types.INTEGER);
             insertPC.execute();
 
-            Product temp = new Product();
-            temp.setId(insertPC.getInt(5));
-            temp.setName(name);
-            temp.setDesc(description);
-            temp.setPrice(new Price(price));
-            temp.setCategory(categoryName);
-
-            product = temp;
+            product.setId(insertPC.getInt(5));
+            product.setName(name);
+            product.setDesc(description);
+            product.setPrice(new Price(price));
+            product.setCategory(categoryName);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataWriteException("Unable to create product");
         }
 
         return product;
     }
 
     @Override
-    public void update(int id, String name, String description, String categoryName, int price) {
+    public void update(int id, String name, String description, String categoryName, int price) throws DataWriteException {
         try {
             updatePC.setInt(1, id);
             updatePC.setString(2, name);
             updatePC.setString(3, description);
             updatePC.setString(4, categoryName);
             updatePC.setInt(5, price);
-            updatePC.execute();
+            int affected = updatePC.executeUpdate();
+            if (affected == 0) {
+                throw new DataWriteException("Unable to update product");
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DataWriteException("Unable to update product");
         }
     }
 }

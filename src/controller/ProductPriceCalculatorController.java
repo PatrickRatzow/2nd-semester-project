@@ -15,17 +15,15 @@ public class ProductPriceCalculatorController {
     private ProductController productController = new ProductController();
     private int cheapest;
 
-    public synchronized int getCheapest() {
-        return cheapest;
-    }
-
-    public synchronized void setCheapest(int cheapest) {
-        this.cheapest = cheapest;
+    public synchronized void updateCheapest(int price) {
+        if (price < cheapest) {
+            cheapest = price;
+        }
     }
 
     private Product findCheapestProduct(Specification specification, Collection<Product> products) {
         // Start at the highest value we can
-        setCheapest(Integer.MAX_VALUE);
+        cheapest = Integer.MAX_VALUE;
 
         // TODO: Threads n stuff
         final int size = products.size();
