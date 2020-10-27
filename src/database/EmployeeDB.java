@@ -11,14 +11,18 @@ import java.util.List;
 public class EmployeeDB implements IEmployeeDB {
 
     private static final String FIND_EMPLOYEE_BY_USERNAME_Q = "";
-    private static final String FIND_ALL_EMPLOYEE_Q = "";
-    private static final String CREATE_EMPLOYEE_Q = "";
-    private static final String UPDATE_EMPLOYEE_Q = "";
-    private static final String DELETE_EMPLOYEE_Q = "";
     private PreparedStatement findEmployeeByUsernamePS;
-    private PreparedStatement findAllEmployeePS;
+
+    private static final String FIND_ALL_EMPLOYEE_Q = "";
+    private PreparedStatement findAllEmployeesPS;
+
+    private static final String CREATE_EMPLOYEE_Q = "";
     private PreparedStatement createEmployeePS;
+
+    private static final String UPDATE_EMPLOYEE_Q = "";
     private PreparedStatement updateEmployeePS;
+
+    private static final String DELETE_EMPLOYEE_Q = "";
     private PreparedStatement deleteEmployeePS;
 
 
@@ -31,7 +35,7 @@ public class EmployeeDB implements IEmployeeDB {
         DBConnection con = DBConnection.getInstance();
         try {
             findEmployeeByUsernamePS = con.prepareStatement(FIND_EMPLOYEE_BY_USERNAME_Q);
-            findAllEmployeePS = con.prepareStatement(FIND_ALL_EMPLOYEE_Q);
+            findAllEmployeesPS = con.prepareStatement(FIND_ALL_EMPLOYEE_Q);
 
             createEmployeePS = con.prepareStatement(CREATE_EMPLOYEE_Q);
             updateEmployeePS = con.prepareStatement(UPDATE_EMPLOYEE_Q);
@@ -94,10 +98,10 @@ public class EmployeeDB implements IEmployeeDB {
     }
 
     @Override
-    public List<Employee> findAllEmployee() throws SQLException {
+    public List<Employee> findAllEmployees() throws SQLException {
         ResultSet rs;
 
-        rs = this.findAllEmployeePS.executeQuery();
+        rs = this.findAllEmployeesPS.executeQuery();
         List<Employee> employeeList = buildObjectsEmployee(rs);
 
         return employeeList;

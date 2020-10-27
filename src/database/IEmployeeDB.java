@@ -9,7 +9,7 @@ public interface IEmployeeDB {
 
     Employee findEmployeeByUsername(String username) throws SQLException;
 
-    List<Employee> findAllEmployee() throws SQLException;
+    List<Employee> findAllEmployees() throws SQLException;
 
     void createEmployee(String firstName, String lastName, String email,
                         String phoneNo, String username, String password) throws SQLException;
