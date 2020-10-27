@@ -1,8 +1,7 @@
 package model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The type Product category.
@@ -11,6 +10,7 @@ public class ProductCategory {
     private int id;
     private String name;
     private String desc;
+    private Set<Product> products = new HashSet<>();
 
     /**
      * Gets id.
@@ -64,5 +64,17 @@ public class ProductCategory {
      */
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
     }
 }

@@ -1,8 +1,5 @@
 package model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * The type Roof.
  */
@@ -15,7 +12,7 @@ public class Roof extends Specification {
 
     @Override
     public boolean isValid(Product product) {
-        return product.getCategory().equals("Tagsten");
+        return product.equals("Tagsten");
     }
 
     @Override

@@ -4,7 +4,7 @@ import database.IProductDB;
 import database.ProductDB;
 import model.Product;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * The type Product controller.
@@ -15,7 +15,7 @@ public class ProductController {
      */
     IProductDB productDB = new ProductDB();
 
-    public Collection<Product> findAll() {
+    public List<Product> findAll() {
         return productDB.findAll();
     }
 }

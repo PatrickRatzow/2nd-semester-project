@@ -1,6 +1,5 @@
 package controller;
 
-
 import database.IProductCategoryDB;
 import database.ProductCategoryDB;
 import model.DataExistsException;
