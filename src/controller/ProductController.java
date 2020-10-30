@@ -2,21 +2,12 @@ package controller;
 
 import database.IProductDB;
 import database.ProductDB;
-import model.ArgumentException;
-import model.DataAccessException;
-import model.DataWriteException;
-import model.Product;
+import model.*;
 
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * The type Product controller.
- */
 public class ProductController {
-    /**
-     * The Product db.
-     */
     IProductDB productDB = new ProductDB();
 
     public List<Product> findAll() {
@@ -35,15 +26,27 @@ public class ProductController {
         return productDB.findByCategoryName(name);
     }
 
-    public Product create(Product product) throws ArgumentException, DataWriteException {
-        if (product.getCategory() == null) {
+    public Product create(Product product, ProductCategory category, Supplier supplier) throws ArgumentException, DataWriteException {
+        // FIXME: Yeh we need actual verification or something
+        if (category == null) {
             throw new ArgumentException("No category set");
         }
+        if (supplier == null) {
+            throw new ArgumentException("No supplier set");
+        }
 
-        return productDB.create(product.getName(), product.getDesc(), product.getCategory(), product.getPrice().getAmount());
+        return productDB.create(product.getName(), product.getDesc(), category.getId(), supplier.getId(), product.getPrice().getAmount());
     }
 
-    public void update(Product product) throws DataWriteException {
-        productDB.update(product.getId(), product.getName(), product.getDesc(), product.getCategory(), product.getPrice().getAmount());
+    public void update(Product product, ProductCategory category, Supplier supplier) throws DataWriteException, ArgumentException {
+        // FIXME: Yeh we need actual verification or something
+        if (category == null) {
+            throw new ArgumentException("No category set");
+        }
+        if (supplier == null) {
+            throw new ArgumentException("No supplier set");
+        }
+
+        productDB.update(product.getId(), product.getName(), product.getDesc(), category.getId(), supplier.getId(), product.getPrice().getAmount());
     }
 }

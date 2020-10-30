@@ -11,16 +11,6 @@ public class Product {
     private String name;
     private String desc;
     private Price price;
-    private String category;
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     private Map<String, Object> attributes = new HashMap<>();
 
     public int getId() {

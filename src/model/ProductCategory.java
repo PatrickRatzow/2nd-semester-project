@@ -12,6 +12,16 @@ public class ProductCategory {
     private String desc;
     private Set<Product> products = new HashSet<>();
 
+    public ProductCategory() {
+
+    }
+
+    public ProductCategory(int id, String name, String desc) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+    }
+
     /**
      * Gets id.
      *

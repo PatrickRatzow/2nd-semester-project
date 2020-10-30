@@ -16,6 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductControllerTest {
     private static IProductDB productDB = new ProductDB();
     private ProductController productController;
+    private ProductCategory categoryMursten = new ProductCategory(1, "Mursten", "");
+    private ProductCategory categoryTagsten = new ProductCategory(2, "Tagsten", "");
+    private Supplier supplierBygma = new Supplier(1, "Bygma");
+    private Supplier supplierXL = new Supplier(2, "XL Byg");
 
     @BeforeAll
     static void setUpAll() throws SQLException {
@@ -128,48 +132,49 @@ class ProductControllerTest {
         // Arrange
         String name = "Test Create";
         String desc = "Test Desc";
+        ProductCategory category = categoryMursten;
+        Supplier supplier = supplierBygma;
         Price price = new Price(100 * 100);
-        String category = "Mursten";
         Product product = new Product(name, desc, price);
-        product.setCategory(category);
         Product returnProduct;
 
         // Act
-        returnProduct = productController.create(product);
+        returnProduct = productController.create(product, category, supplier);
 
         // Assert
         assertTrue(returnProduct.getId() == 7);
     }
 
     @Test
-    @DisplayName("create() throws ArgumentException if missing categoryName")
+    @DisplayName("create() throws ArgumentException if category is null")
     void testCantCreate() {
         // Arrange
         String name = "Test Create";
         String desc = "Test Desc";
+        Supplier supplier = supplierBygma;
         Price price = new Price(100 * 100);
         Product product = new Product(name, desc, price);
 
         // Act + Assert
-        assertThrows(ArgumentException.class, () -> productController.create(product));
+        assertThrows(ArgumentException.class, () -> productController.create(product, null, supplier));
     }
 
     @Test
     @DisplayName("update() can update existing Product in database")
-    void testCanUpdate() throws DataAccessException, DataWriteException {
+    void testCanUpdate() throws DataAccessException, DataWriteException, ArgumentException {
         // Arrange
         String name = "Renamed Product";
         String desc = "Renamed Desc";
+        ProductCategory category = categoryMursten;
+        Supplier supplier = supplierBygma;
         Price price = new Price(150 * 100);
         int id = 1;
-        String category = "Mursten";
         Product product = new Product(name, desc, price);
-        product.setCategory(category);
         product.setId(id);
         Product returnProduct;
 
         // Act
-        productController.update(product);
+        productController.update(product, category, supplier);
         returnProduct = productController.findById(id);
 
         // Assert
@@ -184,15 +189,15 @@ class ProductControllerTest {
         // Arrange
         String name = "Renamed Product";
         String desc = "Renamed Desc";
+        ProductCategory category = categoryMursten;
+        Supplier supplier = supplierBygma;
         Price price = new Price(150 * 100);
         int id = 9999995;
-        String category = "Mursten";
         Product product = new Product(name, desc, price);
-        product.setCategory(category);
         product.setId(id);
 
         // Act
-        assertThrows(DataWriteException.class, () -> productController.update(product));
+        assertThrows(DataWriteException.class, () -> productController.update(product, category, supplier));
     }
 
     @AfterAll

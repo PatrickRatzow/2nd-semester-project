@@ -19,11 +19,11 @@ public class ProductDB implements IProductDB {
     private PreparedStatement findByIdPS;
     private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE productName = ?";
     private PreparedStatement findByNamePS;
-    private static final String FIND_BY_CATEGORY_Q = FIND_ALL_Q + " WHERE productCategoryName = ?";
+    private static final String FIND_BY_CATEGORY_Q = "SELECT * FROM GetProductsWithCategories WHERE productCategoryName = ?";
     private PreparedStatement findByCategoryPS;
-    private static final String INSERT_Q = "{CALL InsertProduct(?, ?, ?, ?, ?)}";
+    private static final String INSERT_Q = "{CALL InsertProduct(?, ?, ?, ?, ?, ?)}";
     private CallableStatement insertPC;
-    private static final String UPDATE_Q = "{CALL UpdateProduct(?, ?, ?, ?, ?)}";
+    private static final String UPDATE_Q = "{CALL UpdateProduct(?, ?, ?, ?, ?, ?)}";
     private CallableStatement updatePC;
 
     /**
@@ -153,23 +153,24 @@ public class ProductDB implements IProductDB {
     }
 
     @Override
-    public Product create(String name, String description, String categoryName, int price) throws DataWriteException {
+    public Product create(String name, String description, int categoryId, int supplierId, int price) throws DataWriteException {
         Product product = new Product();
 
         try {
             insertPC.setString(1, name);
             insertPC.setString(2, description);
-            insertPC.setString(3, categoryName);
-            insertPC.setInt(4, price);
-            insertPC.registerOutParameter(5, Types.INTEGER);
+            insertPC.setInt(3, categoryId);
+            insertPC.setInt(4, supplierId);
+            insertPC.setInt(5, price);
+            insertPC.registerOutParameter(6, Types.INTEGER);
             insertPC.execute();
 
-            product.setId(insertPC.getInt(5));
+            product.setId(insertPC.getInt(6));
             product.setName(name);
             product.setDesc(description);
             product.setPrice(new Price(price));
-            product.setCategory(categoryName);
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DataWriteException("Unable to create product");
         }
 
@@ -177,13 +178,14 @@ public class ProductDB implements IProductDB {
     }
 
     @Override
-    public void update(int id, String name, String description, String categoryName, int price) throws DataWriteException {
+    public void update(int id, String name, String description, int categoryId, int supplierId, int price) throws DataWriteException {
         try {
             updatePC.setInt(1, id);
             updatePC.setString(2, name);
             updatePC.setString(3, description);
-            updatePC.setString(4, categoryName);
-            updatePC.setInt(5, price);
+            updatePC.setInt(4, categoryId);
+            updatePC.setInt(5, supplierId);
+            updatePC.setInt(6, price);
             int affected = updatePC.executeUpdate();
             if (affected == 0) {
                 throw new DataWriteException("Unable to update product");

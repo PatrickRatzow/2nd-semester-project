@@ -1,3 +1,9 @@
+CREATE TABLE suppliers (
+    id INT IDENTITY(1, 1),
+    name NVARCHAR(255) NOT NULL,
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE products_categories (
     id INT IDENTITY(1, 1),
     name NVARCHAR(255) NOT NULL,
@@ -10,8 +16,10 @@ CREATE TABLE products (
     name NVARCHAR(255) NOT NULL,
     description NVARCHAR(MAX) NOT NULL,
     categoryId INT NOT NULL,
+    supplierId INT NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY (categoryId) REFERENCES products_categories(id)
+    FOREIGN KEY(categoryId) REFERENCES products_categories(id),
+    FOREIGN KEY(supplierId) REFERENCES suppliers(id)
 );
 
 CREATE TABLE products_prices (

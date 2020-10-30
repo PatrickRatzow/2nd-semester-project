@@ -37,28 +37,32 @@ public class DBConnection {
             e.printStackTrace();
         }
 
-        if (isJUnit) {
-            try {
-                startTransaction();
-                try {
-                    Files.walk(Paths.get("./sql/"))
-                            .filter(Files::isRegularFile)
-                            .forEach(f -> {
-                                try {
-                                    String sql = Files.readString(f.toAbsolutePath());
-                                    PreparedStatement ps = prepareStatement(sql);
-                                    ps.execute();
-                                } catch (IOException | SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                commitTransaction();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        //if (isJUnit) {
+            setupDatabase();
+        //}
+    }
+
+    private void setupDatabase() {
+        try {
+            startTransaction();
+
+            Files.walk(Paths.get("./sql/"))
+                /* Only allow SQL files */
+                .filter(p -> p.getFileName().toString().endsWith(".sql"))
+                /* Execute each script sequentially to ensure that everything gets created correctly */
+                .forEach(p -> {
+                    try {
+                        String sql = Files.readString(p.toAbsolutePath());
+                        PreparedStatement ps = prepareStatement(sql);
+                        ps.execute();
+                    } catch (IOException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+            commitTransaction();
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
         }
     }
 
