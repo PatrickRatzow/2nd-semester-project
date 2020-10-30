@@ -22,7 +22,8 @@ public class ProductPriceCalculatorController {
 
             return;
         }
-        if (product.getPrice().compareTo(cheapest.getPrice()) != 1) return;
+        // If the difference is 0 or below that means the new product isn't cheaper
+        if (cheapest.getPrice().compareTo(product.getPrice()) <= 0) return;
 
         cheapest = product;
     }

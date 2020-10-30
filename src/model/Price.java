@@ -45,9 +45,6 @@ public class Price implements Comparable<Price> {
 
     @Override
     public int compareTo(Price price) {
-        if (amount > price.getAmount()) return -1;
-        if (amount < price.getAmount()) return 1;
-
-        return 0;
+        return amount - price.getAmount();
     }
 }
