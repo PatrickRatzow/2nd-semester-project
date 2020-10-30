@@ -11,12 +11,6 @@ public abstract class Specification {
     private Product product;
     private int quantity;
     public abstract boolean isValid(Product product);
-
-    /**
-     * Gets price.
-     *
-     * @return the price
-     */
     public abstract Price getPrice();
 
     /**
@@ -119,7 +113,7 @@ public abstract class Specification {
      *
      * @param quantity the quantity
      */
-    public void setQuantity(int quantity) {
+    protected void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }
