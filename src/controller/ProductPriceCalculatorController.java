@@ -13,17 +13,23 @@ public class ProductPriceCalculatorController {
      * The Product controller.
      */
     private ProductController productController = new ProductController();
-    private int cheapest;
+    private Product cheapest;
 
-    public synchronized void updateCheapest(int price) {
-        if (price < cheapest) {
-            cheapest = price;
+    public synchronized void updateCheapest(Product product) {
+        // If we don't have a product at all, just set the first product to cheapest
+        if (cheapest == null) {
+            cheapest = product;
+
+            return;
         }
+        if (product.getPrice().compareTo(cheapest.getPrice()) != 1) return;
+
+        cheapest = product;
     }
 
     private Product findCheapestProduct(Specification specification, Collection<Product> products) {
-        // Start at the highest value we can
-        cheapest = Integer.MAX_VALUE;
+        // Reset cheapest
+        cheapest = null;
 
         // TODO: Threads n stuff
         final int size = products.size();

@@ -147,7 +147,7 @@ class ProductControllerTest {
 
     @Test
     @DisplayName("create() throws ArgumentException if category is null")
-    void testCantCreate() {
+    void testCantCreateWithoutCategory() {
         // Arrange
         String name = "Test Create";
         String desc = "Test Desc";
@@ -157,6 +157,20 @@ class ProductControllerTest {
 
         // Act + Assert
         assertThrows(ArgumentException.class, () -> productController.create(product, null, supplier));
+    }
+
+    @Test
+    @DisplayName("create() throws ArgumentException if supplier is null")
+    void testCantCreateWithoutSupplier() {
+        // Arrange
+        String name = "Test Create";
+        String desc = "Test Desc";
+        ProductCategory category = categoryMursten;
+        Price price = new Price(100 * 100);
+        Product product = new Product(name, desc, price);
+
+        // Act + Assert
+        assertThrows(ArgumentException.class, () -> productController.create(product, category, null));
     }
 
     @Test

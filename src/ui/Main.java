@@ -18,7 +18,6 @@ public class Main {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        DBConnection.getInstance();
         System.out.println("Here");
     }
 }

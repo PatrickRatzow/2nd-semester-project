@@ -3,7 +3,7 @@ package model;
 /**
  * The type Price.
  */
-public class Price {
+public class Price implements Comparable<Price> {
     private int amount;
 
     /**
@@ -41,5 +41,13 @@ public class Price {
     @Override
     public String toString() {
         return (getAmount() / 100) + " kr.";
+    }
+
+    @Override
+    public int compareTo(Price price) {
+        if (amount > price.getAmount()) return -1;
+        if (amount < price.getAmount()) return 1;
+
+        return 0;
     }
 }
