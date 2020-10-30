@@ -191,6 +191,7 @@ public class ProductDB implements IProductDB {
                 throw new DataWriteException("Unable to update product");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DataWriteException("Unable to update product");
         }
     }
