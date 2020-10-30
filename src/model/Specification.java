@@ -10,6 +10,7 @@ public abstract class Specification {
     private Set<String> categories = new HashSet<>();
     private Product product;
     private int quantity;
+    public abstract Specification clone();
     public abstract boolean isValid(Product product);
     public abstract Price getPrice();
 
@@ -113,7 +114,7 @@ public abstract class Specification {
      *
      * @param quantity the quantity
      */
-    protected void setQuantity(int quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }

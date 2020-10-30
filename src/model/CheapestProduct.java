@@ -34,4 +34,9 @@ public class CheapestProduct {
         this.price = price;
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + product.getName() + " | Price: " + price;
+    }
 }

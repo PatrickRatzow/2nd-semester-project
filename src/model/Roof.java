@@ -11,15 +11,20 @@ public class Roof extends Specification {
     }
 
     @Override
+    public Roof clone() {
+        return new Roof();
+    }
+
+    @Override
     public boolean isValid(Product product) {
-        return product.equals("Tagsten");
+        return true;
     }
 
     @Override
     public Price getPrice() {
         Price price = new Price();
 
-        price.setAmount(getQuantity() * (100 * 100));
+        price.setAmount(getQuantity() * getProduct().getPrice().getAmount());
 
         return price;
     }

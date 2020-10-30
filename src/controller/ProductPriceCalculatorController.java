@@ -1,8 +1,11 @@
 package controller;
 
 import model.*;
+import util.CheapestAlgorithm;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,35 +18,62 @@ public class ProductPriceCalculatorController {
     private ProductController productController = new ProductController();
     private CheapestProduct cheapest;
 
-    public synchronized void updateCheapest(Product product, Price price, int quantity) {
+    private synchronized void updateCheapest(CheapestProduct cheapestProduct) {
         // If we don't have a product at all, just set the first product to cheapest
         if (cheapest == null) {
-            cheapest = new CheapestProduct(product, price, quantity);
+            cheapest = cheapestProduct;
 
             return;
         }
         // If the difference is 0 or below that means the new product isn't cheaper
-        if (cheapest.getProduct().getPrice().compareTo(price) <= 0) return;
+        if (cheapest.getProduct().getPrice().compareTo(cheapestProduct.getPrice()) <= 0) return;
 
-        cheapest = new CheapestProduct(product, price, quantity);
+        cheapest = cheapestProduct;
     }
 
-    private Product findCheapestProduct(Specification specification, List<Product> products) {
+    public CheapestProduct findCheapestProduct(Specification specification, List<Product> products) throws InterruptedException {
         // Reset cheapest
         cheapest = null;
+        // We need a list of our threads to later join them
+        List<Thread> threads = new ArrayList<>();
 
-        // TODO: Threads n stuff
         final int size = products.size();
         for (int i = 0; i < size; i++) {
             Product product = products.get(i);
-            if (!specification.isValid(product)) continue;
-            specification.setProduct(product);
-            Price price = specification.getPrice();
-            int quantity = specification.getQuantity();
+            /*
+             * We need to clone our specification as Java uses internal pointers.
+             *
+             * Meaning that if we were to manipulate the specification parameter every iteration
+             * we would manipulate the same object over and over.
+             *
+             * By cloning it we make sure each iteration has it's own unique object.
+             */
+            Specification spec = specification.clone();
+            spec.setProduct(product);
+            // For testing we have this locked at 1
+            spec.setQuantity(1);
 
-            updateCheapest(product, price, quantity);
+            // Supply the specification + our consumer
+            Thread thread = new CheapestAlgorithm(spec, this::updateCheapest);
+            threads.add(thread);
         }
 
-        return cheapest.getProduct();
+        /*
+         * It's actually more performant to start the threads in a separate for loop.
+         *
+         * This is due to the fact that we will have a lot less interrupts on the main thread
+         * when our callback comes back from a worker thread, as by now our main thread is doing nothing;
+         * while it would be busy populating the threads List if we started the threads in the previous for loop.
+         */
+        for (Thread t : threads) {
+            t.start();
+        }
+
+        // Wait for all threads to finish
+        for (Thread t : threads) {
+            t.join();
+        }
+
+        return cheapest;
     }
 }
