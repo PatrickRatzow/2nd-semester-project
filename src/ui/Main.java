@@ -34,7 +34,6 @@ public class Main {
         Specification spec = new Roof();
         CheapestProduct cheapestProduct = priceCalculatorController.findCheapestProduct(spec, products);
 
-
         long endTime = System.nanoTime();
         double duration = (endTime - startTime) / 1e6;
 

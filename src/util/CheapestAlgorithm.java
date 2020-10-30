@@ -25,6 +25,7 @@ public class CheapestAlgorithm extends Thread {
         int quantity = specification.getQuantity();
         CheapestProduct cheapestProduct = new CheapestProduct(product, price, quantity);
 
+        // Lets pretend our mighty algorithm actually takes time to run!
         try {
             sleep(new Random().nextInt(100));
         } catch (InterruptedException e) {
