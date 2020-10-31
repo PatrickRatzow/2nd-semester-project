@@ -2,21 +2,13 @@ package database;
 
 import model.Employee;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IEmployeeDB {
-
-    Employee findEmployeeByUsername(String username) throws SQLException;
-
-    List<Employee> findAllEmployees() throws SQLException;
-
-    void createEmployee(String firstName, String lastName, String email,
-                        String phoneNo, String username, String password) throws SQLException;
-
-    void updateEmployee(String firstName, String lastName, String email,
-                        String phoneNo, String username, String password) throws SQLException;
-
-    void deleteEmployee(String username) throws SQLException;
-
+    Employee findByUsername(String username) throws DataAccessException;
+    List<Employee> findAll() throws DataAccessException;
+    Employee create(String firstName, String lastName, String email,
+                String phoneNo, String username, byte[] password, byte[] salt) throws IllegalArgumentException, DataWriteException;
+    void update(int id, String firstName, String lastName, String email,
+                String phoneNo, String username, byte[] password, byte[] salt) throws DataWriteException, DataAccessException;
 }

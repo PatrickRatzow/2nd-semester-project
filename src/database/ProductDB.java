@@ -1,9 +1,6 @@
 package database;
 
-import model.DataAccessException;
-import model.DataWriteException;
-import model.Price;
-import model.Product;
+import model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -109,27 +106,22 @@ public class ProductDB implements IProductDB {
     }
 
     @Override
-    public Product findByName(String name) throws DataAccessException {
-        Product product = null;
+    public List<Product> findByName(String name) throws DataAccessException {
+        List<Product> products = new ArrayList<>();
 
         try {
             findByNamePS.setString(1, name);
             ResultSet rs = findByNamePS.executeQuery();
-
-            if (!rs.next()) {
-                throw new DataAccessException("Unable to find any product with this name");
-            }
-
-            product = buildObject(rs);
+            products = buildObjects(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        if (product == null) {
+        if (products.size() == 0) {
             throw new DataAccessException("Unable to find any product with this name");
         }
 
-        return product;
+        return products;
     }
 
     @Override

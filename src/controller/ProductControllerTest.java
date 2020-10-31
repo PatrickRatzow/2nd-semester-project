@@ -1,8 +1,6 @@
 package controller;
 
-import database.DBConnection;
-import database.IProductDB;
-import database.ProductDB;
+import database.*;
 import model.*;
 import org.junit.jupiter.api.*;
 
@@ -78,7 +76,7 @@ class ProductControllerTest {
         String name = "Lille tagsten";
 
         // Act
-        product = productController.findByName(name);
+        product = productController.findByName(name).get(0);
 
         // Assert
         assertTrue(product instanceof Product);
@@ -119,7 +117,6 @@ class ProductControllerTest {
     @DisplayName("findByCategoryName() throws DataAccessException if no match")
     void testCantFindProductsByCategoryNameIfCategoryNameDoesntExistInDatabase() {
         // Arrange
-        Set<String> productNames = new HashSet<>();
         String name = "Some random text that could never possibly exist...z.z.1z23z12zajisd";
 
         // Act
@@ -128,7 +125,7 @@ class ProductControllerTest {
 
     @Test
     @DisplayName("create() returns a Product object with id set with the product's identity")
-    void testCanCreate() throws ArgumentException, DataWriteException {
+    void testCanCreate() throws IllegalArgumentException, DataWriteException {
         // Arrange
         String name = "Test Create";
         String desc = "Test Desc";
@@ -146,7 +143,7 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("create() throws ArgumentException if category is null")
+    @DisplayName("create() throws IllegalArgumentException if category is null")
     void testCantCreateWithoutCategory() {
         // Arrange
         String name = "Test Create";
@@ -156,11 +153,11 @@ class ProductControllerTest {
         Product product = new Product(name, desc, price);
 
         // Act + Assert
-        assertThrows(ArgumentException.class, () -> productController.create(product, null, supplier));
+        assertThrows(IllegalArgumentException.class, () -> productController.create(product, null, supplier));
     }
 
     @Test
-    @DisplayName("create() throws ArgumentException if supplier is null")
+    @DisplayName("create() throws IllegalArgumentException if supplier is null")
     void testCantCreateWithoutSupplier() {
         // Arrange
         String name = "Test Create";
@@ -170,12 +167,12 @@ class ProductControllerTest {
         Product product = new Product(name, desc, price);
 
         // Act + Assert
-        assertThrows(ArgumentException.class, () -> productController.create(product, category, null));
+        assertThrows(IllegalArgumentException.class, () -> productController.create(product, category, null));
     }
 
     @Test
     @DisplayName("update() can update existing Product in database")
-    void testCanUpdate() throws DataAccessException, DataWriteException, ArgumentException {
+    void testCanUpdate() throws DataAccessException, IllegalArgumentException, DataWriteException {
         // Arrange
         String name = "Renamed Product";
         String desc = "Renamed Desc";
@@ -198,7 +195,7 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("update() throws DataAccessException if id doesn't exist in database")
+    @DisplayName("update() throws DataWriteException if id doesn't exist in database")
     void testCantUpdate() {
         // Arrange
         String name = "Renamed Product";
@@ -212,6 +209,53 @@ class ProductControllerTest {
 
         // Act
         assertThrows(DataWriteException.class, () -> productController.update(product, category, supplier));
+    }
+
+    @Test
+    @DisplayName("update() throws IllegalArgumentException if category is null")
+    void testCantUpdateWithoutCategory() {
+        // Arrange
+        String name = "Renamed Product";
+        String desc = "Renamed Desc";
+        Supplier supplier = supplierBygma;
+        Price price = new Price(100 * 100);
+        int id = 1;
+        Product product = new Product(name, desc, price);
+        product.setId(id);
+
+        // Act + Assert
+        assertThrows(IllegalArgumentException.class, () -> productController.update(product, null, supplier));
+    }
+
+    @Test
+    @DisplayName("update() throws IllegalArgumentException if supplier is null")
+    void testCantUpdateWithoutSupplier() {
+        // Arrange
+        String name = "Test Create";
+        String desc = "Test Desc";
+        ProductCategory category = categoryMursten;
+        Price price = new Price(100 * 100);
+        int id = 928103984;
+        Product product = new Product(name, desc, price);
+        product.setId(id);
+
+        // Act + Assert
+        assertThrows(IllegalArgumentException.class, () -> productController.update(product, category, null));
+    }
+
+    @Test
+    @DisplayName("update() throws IllegalArgumentException if ID has never been set")
+    void testCantUpdateWithInvalidId() {
+        // Arrange
+        String name = "Test Create";
+        String desc = "Test Desc";
+        Supplier supplier = supplierBygma;
+        ProductCategory category = categoryMursten;
+        Price price = new Price(100 * 100);
+        Product product = new Product(name, desc, price);
+
+        // Act + Assert
+        assertThrows(IllegalArgumentException.class, () -> productController.update(product, category, supplier));
     }
 
     @AfterAll

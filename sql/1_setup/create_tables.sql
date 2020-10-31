@@ -6,7 +6,7 @@ CREATE TABLE suppliers (
 
 CREATE TABLE products_categories (
     id INT IDENTITY(1, 1),
-    name NVARCHAR(255) NOT NULL,
+    name NVARCHAR(255) NOT NULL UNIQUE,
     description NVARCHAR(MAX) NOT NULL,
     PRIMARY KEY(id)
 );
@@ -29,4 +29,28 @@ CREATE TABLE products_prices (
     price INT NOT NULL,
     PRIMARY KEY(productId, startTime),
     FOREIGN KEY(productId) REFERENCES products(id)
+);
+
+CREATE TABLE persons (
+    id INT IDENTITY(1, 1),
+    firstName NVARCHAR(127) NOT NULL,
+    lastName NVARCHAR(127) NOT NULL,
+    email NVARCHAR(320) NOT NULL,
+    phoneNo NVARCHAR(50) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE employees (
+    id INT,
+    username NVARCHAR(63) NOT NULL UNIQUE,
+    password BINARY(32) NOT NULL,
+    salt BINARY(16) NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(id) REFERENCES persons(id)
+);
+
+CREATE TABLE customers (
+    id INT,
+    PRIMARY KEY(id),
+    FOREIGN KEY(id) REFERENCES persons(id)
 );
