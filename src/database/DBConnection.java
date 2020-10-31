@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.util.List;
 
 /**
  * The type Db connection.
@@ -52,8 +53,11 @@ public class DBConnection {
                 /* Execute each script sequentially to ensure that everything gets created correctly */
                 .forEach(p -> {
                     try {
-                        String sql = Files.readString(p.toAbsolutePath());
-                        PreparedStatement ps = prepareStatement(sql);
+                        StringBuilder sql = new StringBuilder();
+                        for (String line : Files.readAllLines(p)) {
+                            sql.append(line).append("\n");
+                        }
+                        PreparedStatement ps = prepareStatement(sql.toString());
                         ps.execute();
                     } catch (IOException | SQLException e) {
                         e.printStackTrace();

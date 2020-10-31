@@ -14,5 +14,5 @@ AS
     WHERE id = @Id;
     DECLARE @CurrentPrice INT = (SELECT price FROM products_prices WHERE productId = @Id AND endTime > GETUTCDATE());
     IF @CurrentPrice != @Price
-    EXEC AddPriceToProduct @Id, @Price
+        EXEC AddPriceToProduct @Id, @Price
 ;

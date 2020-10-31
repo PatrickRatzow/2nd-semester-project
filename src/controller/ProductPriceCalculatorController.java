@@ -19,7 +19,7 @@ public class ProductPriceCalculatorController {
     private CheapestProduct cheapest;
 
     private synchronized void updateCheapest(CheapestProduct cheapestProduct) {
-        // If we don't have a product at all, just set the first product to cheapest
+        // If we don't have a product, just set the first product to cheapest
         if (cheapest == null) {
             cheapest = cheapestProduct;
 
