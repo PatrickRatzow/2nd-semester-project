@@ -27,7 +27,6 @@ public class EmployeeController {
         if (!Validator.isEmailValid(employee.getEmail())) {
             throw new IllegalArgumentException("That email is invalid");
         }
-
         try {
             Employee existingEmployee = employeeDB.findByUsername(employee.getUsername());
             if (existingEmployee.getId() != employee.getId()) {
@@ -62,9 +61,7 @@ public class EmployeeController {
             employeeDB.findByUsername(employee.getUsername());
 
             throw new IllegalArgumentException("A user with that username already exists");
-        } catch (DataAccessException e) {
-            // We can just ignore this
-        }
+        } catch (DataAccessException ignore) {}
 
         byte[] salt = generateSalt();
         byte[] hashedPassword = hashPassword(password, salt);
