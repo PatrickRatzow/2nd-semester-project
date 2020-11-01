@@ -3,7 +3,7 @@ package controller;
 import database.DBConnection;
 import database.DataAccessException;
 import database.DataWriteException;
-import model.*;
+import model.ProductCategory;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
@@ -23,8 +23,8 @@ class ProductCategoryControllerTest {
     @DisplayName("findAll() can find all the categories in the database")
     void testFindAllCategories() {
         // Arrange
-        List<ProductCategory> categories;
-        int expectedSize = 3;
+        final List<ProductCategory> categories;
+        final int expectedSize = 3;
 
         // Act
         categories = productCategoryController.findAll();
@@ -37,8 +37,8 @@ class ProductCategoryControllerTest {
     @Test
     @DisplayName("findByName() can find an existing category")
     void testFindByCategoryName_shouldReturnPopulatedListWithAtLeastOneCategory_whenPresentInDatabase() throws DataAccessException {
-        String name = "Test Category";
-        List<ProductCategory> returnCategories;
+        final String name = "Test Category";
+        final List<ProductCategory> returnCategories;
 
         // Act
         returnCategories = productCategoryController.findByName(name);
@@ -50,7 +50,7 @@ class ProductCategoryControllerTest {
     @Test
     @DisplayName("findByName() throws a DataAccessException if no such name exists")
     void testFindByCategoryName_shouldReturnEmptyList_whenNotPresentInDatabase()  {
-        String name = "I do not existssssssss";
+        final String name = "I do not existssssssss";
 
         // Act
         assertThrows(DataAccessException.class, () -> productCategoryController.findByName(name));
@@ -60,12 +60,12 @@ class ProductCategoryControllerTest {
     @DisplayName("create() works if there's not a category with that name")
     void testCanCreateCategory() throws DataWriteException {
         // Arrange
-        String name = "Test Category";
-        String desc = "Test Description";
-        ProductCategory category = new ProductCategory();
+        final String name = "Test Category";
+        final String desc = "Test Description";
+        final ProductCategory category = new ProductCategory();
         category.setName(name);
         category.setDesc(desc);
-        ProductCategory returnCategory;
+        final ProductCategory returnCategory;
 
         // Act
         returnCategory = productCategoryController.create(category);
@@ -78,9 +78,9 @@ class ProductCategoryControllerTest {
     @DisplayName("create() throws DataWriteException if there's an existing category with the same name")
     void testCantCreateCategory() {
         // Arrange
-        String name = "Mursten";
-        String desc = "Test Description";
-        ProductCategory category = new ProductCategory();
+        final String name = "Mursten";
+        final String desc = "Test Description";
+        final ProductCategory category = new ProductCategory();
         category.setName(name);
         category.setDesc(desc);
 
@@ -91,10 +91,10 @@ class ProductCategoryControllerTest {
     @DisplayName("update() works")
     void testCanUpdateCategory() throws DataWriteException {
         // Arrange
-        int id = 2;
-        String name = "Renamed Category";
-        String desc = "Description";
-        ProductCategory category = new ProductCategory();
+        final int id = 2;
+        final String name = "Renamed Category";
+        final String desc = "Description";
+        final ProductCategory category = new ProductCategory();
         category.setId(id);
         category.setName(name);
         category.setDesc(desc);
@@ -110,10 +110,10 @@ class ProductCategoryControllerTest {
     @DisplayName("update() throws a DataWriteException if id does not exist in database")
     void testCantUpdateCategory() {
         // Arrange
-        int id = 891289349;
-        String name = "Test Category";
-        String desc = "Test Description";
-        ProductCategory category = new ProductCategory();
+        final int id = 891289349;
+        final String name = "Test Category";
+        final String desc = "Test Description";
+        final ProductCategory category = new ProductCategory();
         category.setId(id);
         category.setName(name);
         category.setDesc(desc);
@@ -126,9 +126,9 @@ class ProductCategoryControllerTest {
     @DisplayName("update() throws a IllegalArgumentException if no id has been set on the ProductCategory")
     void testCantUpdateCategoryIfIdNotSet() {
         // Arrange
-        String name = "Renamed Category";
-        String desc = "Description";
-        ProductCategory category = new ProductCategory();
+        final String name = "Renamed Category";
+        final String desc = "Description";
+        final ProductCategory category = new ProductCategory();
         category.setName(name);
         category.setDesc(desc);
 
@@ -140,8 +140,8 @@ class ProductCategoryControllerTest {
     @DisplayName("delete() can delete an existing category")
     void testCanDeleteCategory() throws DataWriteException, IllegalArgumentException {
         // Arrange
-        int id = 3;
-        ProductCategory category = new ProductCategory();
+        final int id = 3;
+        final ProductCategory category = new ProductCategory();
         category.setId(id);
 
         // Act
@@ -155,8 +155,8 @@ class ProductCategoryControllerTest {
     @DisplayName("delete() throws a DataWriteException if it was unable to delete a category")
     void testCantDeleteCategory() {
         // Arrange
-        int id = 123467822;
-        ProductCategory category = new ProductCategory();
+        final int id = 123467822;
+        final ProductCategory category = new ProductCategory();
         category.setId(id);
 
         // Act
@@ -167,7 +167,7 @@ class ProductCategoryControllerTest {
     @DisplayName("delete() throws a IllegalArgumentException if no id has been set on the category")
     void testCantDeleteCategoryIfIdNotSet() {
         // Arrange
-        ProductCategory category = new ProductCategory();
+        final ProductCategory category = new ProductCategory();
 
         // Act
         assertThrows(IllegalArgumentException.class, () -> productCategoryController.delete(category));
@@ -177,8 +177,8 @@ class ProductCategoryControllerTest {
     @DisplayName("findById() returns ProductCategory if id in database")
     void testCanFindById() throws DataAccessException {
         // Arrange
-        int id = 1;
-        ProductCategory category;
+        final int id = 1;
+        final ProductCategory category;
 
         // Act
         category = productCategoryController.findById(id);
@@ -191,7 +191,7 @@ class ProductCategoryControllerTest {
     @DisplayName("findById() throws DataAccessException if id does not exist in database")
     void testCantFindByIdIfIdDoesNotExist() {
         // Arrange
-        int id = 818923812;
+        final int id = 818923812;
 
         // Act + assert
         assertThrows(DataAccessException.class, () -> productCategoryController.findById(id));

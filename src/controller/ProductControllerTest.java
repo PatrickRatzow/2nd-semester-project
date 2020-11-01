@@ -1,7 +1,12 @@
 package controller;
 
-import database.*;
-import model.*;
+import database.DBConnection;
+import database.DataAccessException;
+import database.DataWriteException;
+import model.Price;
+import model.Product;
+import model.ProductCategory;
+import model.Supplier;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
@@ -12,12 +17,9 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductControllerTest {
-    private static IProductDB productDB = new ProductDB();
+    private final ProductCategory categoryMursten = new ProductCategory(1, "Mursten", "");
+    private final Supplier supplierBygma = new Supplier(1, "Bygma");
     private ProductController productController;
-    private ProductCategory categoryMursten = new ProductCategory(1, "Mursten", "");
-    private ProductCategory categoryTagsten = new ProductCategory(2, "Tagsten", "");
-    private Supplier supplierBygma = new Supplier(1, "Bygma");
-    private Supplier supplierXL = new Supplier(2, "XL Byg");
 
     @BeforeAll
     static void setUpAll() throws SQLException {
@@ -33,7 +35,7 @@ class ProductControllerTest {
     @DisplayName("findByAll() returns a non empty List with only Product instances")
     void testCanFindAllProductsInDatabase() {
         // Arrange
-        List<Product> products;
+        final List<Product> products;
 
         // Act
         products = productController.findAll();
@@ -49,8 +51,8 @@ class ProductControllerTest {
     @DisplayName("findById() returns a Product if there's a match")
     void testCanFindProductByIdThatExistsInDatabase() throws DataAccessException {
         // Arrange
-        Product product;
-        int id = 1;
+        final Product product;
+        final int id = 1;
 
         // Act
         product = productController.findById(id);
@@ -62,7 +64,7 @@ class ProductControllerTest {
     @Test
     @DisplayName("findById() throws DataAccessException if no match")
     void testCantFindProductByIdThatExistsInDatabase() {
-        int id = 9999999;
+        final int id = 9999999;
 
         assertThrows(DataAccessException.class, () -> productController.findById(id));
     }
@@ -72,8 +74,8 @@ class ProductControllerTest {
     @DisplayName("findByName() returns a Product if there's a match")
     void testCanFindProductByNameThatExistsInDatabase() throws DataAccessException {
         // Arrange
-        Product product;
-        String name = "Lille tagsten";
+        final Product product;
+        final String name = "Lille tagsten";
 
         // Act
         product = productController.findByName(name).get(0);
@@ -86,7 +88,7 @@ class ProductControllerTest {
     @DisplayName("findByName() throws DataAccessException if no match")
     void testCantFindProductByNameThatDoesntExistInDatabase() {
         // Arrange
-        String name = "Ho123hi0s18231z11z23s1a23y890s";
+        final String name = "Ho123hi0s18231z11z23s1a23y890s";
 
         // Assert + Act
         assertThrows(DataAccessException.class, () -> productController.findByName(name));
@@ -96,19 +98,19 @@ class ProductControllerTest {
     @DisplayName("findByCategoryName() finds all the expected Products if match")
     void testCanFindProductsByCategoryNameIfCategoryNameExistsInDatabase() throws DataAccessException {
         // Arrange
-        List<Product> products;
-        Set<String> productNames = new HashSet<>();
+        final List<Product> products;
+        final Set<String> productNames = new HashSet<>();
         productNames.add("Lille tagsten");
         productNames.add("Tagsten");
         productNames.add("Stor tagsten");
-        String name = "Tagsten";
+        final String name = "Tagsten";
 
         // Act
         products = productController.findByCategoryName(name);
 
         // Assert
         // Make sure we get the 3 products we have in our seeding
-        assertTrue(products.size() == 3);
+        assertEquals(products.size(), 3);
         // Each product has to be in our productNames set
         products.forEach(p -> assertTrue(productNames.contains(p.getName())));
     }
@@ -117,7 +119,7 @@ class ProductControllerTest {
     @DisplayName("findByCategoryName() throws DataAccessException if no match")
     void testCantFindProductsByCategoryNameIfCategoryNameDoesntExistInDatabase() {
         // Arrange
-        String name = "Some random text that could never possibly exist...z.z.1z23z12zajisd";
+        final String name = "Some random text that could never possibly exist...z.z.1z23z12zajisd";
 
         // Act
         assertThrows(DataAccessException.class, () -> productController.findByCategoryName(name));
@@ -127,13 +129,13 @@ class ProductControllerTest {
     @DisplayName("create() returns a Product object with id set with the product's identity")
     void testCanCreate() throws IllegalArgumentException, DataWriteException {
         // Arrange
-        String name = "Test Create";
-        String desc = "Test Desc";
-        ProductCategory category = categoryMursten;
-        Supplier supplier = supplierBygma;
-        Price price = new Price(100 * 100);
-        Product product = new Product(name, desc, price);
-        Product returnProduct;
+        final String name = "Test Create";
+        final String desc = "Test Desc";
+        final ProductCategory category = categoryMursten;
+        final Supplier supplier = supplierBygma;
+        final Price price = new Price(100 * 100);
+        final Product product = new Product(name, desc, price);
+        final Product returnProduct;
 
         // Act
         returnProduct = productController.create(product, category, supplier);
@@ -146,11 +148,11 @@ class ProductControllerTest {
     @DisplayName("create() throws IllegalArgumentException if category is null")
     void testCantCreateWithoutCategory() {
         // Arrange
-        String name = "Test Create";
-        String desc = "Test Desc";
-        Supplier supplier = supplierBygma;
-        Price price = new Price(100 * 100);
-        Product product = new Product(name, desc, price);
+        final String name = "Test Create";
+        final String desc = "Test Desc";
+        final Supplier supplier = supplierBygma;
+        final Price price = new Price(100 * 100);
+        final Product product = new Product(name, desc, price);
 
         // Act + Assert
         assertThrows(IllegalArgumentException.class, () -> productController.create(product, null, supplier));
@@ -160,11 +162,11 @@ class ProductControllerTest {
     @DisplayName("create() throws IllegalArgumentException if supplier is null")
     void testCantCreateWithoutSupplier() {
         // Arrange
-        String name = "Test Create";
-        String desc = "Test Desc";
-        ProductCategory category = categoryMursten;
-        Price price = new Price(100 * 100);
-        Product product = new Product(name, desc, price);
+        final String name = "Test Create";
+        final String desc = "Test Desc";
+        final ProductCategory category = categoryMursten;
+        final Price price = new Price(100 * 100);
+        final Product product = new Product(name, desc, price);
 
         // Act + Assert
         assertThrows(IllegalArgumentException.class, () -> productController.create(product, category, null));
@@ -174,15 +176,15 @@ class ProductControllerTest {
     @DisplayName("update() can update existing Product in database")
     void testCanUpdate() throws DataAccessException, IllegalArgumentException, DataWriteException {
         // Arrange
-        String name = "Renamed Product";
-        String desc = "Renamed Desc";
-        ProductCategory category = categoryMursten;
-        Supplier supplier = supplierBygma;
-        Price price = new Price(150 * 100);
-        int id = 1;
-        Product product = new Product(name, desc, price);
+        final String name = "Renamed Product";
+        final String desc = "Renamed Desc";
+        final ProductCategory category = categoryMursten;
+        final Supplier supplier = supplierBygma;
+        final Price price = new Price(150 * 100);
+        final int id = 1;
+        final Product product = new Product(name, desc, price);
         product.setId(id);
-        Product returnProduct;
+        final Product returnProduct;
 
         // Act
         productController.update(product, category, supplier);
@@ -198,13 +200,13 @@ class ProductControllerTest {
     @DisplayName("update() throws DataWriteException if id doesn't exist in database")
     void testCantUpdate() {
         // Arrange
-        String name = "Renamed Product";
-        String desc = "Renamed Desc";
-        ProductCategory category = categoryMursten;
-        Supplier supplier = supplierBygma;
-        Price price = new Price(150 * 100);
-        int id = 9999995;
-        Product product = new Product(name, desc, price);
+        final String name = "Renamed Product";
+        final String desc = "Renamed Desc";
+        final ProductCategory category = categoryMursten;
+        final Supplier supplier = supplierBygma;
+        final Price price = new Price(150 * 100);
+        final int id = 9999995;
+        final Product product = new Product(name, desc, price);
         product.setId(id);
 
         // Act
@@ -215,12 +217,12 @@ class ProductControllerTest {
     @DisplayName("update() throws IllegalArgumentException if category is null")
     void testCantUpdateWithoutCategory() {
         // Arrange
-        String name = "Renamed Product";
-        String desc = "Renamed Desc";
-        Supplier supplier = supplierBygma;
-        Price price = new Price(100 * 100);
-        int id = 1;
-        Product product = new Product(name, desc, price);
+        final String name = "Renamed Product";
+        final String desc = "Renamed Desc";
+        final Supplier supplier = supplierBygma;
+        final Price price = new Price(100 * 100);
+        final int id = 1;
+        final Product product = new Product(name, desc, price);
         product.setId(id);
 
         // Act + Assert
@@ -231,12 +233,12 @@ class ProductControllerTest {
     @DisplayName("update() throws IllegalArgumentException if supplier is null")
     void testCantUpdateWithoutSupplier() {
         // Arrange
-        String name = "Test Create";
-        String desc = "Test Desc";
-        ProductCategory category = categoryMursten;
-        Price price = new Price(100 * 100);
-        int id = 928103984;
-        Product product = new Product(name, desc, price);
+        final String name = "Test Create";
+        final String desc = "Test Desc";
+        final ProductCategory category = categoryMursten;
+        final Price price = new Price(100 * 100);
+        final int id = 928103984;
+        final Product product = new Product(name, desc, price);
         product.setId(id);
 
         // Act + Assert
@@ -247,12 +249,12 @@ class ProductControllerTest {
     @DisplayName("update() throws IllegalArgumentException if ID has never been set")
     void testCantUpdateWithInvalidId() {
         // Arrange
-        String name = "Test Create";
-        String desc = "Test Desc";
-        Supplier supplier = supplierBygma;
-        ProductCategory category = categoryMursten;
-        Price price = new Price(100 * 100);
-        Product product = new Product(name, desc, price);
+        final String name = "Test Create";
+        final String desc = "Test Desc";
+        final Supplier supplier = supplierBygma;
+        final ProductCategory category = categoryMursten;
+        final Price price = new Price(100 * 100);
+        final Product product = new Product(name, desc, price);
 
         // Act + Assert
         assertThrows(IllegalArgumentException.class, () -> productController.update(product, category, supplier));

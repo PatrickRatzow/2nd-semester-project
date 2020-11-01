@@ -30,8 +30,8 @@ class EmployeeControllerTest {
     @Order(1)
     @DisplayName("findAll() works")
     void canFindAllEmployeesInDatabase() throws DataAccessException {
-        List<Employee> employees;
-        int expectedSize = 2;
+        final List<Employee> employees;
+        final int expectedSize = 2;
 
         employees = employeeController.findAll();
 
@@ -42,15 +42,15 @@ class EmployeeControllerTest {
     @Order(2)
     @DisplayName("create() works")
     void canCreateEmployee() throws DataWriteException {
-        String firstName = "Allan";
-        String lastName = "Jensen";
+        final String firstName = "Allan";
+        final String lastName = "Jensen";
         // Surprisingly a valid email
-        String email = "allanjensen@ucn@example.com";
-        String phoneNo = "55555555";
-        String username = "allanjensen";
-        String password = "hunter2";
-        Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
-        Employee returnEmployee;
+        final String email = "allanjensen@ucn@example.com";
+        final String phoneNo = "55555555";
+        final String username = "allanjensen";
+        final String password = "hunter2";
+        final Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
+        final Employee returnEmployee;
 
         // Act
         returnEmployee = employeeController.create(employee);
@@ -63,13 +63,13 @@ class EmployeeControllerTest {
     @Order(2)
     @DisplayName("create() throws IllegalArgumentException if there's already an employee with that username")
     void cantCreateEmployee() {
-        String firstName = "Cas";
-        String lastName = "Cas";
-        String email = "cas@example.com";
-        String phoneNo = "45454545";
-        String username = "cas789";
-        String password = "hunter2";
-        Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
+        final String firstName = "Cas";
+        final String lastName = "Cas";
+        final String email = "cas@example.com";
+        final String phoneNo = "45454545";
+        final String username = "cas789";
+        final String password = "hunter2";
+        final Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
 
         // Act
         assertThrows(IllegalArgumentException.class, () -> employeeController.create(employee));
@@ -78,13 +78,13 @@ class EmployeeControllerTest {
     @Test
     @DisplayName("create() throws IllegalArgumentException if using an invalid email")
     void cantCreateIfInvalidEmail() {
-        String firstName = "Cas";
-        String lastName = "Cas";
-        String email = "#@%^%#$@#$@#.com";
-        String phoneNo = "45454545";
-        String username = "cas7891";
-        String password = "hunter2";
-        Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
+        final String firstName = "Cas";
+        final String lastName = "Cas";
+        final String email = "#@%^%#$@#$@#.com";
+        final String phoneNo = "45454545";
+        final String username = "cas7891";
+        final String password = "hunter2";
+        final Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
 
         // Act
         assertThrows(IllegalArgumentException.class, () -> employeeController.create(employee));
@@ -93,9 +93,9 @@ class EmployeeControllerTest {
     @Test
     @DisplayName("findByUsernameAndPassword() works if user exists & password is correct")
     void canFindByUsernameAndPassword() throws DataAccessException, WrongPasswordException {
-        String username = "Cas789";
-        String password = "hunter2";
-        Employee employee;
+        final String username = "Cas789";
+        final String password = "hunter2";
+        final Employee employee;
 
         employee = employeeController.findByUsernameAndPassword(username, password);
 
@@ -105,8 +105,8 @@ class EmployeeControllerTest {
     @Test
     @DisplayName("findByUsernameAndPassword() throws a WrongPasswordException if user exists, but password is incorrect")
     void cantFindByUsernameAndPasswordIfPasswordWrong() {
-        String username = "Cas789";
-        String password = "hunter3";
+        final String username = "Cas789";
+        final String password = "hunter3";
 
         assertThrows(WrongPasswordException.class, () -> employeeController.findByUsernameAndPassword(username, password));
     }
@@ -114,8 +114,8 @@ class EmployeeControllerTest {
     @Test
     @DisplayName("findByUsernameAndPassword() throws a DataAccessException if user doesn't exist")
     void cantFindByUsernameAndPasswordIfUserDoesNotExist() {
-        String username = "Cas78910";
-        String password = "hunter2";
+        final String username = "Cas78910";
+        final String password = "hunter2";
 
         assertThrows(DataAccessException.class, () -> employeeController.findByUsernameAndPassword(username, password));
     }
@@ -123,14 +123,14 @@ class EmployeeControllerTest {
     @Test
     @DisplayName("update() works if id exists in db")
     void canUpdateExisting() throws DataWriteException, DataAccessException {
-        int id = 1;
-        String firstName = "Cas";
-        String lastName = "Cas";
-        String email = "cas@example.com";
-        String phoneNo = "45454545";
-        String username = "cas789";
-        String password = "hunter2";
-        Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
+        final int id = 1;
+        final String firstName = "Cas";
+        final String lastName = "Cas";
+        final String email = "cas@example.com";
+        final String phoneNo = "45454545";
+        final String username = "cas789";
+        final String password = "hunter2";
+        final Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
         employee.setId(id);
 
         // Act
@@ -142,14 +142,14 @@ class EmployeeControllerTest {
     @Test
     @DisplayName("update() throws DataWriteException if id doesnt exist")
     void cantUpdateNonExisting() {
-        int id = 50203423;
-        String firstName = "Cas";
-        String lastName = "Cas";
-        String email = "cas@example.com";
-        String phoneNo = "45454545";
-        String username = "cas789";
-        String password = "hunter2";
-        Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
+        final int id = 50203423;
+        final String firstName = "Cas";
+        final String lastName = "Cas";
+        final String email = "cas@example.com";
+        final String phoneNo = "45454545";
+        final String username = "cas789";
+        final String password = "hunter2";
+        final Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
         employee.setId(id);
 
         // Act + assert
@@ -158,6 +158,6 @@ class EmployeeControllerTest {
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-        DBConnection.getInstance().commitTransaction();
+        DBConnection.getInstance().rollbackTransaction();
     }
 }

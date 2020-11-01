@@ -1,10 +1,10 @@
 package database;
 
-import model.*;
+import model.Employee;
+import model.Password;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EmployeeDB implements IEmployeeDB {
@@ -36,7 +36,7 @@ public class EmployeeDB implements IEmployeeDB {
 
 
     private Employee buildObject(ResultSet rs) {
-        Employee employee = new Employee();
+        final Employee employee = new Employee();
 
         try {
             employee.setId(rs.getInt("personId"));
@@ -55,7 +55,7 @@ public class EmployeeDB implements IEmployeeDB {
 
 
     private List<Employee> buildObjects(ResultSet rs) {
-        List<Employee> employees = new ArrayList<>();
+        final List<Employee> employees = new ArrayList<>();
 
         try {
             while (rs.next()) {
@@ -94,7 +94,7 @@ public class EmployeeDB implements IEmployeeDB {
 
     @Override
     public List<Employee> findAll() throws DataAccessException {
-        List<Employee> employees;
+        final List<Employee> employees;
 
         try {
             ResultSet rs = this.findAllPS.executeQuery();

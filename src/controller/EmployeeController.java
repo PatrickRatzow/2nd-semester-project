@@ -21,7 +21,7 @@ public class EmployeeController {
             throw new IllegalArgumentException("That email is invalid");
         }
         try {
-            Employee existingEmployee = employeeDB.findByUsername(employee.getUsername());
+            final Employee existingEmployee = employeeDB.findByUsername(employee.getUsername());
             if (existingEmployee.getId() != employee.getId()) {
                 throw new DataWriteException("A user with that username already exists");
             }
@@ -32,7 +32,7 @@ public class EmployeeController {
     }
 
     public Employee findByUsernameAndPassword(String username, String password) throws DataAccessException, WrongPasswordException {
-        Employee employee = employeeDB.findByUsername(username);
+        final Employee employee = employeeDB.findByUsername(username);
         if (!employee.getPassword().equals(password)) {
             throw new WrongPasswordException("Was able to find the user, but the password is incorrect");
         }

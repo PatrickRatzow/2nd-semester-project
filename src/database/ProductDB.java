@@ -1,6 +1,7 @@
 package database;
 
-import model.*;
+import model.Price;
+import model.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class ProductDB implements IProductDB {
     }
 
     private Product buildObject(ResultSet rs) throws SQLException {
-        Product product = new Product();
+        final Product product = new Product();
 
         product.setId(rs.getInt("productId"));
         product.setName(rs.getString("productName"));
@@ -57,7 +58,7 @@ public class ProductDB implements IProductDB {
     }
 
     private List<Product> buildObjects(ResultSet rs) throws SQLException {
-        List<Product> products = new ArrayList<>();
+        final List<Product> products = new ArrayList<>();
 
         while (rs.next()) {
             Product product = buildObject(rs);
@@ -146,7 +147,7 @@ public class ProductDB implements IProductDB {
 
     @Override
     public Product create(String name, String description, int categoryId, int supplierId, int price) throws DataWriteException {
-        Product product = new Product();
+        final Product product = new Product();
 
         try {
             insertPC.setString(1, name);

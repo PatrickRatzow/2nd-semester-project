@@ -1,8 +1,11 @@
 package database;
 
-import model.*;
+import model.ProductCategory;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +28,7 @@ public class ProductCategoryDB implements IProductCategoryDB {
     }
 
     private void init() {
-        DBConnection con = DBConnection.getInstance();
+        final DBConnection con = DBConnection.getInstance();
 
         try {
             findAllPS = con.prepareStatement(FIND_ALL_Q);
@@ -40,7 +43,7 @@ public class ProductCategoryDB implements IProductCategoryDB {
     }
 
     private ProductCategory buildObject(ResultSet rs) throws SQLException {
-        ProductCategory category = new ProductCategory();
+        final ProductCategory category = new ProductCategory();
 
         category.setId(rs.getInt("productCategoryId"));
         category.setName(rs.getString("productCategoryName"));
@@ -50,7 +53,7 @@ public class ProductCategoryDB implements IProductCategoryDB {
     }
 
     private List<ProductCategory> buildObjects(ResultSet rs) throws SQLException {
-        List<ProductCategory> categories = new ArrayList<>();
+        final List<ProductCategory> categories = new ArrayList<>();
 
         while (rs.next()) {
             ProductCategory category = buildObject(rs);
@@ -119,7 +122,7 @@ public class ProductCategoryDB implements IProductCategoryDB {
 
     @Override
     public ProductCategory create(String name, String desc) throws DataWriteException {
-        ProductCategory category = null;
+        final ProductCategory category;
 
         try {
             insertPS.setString(1, name);
@@ -145,8 +148,6 @@ public class ProductCategoryDB implements IProductCategoryDB {
 
     @Override
     public void update(int id, String name, String desc) throws DataWriteException {
-        ProductCategory category = new ProductCategory();
-
         try {
             updatePS.setString(1, name);
             updatePS.setString(2, desc);

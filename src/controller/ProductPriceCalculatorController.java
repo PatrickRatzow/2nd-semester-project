@@ -1,11 +1,11 @@
 package controller;
 
-import model.*;
+import model.CheapestProduct;
+import model.Product;
+import model.Specification;
 import util.CheapestAlgorithm;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +35,7 @@ public class ProductPriceCalculatorController {
         // Reset cheapest
         cheapest = null;
         // We need a list of our threads to later join them
-        List<Thread> threads = new ArrayList<>();
+        final List<Thread> threads = new ArrayList<>();
 
         final int size = products.size();
         for (int i = 0; i < size; i++) {

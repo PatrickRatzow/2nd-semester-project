@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
-import java.util.List;
 
 /**
  * The type Db connection.
@@ -21,7 +20,7 @@ public class DBConnection {
     private static final String password = "Password1!";
 
     private DBConnection() {
-        boolean isJUnit = JUnit.isJUnitTest();
+        final boolean isJUnit = JUnit.isJUnitTest();
         final String name = isJUnit ? "dmaa0220_1083802" : "dmaa0220_1083750";
 
         String connectionString = String.format("jdbc:sqlserver://%s:%s;database=%s;user=%s;password=%s",
@@ -53,11 +52,11 @@ public class DBConnection {
                 /* Execute each script sequentially to ensure that everything gets created correctly */
                 .forEach(p -> {
                     try {
-                        StringBuilder sql = new StringBuilder();
+                        final StringBuilder sql = new StringBuilder();
                         for (String line : Files.readAllLines(p)) {
                             sql.append(line).append("\n");
                         }
-                        PreparedStatement ps = prepareStatement(sql.toString());
+                        final PreparedStatement ps = prepareStatement(sql.toString());
                         ps.execute();
                     } catch (IOException | SQLException e) {
                         e.printStackTrace();
