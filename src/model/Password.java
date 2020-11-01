@@ -35,11 +35,10 @@ public class Password implements Comparable<Password> {
     }
 
     public byte[] getBytes() {
-        ByteBuffer buffer = ByteBuffer.wrap(new byte[48]);
-        buffer.put(salt);
-        buffer.put(hash);
-
-        return buffer.array();
+        return ByteBuffer.wrap(new byte[48])
+                .put(salt)
+                .put(hash)
+                .array();
     }
 
     private static byte[] generateSalt() {
