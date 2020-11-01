@@ -22,13 +22,13 @@ public class Password implements Comparable<Password> {
     }
     public Password(String password) {
         byte[] salt = generateSalt();
-        byte[] hash = Arrays.copyOfRange(hashPassword(password, salt), 16, 48);
+        byte[] hash = hashPassword(password, salt);
 
         this.salt = salt;
         this.hash = hash;
     }
     public Password(String password, byte[] salt) {
-        byte[] hash = Arrays.copyOfRange(hashPassword(password, salt), 16, 48);
+        byte[] hash = hashPassword(password, salt);
 
         this.salt = salt;
         this.hash = hash;
@@ -59,10 +59,7 @@ public class Password implements Comparable<Password> {
             bytes = factory.generateSecret(spec).getEncoded();
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ignored) {}
 
-        return ByteBuffer.wrap(new byte[48])
-                .put(salt)
-                .put(bytes)
-                .array();
+        return bytes;
     }
 
     public boolean equals(String password) {
