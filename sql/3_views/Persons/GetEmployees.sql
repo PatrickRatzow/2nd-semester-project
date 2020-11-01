@@ -6,7 +6,6 @@ SELECT
     p.email as personEmail,
     p.phoneNo as personPhoneNo,
     e.username as employeeUsername,
-    e.password as employeePassword,
-    e.salt as employeeSalt
+    e.password as employeePassword
 FROM persons p
 LEFT JOIN employees e ON p.id = e.id

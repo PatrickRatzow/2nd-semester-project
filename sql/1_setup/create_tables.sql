@@ -43,8 +43,7 @@ CREATE TABLE persons (
 CREATE TABLE employees (
     id INT,
     username NVARCHAR(63) NOT NULL UNIQUE,
-    password BINARY(32) NOT NULL,
-    salt BINARY(16) NOT NULL,
+    password BINARY(48) NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(id) REFERENCES persons(id)
 );

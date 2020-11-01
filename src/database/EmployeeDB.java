@@ -4,6 +4,7 @@ import model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EmployeeDB implements IEmployeeDB {
@@ -11,9 +12,9 @@ public class EmployeeDB implements IEmployeeDB {
     private PreparedStatement findByUsernamePS;
     private static final String FIND_ALL_Q = "SELECT * FROM GetEmployees";
     private PreparedStatement findAllPS;
-    private static final String INSERT_Q = "{CALL InsertEmployee(?, ?, ?, ?, ?, ?, ?, ?)}";
+    private static final String INSERT_Q = "{CALL InsertEmployee(?, ?, ?, ?, ?, ?, ?)}";
     private CallableStatement insertPC;
-    private static final String UPDATE_Q = "{CALL UpdateEmployee(?, ?, ?, ?, ?, ?, ?, ?)}";
+    private static final String UPDATE_Q = "{CALL UpdateEmployee(?, ?, ?, ?, ?, ?, ?)}";
     private CallableStatement updatePC;
 
     public EmployeeDB() {
@@ -44,9 +45,7 @@ public class EmployeeDB implements IEmployeeDB {
             employee.setEmail(rs.getString("personEmail"));
             employee.setPhoneNo(rs.getString("personPhoneNo"));
             employee.setUsername(rs.getString("employeeUsername"));
-            byte[] hash = rs.getBytes("employeePassword");
-            byte[] salt = rs.getBytes("employeeSalt");
-            employee.setPassword(new Password(hash, salt));
+            employee.setPassword(new Password(rs.getBytes("employeePassword")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,7 +112,7 @@ public class EmployeeDB implements IEmployeeDB {
 
     @Override
     public Employee create(String firstName, String lastName,
-                       String email, String phoneNo, String username, byte[] password, byte[] salt) throws DataWriteException {
+                       String email, String phoneNo, String username, byte[] password) throws DataWriteException {
         Employee employee = new Employee();
 
         try {
@@ -123,17 +122,16 @@ public class EmployeeDB implements IEmployeeDB {
             insertPC.setString(4, phoneNo);
             insertPC.setString(5, username);
             insertPC.setBytes(6, password);
-            insertPC.setBytes(7, salt);
-            insertPC.registerOutParameter(8, Types.INTEGER);
+            insertPC.registerOutParameter(7, Types.INTEGER);
             insertPC.execute();
 
-            employee.setId(insertPC.getInt(8));
+            employee.setId(insertPC.getInt(7));
             employee.setFirstName(firstName);
             employee.setLastName(lastName);
             employee.setEmail(email);
             employee.setPhoneNo(phoneNo);
             employee.setUsername(username);
-            employee.setPassword(new Password(password, salt));
+            employee.setPassword(new Password(password));
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataWriteException("Unable to create employee");
@@ -144,7 +142,7 @@ public class EmployeeDB implements IEmployeeDB {
 
     @Override
     public void update(int id, String firstName, String lastName,
-                       String email, String phoneNo, String username, byte[] password, byte[] salt) throws DataWriteException, DataAccessException {
+                       String email, String phoneNo, String username, byte[] password) throws DataWriteException, DataAccessException {
         try {
             updatePC.setInt(1, id);
             updatePC.setString(2, firstName);
@@ -153,7 +151,6 @@ public class EmployeeDB implements IEmployeeDB {
             updatePC.setString(5, phoneNo);
             updatePC.setString(6, username);
             updatePC.setBytes(7, password);
-            updatePC.setBytes(8, salt);
             int affected = updatePC.executeUpdate();
             if (affected == 0) {
                 throw new DataAccessException("Unable to find any employee to update");
