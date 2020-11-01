@@ -131,8 +131,8 @@ class PasswordTest {
     }
 
     @Test
-    @DisplayName("A new Password object should be constructed in over 50ms")
-    void constructPasswordInOver50ms() {
+    @DisplayName("A new Password object should be constructed in over 30ms")
+    void constructPasswordInOver30ms() {
         // Arrange
         long startTime;
         long endTime;
