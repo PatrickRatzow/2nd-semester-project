@@ -31,7 +31,7 @@ class EmployeeControllerTest {
     @DisplayName("findAll() works")
     void canFindAllEmployeesInDatabase() throws DataAccessException {
         List<Employee> employees;
-        int expectedSize = 1;
+        int expectedSize = 2;
 
         employees = employeeController.findAll();
 
