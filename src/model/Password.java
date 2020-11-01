@@ -65,7 +65,7 @@ public class Password implements Comparable<Password> {
     }
 
     public boolean equals(String password) {
-        return compareTo(new Password(password, salt)) == 1;
+        return compareTo(new Password(password, salt)) > 0;
     }
 
     @Override
