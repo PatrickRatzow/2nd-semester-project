@@ -1,11 +1,10 @@
 package controller;
 
-import database.EmployeeDB;
-import database.IEmployeeDB;
 import database.DataAccessException;
 import database.DataWriteException;
+import database.EmployeeDB;
+import database.IEmployeeDB;
 import model.Employee;
-import model.Password;
 import util.Validator;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class EmployeeController {
         return employeeDB.findAll();
     }
 
-    public void update(Employee employee, String password) throws IllegalArgumentException, DataWriteException, DataAccessException {
+    public void update(Employee employee) throws IllegalArgumentException, DataWriteException, DataAccessException {
         if (!Validator.isEmailValid(employee.getEmail())) {
             throw new IllegalArgumentException("That email is invalid");
         }
@@ -28,9 +27,8 @@ public class EmployeeController {
             }
         } catch (DataAccessException ignore) {}
 
-        byte[] hashedPassword = Password.hashPassword(password);
         employeeDB.update(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmail(),
-                employee.getPhoneNo(), employee.getUsername(), hashedPassword);
+                employee.getPhoneNo(), employee.getUsername(), employee.getPassword().getBytes());
     }
 
     public Employee findByUsernameAndPassword(String username, String password) throws DataAccessException, WrongPasswordException {
@@ -42,7 +40,7 @@ public class EmployeeController {
         return employee;
     }
 
-    public Employee create(Employee employee, String password) throws IllegalArgumentException, DataWriteException {
+    public Employee create(Employee employee) throws IllegalArgumentException, DataWriteException {
         if (!Validator.isEmailValid(employee.getEmail())) {
             throw new IllegalArgumentException("That email is invalid");
         }
@@ -52,9 +50,7 @@ public class EmployeeController {
             throw new IllegalArgumentException("A user with that username already exists");
         } catch (DataAccessException ignore) {}
 
-        byte[] hashedPassword = Password.hashPassword(password);
-
         return employeeDB.create(employee.getFirstName(), employee.getLastName(), employee.getEmail(), employee.getPhoneNo(),
-                employee.getUsername(), hashedPassword);
+                employee.getUsername(), employee.getPassword().getBytes());
     }
 }

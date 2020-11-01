@@ -49,11 +49,11 @@ class EmployeeControllerTest {
         String phoneNo = "55555555";
         String username = "allanjensen";
         String password = "hunter2";
-        Employee employee = new Employee(firstName, lastName, email, phoneNo, username);
+        Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
         Employee returnEmployee;
 
         // Act
-        returnEmployee = employeeController.create(employee, password);
+        returnEmployee = employeeController.create(employee);
 
         // Assert
         assertNotNull(returnEmployee);
@@ -69,10 +69,10 @@ class EmployeeControllerTest {
         String phoneNo = "45454545";
         String username = "cas789";
         String password = "hunter2";
-        Employee employee = new Employee(firstName, lastName, email, phoneNo, username);
+        Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
 
         // Act
-        assertThrows(IllegalArgumentException.class, () -> employeeController.create(employee, password));
+        assertThrows(IllegalArgumentException.class, () -> employeeController.create(employee));
     }
 
     @Test
@@ -84,10 +84,10 @@ class EmployeeControllerTest {
         String phoneNo = "45454545";
         String username = "cas7891";
         String password = "hunter2";
-        Employee employee = new Employee(firstName, lastName, email, phoneNo, username);
+        Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
 
         // Act
-        assertThrows(IllegalArgumentException.class, () -> employeeController.create(employee, password));
+        assertThrows(IllegalArgumentException.class, () -> employeeController.create(employee));
     }
 
     @Test
@@ -130,11 +130,11 @@ class EmployeeControllerTest {
         String phoneNo = "45454545";
         String username = "cas789";
         String password = "hunter2";
-        Employee employee = new Employee(firstName, lastName, email, phoneNo, username);
+        Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
         employee.setId(id);
 
         // Act
-        employeeController.update(employee, password);
+        employeeController.update(employee);
 
         // It would throw an exception if it failed
     }
@@ -149,11 +149,11 @@ class EmployeeControllerTest {
         String phoneNo = "45454545";
         String username = "cas789";
         String password = "hunter2";
-        Employee employee = new Employee(firstName, lastName, email, phoneNo, username);
+        Employee employee = new Employee(firstName, lastName, email, phoneNo, username, password);
         employee.setId(id);
 
         // Act + assert
-        assertThrows(DataWriteException.class, () -> employeeController.update(employee, password));
+        assertThrows(DataWriteException.class, () -> employeeController.update(employee));
     }
 
     @AfterAll

@@ -20,8 +20,21 @@ public class Password implements Comparable<Password> {
         this.salt = salt;
         this.hash = hash;
     }
+    public Password(String password) {
+        byte[] salt = generateSalt();
+        byte[] hash = Arrays.copyOfRange(hashPassword(password, salt), 16, 48);
 
-    public byte[] getPassword() {
+        this.salt = salt;
+        this.hash = hash;
+    }
+    public Password(String password, byte[] salt) {
+        byte[] hash = Arrays.copyOfRange(hashPassword(password, salt), 16, 48);
+
+        this.salt = salt;
+        this.hash = hash;
+    }
+
+    public byte[] getBytes() {
         ByteBuffer buffer = ByteBuffer.wrap(new byte[48]);
         buffer.put(salt);
         buffer.put(hash);
@@ -37,13 +50,7 @@ public class Password implements Comparable<Password> {
         return salt;
     }
 
-    public static byte[] hashPassword(String password) {
-        byte[] salt = generateSalt();
-
-        return hashPassword(password, salt);
-    }
-
-    public static byte[] hashPassword(String password, byte[] salt) {
+    private static byte[] hashPassword(String password, byte[] salt) {
         byte[] bytes = new byte[32];
 
         try {
@@ -60,13 +67,11 @@ public class Password implements Comparable<Password> {
     }
 
     public boolean equals(String password) {
-        byte[] hashedPassword = hashPassword(password, salt);
-
-        return compareTo(new Password(hashedPassword)) == 1;
+        return compareTo(new Password(password, salt)) == 1;
     }
 
     @Override
     public int compareTo(Password password) {
-        return Arrays.equals(getPassword(), password.getPassword()) ? 1 : -1;
+        return Arrays.equals(getBytes(), password.getBytes()) ? 1 : -1;
     }
 }
