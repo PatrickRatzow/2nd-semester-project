@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -85,7 +86,7 @@ class PasswordTest {
     }
 
     @Test
-    @DisplayName("compareTo() returns -1 if the salt is not the same")
+    @DisplayName("compareTo() returns -1 if the hash is not the same")
     void compareToFailsIfHashesDontMatchEvenIfSaltsMatch() {
         // Arrange
         int comparison;
@@ -99,5 +100,51 @@ class PasswordTest {
 
         // Assert
         assertEquals(comparison, expectedComparison);
+    }
+
+    @Test
+    @DisplayName("compareTo() should return -1 if two Password objects of the same input does not have a salt provided")
+    // This is essentially checking if compareTo fails with different salts, but this is implicit instead of explicit
+    void compareToFailsWithTwoPasswordObjectsWithoutSpecifiedSalts() {
+        // Arrange
+        String input = "hunter2";
+        Password password1 = new Password(input);
+        Password password2 = new Password(input);
+        int comparison;
+        int expectedComparison = -1;
+
+        // Act
+        comparison = password1.compareTo(password2);
+
+        // Assert
+        assertEquals(comparison, expectedComparison);
+    }
+
+    // FIXME: Somewhat questionable tests as we don't know the users hardware? Consult teacher?
+    @Test
+    @DisplayName("A new Password object should be constructed in under 350ms")
+    void constructPasswordInUnder350ms() {
+        Duration timeout = Duration.ofMillis(350);
+        String input = "a beautiful test string";
+
+        assertTimeout(timeout, () -> new Password(input));
+    }
+
+    @Test
+    @DisplayName("A new Password object should be constructed in over 50ms")
+    void constructPasswordInOver50ms() {
+        // Arrange
+        long startTime;
+        long endTime;
+        String input = "a beautiful test string";
+
+        // Act
+        startTime = System.nanoTime();
+        new Password(input);
+        endTime = System.nanoTime();
+
+        // Assert
+        double durationInMs = (endTime - startTime) / 1e6;
+        assertTrue(durationInMs > 50);
     }
 }
