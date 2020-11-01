@@ -17,21 +17,21 @@ public class Password implements Comparable<Password> {
     private final byte[] hash;
 
     public Password(byte[] passwordHash) {
-        byte[] salt = Arrays.copyOfRange(passwordHash, 0, 16);
-        byte[] hash = Arrays.copyOfRange(passwordHash, 16, 80);
+        final byte[] salt = Arrays.copyOfRange(passwordHash, 0, 16);
+        final byte[] hash = Arrays.copyOfRange(passwordHash, 16, 80);
 
         this.salt = salt;
         this.hash = hash;
     }
     public Password(String password) {
-        byte[] salt = generateSalt();
-        byte[] hash = hashPassword(password, salt);
+        final byte[] salt = generateSalt();
+        final byte[] hash = hashPassword(password, salt);
 
         this.salt = salt;
         this.hash = hash;
     }
     public Password(String password, byte[] salt) {
-        byte[] hash = hashPassword(password, salt);
+        final byte[] hash = hashPassword(password, salt);
 
         this.salt = salt;
         this.hash = hash;
@@ -46,7 +46,7 @@ public class Password implements Comparable<Password> {
 
     private static byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
+        final byte[] salt = new byte[16];
         random.nextBytes(salt);
 
         return salt;
@@ -56,8 +56,8 @@ public class Password implements Comparable<Password> {
         byte[] bytes = new byte[64];
 
         try {
-            KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, ITERATIONS, KEY_LENGTH);
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+            final KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, ITERATIONS, KEY_LENGTH);
+            final SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
 
             bytes = factory.generateSecret(spec).getEncoded();
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
