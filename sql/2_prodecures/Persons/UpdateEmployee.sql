@@ -5,7 +5,7 @@ CREATE PROCEDURE UpdateEmployee
     @Email NVARCHAR(320),
     @PhoneNo NVARCHAR(50),
     @Username NVARCHAR(63),
-    @Password BINARY(48)
+    @Password BINARY(80)
 AS
     EXEC UpdatePerson @PersonId, @FirstName, @LastName, @Email, @PhoneNo;
     UPDATE employees

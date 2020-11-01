@@ -10,12 +10,15 @@ import java.security.spec.KeySpec;
 import java.util.Arrays;
 
 public class Password implements Comparable<Password> {
+    private static final int ITERATIONS = 65536; // 2^16
+    private static final int KEY_LENGTH = 512;
+
     private final byte[] salt;
     private final byte[] hash;
 
     public Password(byte[] passwordHash) {
         byte[] salt = Arrays.copyOfRange(passwordHash, 0, 16);
-        byte[] hash = Arrays.copyOfRange(passwordHash, 16, 48);
+        byte[] hash = Arrays.copyOfRange(passwordHash, 16, 80);
 
         this.salt = salt;
         this.hash = hash;
@@ -35,7 +38,7 @@ public class Password implements Comparable<Password> {
     }
 
     public byte[] getBytes() {
-        return ByteBuffer.wrap(new byte[48])
+        return ByteBuffer.wrap(new byte[80])
                 .put(salt)
                 .put(hash)
                 .array();
@@ -50,11 +53,11 @@ public class Password implements Comparable<Password> {
     }
 
     private static byte[] hashPassword(String password, byte[] salt) {
-        byte[] bytes = new byte[32];
+        byte[] bytes = new byte[64];
 
         try {
-            KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, (int) Math.pow(2, 16), 256);
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, ITERATIONS, KEY_LENGTH);
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
 
             bytes = factory.generateSecret(spec).getEncoded();
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {

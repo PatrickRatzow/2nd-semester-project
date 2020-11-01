@@ -4,7 +4,7 @@ CREATE PROCEDURE InsertEmployee
     @Email NVARCHAR(320),
     @PhoneNo NVARCHAR(50),
     @Username NVARCHAR(63),
-    @Password BINARY(48),
+    @Password BINARY(80),
     @PersonId INT = NULL OUTPUT
 AS
     EXEC InsertPerson @FirstName, @LastName, @Email, @PhoneNo, @PersonId OUT;
