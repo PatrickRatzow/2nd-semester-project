@@ -7,7 +7,6 @@ import model.Employee;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -133,10 +132,8 @@ public class Login {
 					/*
 					 * TODO: Do something with the employee. New UI? Remember to keep track of the employee
 					 */
-				} catch (DataAccessException dataAccessException) {
-					setDisplayError("Couldn't find any employee with that username");
-				} catch (WrongPasswordException wrongPasswordException) {
-					setDisplayError("Wrong password");
+				} catch (DataAccessException | WrongPasswordException exception) { /* FIXME: Perhaps just send one kind of exception up to the UI layer? */
+					setDisplayError("Was unable to login");
 				}
 			}
 		});
