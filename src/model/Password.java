@@ -10,7 +10,7 @@ import java.security.spec.KeySpec;
 import java.util.Arrays;
 
 public class Password implements Comparable<Password> {
-    private static final int ITERATIONS = (int) Math.pow(2, 18);
+    private static final int ITERATIONS = (int) Math.pow(2, 16);
     private static final int KEY_LENGTH = 512;
 
     private final byte[] salt;
