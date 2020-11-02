@@ -10,7 +10,7 @@ import java.security.spec.KeySpec;
 import java.util.Arrays;
 
 public class Password implements Comparable<Password> {
-    private static final int ITERATIONS = 65536; // 2^16
+    private static final int ITERATIONS = (int) Math.pow(2, 18);
     private static final int KEY_LENGTH = 512;
 
     private final byte[] salt;
@@ -52,12 +52,12 @@ public class Password implements Comparable<Password> {
         return salt;
     }
 
-    private static byte[] hashPassword(String password, byte[] salt) {
+    private static byte[] hashPassword(final String password, final byte[] salt) {
         byte[] bytes = new byte[64];
 
         try {
             final KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, ITERATIONS, KEY_LENGTH);
-            final SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+            final SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 
             bytes = factory.generateSecret(spec).getEncoded();
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
