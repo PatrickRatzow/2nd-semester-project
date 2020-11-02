@@ -7,6 +7,7 @@ import model.Employee;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,11 +18,15 @@ public class Login {
 	private JFrame frame;
 	private JTextField usernameInput;
 	private JPasswordField passwordInput;
-	private JPanel errorContainer;
-	private JLabel error;
+	private JLabel title;
 	final private EmployeeController employeeController = new EmployeeController();
 
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel("com.bulenkov.darcula.DarculaLaf");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -43,7 +48,7 @@ public class Login {
 
 	private void init() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 350, 250);
+		frame.setBounds(100, 100, 350, 220);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS));
 		
@@ -53,19 +58,9 @@ public class Login {
 		fl_titleContainer.setHgap(0);
 		frame.getContentPane().add(titleContainer);
 		
-		JLabel title = new JLabel("Please login");
+		title = new JLabel("Please login");
 		title.setAlignmentX(Component.CENTER_ALIGNMENT);
 		titleContainer.add(title);
-		
-		errorContainer = new JPanel();
-		errorContainer.setMaximumSize(new Dimension(32767, 25));
-		errorContainer.setVisible(false);
-		frame.getContentPane().add(errorContainer);
-		
-		error = new JLabel("Error!");
-		error.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		error.setForeground(Color.RED);
-		errorContainer.add(error);
 		
 		JPanel mainContainer = new JPanel();
 		frame.getContentPane().add(mainContainer);
@@ -85,20 +80,20 @@ public class Login {
 		username.add(usernameInput);
 		usernameLabel.setLabelFor(usernameInput);
 		usernameInput.setText("Type your username");
-		usernameInput.setForeground(Color.GRAY);
+		usernameInput.setForeground(Color.gray);
 		usernameInput.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
 				if (usernameInput.getText().equals("Type your username")) {
 					usernameInput.setText("");
-					usernameInput.setForeground(Color.BLACK);
+					usernameInput.setForeground(Color.WHITE);
 				}
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (usernameInput.getText().isEmpty()) {
-					usernameInput.setForeground(Color.GRAY);
+					usernameInput.setForeground(Color.gray);
 					usernameInput.setText("Type your username");
 				}
 			}
@@ -149,7 +144,8 @@ public class Login {
 	}
 
 	private void setDisplayError(String displayError) {
-		errorContainer.setVisible(true);
-		error.setText(displayError);
+		title.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		title.setForeground(Color.RED);
+		title.setText(displayError);
 	}
 }
