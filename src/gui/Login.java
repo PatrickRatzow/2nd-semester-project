@@ -72,15 +72,18 @@ public class Login {
 		mainContainer.setLayout(new GridLayout(0, 1, 0, 5));
 		mainContainer.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		JSplitPane username = new JSplitPane();
+		JPanel username = new JPanel();
 		username.setMinimumSize(new Dimension(250, 40));
 		mainContainer.add(username);
+		username.setLayout(new BoxLayout(username, BoxLayout.X_AXIS));
 		
 		JLabel usernameLabel = new JLabel("Username");
-		username.setLeftComponent(usernameLabel);
+		usernameLabel.setBorder(new EmptyBorder(0, 0, 0, 5));
+		username.add(usernameLabel);
 		
 		usernameInput = new JTextField();
-		username.setRightComponent(usernameInput);
+		username.add(usernameInput);
+		usernameLabel.setLabelFor(usernameInput);
 		usernameInput.setText("Type your username");
 		usernameInput.setForeground(Color.GRAY);
 		usernameInput.addFocusListener(new FocusListener() {
@@ -102,15 +105,18 @@ public class Login {
 		});
 		usernameInput.setMinimumSize(new Dimension(250, 0));
 		
-		JSplitPane password = new JSplitPane();
+		JPanel password = new JPanel();
 		password.setMinimumSize(new Dimension(250, 40));
 		mainContainer.add(password);
+		password.setLayout(new BoxLayout(password, BoxLayout.X_AXIS));
 		
 		JLabel passwordLabel = new JLabel("Password");
-		password.setLeftComponent(passwordLabel);
+		passwordLabel.setBorder(new EmptyBorder(0, 0, 0, 7));
+		password.add(passwordLabel);
 		
 		passwordInput = new JPasswordField();
-		password.setRightComponent(passwordInput);
+		password.add(passwordInput);
+		passwordLabel.setLabelFor(passwordInput);
 		passwordInput.setMinimumSize(new Dimension(250, 0));
 		
 		JPanel loginContainer = new JPanel();
