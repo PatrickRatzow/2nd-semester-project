@@ -8,6 +8,7 @@ import util.CheapestAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The type Product price calculator controller.
@@ -39,10 +40,17 @@ public class ProductPriceCalculatorController {
         // We need a list of our threads to later join them
         final List<Thread> threads = new ArrayList<>();
 
-        final int size = productCategory.size();
+        final int categorySize = productCategory.size();
+ 
         
-        for (int i = 0; i < size; i++) {
-            ProductCategory product = productCategory.get(i);
+        for(int i = 0; i < categorySize; i++) {
+        
+        	ProductCategory category = productCategory.get(i);
+        	Product[] products = category.getProducts();
+        	final int size = products.length;
+        	
+        for(int j = 0; j < size; j++) {
+            Product p = products[j];
             /*
              * We need to clone our specification as Java uses internal pointers.
              *
@@ -53,15 +61,15 @@ public class ProductPriceCalculatorController {
              */
             Specification spec = specification.clone();
             
-            
-            spec.setProduct(product);
-            
+            spec.setProduct(p);
+
             // For testing we have this locked at 1
             spec.setQuantity(1);
 
             // Supply the specification + our consumer
             Thread thread = new CheapestAlgorithm(spec, this::updateCheapest); //-- IMPORTANT TO KNOW/UNDERSTAND
             threads.add(thread);
+        }
         }
 
         /*

@@ -76,8 +76,8 @@ public class ProductCategory {
         this.desc = desc;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Product[] getProducts() {
+        return (Product[]) products.toArray();
     }
 
     public void addProduct(Product product) {
