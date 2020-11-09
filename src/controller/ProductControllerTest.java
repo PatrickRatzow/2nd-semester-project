@@ -40,7 +40,6 @@ class ProductControllerTest {
         // Act
         products = productController.findAll();
 
-        // Assert
         // Assert that our list is bigger than 0
         assertTrue(products.size() > 0);
         // Assert that every product is actually a Product, and not anything else
