@@ -59,8 +59,7 @@ public class EmployeeDB implements IEmployeeDB {
 
         try {
             while (rs.next()) {
-                Employee employee = buildObject(rs);
-                employees.add(employee);
+                employees.add(buildObject(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
