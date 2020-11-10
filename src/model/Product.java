@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * The type Product.
  */
-public class Product {
+public class Product{
     private int id;
     private String name;
     private String desc;
@@ -92,4 +92,5 @@ public class Product {
         this.desc = desc;
         this.price = price;
     }
+
 }
