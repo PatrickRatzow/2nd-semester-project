@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProductCategoryControllerTest {
     private static ProductCategoryController productCategoryController = new ProductCategoryController();
 
@@ -20,6 +21,7 @@ class ProductCategoryControllerTest {
     }
 
     @Test
+    @Order(1)
     @DisplayName("findAll() can find all the categories in the database")
     void testFindAllCategories() {
         // Arrange
@@ -78,7 +80,7 @@ class ProductCategoryControllerTest {
     @DisplayName("create() throws DataWriteException if there's an existing category with the same name")
     void testCantCreateCategory() {
         // Arrange
-        final String name = "Mursten";
+        final String name = "Tagsten";
         final String desc = "Test Description";
         final ProductCategory category = new ProductCategory();
         category.setName(name);

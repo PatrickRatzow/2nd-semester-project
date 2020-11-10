@@ -2,6 +2,7 @@ package controller;
 
 import model.CheapestProduct;
 import model.Product;
+import model.ProductCategory;
 import model.Specification;
 import util.CheapestAlgorithm;
 
@@ -31,31 +32,36 @@ public class ProductPriceCalculatorController {
         cheapest = cheapestProduct;
     }
 
-    public CheapestProduct findCheapestProduct(Specification specification, List<Product> products) throws InterruptedException {
+    public CheapestProduct findCheapestProduct(Specification specification, List<ProductCategory> categories) throws InterruptedException {
         // Reset cheapest
         cheapest = null;
         // We need a list of our threads to later join them
         final List<Thread> threads = new ArrayList<>();
 
-        final int size = products.size();
-        for (int i = 0; i < size; i++) {
-            Product product = products.get(i);
-            /*
-             * We need to clone our specification as Java uses internal pointers.
-             *
-             * Meaning that if we were to manipulate the specification parameter every iteration
-             * we would manipulate the same object over and over.
-             *
-             * By cloning it we make sure each iteration has it's own unique object.
-             */
-            Specification spec = specification.clone();
-            spec.setProduct(product);
-            // For testing we have this locked at 1
-            spec.setQuantity(1);
+        final int categorySize = categories.size();
+        for (int i = 0; i < categorySize; i++) {
+            ProductCategory category = categories.get(i);
+            Product[] products = category.getProducts();
+            final int size = products.length;
+            for (int j = 0; i < size; i++) {
+                Product product = products[j];
+                /*
+                 * We need to clone our specification as Java uses internal pointers.
+                 *
+                 * Meaning that if we were to manipulate the specification parameter every iteration
+                 * we would manipulate the same object over and over.
+                 *
+                 * By cloning it we make sure each iteration has it's own unique object.
+                 */
+                Specification spec = specification.clone();
+                spec.setProduct(product);
+                // For testing we have this locked at 1
+                spec.setQuantity(1);
 
-            // Supply the specification + our consumer
-            Thread thread = new CheapestAlgorithm(spec, this::updateCheapest);
-            threads.add(thread);
+                // Supply the specification + our consumer
+                Thread thread = new CheapestAlgorithm(spec, this::updateCheapest);
+                threads.add(thread);
+            }
         }
 
         /*

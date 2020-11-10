@@ -8,7 +8,9 @@ CREATE TABLE products_categories (
     id INT IDENTITY(1, 1),
     name NVARCHAR(255) NOT NULL UNIQUE,
     description NVARCHAR(MAX) NOT NULL,
-    PRIMARY KEY(id)
+    parentCategoryId INT,
+    PRIMARY KEY(id),
+    FOREIGN KEY(parentCategoryId) REFERENCES products_categories
 );
 
 CREATE TABLE products (

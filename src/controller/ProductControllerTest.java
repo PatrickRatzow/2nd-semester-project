@@ -16,6 +16,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProductControllerTest {
     private final ProductCategory categoryMursten = new ProductCategory(1, "Mursten", "");
     private final Supplier supplierBygma = new Supplier(1, "Bygma");
@@ -29,6 +30,28 @@ class ProductControllerTest {
     @BeforeEach
     void setUp() {
         productController = new ProductController();
+    }
+
+    @Test
+    @Order(1)
+    @DisplayName("findByCategoryName() finds all the expected Products if match")
+    void testCanFindProductsByCategoryNameIfCategoryNameExistsInDatabase() throws DataAccessException {
+        // Arrange
+        final List<Product> products;
+        final Set<String> productNames = new HashSet<>();
+        productNames.add("Lille tagsten");
+        productNames.add("Tagsten");
+        productNames.add("Stor tagsten");
+        final String name = "Tagsten";
+
+        // Act
+        products = productController.findByCategoryName(name);
+
+        // Assert
+        // Make sure we get the 3 products we have in our seeding
+        assertEquals(products.size(), 3);
+        // Each product has to be in our productNames set
+        products.forEach(p -> assertTrue(productNames.contains(p.getName())));
     }
 
     @Test
@@ -91,27 +114,6 @@ class ProductControllerTest {
 
         // Assert + Act
         assertThrows(DataAccessException.class, () -> productController.findByName(name));
-    }
-
-    @Test
-    @DisplayName("findByCategoryName() finds all the expected Products if match")
-    void testCanFindProductsByCategoryNameIfCategoryNameExistsInDatabase() throws DataAccessException {
-        // Arrange
-        final List<Product> products;
-        final Set<String> productNames = new HashSet<>();
-        productNames.add("Lille tagsten");
-        productNames.add("Tagsten");
-        productNames.add("Stor tagsten");
-        final String name = "Tagsten";
-
-        // Act
-        products = productController.findByCategoryName(name);
-
-        // Assert
-        // Make sure we get the 3 products we have in our seeding
-        assertEquals(products.size(), 3);
-        // Each product has to be in our productNames set
-        products.forEach(p -> assertTrue(productNames.contains(p.getName())));
     }
 
     @Test
