@@ -6,13 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CustomerDB implements ICustomerDB {
-
-
-
-
-
-
-
     @Override
     public Customer findCustomerByName(String name) throws SQLException {
         return null;

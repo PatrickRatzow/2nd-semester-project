@@ -1,26 +1,108 @@
 package controller;
 
-import database.DataAccessException;
-import database.DataWriteException;
-import database.IProductCategoryDB;
-import database.ProductCategoryDB;
-import model.*;
+import database.*;
+import model.Product;
+import model.ProductCategory;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ProductCategoryController {
     IProductCategoryDB productCategoryDB = new ProductCategoryDB();
+    ProductController productController = new ProductController();
 
-    public List<ProductCategory> findAll() {
-        return productCategoryDB.findAll();
+    public List<ProductCategory> findAll(boolean populateProducts) throws SQLException, DataAccessException {
+        if (!populateProducts) {
+            return productCategoryDB.findAll();
+        }
+
+        DBConnection conn = DBConnection.getInstance();
+        List<ProductCategory> categories;
+        try {
+            conn.startTransaction();
+
+            categories = productCategoryDB.findAll();
+            for (ProductCategory category : categories) {
+                populateProducts(category);
+            }
+
+            conn.commitTransaction();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollbackTransaction();
+
+                throw e;
+            } catch (SQLException re) {
+                re.printStackTrace();
+
+                throw e;
+            }
+        }
+
+        return categories;
     }
 
-    public List<ProductCategory> findByName(String name) throws DataAccessException {
-        return productCategoryDB.findByName(name);
+    public List<ProductCategory> findByName(String name, boolean populateProducts) throws DataAccessException, SQLException {
+        if (!populateProducts) {
+            return productCategoryDB.findByName(name);
+        }
+
+        DBConnection conn = DBConnection.getInstance();
+        List<ProductCategory> categories;
+        try {
+            conn.startTransaction();
+
+            categories = productCategoryDB.findByName(name);
+            for (ProductCategory category : categories) {
+                populateProducts(category);
+            }
+
+            conn.commitTransaction();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollbackTransaction();
+
+                throw e;
+            } catch (SQLException re) {
+                re.printStackTrace();
+
+                throw e;
+            }
+        }
+
+        return categories;
     }
 
-    public ProductCategory findById(int id) throws DataAccessException {
-        return productCategoryDB.findById(id);
+    public ProductCategory findById(int id, boolean populateProducts) throws DataAccessException, SQLException {
+        if (!populateProducts) {
+            return productCategoryDB.findById(id);
+        }
+
+        DBConnection conn = DBConnection.getInstance();
+        ProductCategory category;
+        try {
+            conn.startTransaction();
+
+            category = productCategoryDB.findById(id);
+            populateProducts(category);
+
+            conn.commitTransaction();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollbackTransaction();
+
+                throw e;
+            } catch (SQLException re) {
+                re.printStackTrace();
+
+                throw e;
+            }
+        }
+
+        return category;
     }
 
     public ProductCategory create(ProductCategory category) throws DataWriteException {
@@ -41,5 +123,11 @@ public class ProductCategoryController {
         }
 
         productCategoryDB.delete(category.getId());
+    }
+
+    private void populateProducts(ProductCategory category) throws DataAccessException {
+        List<Product> products = productController.findByCategoryId(category.getId());
+        // Loop over each product and call the addProduct method with it
+        products.forEach(category::addProduct);
     }
 }

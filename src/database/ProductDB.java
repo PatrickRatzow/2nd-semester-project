@@ -17,8 +17,10 @@ public class ProductDB implements IProductDB {
     private PreparedStatement findByIdPS;
     private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE productName = ?";
     private PreparedStatement findByNamePS;
-    private static final String FIND_BY_CATEGORY_Q = "SELECT * FROM GetProductsWithCategories WHERE productCategoryName = ?";
-    private PreparedStatement findByCategoryPS;
+    private static final String FIND_BY_CATEGORY_NAME_Q = "SELECT * FROM GetProductsWithCategories WHERE productCategoryName = ?";
+    private PreparedStatement findByCategoryNamePS;
+    private static final String FIND_BY_CATEGORY_ID_Q = "SELECT * FROM GetProductsWithCategories WHERE productCategoryId = ?";
+    private PreparedStatement findByCategoryIdPS;
     private static final String INSERT_Q = "{CALL InsertProduct(?, ?, ?, ?, ?, ?)}";
     private CallableStatement insertPC;
     private static final String UPDATE_Q = "{CALL UpdateProduct(?, ?, ?, ?, ?, ?)}";
@@ -38,7 +40,8 @@ public class ProductDB implements IProductDB {
             findAllPS = con.prepareStatement(FIND_ALL_Q);
             findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
             findByNamePS = con.prepareStatement(FIND_BY_NAME_Q);
-            findByCategoryPS = con.prepareStatement(FIND_BY_CATEGORY_Q);
+            findByCategoryNamePS = con.prepareStatement(FIND_BY_CATEGORY_NAME_Q);
+            findByCategoryIdPS = con.prepareStatement(FIND_BY_CATEGORY_ID_Q);
             insertPC = con.prepareCall(INSERT_Q);
             updatePC = con.prepareCall(UPDATE_Q);
         } catch(SQLException e) {
@@ -130,8 +133,8 @@ public class ProductDB implements IProductDB {
         List<Product> products = new ArrayList<>();
 
         try {
-            findByCategoryPS.setString(1, name);
-            ResultSet rs = findByCategoryPS.executeQuery();
+            findByCategoryNamePS.setString(1, name);
+            ResultSet rs = findByCategoryNamePS.executeQuery();
             products = buildObjects(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -144,6 +147,22 @@ public class ProductDB implements IProductDB {
 
         return products;
     }
+
+    @Override
+    public List<Product> findByCategoryId(int id) {
+        List<Product> products = new ArrayList<>();
+
+        try {
+            findByCategoryIdPS.setInt(1, id);
+            ResultSet rs = findByCategoryIdPS.executeQuery();
+            products = buildObjects(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
 
     @Override
     public Product create(String name, String description, int categoryId, int supplierId, int price) throws DataWriteException {

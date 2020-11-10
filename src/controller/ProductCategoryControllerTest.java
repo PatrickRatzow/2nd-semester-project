@@ -7,55 +7,98 @@ import model.ProductCategory;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
+import java.sql.Savepoint;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProductCategoryControllerTest {
     private static ProductCategoryController productCategoryController = new ProductCategoryController();
+    private static Savepoint savepoint;
+    private static DBConnection conn = DBConnection.getInstance();
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-        DBConnection.getInstance().startTransaction();
+        conn.startTransaction();
+        savepoint = conn.setSavepoint();
     }
 
     @Test
     @Order(1)
     @DisplayName("findAll() can find all the categories in the database")
-    void testFindAllCategories() {
+    void testFindAllCategories() throws SQLException, DataAccessException {
         // Arrange
         final List<ProductCategory> categories;
         final int expectedSize = 3;
 
         // Act
-        categories = productCategoryController.findAll();
+        categories = productCategoryController.findAll(false);
 
         // Assert
         assertEquals(categories.size(), expectedSize);
-        categories.forEach(Assertions::assertNotNull);
+    }
+
+    @Test
+    @Order(2)
+    @DisplayName("findAll(populateProducts) can find all the categories in the database")
+    void testFindAllCategoriesPopulate() throws SQLException, DataAccessException {
+        // Arrange
+        final List<ProductCategory> categories;
+        final int expectedSize = 3;
+        final Map<String, Integer> categoryMap = new HashMap<>();
+        categoryMap.put("Tagsten", 3);
+        categoryMap.put("Teglsten", 3);
+        categoryMap.put("Obamasten", 0);
+        // Act
+        categories = productCategoryController.findAll(true);
+
+        // Assert
+        assertEquals(categories.size(), expectedSize);
+        categories.forEach(c -> {
+            final int productLength = c.getProducts().size();
+            final int mapLength = categoryMap.get(c.getName());
+
+            assertEquals(productLength, mapLength);
+        });
     }
 
     @Test
     @DisplayName("findByName() can find an existing category")
-    void testFindByCategoryName_shouldReturnPopulatedListWithAtLeastOneCategory_whenPresentInDatabase() throws DataAccessException {
+    void testFindByCategoryName_shouldReturnPopulatedListWithAtLeastOneCategory_whenPresentInDatabase() throws DataAccessException, SQLException {
         final String name = "Test Category";
-        final List<ProductCategory> returnCategories;
+        final List<ProductCategory> categories;
 
         // Act
-        returnCategories = productCategoryController.findByName(name);
+        categories = productCategoryController.findByName(name, false);
 
         // Assert
-        assertNotNull(returnCategories.get(0));
+        assertNotNull(categories.get(0));
+    }
+
+    @Test
+    @DisplayName("findByName(populateProducts) adds expected amount of products to the category")
+    void testFindByCategoryNamePopulated() throws DataAccessException, SQLException {
+        final String name = "Tagsten";
+        final ProductCategory category;
+
+        // Act
+        category = productCategoryController.findByName(name, true).get(0);
+
+        // Assert
+        assertNotNull(category);
+        assertEquals(category.getProducts().size(), 3);
     }
 
     @Test
     @DisplayName("findByName() throws a DataAccessException if no such name exists")
     void testFindByCategoryName_shouldReturnEmptyList_whenNotPresentInDatabase()  {
-        final String name = "I do not existssssssss";
+        final String name = "I do not existttttttttttttttttttt";
 
         // Act
-        assertThrows(DataAccessException.class, () -> productCategoryController.findByName(name));
+        assertThrows(DataAccessException.class, () -> productCategoryController.findByName(name, false));
     }
 
     @Test
@@ -177,16 +220,31 @@ class ProductCategoryControllerTest {
 
     @Test
     @DisplayName("findById() returns ProductCategory if id in database")
-    void testCanFindById() throws DataAccessException {
+    void testCanFindById() throws DataAccessException, SQLException {
         // Arrange
         final int id = 1;
         final ProductCategory category;
 
         // Act
-        category = productCategoryController.findById(id);
+        category = productCategoryController.findById(id, false);
 
         // Assert
         assertNotNull(category);
+    }
+
+    @Test
+    @DisplayName("findById(populateProducts) returns ProductCategory with products if id in database")
+    void testCanFindByIdPopulate() throws DataAccessException, SQLException {
+        // Arrange
+        final int id = 1;
+        final ProductCategory category;
+        final int expectedProductsSize = 3;
+
+        // Act
+        category = productCategoryController.findById(id, true);
+
+        // Assert
+        assertEquals(category.getProducts().size(), expectedProductsSize);
     }
 
     @Test
@@ -196,11 +254,12 @@ class ProductCategoryControllerTest {
         final int id = 818923812;
 
         // Act + assert
-        assertThrows(DataAccessException.class, () -> productCategoryController.findById(id));
+        assertThrows(DataAccessException.class, () -> productCategoryController.findById(id, false));
     }
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-        DBConnection.getInstance().rollbackTransaction();
+        conn.getConnection().setAutoCommit(false);
+        conn.rollbackTransaction(savepoint);
     }
 }

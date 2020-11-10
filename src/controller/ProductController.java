@@ -4,7 +4,9 @@ import database.DataAccessException;
 import database.DataWriteException;
 import database.IProductDB;
 import database.ProductDB;
-import model.*;
+import model.Product;
+import model.ProductCategory;
+import model.Supplier;
 
 import java.util.List;
 
@@ -25,6 +27,10 @@ public class ProductController {
 
     public List<Product> findByCategoryName(String name) throws DataAccessException {
         return productDB.findByCategoryName(name);
+    }
+
+    public List<Product> findByCategoryId(int id) throws DataAccessException {
+        return productDB.findByCategoryId(id);
     }
 
     public Product create(Product product, ProductCategory category, Supplier supplier) throws IllegalArgumentException, DataWriteException {

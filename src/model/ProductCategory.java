@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +13,7 @@ public class ProductCategory {
     private String name;
     private String desc;
     private Set<Product> products = new HashSet<>();
+    private Set<ProductCategory> categories = new HashSet<>();
 
     public ProductCategory() {
 
@@ -77,8 +79,8 @@ public class ProductCategory {
         this.desc = desc;
     }
 
-    public Product[] getProducts() {
-        return (Product[]) products.toArray();
+    public List<Product> getProducts() {
+        return new ArrayList<>(products);
     }
 
     public void addProduct(Product product) {
@@ -87,5 +89,17 @@ public class ProductCategory {
 
     public void removeProduct(Product product) {
         products.remove(product);
+    }
+
+    public List<ProductCategory> getCategories() {
+        return new ArrayList<>(categories);
+    }
+
+    public void addCategory(ProductCategory category) {
+        categories.add(category);
+    }
+
+    public void removeProduct(ProductCategory category) {
+        categories.remove(category);
     }
 }

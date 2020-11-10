@@ -41,10 +41,10 @@ public class ProductPriceCalculatorController {
         final int categorySize = categories.size();
         for (int i = 0; i < categorySize; i++) {
             ProductCategory category = categories.get(i);
-            Product[] products = category.getProducts();
-            final int size = products.length;
+            List<Product> products = category.getProducts();
+            final int size = products.size();
             for (int j = 0; i < size; i++) {
-                Product product = products[j];
+                Product product = products.get(j);
                 /*
                  * We need to clone our specification as Java uses internal pointers.
                  *

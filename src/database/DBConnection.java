@@ -91,6 +91,10 @@ public class DBConnection {
         connection.setAutoCommit(false);
     }
 
+    public Savepoint setSavepoint() throws SQLException {
+        return connection.setSavepoint();
+    }
+
     /**
      * Commit transaction.
      *
@@ -108,6 +112,11 @@ public class DBConnection {
      */
     public void rollbackTransaction() throws SQLException {
         connection.rollback();
+        connection.setAutoCommit(true);
+    }
+
+    public void rollbackTransaction(Savepoint savepoint) throws SQLException {
+        connection.rollback(savepoint);
         connection.setAutoCommit(true);
     }
 
