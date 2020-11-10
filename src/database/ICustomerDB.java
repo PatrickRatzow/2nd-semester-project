@@ -10,5 +10,4 @@ public interface ICustomerDB {
     Customer findId(int id) throws DataAccessException;
     Customer create(String firstName, String lastName, String email, String phoneNo) throws DataWriteException;
     void update(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException;
-    void delete(int id) throws DataWriteException;
 }
