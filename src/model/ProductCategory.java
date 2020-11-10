@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -76,8 +77,8 @@ public class ProductCategory {
         this.desc = desc;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Product[] getProducts() {
+        return (Product[]) products.toArray();
     }
 
     public void addProduct(Product product) {
