@@ -25,7 +25,7 @@ public class CustomerController {
     //Needs some more checks
     public Customer create(Customer customer) throws DataWriteException, SQLException {
     	
-    	return customerDB.create(customer.getId(),customer.getFirstName(), customer.getLastName(), 
+    	return customerDB.create(customer.getFirstName(), customer.getLastName(), 
     			customer.getEmail(), customer.getPhoneNo());
     }
     

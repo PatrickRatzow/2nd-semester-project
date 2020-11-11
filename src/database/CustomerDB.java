@@ -123,18 +123,18 @@ public class CustomerDB implements ICustomerDB {
     }
 
     @Override
-    public Customer create(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException{
+    public Customer create(String firstName, String lastName, String email, String phoneNo) throws DataWriteException{
         
     	Customer customer = new Customer();
     	
     	try{
-    		insertPC.setInt(1, id);
-    		insertPC.setString(2, firstName);
-    		insertPC.setString(3, lastName);
-    		insertPC.setString(4, email);
-    		insertPC.setString(5, phoneNo);
+    		insertPC.setString(1, firstName);
+    		insertPC.setString(2, lastName);
+    		insertPC.setString(3, email);
+    		insertPC.setString(4, phoneNo);
+    		insertPC.execute();
     		
-    		customer.setId(id);
+    		customer.setId(insertPC.getInt(5));
     		customer.setFirstName(firstName);
     		customer.setLastName(lastName);
     		customer.setEmail(email);

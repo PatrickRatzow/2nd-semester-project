@@ -11,6 +11,5 @@ public interface ICustomerDB {
     Customer findId(int id) throws DataAccessException, SQLException;
     void update(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException, SQLException;
     void delete(int id) throws DataWriteException, SQLException;
-	Customer create(int id, String firstName, String lastName, String email, String phoneNo)
-			throws DataWriteException;
+	Customer create(String firstName, String lastName, String email, String phoneNo) throws DataWriteException;
 }
