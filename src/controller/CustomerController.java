@@ -39,10 +39,10 @@ public class CustomerController {
     	customerDB.delete(id);
     }
     
-    //Figure out if this is meant a search customer from id, or 
-    //the other way around
-    public void findId() {
+    //Can still make changes here
+    public Customer findId(int id) throws DataAccessException, SQLException {
     	
+    	return customerDB.findId(id);
     }
     
     //Make changes
