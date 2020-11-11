@@ -14,10 +14,14 @@ public class CustomerDB implements ICustomerDB {
     private PreparedStatement findByPhoneNoPS;
     private static final String FIND_ALL_Q = "SELECT * FROM GetCustomers";
     private PreparedStatement findAllPS;
+    private static final String FIND_ID_Q = "";
+    private PreparedStatement findIdPS;
     private static final String INSERT_Q = "{CALL InsertCustomer(?, ?, ?, ?, ?)}";
     private CallableStatement insertPC;
     private static final String UPDATE_Q = "{CALL UpdateCustomer(?, ?, ?, ?, ?)}";
     private CallableStatement updatePC;
+    private static final String DELETE_Q = "";
+    private PreparedStatement deletePS;
 
     public CustomerDB() {
         init();
@@ -29,8 +33,10 @@ public class CustomerDB implements ICustomerDB {
         try {
             findByPhoneNoPS = con.prepareStatement(FIND_BY_PHONENO_Q);
             findAllPS = con.prepareStatement(FIND_ALL_Q);
+            findIdPS = con.prepareStatement(FIND_ID_Q);
             insertPC = con.prepareCall(INSERT_Q);
             updatePC = con.prepareCall(UPDATE_Q);
+            deletePS = con.prepareStatement(DELETE_Q);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,27 +93,76 @@ public class CustomerDB implements ICustomerDB {
     }
 
     @Override
-    public List<Customer> findByPhoneNo(String phoneNo) throws DataAccessException {
-        return null;
+    public List<Customer> findByPhoneNo(String phoneNo) throws DataAccessException, SQLException {
+        ResultSet rs;
+        List<Customer> customer = null;
+        
+        findByPhoneNoPS.setString(1, phoneNo);
+        rs = this.findByPhoneNoPS.executeQuery();
+        
+        while(rs.next()) {
+        	customer = buildObjects(rs);
+        }
+        
+        return customer;
     }
 
     @Override
-    public Customer findId(int id) throws DataAccessException {
-        return null;
+    public Customer findId(int id) throws DataAccessException, SQLException {
+        ResultSet rs; 
+        Customer customer = null;
+        
+        findIdPS.setInt(1, id);
+        rs = this.findIdPS.executeQuery();
+        
+        if(rs.next()) {
+        	customer = buildObject(rs);
+        }
+        
+        return customer;
     }
 
     @Override
-    public Customer create(String firstName, String lastName, String email, String phoneNo) throws DataWriteException {
-        return null;
+    public Customer create(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException{
+        
+    	Customer customer = new Customer();
+    	
+    	try{
+    		insertPC.setInt(1, id);
+    		insertPC.setString(2, firstName);
+    		insertPC.setString(3, lastName);
+    		insertPC.setString(4, email);
+    		insertPC.setString(5, phoneNo);
+    		
+    		customer.setId(id);
+    		customer.setFirstName(firstName);
+    		customer.setLastName(lastName);
+    		customer.setEmail(email);
+    		customer.setPhoneNo(phoneNo);
+    		
+    	} catch(SQLException e) {
+    		
+    	}
+    	
+    	
+    	return customer;
     }
 
     @Override
-    public void update(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException {
-
+    public void update(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException, SQLException {
+    	
+    	updatePC.setInt(1, id);
+    	updatePC.setString(2, firstName);
+    	updatePC.setString(3, lastName);
+    	updatePC.setString(4, firstName);
+    	updatePC.setString(5, firstName);
+    	
+    	updatePC.executeQuery();
     }
 
     @Override
-    public void delete(int id) throws DataWriteException {
-
+    public void delete(int id) throws DataWriteException, SQLException {
+    	deletePS.setInt(1, id);
+    	deletePS.executeUpdate();
     }
 }
