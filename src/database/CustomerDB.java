@@ -94,16 +94,17 @@ public class CustomerDB implements ICustomerDB {
     }
 
     @Override
-    public List<Customer> findByPhoneNo(String phoneNo) throws DataAccessException, SQLException {
-        ResultSet rs;
-        List<Customer> customer = null;
-        
-        findByPhoneNoPS.setString(1, phoneNo);
-        rs = this.findByPhoneNoPS.executeQuery();
-        
-        while(rs.next()) {
-        	customer = buildObjects(rs);
-        }
+    public Customer findByPhoneNo(String phoneNo) throws DataAccessException, SQLException {
+ 
+    	ResultSet rs;
+    	Customer customer = null;
+    	
+    	findByPhoneNoPS.setString(1, phoneNo);
+    	rs = this.findByPhoneNoPS.executeQuery();
+    	
+    	if(rs.next()) {
+    		customer = buildObject(rs);
+    	}
         
         return customer;
     }

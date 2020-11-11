@@ -22,15 +22,31 @@ public class CustomerController {
         return customerDB.findAll();
     }
     
-    //Needs some more checks
     public Customer create(Customer customer) throws DataWriteException, SQLException {
     	
     	return customerDB.create(customer.getFirstName(), customer.getLastName(), 
     			customer.getEmail(), customer.getPhoneNo());
     }
     
+    public void update(Customer customer) throws DataWriteException, SQLException {
+    	customerDB.update(customer.getId(), customer.getFirstName(), 
+    			customer.getLastName(), customer.getEmail(), 
+    			customer.getPhoneNo());
+    }
     
-    public void findByPhoneNo(String phoneNo) {
+    //Make changes
+    public void delete(int id) throws DataWriteException, SQLException {
+    	customerDB.delete(id);
+    }
+    
+    //Figure out if this is meant a search customer from id, or 
+    //the other way around
+    public void findId() {
     	
+    }
+    
+    //Make changes
+    public void findByPhoneNo(String phoneNo) throws DataAccessException, SQLException {
+    	customerDB.findByPhoneNo(phoneNo);
     }
 }

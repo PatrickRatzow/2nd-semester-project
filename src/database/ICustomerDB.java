@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ICustomerDB {
     List<Customer> findAll() throws DataAccessException;
-    List<Customer> findByPhoneNo(String name) throws DataAccessException, SQLException;
+    Customer findByPhoneNo(String name) throws DataAccessException, SQLException;
     Customer findId(int id) throws DataAccessException, SQLException;
     void update(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException, SQLException;
     void delete(int id) throws DataWriteException, SQLException;
