@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import model.Person;
 import model.Project;
 
 public class ProjectDB {
@@ -41,6 +42,27 @@ public class ProjectDB {
 		} catch(SQLException e) {
 			
 		}
+		
+	}
+	
+	public void findAll() {
+		
+	}
+	
+	public Person findPerson(Person p) {
+		
+		return p;
+	}
+	
+	public void create() {
+		
+	}
+	
+	public void update() {
+		
+	}
+	
+	public void delete() {
 		
 	}
 	
