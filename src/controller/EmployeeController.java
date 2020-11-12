@@ -1,19 +1,24 @@
 package controller;
 
-import database.DataAccessException;
-import database.DataWriteException;
-import database.EmployeeDB;
-import database.IEmployeeDB;
-import model.Employee;
+import exception.DataAccessException;
+import exception.DataWriteException;
+import exception.WrongPasswordException;
+import model.employee.Employee;
+import model.employee.EmployeeDao;
+import model.employee.EmployeeDaoMsSql;
 import util.Validator;
 
 import java.util.List;
 
 public class EmployeeController {
-    IEmployeeDB employeeDB = new EmployeeDB();
+    EmployeeDao employeeDao = new EmployeeDaoMsSql();
 
     public List<Employee> findAll() throws DataAccessException {
-        return employeeDB.findAll();
+        return employeeDao.findAll();
+    }
+
+    public Employee findById(int id) throws DataAccessException {
+        return employeeDao.findById(id);
     }
 
     public void update(Employee employee) throws IllegalArgumentException, DataWriteException, DataAccessException {
@@ -21,18 +26,19 @@ public class EmployeeController {
             throw new IllegalArgumentException("That email is invalid");
         }
         try {
-            final Employee existingEmployee = employeeDB.findByUsername(employee.getUsername());
+            final Employee existingEmployee = employeeDao.findByUsername(employee.getUsername());
             if (existingEmployee.getId() != employee.getId()) {
                 throw new DataWriteException("A user with that username already exists");
             }
         } catch (DataAccessException ignore) {}
 
-        employeeDB.update(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmail(),
+        employeeDao.update(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmail(),
                 employee.getPhoneNo(), employee.getUsername(), employee.getPassword().getBytes());
     }
 
+
     public Employee findByUsernameAndPassword(String username, String password) throws DataAccessException, WrongPasswordException {
-        final Employee employee = employeeDB.findByUsername(username);
+        final Employee employee = employeeDao.findByUsername(username);
         if (!employee.getPassword().equals(password)) {
             throw new WrongPasswordException("Was able to find the user, but the password is incorrect");
         }
@@ -45,12 +51,12 @@ public class EmployeeController {
             throw new IllegalArgumentException("That email is invalid");
         }
         try {
-            employeeDB.findByUsername(employee.getUsername());
+            employeeDao.findByUsername(employee.getUsername());
 
             throw new IllegalArgumentException("A user with that username already exists");
         } catch (DataAccessException ignore) {}
 
-        return employeeDB.create(employee.getFirstName(), employee.getLastName(), employee.getEmail(), employee.getPhoneNo(),
+        return employeeDao.create(employee.getFirstName(), employee.getLastName(), employee.getEmail(), employee.getPhoneNo(),
                 employee.getUsername(), employee.getPassword().getBytes());
     }
 }

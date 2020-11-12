@@ -1,3 +1,8 @@
+CREATE TABLE projects (
+    id INT IDENTITY(1, 1),
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE suppliers (
     id INT IDENTITY(1, 1),
     name NVARCHAR(255) NOT NULL,
@@ -54,4 +59,36 @@ CREATE TABLE customers (
     id INT,
     PRIMARY KEY(id),
     FOREIGN KEY(id) REFERENCES persons(id)
+);
+
+CREATE TABLE orders (
+    id INT IDENTITY(1, 1),
+    status INT NOT NULL,
+    createdDate DATETIME2 NOT NULL,
+    projectId INT NOT NULL,
+    employeeId INT NOT NULL,
+    customerId INT NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(projectId) REFERENCES projects(id),
+    FOREIGN KEY(employeeId) REFERENCES employees(id),
+    FOREIGN KEY(customerId) REFERENCES customers(id)
+);
+
+CREATE TABLE orders_invoices (
+    orderId INT NOT NULL,
+    createdAt DATETIME2 NOT NULL,
+    dueDate DATE NOT NULL,
+    toPay INT NOT NULL,
+    hasPaid INT NOT NULL,
+    PRIMARY KEY(orderId),
+    FOREIGN KEY(orderId) REFERENCES orders(id),
+);
+
+CREATE TABLE orders_lines (
+    orderId INT NOT NULL,
+    productId INT NOT NULL,
+    quantity INT NOT NULL,
+    PRIMARY KEY(orderId, productId),
+    FOREIGN KEY(orderId) REFERENCES orders(id),
+    FOREIGN KEY(productId) REFERENCES products(id)
 );

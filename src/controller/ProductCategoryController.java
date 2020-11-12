@@ -1,14 +1,18 @@
 package controller;
 
-import database.*;
-import model.Product;
-import model.ProductCategory;
+import exception.DataAccessException;
+import exception.DataWriteException;
+import model.DBConnection;
+import model.product.Product;
+import model.product_category.ProductCategory;
+import model.product_category.ProductCategoryDao;
+import model.product_category.ProductCategoryDaoMsSql;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class ProductCategoryController {
-    IProductCategoryDB productCategoryDB = new ProductCategoryDB();
+    ProductCategoryDao productCategoryDB = new ProductCategoryDaoMsSql();
     ProductController productController = new ProductController();
 
     public List<ProductCategory> findAll(boolean populateProducts) throws SQLException, DataAccessException {

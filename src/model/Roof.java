@@ -1,5 +1,7 @@
 package model;
 
+import model.product.Product;
+
 /**
  * The type Roof.
  */

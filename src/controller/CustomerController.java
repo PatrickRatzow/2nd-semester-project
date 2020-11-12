@@ -1,52 +1,37 @@
 package controller;
 
-import database.CustomerDB;
-import database.DataAccessException;
-import database.DataWriteException;
-import database.ICustomerDB;
-import model.Customer;
+import exception.DataAccessException;
+import exception.DataWriteException;
+import model.customer.Customer;
+import model.customer.CustomerDao;
+import model.customer.CustomerDaoMsSql;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class CustomerController {
-    ICustomerDB customerDB;
-    
-    
-    public CustomerController() {
-    	customerDB = new CustomerDB();
-    }
-    
+    CustomerDao customerDao = new CustomerDaoMsSql();
 
     public List<Customer> findAll() throws DataAccessException {
-        return customerDB.findAll();
+        return customerDao.findAll();
     }
-    
-    public Customer create(Customer customer) throws DataWriteException, SQLException {
-    	
-    	return customerDB.create(customer.getFirstName(), customer.getLastName(), 
+
+    public Customer findById(int id) throws DataAccessException {
+        return customerDao.findById(id);
+    }
+
+    public Customer create(Customer customer) throws DataWriteException {
+    	return customerDao.create(customer.getFirstName(), customer.getLastName(),
     			customer.getEmail(), customer.getPhoneNo());
     }
     
-    public void update(Customer customer) throws DataWriteException, SQLException {
-    	customerDB.update(customer.getId(), customer.getFirstName(), 
+    public void update(Customer customer) throws DataWriteException, DataAccessException {
+    	customerDao.update(customer.getId(), customer.getFirstName(),
     			customer.getLastName(), customer.getEmail(), 
     			customer.getPhoneNo());
     }
     
-    //Make changes
-    public void delete(int id) throws DataWriteException, SQLException {
-    	customerDB.delete(id);
-    }
-    
-    //Can still make changes here
-    public Customer findId(int id) throws DataAccessException, SQLException {
-    	
-    	return customerDB.findId(id);
-    }
-    
-    //Make changes
-    public void findByPhoneNo(String phoneNo) throws DataAccessException, SQLException {
-    	customerDB.findByPhoneNo(phoneNo);
+    // TODO: Make changes
+    public void findByPhoneNo(String phoneNo) throws DataAccessException {
+    	customerDao.findByPhoneNo(phoneNo);
     }
 }
