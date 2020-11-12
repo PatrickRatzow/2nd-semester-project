@@ -1,6 +1,7 @@
 package model.project;
 
 import model.DBConnection;
+import model.Person;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,13 +29,43 @@ public class ProjectDaoMsSql implements ProjectDao {
 	}
 	
 	private void init() {
-		final DBConnection con = DBConnection.getInstance();
-
+		DBConnection con = DBConnection.getInstance();
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
+
 		} catch(SQLException e) {
-			e.printStackTrace();
+			
 		}
+		
+	}
+	
+	public void findAll() {
+		
+	}
+	
+	public void findProjectByCustomer() {
+		
+	}
+	
+	public Person findPerson(Person p) {
+		
+		return p;
+	}
+	
+	public void create() {
+		
+	}
+	
+	public void addPersonToProject() {
+		
+	}
+	
+	public void update() {
+		
+	}
+	
+	public void delete() {
+		
 	}
 	
 	public Project buildObject(ResultSet rs) {
@@ -43,5 +74,4 @@ public class ProjectDaoMsSql implements ProjectDao {
 	
 	public List<Project> buildObjects(ResultSet rs) {
 		return null;
-	}
-}
+	}}
