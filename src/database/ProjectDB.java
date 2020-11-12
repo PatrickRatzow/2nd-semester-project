@@ -5,8 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import model.DBConnection;
 import model.Person;
-import model.Project;
+import model.project.Project;
 
 public class ProjectDB {
 
