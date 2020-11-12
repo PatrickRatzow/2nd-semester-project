@@ -4,7 +4,7 @@ import model.ProductCategory;
 
 import java.util.List;
 
-public interface IProductCategoryDB {
+public interface ProductCategoryDao {
     List<ProductCategory> findAll();
     ProductCategory findById(int id) throws DataAccessException;
     List<ProductCategory> findByName(String name) throws DataAccessException;

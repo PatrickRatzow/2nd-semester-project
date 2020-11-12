@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoryDB implements IProductCategoryDB {
+public class ProductCategoryDaoMsSql implements ProductCategoryDao {
     private static final String FIND_ALL_Q = "SELECT * FROM GetCategories";
     private PreparedStatement findAllPS;
     private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE productCategoryId = ?";
@@ -23,7 +23,7 @@ public class ProductCategoryDB implements IProductCategoryDB {
     private static final String DELETE_Q = "DELETE FROM products_categories WHERE id = ?";
     private PreparedStatement deletePS;
 
-    public ProductCategoryDB() {
+    public ProductCategoryDaoMsSql() {
         init();
     }
 

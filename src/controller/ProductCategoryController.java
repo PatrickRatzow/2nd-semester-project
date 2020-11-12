@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ProductCategoryController {
-    IProductCategoryDB productCategoryDB = new ProductCategoryDB();
+    ProductCategoryDao productCategoryDB = new ProductCategoryDaoMsSql();
     ProductController productController = new ProductController();
 
     public List<ProductCategory> findAll(boolean populateProducts) throws SQLException, DataAccessException {
