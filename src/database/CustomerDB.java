@@ -2,11 +2,7 @@ package database;
 
 import model.Customer;
 
-import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,15 +17,13 @@ public class CustomerDB implements ICustomerDB {
     private CallableStatement insertPC;
     private static final String UPDATE_Q = "{CALL UpdateCustomer(?, ?, ?, ?, ?)}";
     private CallableStatement updatePC;
-    private static final String DELETE_Q = "";
-    private PreparedStatement deletePS;
 
     public CustomerDB() {
         init();
     }
 
     private void init() {
-        DBConnection con = DBConnection.getInstance();
+        final DBConnection con = DBConnection.getInstance();
 
         try {
             findByPhoneNoPS = con.prepareStatement(FIND_BY_PHONENO_Q);
@@ -37,7 +31,6 @@ public class CustomerDB implements ICustomerDB {
             findIdPS = con.prepareStatement(FIND_ID_Q);
             insertPC = con.prepareCall(INSERT_Q);
             updatePC = con.prepareCall(UPDATE_Q);
-            deletePS = con.prepareStatement(DELETE_Q);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,43 +87,52 @@ public class CustomerDB implements ICustomerDB {
     }
 
     @Override
-    public Customer findByPhoneNo(String phoneNo) throws DataAccessException, SQLException {
- 
-    	ResultSet rs;
-    	Customer customer = null;
-    	
-    	findByPhoneNoPS.setString(1, phoneNo);
-    	rs = this.findByPhoneNoPS.executeQuery();
-    	
-    	if(rs.next()) {
-    		customer = buildObject(rs);
-    	}
-        
+    public Customer findByPhoneNo(String phoneNo) throws DataAccessException {
+        final Customer customer;
+
+        try {
+            findByPhoneNoPS.setString(1, phoneNo);
+            ResultSet rs = this.findByPhoneNoPS.executeQuery();
+
+            if (!rs.next()) {
+                throw new DataAccessException("Unable to find a customer");
+            }
+
+            customer = buildObject(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Unable to find a customer");
+        }
+
         return customer;
     }
 
-    //
     @Override
-    public Customer findId(int id) throws DataAccessException, SQLException {
-        ResultSet rs; 
-        Customer customer = null;
-        
-        findIdPS.setInt(1, id);
-        rs = this.findIdPS.executeQuery();
-        
-        if(rs.next()) {
-        	customer = buildObject(rs);
+    public Customer findId(int id) throws DataAccessException {
+        final Customer customer;
+
+        try {
+            findIdPS.setInt(1, id);
+            ResultSet rs = this.findIdPS.executeQuery();
+
+            if (!rs.next()) {
+                throw new DataAccessException("Unable to find a customer");
+            }
+
+            customer = buildObject(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Unable to find a customer");
         }
         
         return customer;
     }
 
     @Override
-    public Customer create(String firstName, String lastName, String email, String phoneNo) throws DataWriteException{
-        
-    	Customer customer = new Customer();
+    public Customer create(String firstName, String lastName, String email, String phoneNo) throws DataWriteException {
+    	final Customer customer = new Customer();
     	
-    	try{
+    	try {
     		insertPC.setString(1, firstName);
     		insertPC.setString(2, lastName);
     		insertPC.setString(3, email);
@@ -143,30 +145,30 @@ public class CustomerDB implements ICustomerDB {
     		customer.setLastName(lastName);
     		customer.setEmail(email);
     		customer.setPhoneNo(phoneNo);
-    		
     	} catch(SQLException e) {
-    		
+    		e.printStackTrace();
+
+    		throw new DataWriteException("Unable to create customer");
     	}
-    	
-    	
+
     	return customer;
     }
 
     @Override
-    public void update(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException, SQLException {
-    	
-    	updatePC.setInt(1, id);
-    	updatePC.setString(2, firstName);
-    	updatePC.setString(3, lastName);
-    	updatePC.setString(4, firstName);
-    	updatePC.setString(5, firstName);
-    	
-    	updatePC.executeQuery();
-    }
-
-    @Override
-    public void delete(int id) throws DataWriteException, SQLException {
-    	deletePS.setInt(1, id);
-    	deletePS.executeUpdate();
+    public void update(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException, DataAccessException {
+        try {
+            updatePC.setInt(1, id);
+            updatePC.setString(2, firstName);
+            updatePC.setString(3, lastName);
+            updatePC.setString(4, firstName);
+            updatePC.setString(5, firstName);
+            final int affected = updatePC.executeUpdate();
+            if (affected == 0) {
+                throw new DataAccessException("Unable to find any customer to update");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataWriteException("Unable to update customer");
+        }
     }
 }

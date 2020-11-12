@@ -12,9 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomerControllerTest {
     private CustomerController customerController = new CustomerController();
@@ -60,22 +58,20 @@ public class CustomerControllerTest {
 
     @Test
     @DisplayName("Can add a person to the database")
-    void testAddPersonToDatabase() throws DataWriteException, SQLException {
-    	
+    void testAddPersonToDatabase() throws DataWriteException {
+    	// Arrange
         final String firstName = "Patrick";
         final String lastName = "Jensen";
         final String email = "patrick@ucn.dk";
         final String phoneNo = "23423422";
-        
         final Customer customer = new Customer(firstName, lastName, email, phoneNo);
     	final Customer returnCustomer;
-        
-        
+
+    	// Act
     	returnCustomer = customerController.create(customer);
     	
-    	
+    	// Assert
     	assertNotNull(returnCustomer);
-//        fail(); -- can outcomment
     }
 
 
