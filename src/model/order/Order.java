@@ -6,7 +6,6 @@ import model.order_invoice.OrderInvoice;
 import model.order_line.OrderLine;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Order {
@@ -18,10 +17,7 @@ public class Order {
     private Customer customer;
     private Employee employee;
 
-    public Order() {
-        this.orderLines = new HashSet<>();
-        this.orderInvoices = new HashSet<>();
-    }
+    public Order() {}
 
     public Order(int id, LocalDateTime date, OrderStatus status, Set<OrderLine> orderLines,
                  Set<OrderInvoice> orderInvoices, Customer customer, Employee employee) {
