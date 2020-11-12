@@ -1,5 +1,5 @@
 package database;
 
-interface ProjectDao {
+public interface ProjectDao {
 
 }
