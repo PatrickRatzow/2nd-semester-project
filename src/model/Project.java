@@ -1,13 +1,14 @@
 package model;
 
 public class Project {
+    private int id;
     private String name;
     private Price price;
 
-    public Project() {
-    }
+    public Project() {}
 
-    public Project(String name, Price price) {
+    public Project(int id, String name, Price price) {
+        this.id = id;
         this.name = name;
         this.price = price;
     }
@@ -26,5 +27,13 @@ public class Project {
 
     public void setPrice(Price price) {
         this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
