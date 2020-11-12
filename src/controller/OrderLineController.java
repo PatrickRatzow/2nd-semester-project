@@ -1,4 +1,4 @@
-package services;
+package controller;
 
 import database.*;
 import model.Order;
@@ -8,14 +8,9 @@ import model.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderLineService {
-    private final OrderLineDao orderLineDao;
-    private final ProductDao productDao;
-
-    public OrderLineService(OrderLineDao orderLineDao, ProductDao productDao) {
-        this.orderLineDao = orderLineDao;
-        this.productDao = productDao;
-    }
+public class OrderLineController {
+    private final OrderLineDao orderLineDao = new OrderLineDaoMsSql();
+    private final ProductDao productDao = new ProductDaoMsSql();
 
     public List<OrderLine> findAllByOrderId(int orderId) throws DataAccessException {
         final List<OrderLine> orderLines = new ArrayList<>();

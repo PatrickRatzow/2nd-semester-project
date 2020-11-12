@@ -73,13 +73,9 @@ public class CustomerDaoMsSql implements CustomerDao {
         final List<Customer> customers;
 
         try {
-            ResultSet rs = this.findAllPS.executeQuery();
+            ResultSet rs = findAllPS.executeQuery();
             customers = buildObjects(rs);
         } catch (SQLException e) {
-            throw new DataAccessException("Unable to find any customers");
-        }
-
-        if (customers.size() == 0) {
             throw new DataAccessException("Unable to find any customers");
         }
 

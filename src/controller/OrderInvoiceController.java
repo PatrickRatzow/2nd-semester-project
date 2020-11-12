@@ -1,19 +1,15 @@
-package services;
+package controller;
 
-import database.CustomerDao;
 import database.DataAccessException;
 import database.OrderInvoiceDao;
+import database.OrderInvoiceDaoMsSql;
 import model.Order;
 import model.OrderInvoice;
 
 import java.util.List;
 
-public class OrderInvoiceService {
-    private final OrderInvoiceDao orderInvoiceDao;
-
-    public OrderInvoiceService(OrderInvoiceDao orderInvoiceDao, CustomerDao customerDao) {
-        this.orderInvoiceDao = orderInvoiceDao;
-    }
+public class OrderInvoiceController {
+    private final OrderInvoiceDao orderInvoiceDao = new OrderInvoiceDaoMsSql();
 
     public List<OrderInvoice> findAllByOrderId(int orderId) throws DataAccessException {
         List<OrderInvoice> orderInvoices = orderInvoiceDao.findAllByOrderId(orderId);

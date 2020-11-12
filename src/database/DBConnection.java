@@ -57,7 +57,7 @@ public class DBConnection {
                             sql.append(line).append("\n");
                         }
                         final PreparedStatement ps = prepareStatement(sql.toString());
-                        //System.out.println(p.getFileName());
+                        System.out.println(p.getFileName());
                         ps.execute();
                     } catch (IOException | SQLException e) {
                         e.printStackTrace();

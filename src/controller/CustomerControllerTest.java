@@ -4,16 +4,14 @@ import database.DBConnection;
 import database.DataAccessException;
 import database.DataWriteException;
 import model.Customer;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CustomerControllerTest {
     private CustomerController customerController = new CustomerController();
 
@@ -23,6 +21,7 @@ public class CustomerControllerTest {
     }
 
     @Test
+    @Order(1)
     @DisplayName("findAll() returns expected amount of customers")
     void testCanFindAll() throws DataAccessException {
         // Arrange
