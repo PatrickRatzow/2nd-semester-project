@@ -1,5 +1,7 @@
 package model;
 
+import model.product.Product;
+
 public class CheapestProduct {
     private Product product;
     private Price price;

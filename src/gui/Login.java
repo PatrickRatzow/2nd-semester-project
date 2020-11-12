@@ -1,9 +1,9 @@
 package gui;
 
 import controller.EmployeeController;
-import controller.WrongPasswordException;
-import database.DataAccessException;
-import model.Employee;
+import exception.DataAccessException;
+import exception.WrongPasswordException;
+import model.employee.Employee;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

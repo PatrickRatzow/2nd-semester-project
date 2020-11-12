@@ -1,10 +1,10 @@
 package controller;
 
-import database.CustomerDao;
-import database.CustomerDaoMsSql;
-import database.DataAccessException;
-import database.DataWriteException;
-import model.Customer;
+import exception.DataAccessException;
+import exception.DataWriteException;
+import model.customer.Customer;
+import model.customer.CustomerDao;
+import model.customer.CustomerDaoMsSql;
 
 import java.util.List;
 

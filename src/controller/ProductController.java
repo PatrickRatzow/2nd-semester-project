@@ -1,12 +1,12 @@
 package controller;
 
-import database.DataAccessException;
-import database.DataWriteException;
-import database.ProductDao;
-import database.ProductDaoMsSql;
-import model.Product;
-import model.ProductCategory;
-import model.Supplier;
+import exception.DataAccessException;
+import exception.DataWriteException;
+import model.product.Product;
+import model.product.ProductDao;
+import model.product.ProductDaoMsSql;
+import model.product_category.ProductCategory;
+import model.supplier.Supplier;
 
 import java.util.List;
 

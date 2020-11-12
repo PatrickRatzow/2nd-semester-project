@@ -1,6 +1,11 @@
 package model;
 
-import java.util.*;
+import model.product.Product;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The type Product type.
