@@ -2,6 +2,7 @@ package controller;
 
 import database.DBConnection;
 import database.DataAccessException;
+import database.DataWriteException;
 import model.Customer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -51,15 +53,29 @@ public class CustomerControllerTest {
 
     @Test
     @DisplayName("Cannot find non-existent customer in database by name")
-    void testCanFindCustomerByPhoneNo_shouldReturnNullValueFromDatabase() {
-        fail();
+    void testCanFindCustomerByPhoneNo_shouldReturnNullValueFromDatabase() throws DataWriteException, SQLException {
+    	fail();
     }
 
 
     @Test
     @DisplayName("Can add a person to the database")
-    void testAddPersonToDatabase() {
-        fail();
+    void testAddPersonToDatabase() throws DataWriteException, SQLException {
+    	
+        final String firstName = "Patrick";
+        final String lastName = "Jensen";
+        final String email = "patrick@ucn.dk";
+        final String phoneNo = "23423422";
+        
+        final Customer customer = new Customer(firstName, lastName, email, phoneNo);
+    	final Customer returnCustomer;
+        
+        
+    	returnCustomer = customerController.create(customer);
+    	
+    	
+    	assertNotNull(returnCustomer);
+//        fail(); -- can outcomment
     }
 
 

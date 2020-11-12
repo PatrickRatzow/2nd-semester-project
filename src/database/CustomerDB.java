@@ -6,6 +6,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,14 @@ public class CustomerDB implements ICustomerDB {
     private PreparedStatement findByPhoneNoPS;
     private static final String FIND_ALL_Q = "SELECT * FROM GetCustomers";
     private PreparedStatement findAllPS;
+    private static final String FIND_ID_Q = "";
+    private PreparedStatement findIdPS;
     private static final String INSERT_Q = "{CALL InsertCustomer(?, ?, ?, ?, ?)}";
     private CallableStatement insertPC;
     private static final String UPDATE_Q = "{CALL UpdateCustomer(?, ?, ?, ?, ?)}";
     private CallableStatement updatePC;
+    private static final String DELETE_Q = "";
+    private PreparedStatement deletePS;
 
     public CustomerDB() {
         init();
@@ -29,8 +34,10 @@ public class CustomerDB implements ICustomerDB {
         try {
             findByPhoneNoPS = con.prepareStatement(FIND_BY_PHONENO_Q);
             findAllPS = con.prepareStatement(FIND_ALL_Q);
+            findIdPS = con.prepareStatement(FIND_ID_Q);
             insertPC = con.prepareCall(INSERT_Q);
             updatePC = con.prepareCall(UPDATE_Q);
+            deletePS = con.prepareStatement(DELETE_Q);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,27 +94,79 @@ public class CustomerDB implements ICustomerDB {
     }
 
     @Override
-    public List<Customer> findByPhoneNo(String phoneNo) throws DataAccessException {
-        return null;
+    public Customer findByPhoneNo(String phoneNo) throws DataAccessException, SQLException {
+ 
+    	ResultSet rs;
+    	Customer customer = null;
+    	
+    	findByPhoneNoPS.setString(1, phoneNo);
+    	rs = this.findByPhoneNoPS.executeQuery();
+    	
+    	if(rs.next()) {
+    		customer = buildObject(rs);
+    	}
+        
+        return customer;
+    }
+
+    //
+    @Override
+    public Customer findId(int id) throws DataAccessException, SQLException {
+        ResultSet rs; 
+        Customer customer = null;
+        
+        findIdPS.setInt(1, id);
+        rs = this.findIdPS.executeQuery();
+        
+        if(rs.next()) {
+        	customer = buildObject(rs);
+        }
+        
+        return customer;
     }
 
     @Override
-    public Customer findId(int id) throws DataAccessException {
-        return null;
+    public Customer create(String firstName, String lastName, String email, String phoneNo) throws DataWriteException{
+        
+    	Customer customer = new Customer();
+    	
+    	try{
+    		insertPC.setString(1, firstName);
+    		insertPC.setString(2, lastName);
+    		insertPC.setString(3, email);
+    		insertPC.setString(4, phoneNo);
+    		insertPC.registerOutParameter(5, Types.INTEGER);
+    		insertPC.execute();
+    		
+    		customer.setId(insertPC.getInt(5));
+    		customer.setFirstName(firstName);
+    		customer.setLastName(lastName);
+    		customer.setEmail(email);
+    		customer.setPhoneNo(phoneNo);
+    		
+    	} catch(SQLException e) {
+    		
+    	}
+    	
+    	
+    	return customer;
     }
 
     @Override
-    public Customer create(String firstName, String lastName, String email, String phoneNo) throws DataWriteException {
-        return null;
+    public void update(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException, SQLException {
+    	
+    	updatePC.setInt(1, id);
+    	updatePC.setString(2, firstName);
+    	updatePC.setString(3, lastName);
+    	updatePC.setString(4, firstName);
+    	updatePC.setString(5, firstName);
+    	
+    	updatePC.executeQuery();
     }
 
     @Override
-    public void update(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException {
-
-    }
-
-    @Override
-    public void delete(int id) throws DataWriteException {
-
+    public void delete(int id) throws DataWriteException, SQLException {
+    	deletePS.setInt(1, id);
+    	deletePS.executeUpdate();
     }
 }
