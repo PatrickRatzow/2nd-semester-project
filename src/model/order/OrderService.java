@@ -12,9 +12,10 @@ import model.order_line.OrderLine;
 import model.order_line.OrderLineService;
 import model.project.Project;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
 
 public class OrderService {
     private final OrderDao orderDao = new OrderDaoMsSql();
@@ -23,12 +24,11 @@ public class OrderService {
     private final CustomerController customerController = new CustomerController();
     private final EmployeeController employeeController = new EmployeeController();
 
-    public Order findById(int orderId) throws DataAccessException {
+    private Order buildObject(OrderDto orderDto) throws DataAccessException {
         // Setup
         final Order order = new Order();
 
         // Get our order
-        OrderDto orderDto = orderDao.findById(orderId);
         Employee employee = employeeController.findById(orderDto.getEmployeeId());
         Customer customer = customerController.findById(orderDto.getCustomerId());
         // Start populating the order
@@ -39,14 +39,29 @@ public class OrderService {
         order.setEmployee(employee);
 
         // Now find all our order lines for that order
-        Set<OrderLine> orderLines = new HashSet<>(orderLineService.findAllByOrderId(orderId));
+        Set<OrderLine> orderLines = new HashSet<>(orderLineService.findAllByOrderId(orderDto.getId()));
         order.setOrderLines(orderLines);
 
         // Get the invoices
-        Set<OrderInvoice> orderInvoices = new HashSet<>(orderInvoiceService.findAllByOrderId(orderId));
+        Set<OrderInvoice> orderInvoices = new HashSet<>(orderInvoiceService.findAllByOrderId(orderDto.getId()));
         order.setOrderInvoices(orderInvoices);
 
         return order;
+    }
+
+    public Order findById(int orderId) throws DataAccessException {
+        return buildObject(orderDao.findById(orderId));
+    }
+
+    public List<Order> findByProjectId(int orderId) throws DataAccessException {
+        List<Order> orders = new ArrayList<>();
+        // Setup
+        List<OrderDto> orderDtos = orderDao.findAllByProjectId(orderId);
+        for (OrderDto orderDto : orderDtos) {
+            orders.add(buildObject(orderDto));
+        }
+
+        return orders;
     }
 
     public Order create(Order order, Project project) throws DataWriteException {

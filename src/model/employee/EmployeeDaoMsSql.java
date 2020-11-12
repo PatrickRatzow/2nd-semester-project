@@ -111,6 +111,7 @@ public class EmployeeDaoMsSql implements EmployeeDao {
             employee = buildObject(rs);
         } catch (SQLException e) {
             e.printStackTrace();
+
             throw new DataAccessException("Unable to find an employee with id " + id);
         }
 
@@ -125,10 +126,6 @@ public class EmployeeDaoMsSql implements EmployeeDao {
             ResultSet rs = this.findAllPS.executeQuery();
             employees = buildObjects(rs);
         } catch (SQLException e) {
-            throw new DataAccessException("Unable to find any employees");
-        }
-
-        if (employees.size() == 0) {
             throw new DataAccessException("Unable to find any employees");
         }
 
@@ -159,6 +156,7 @@ public class EmployeeDaoMsSql implements EmployeeDao {
             employee.setPassword(new Password(password));
         } catch (SQLException e) {
             e.printStackTrace();
+
             throw new DataWriteException("Unable to create employee");
         }
 
