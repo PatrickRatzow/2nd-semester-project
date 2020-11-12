@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDB implements ICustomerDB {
+public class CustomerDaoMsSql implements CustomerDao {
     private static final String FIND_BY_PHONENO_Q = "SELECT * FROM GetCustomers WHERE customerPhoneNo = ?";
     private PreparedStatement findByPhoneNoPS;
     private static final String FIND_ALL_Q = "SELECT * FROM GetCustomers";
@@ -18,7 +18,7 @@ public class CustomerDB implements ICustomerDB {
     private static final String UPDATE_Q = "{CALL UpdateCustomer(?, ?, ?, ?, ?)}";
     private CallableStatement updatePC;
 
-    public CustomerDB() {
+    public CustomerDaoMsSql() {
         init();
     }
 

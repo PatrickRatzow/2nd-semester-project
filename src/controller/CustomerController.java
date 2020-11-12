@@ -1,19 +1,19 @@
 package controller;
 
-import database.CustomerDB;
+import database.CustomerDao;
+import database.CustomerDaoMsSql;
 import database.DataAccessException;
 import database.DataWriteException;
-import database.ICustomerDB;
 import model.Customer;
 
 import java.util.List;
 
 public class CustomerController {
-    ICustomerDB customerDB;
+    CustomerDao customerDB;
 
     // TODO: Discuss if we should make this an inline initialisation in the customerDB variable. Talk with teacher
     public CustomerController() {
-    	customerDB = new CustomerDB();
+    	customerDB = new CustomerDaoMsSql();
     }
 
     public List<Customer> findAll() throws DataAccessException {

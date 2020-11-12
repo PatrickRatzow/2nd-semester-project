@@ -4,7 +4,7 @@ import model.Customer;
 
 import java.util.List;
 
-public interface ICustomerDB {
+public interface CustomerDao {
     List<Customer> findAll() throws DataAccessException;
     Customer findByPhoneNo(String name) throws DataAccessException;
     Customer findId(int id) throws DataAccessException;
