@@ -2,15 +2,15 @@ package controller;
 
 import database.DataAccessException;
 import database.DataWriteException;
-import database.EmployeeDB;
-import database.IEmployeeDB;
+import database.EmployeeDao;
+import database.EmployeeDaoMsSql;
 import model.Employee;
 import util.Validator;
 
 import java.util.List;
 
 public class EmployeeController {
-    IEmployeeDB employeeDB = new EmployeeDB();
+    EmployeeDao employeeDB = new EmployeeDaoMsSql();
 
     public List<Employee> findAll() throws DataAccessException {
         return employeeDB.findAll();

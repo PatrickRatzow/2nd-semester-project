@@ -4,7 +4,7 @@ import model.Employee;
 
 import java.util.List;
 
-public interface IEmployeeDB {
+public interface EmployeeDao {
     Employee findByUsername(String username) throws DataAccessException;
     List<Employee> findAll() throws DataAccessException;
     Employee create(String firstName, String lastName, String email,

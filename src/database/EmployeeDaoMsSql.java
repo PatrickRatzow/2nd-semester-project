@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDB implements IEmployeeDB {
+public class EmployeeDaoMsSql implements EmployeeDao {
     private static final String FIND_BY_USERNAME_Q = "SELECT * FROM GetEmployees WHERE employeeUsername = ?";
     private PreparedStatement findByUsernamePS;
     private static final String FIND_ALL_Q = "SELECT * FROM GetEmployees";
@@ -17,7 +17,7 @@ public class EmployeeDB implements IEmployeeDB {
     private static final String UPDATE_Q = "{CALL UpdateEmployee(?, ?, ?, ?, ?, ?, ?)}";
     private CallableStatement updatePC;
 
-    public EmployeeDB() {
+    public EmployeeDaoMsSql() {
         init();
     }
 
