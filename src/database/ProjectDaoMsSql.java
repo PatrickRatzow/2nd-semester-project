@@ -8,16 +8,18 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ProjectDaoMsSql implements ProjectDao {
-	private static final String GET_ALL_PROJECTS_Q = "";
-	private PreparedStatement getAllProjectsPS;
-	private static final String INSERT_PERSON_TO_PROJECT_Q = "";
-	private PreparedStatement insertPersonToProjectPS;
-	private static final String GET_PERSON_ON_PROJECT_Q = "";
-	private PreparedStatement getPersonOnProjectPS;
-	private static final String INSER_Q = "";
+	private static final String FIND_ALL_Q = "";
+	private PreparedStatement findAllPS;
+	private static final String ADD_PERSON_TO_PROJECT_Q = "";
+	private PreparedStatement addPersonToProjectPS;
+	// TODO: Discuss if this is really needed? I don't see why you need to find a specific person on a specific project.
+	private static final String FIND_PERSON_ON_PROJECT_Q = "";
+	private PreparedStatement findPersonOnProjectPS;
+	private static final String INSERT_Q = "";
 	private PreparedStatement insertPS;
 	private static final String UPDATE_Q = "";
 	private PreparedStatement updatePS;
+	// TODO: Discuss if this is needed? Due to foreign key constraints do we even allow deleting?
 	private static final String DELETE_Q = "";
 	private PreparedStatement deletePS;
 	
@@ -29,8 +31,7 @@ public class ProjectDaoMsSql implements ProjectDao {
 		final DBConnection con = DBConnection.getInstance();
 
 		try {
-			getAllProjectsPS = con.prepareStatement(GET_ALL_PROJECTS_Q);
-
+			findAllPS = con.prepareStatement(FIND_ALL_Q);
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
