@@ -12,7 +12,7 @@ import java.sql.*;
  */
 public class DBConnection {
     private Connection connection = null;
-    private static DBConnection dbConnection;
+    private volatile static DBConnection dbConnection;
 
     private static final String driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String serverAddress = "hildur.ucn.dk";
@@ -75,7 +75,7 @@ public class DBConnection {
      *
      * @return the instance
      */
-    public static DBConnection getInstance() {
+    public synchronized static DBConnection getInstance() {
         if (dbConnection == null) {
             dbConnection = new DBConnection();
         }
