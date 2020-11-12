@@ -1,7 +1,6 @@
 package model.order_invoice;
 
 import model.Price;
-import model.customer.Customer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,27 +9,17 @@ public class OrderInvoice {
     private int id;
     private LocalDateTime createdAt;
     private LocalDate dueDate;
-    private Customer customer;
     private Price toPay;
     private Price hasPaid;
 
     public OrderInvoice() {}
 
-    public OrderInvoice(int id, LocalDateTime createdAt, LocalDate dueDate, Customer customer, Price toPay, Price hasPaid) {
+    public OrderInvoice(int id, LocalDateTime createdAt, LocalDate dueDate, Price toPay, Price hasPaid) {
         this.id = id;
         this.createdAt = createdAt;
         this.dueDate = dueDate;
-        this.customer = customer;
         this.toPay = toPay;
         this.hasPaid = hasPaid;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public LocalDateTime getCreatedAt() {
