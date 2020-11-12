@@ -2,8 +2,8 @@ package controller;
 
 import database.DataAccessException;
 import database.DataWriteException;
-import database.IProductDB;
-import database.ProductDB;
+import database.ProductDao;
+import database.ProductDaoMsSql;
 import model.Product;
 import model.ProductCategory;
 import model.Supplier;
@@ -11,7 +11,7 @@ import model.Supplier;
 import java.util.List;
 
 public class ProductController {
-    IProductDB productDB = new ProductDB();
+    ProductDao productDB = new ProductDaoMsSql();
 
     public List<Product> findAll() {
         return productDB.findAll();

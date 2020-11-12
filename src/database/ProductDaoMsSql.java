@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * The type Product db.
  */
-public class ProductDB implements IProductDB {
+public class ProductDaoMsSql implements ProductDao {
     private static final String FIND_ALL_Q = "SELECT * FROM GetProducts";
     private PreparedStatement findAllPS;
     private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE productId = ?";
@@ -29,7 +29,7 @@ public class ProductDB implements IProductDB {
     /**
      * Instantiates a new Product db.
      */
-    public ProductDB() {
+    public ProductDaoMsSql() {
         init();
     }
 

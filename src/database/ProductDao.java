@@ -4,7 +4,7 @@ import model.Product;
 
 import java.util.List;
 
-public interface IProductDB {
+public interface ProductDao {
     List<Product> findAll();
     Product findById(int id) throws DataAccessException;
     List<Product> findByName(String name) throws DataAccessException;
