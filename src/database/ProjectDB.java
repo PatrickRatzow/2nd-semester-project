@@ -50,12 +50,20 @@ public class ProjectDB {
 		
 	}
 	
+	public void findProjectByCustomer() {
+		
+	}
+	
 	public Person findPerson(Person p) {
 		
 		return p;
 	}
 	
 	public void create() {
+		
+	}
+	
+	public void addPersonToProject() {
 		
 	}
 	

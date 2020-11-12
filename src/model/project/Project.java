@@ -1,18 +1,30 @@
 package model.project;
 
+import java.util.Set;
+
 import model.Price;
+import model.customer.Customer;
+import model.employee.Employee;
+import model.order.Order;
 
 public class Project {
     private int id;
     private String name;
     private Price price;
+    private Set<Order> orderSet;
+    private Set<Customer> customerSet;
+    private Set<Employee> employeeSet;
 
     public Project() {}
 
-    public Project(int id, String name, Price price) {
+    public Project(int id, String name, Price price, Set<Order> orderSet,
+    		Set<Customer> customerSet, Set<Employee> employeeSet) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.orderSet = orderSet;
+        this.customerSet = customerSet;
+        this.employeeSet = employeeSet;
     }
 
     public String getName() {
@@ -38,4 +50,28 @@ public class Project {
     public void setId(int id) {
         this.id = id;
     }
+
+	public Set<Order> getOrderSet() {
+		return orderSet;
+	}
+
+	public void setOrderSet(Set<Order> orderSet) {
+		this.orderSet = orderSet;
+	}
+
+	public Set<Customer> getCustomerSet() {
+		return customerSet;
+	}
+
+	public void setCustomerSet(Set<Customer> customerSet) {
+		this.customerSet = customerSet;
+	}
+
+	public Set<Employee> getEmployeeSet() {
+		return employeeSet;
+	}
+
+	public void setEmployeeSet(Set<Employee> employeeSet) {
+		this.employeeSet = employeeSet;
+	}
 }
