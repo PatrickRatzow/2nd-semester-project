@@ -13,7 +13,7 @@ public class CustomerDaoMsSql implements CustomerDao {
     private PreparedStatement findByPhoneNoPS;
     private static final String FIND_ALL_Q = "SELECT * FROM GetCustomers";
     private PreparedStatement findAllPS;
-    private static final String FIND_ID_Q = "";
+    private static final String FIND_ID_Q = "SELECT * FROM GetCustomers WHERE personId = ?";
     private PreparedStatement findIdPS;
     private static final String INSERT_Q = "{CALL InsertCustomer(?, ?, ?, ?, ?)}";
     private CallableStatement insertPC;

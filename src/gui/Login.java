@@ -4,6 +4,8 @@ import controller.EmployeeController;
 import exception.DataAccessException;
 import exception.WrongPasswordException;
 import model.employee.Employee;
+import model.project.Project;
+import model.project.ProjectService;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -39,6 +41,14 @@ public class Login {
 				}
 			}
 		});
+
+		ProjectService service = new ProjectService();
+		try {
+			Project project = service.findById(1);
+			System.out.println(project.getName());
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Login() {

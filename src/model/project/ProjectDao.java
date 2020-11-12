@@ -1,27 +1,18 @@
 package model.project;
 
 
-import java.util.List;
-
 import exception.DataAccessException;
 import model.Person;
 
-public interface ProjectDao {
+import java.util.List;
 
-	public List<Project> findAll() throws DataAccessException;
-	
-	public void findProjectByCustomer();
-	
-	public Person findPersonOnProject(Person p);
-	
-	public void addPersonToProject();
-	
-	public void create();
-	
-	public void update();
-	
-	public void delete();
-	
-	
-	
+public interface ProjectDao {
+	List<ProjectDto> findAll() throws DataAccessException;
+	ProjectDto findById(int id) throws DataAccessException;
+	void findProjectByCustomer();
+	Person findPersonOnProject(Person p);
+	void addPersonToProject();
+	void create();
+	void update();
+	void delete();
 }

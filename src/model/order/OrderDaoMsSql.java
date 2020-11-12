@@ -30,6 +30,7 @@ public class OrderDaoMsSql implements OrderDao {
 
         try {
             findAllByProjectIdPS = con.prepareStatement(FIND_ALL_BY_PROJECT_ID_Q);
+            findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
             insertOrderPS = con.prepareStatement(INSERT_ORDER_Q, Statement.RETURN_GENERATED_KEYS);
             insertOrderLinePS = con.prepareStatement(INSERT_ORDER_LINE_Q);
             insertOrderInvoicePS = con.prepareStatement(INSERT_ORDER_INVOICE_Q);
@@ -43,6 +44,11 @@ public class OrderDaoMsSql implements OrderDao {
 
         try {
             order.setId(rs.getInt("orderId"));
+            order.setStatus(OrderStatus.values()[(rs.getInt("orderStatus")) - 1]);
+            // TODO: Fix this
+            order.setCreatedAt(LocalDateTime.now());
+            order.setCustomerId(rs.getInt("customerId"));
+            order.setEmployeeId(rs.getInt("employeeId"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

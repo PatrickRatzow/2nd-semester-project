@@ -1,5 +1,7 @@
 CREATE TABLE projects (
     id INT IDENTITY(1, 1),
+    name NVARCHAR(255) NOT NULL,
+    price INT NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -91,4 +93,20 @@ CREATE TABLE orders_lines (
     PRIMARY KEY(orderId, productId),
     FOREIGN KEY(orderId) REFERENCES orders(id),
     FOREIGN KEY(productId) REFERENCES products(id)
+);
+
+CREATE TABLE projects_to_employees (
+    projectId INT NOT NULL,
+    employeeId INT NOT NULL,
+    PRIMARY KEY(projectId, employeeId),
+    FOREIGN KEY(projectId) REFERENCES projects(id),
+    FOREIGN KEY(employeeId) REFERENCES employees(id)
+);
+
+CREATE TABLE projects_to_customers (
+    projectId INT NOT NULL,
+    customerId INT NOT NULL,
+    PRIMARY KEY(projectId, customerId),
+    FOREIGN KEY(projectId) REFERENCES projects(id),
+    FOREIGN KEY(customerId) REFERENCES customers(id)
 );

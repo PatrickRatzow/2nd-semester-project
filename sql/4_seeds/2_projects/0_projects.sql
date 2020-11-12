@@ -1,7 +1,5 @@
-SET IDENTITY_INSERT projects ON
-INSERT INTO projects(id)
-VALUES (1),
-       (2),
-       (3),
-       (4)
-SET IDENTITY_INSERT projects OFF
+INSERT INTO projects(name, price)
+VALUES ('The Project', 2500000),
+       ('The Minker', 99500000),
+       ('Hus #1', 1500000),
+       ('Hus #2', 5500000)

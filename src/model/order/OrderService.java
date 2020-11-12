@@ -12,9 +12,7 @@ import model.order_line.OrderLine;
 import model.order_line.OrderLineService;
 import model.project.Project;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class OrderService {
@@ -51,17 +49,6 @@ public class OrderService {
 
     public Order findById(int orderId) throws DataAccessException {
         return buildObject(orderDao.findById(orderId));
-    }
-
-    public List<Order> findAllByProjectId(int orderId) throws DataAccessException {
-        List<Order> orders = new ArrayList<>();
-        // Setup
-        List<OrderDto> orderDtos = orderDao.findAllByProjectId(orderId);
-        for (OrderDto orderDto : orderDtos) {
-            orders.add(buildObject(orderDto));
-        }
-
-        return orders;
     }
 
     public Order create(Order order, Project project) throws DataWriteException {

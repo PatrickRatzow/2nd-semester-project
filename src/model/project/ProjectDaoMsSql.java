@@ -1,5 +1,6 @@
 package model.project;
 
+import exception.DataAccessException;
 import model.DBConnection;
 import model.Person;
 import model.Price;
@@ -8,17 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import exception.DataAccessException;
+import java.util.Map;
 
 public class ProjectDaoMsSql implements ProjectDao {
-	private static final String FIND_ALL_Q = "select * from project";
+	private static final String FIND_ALL_Q = "SELECT * FROM GetProjects";
 	private PreparedStatement findAllPS;
-	private static final String ADD_PERSON_TO_PROJECT_Q = "";
-	private PreparedStatement addPersonToProjectPS;
-	private static final String FIND_PROJECT_BY_CUSTOMER_Q = "";
-	private PreparedStatement findProjectByCustomer;
+	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE projectId = ?";
+	private PreparedStatement findByIdPS;
 	// TODO: Discuss if this is really needed? I don't see why you need to find a specific person on a specific project.
 	private static final String FIND_PERSON_ON_PROJECT_Q = "";
 	private PreparedStatement findPersonOnProjectPS;
@@ -38,19 +37,15 @@ public class ProjectDaoMsSql implements ProjectDao {
 		DBConnection con = DBConnection.getInstance();
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
-			addPersonToProjectPS = con.prepareStatement(ADD_PERSON_TO_PROJECT_Q);
-			findProjectByCustomer = con.prepareStatement(FIND_PROJECT_BY_CUSTOMER_Q);
-			
-
+			findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
 		} catch(SQLException e) {
-			
+			e.printStackTrace();
 		}
-		
 	}
 	
 	@Override
-	public List<Project> findAll() throws DataAccessException {
-		final List<Project> projects;
+	public List<ProjectDto> findAll() throws DataAccessException {
+		final List<ProjectDto> projects;
 		
 		try {
 			ResultSet rs = this.findAllPS.executeQuery();
@@ -61,6 +56,21 @@ public class ProjectDaoMsSql implements ProjectDao {
 		
 		return projects;
 		
+	}
+
+	@Override
+	public ProjectDto findById(int id) throws DataAccessException {
+		final ProjectDto project;
+
+		try {
+			findByIdPS.setInt(1, id);
+			ResultSet rs = findByIdPS.executeQuery();
+			project = buildObjects(rs).get(0);
+		} catch(SQLException e) {
+			throw new DataAccessException("Unable to find any projects");
+		}
+
+		return project;
 	}
 	
 	@Override
@@ -96,31 +106,53 @@ public class ProjectDaoMsSql implements ProjectDao {
 		
 	}
 	
-	private Project buildObject(ResultSet rs) {
-		final Project project = new Project();
-		
-		try {
-			project.setId(rs.getInt(""));
-			project.setName(rs.getString(""));
-			project.setPrice(new Price(rs.getInt("")));
-		} catch(SQLException e) {
-			
-		}
-		
-		return project;
+	private ProjectDto buildObject(ResultSet rs) throws SQLException {
+		final ProjectDto project = new ProjectDto();
+		project.setId(rs.getInt("projectId"));
+		project.setName(rs.getString("projectName"));
+		project.setPrice(new Price(rs.getInt("projectPrice")));
+
+		return mergeObject(project, rs);
 	}
-	
-	private List<Project> buildObjects(ResultSet rs) {
-		final List<Project> projects = new ArrayList<>();
-		
+
+	private ProjectDto mergeObject(ProjectDto projectDto, ResultSet rs) throws SQLException {
+		int customerId = rs.getInt("customerId");
+		int employeeId = rs.getInt("employeeId");
+		int orderId = rs.getInt("orderId");
+
+		if (customerId != 0) {
+			projectDto.addCustomerId(customerId);
+		}
+		if (employeeId != 0) {
+			projectDto.addEmployeeId(employeeId);
+		}
+		if (orderId != 0) {
+			projectDto.addOrderId(orderId);
+		}
+
+		return projectDto;
+	}
+
+	private List<ProjectDto> buildObjects(ResultSet rs) throws DataAccessException {
+		final Map<Integer, ProjectDto> projectDtoMap = new HashMap<>();
+
 		try {
-			while(rs.next()) {
-				projects.add(buildObject(rs));
+			while (rs.next()) {
+				int projectId = rs.getInt("projectId");
+				ProjectDto projectDto = projectDtoMap.get(projectId);
+
+				if (projectDto == null) {
+					projectDtoMap.put(projectId, buildObject(rs));
+				} else {
+					projectDtoMap.put(projectId, mergeObject(projectDto, rs));
+				}
 			}
-		} catch(SQLException e) {
-			
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+			throw new DataAccessException("Unable to build project");
 		}
 		
 		
-		return projects;
+		return new ArrayList<>(projectDtoMap.values());
 	}}
