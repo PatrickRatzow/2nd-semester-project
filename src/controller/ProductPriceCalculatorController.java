@@ -45,21 +45,11 @@ public class ProductPriceCalculatorController {
             final int size = products.size();
             for (int j = 0; i < size; i++) {
                 Product product = products.get(j);
-                /*
-                 * We need to clone our specification as Java uses internal pointers.
-                 *
-                 * Meaning that if we were to manipulate the specification parameter every iteration
-                 * we would manipulate the same object over and over.
-                 *
-                 * By cloning it we make sure each iteration has it's own unique object.
-                 */
-                Specification spec = specification.clone();
-                spec.setProduct(product);
+                specification.setProduct(product);
                 // For testing we have this locked at 1
-                spec.setQuantity(1);
-
+                specification.setQuantity(1);
                 // Supply the specification + our consumer
-                Thread thread = new CheapestAlgorithm(spec, this::updateCheapest);
+                Thread thread = new CheapestAlgorithm(specification, this::updateCheapest);
                 threads.add(thread);
             }
         }
