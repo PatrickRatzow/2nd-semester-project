@@ -1,20 +1,25 @@
 package model;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Order {
     private LocalDateTime date;
     private OrderStatus status;
-    private List<OrderLine> orderLines;
+    private final Set<OrderLine> orderLines;
+    private final Set<OrderInvoice> orderInvoices;
 
     public Order() {
+        this.orderLines = new HashSet<>();
+        this.orderInvoices = new HashSet<>();
     }
 
-    public Order(LocalDateTime date, OrderStatus status, List<OrderLine> orderLines) {
+    public Order(LocalDateTime date, OrderStatus status, Set<OrderLine> orderLines, Set<OrderInvoice> orderInvoices) {
         this.date = date;
         this.status = status;
         this.orderLines = orderLines;
+        this.orderInvoices = orderInvoices;
     }
 
     public LocalDateTime getDate() {
@@ -31,13 +36,5 @@ public class Order {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
-    }
-
-    public List<OrderLine> getOrderLines() {
-        return orderLines;
-    }
-
-    public void setOrderLines(List<OrderLine> orderLines) {
-        this.orderLines = orderLines;
     }
 }

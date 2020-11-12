@@ -63,7 +63,8 @@ CREATE TABLE customers (
 
 CREATE TABLE orders (
     id INT IDENTITY(1, 1),
-    createdDate DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+    status INT NOT NULL,
+    createdDate DATETIME2 NOT NULL,
     projectId INT NOT NULL,
     employeeId INT NOT NULL,
     PRIMARY KEY(id),
