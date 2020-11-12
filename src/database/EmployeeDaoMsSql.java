@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDaoMsSql implements EmployeeDao {
+    private static final String FIND_BY_ID_Q = "SELECT * FROM GetEmployees WHERE personId = ?";
+    private PreparedStatement findByIdPS;
     private static final String FIND_BY_USERNAME_Q = "SELECT * FROM GetEmployees WHERE employeeUsername = ?";
     private PreparedStatement findByUsernamePS;
     private static final String FIND_ALL_Q = "SELECT * FROM GetEmployees";
@@ -25,6 +27,7 @@ public class EmployeeDaoMsSql implements EmployeeDao {
         DBConnection con = DBConnection.getInstance();
 
         try {
+            findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
             findByUsernamePS = con.prepareStatement(FIND_BY_USERNAME_Q);
             findAllPS = con.prepareStatement(FIND_ALL_Q);
             insertPC = con.prepareCall(INSERT_Q);
@@ -86,6 +89,27 @@ public class EmployeeDaoMsSql implements EmployeeDao {
 
         if (employee == null) {
             throw new DataAccessException("Unable to find an employee");
+        }
+
+        return employee;
+    }
+
+    @Override
+    public Employee findById(int id) throws DataAccessException {
+        final Employee employee;
+
+        try {
+            findByIdPS.setInt(1, id);
+            ResultSet rs = this.findByIdPS.executeQuery();
+
+            if (!rs.next()) {
+                throw new DataAccessException("Unable to find an employee with id " + id);
+            }
+
+            employee = buildObject(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Unable to find an employee with id " + id);
         }
 
         return employee;

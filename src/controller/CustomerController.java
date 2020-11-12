@@ -33,7 +33,8 @@ public class CustomerController {
 
     // TODO: Can still make changes here
     public Customer findId(int id) throws DataAccessException {
-    	return customerDB.findId(id);
+        return null;
+    	//return customerDB.findId(id);
     }
     
     // TODO: Make changes

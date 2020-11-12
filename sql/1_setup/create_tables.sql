@@ -67,19 +67,21 @@ CREATE TABLE orders (
     createdDate DATETIME2 NOT NULL,
     projectId INT NOT NULL,
     employeeId INT NOT NULL,
+    customerId INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(projectId) REFERENCES projects(id),
-    FOREIGN KEY(employeeId) REFERENCES employees(id)
+    FOREIGN KEY(employeeId) REFERENCES employees(id),
+    FOREIGN KEY(customerId) REFERENCES customers(id)
 );
 
 CREATE TABLE orders_invoices (
-    id INT IDENTITY(1, 1),
     orderId INT NOT NULL,
-    customerId INT NOT NULL,
-    paid INT NOT NULL,
-    PRIMARY KEY(id),
+    createdAt DATETIME2 NOT NULL,
+    dueDate DATE NOT NULL,
+    toPay INT NOT NULL,
+    hasPaid INT NOT NULL,
+    PRIMARY KEY(orderId),
     FOREIGN KEY(orderId) REFERENCES orders(id),
-    FOREIGN KEY(customerId) REFERENCES customers(id)
 );
 
 CREATE TABLE orders_lines (

@@ -1,13 +1,12 @@
 package database;
 
-import model.*;
+import model.Order;
+import model.OrderStatus;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class OrderDaoMsSql implements OrderDao {
     private static final String FIND_ALL_BY_PROJECT_ID_Q = "SELECT * FROM GetOrders WHERE projectId = ?";
@@ -26,7 +25,7 @@ public class OrderDaoMsSql implements OrderDao {
     }
 
     private void init() {
-        DBConnection con = DBConnection.getInstance();
+        final DBConnection con = DBConnection.getInstance();
 
         try {
             findAllByProjectIdPS = con.prepareStatement(FIND_ALL_BY_PROJECT_ID_Q);
@@ -38,11 +37,10 @@ public class OrderDaoMsSql implements OrderDao {
         }
     }
 
-    private Order buildObject(ResultSet rs) {
-        final Order order = new Order();
+    private OrderDto buildObject(ResultSet rs) {
+        final OrderDto order = new OrderDto();
 
         try {
-            // Fuck we need to do a lot of shit here
             order.setId(rs.getInt("orderId"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,8 +50,8 @@ public class OrderDaoMsSql implements OrderDao {
     }
 
 
-    private List<Order> buildObjects(ResultSet rs) {
-        final List<Order> orders = new ArrayList<>();
+    private List<OrderDto> buildObjects(ResultSet rs) {
+        final List<OrderDto> orders = new ArrayList<>();
 
         try {
             while (rs.next()) {
@@ -67,8 +65,8 @@ public class OrderDaoMsSql implements OrderDao {
     }
 
     @Override
-    public List<Order> findAllByProjectId(int id) throws DataAccessException {
-        final List<Order> orders;
+    public List<OrderDto> findAllByProjectId(int id) throws DataAccessException {
+        final List<OrderDto> orders;
 
         try {
             findAllByProjectIdPS.setInt(1, id);
@@ -84,8 +82,8 @@ public class OrderDaoMsSql implements OrderDao {
     }
 
     @Override
-    public Order findById(int id) throws DataAccessException {
-        final Order order;
+    public OrderDto findById(int id) throws DataAccessException {
+        final OrderDto order;
 
         try {
             findByIdPS.setInt(1, id);
@@ -106,47 +104,22 @@ public class OrderDaoMsSql implements OrderDao {
     }
 
     @Override
-    public Order create(LocalDateTime createdAt, Set<OrderLine> orderLines, Set<OrderInvoice> invoices,
-                        Project project, Employee employee, Customer customer, Price paid) throws DataWriteException {
+    public Order create(LocalDateTime createdAt, OrderStatus status, int customerId, int employeeId, int projectId)
+            throws DataWriteException {
         final Order order = new Order();
 
         try {
             insertOrderPS.setTimestamp(1, Timestamp.valueOf(createdAt));
-            insertOrderPS.setInt(2, project.getId());
-            insertOrderPS.setInt(3, employee.getId());
-            insertOrderPS.setInt(4, OrderStatus.AWAITING.getValue());
+            insertOrderPS.setInt(2, customerId);
+            insertOrderPS.setInt(3, employeeId);
+            insertOrderPS.setInt(4, projectId);
+            insertOrderPS.setInt(5, OrderStatus.AWAITING.getValue());
             insertOrderPS.executeQuery();
 
             final int id = insertOrderPS.getGeneratedKeys().getInt(1);
             order.setId(id);
             order.setDate(createdAt);
             order.setStatus(OrderStatus.AWAITING);
-            order.setCustomer(customer);
-            order.setEmployee(employee);
-            order.setOrderLines(orderLines);
-
-            for (OrderLine orderLine : orderLines) {
-                insertOrderLinePS.setInt(1, id);
-                insertOrderLinePS.setInt(2, orderLine.getProduct().getId());
-                insertOrderLinePS.setInt(3, orderLine.getQuantity());
-                insertOrderLinePS.execute();
-            }
-
-            final Set<OrderInvoice> orderInvoices = new HashSet<>();
-            for (OrderInvoice invoice : invoices) {
-                insertOrderInvoicePS.setInt(1, id);
-                insertOrderInvoicePS.setInt(2, customer.getId());
-                insertOrderInvoicePS.setInt(3, paid.getAmount());
-                insertOrderInvoicePS.executeQuery();
-
-                final int invoiceId = insertOrderInvoicePS.getGeneratedKeys().getInt(1);
-                final OrderInvoice orderInvoice = new OrderInvoice();
-                orderInvoice.setId(invoiceId);
-                orderInvoice.setProduct(invoice.getProduct());
-                orderInvoice.setQuantity(invoice.getQuantity());
-                orderInvoices.add(orderInvoice);
-            }
-            order.setOrderInvoices(orderInvoices);
         } catch(SQLException e) {
             e.printStackTrace();
 

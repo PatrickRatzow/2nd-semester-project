@@ -1,15 +1,15 @@
 package database;
 
-import model.*;
+import model.Order;
+import model.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 public interface OrderDao {
-    List<Order> findAllByProjectId(int id) throws DataAccessException;
-    Order findById(int id) throws DataAccessException;
-    Order create(LocalDateTime createdAt, Set<OrderLine> orderLines, Set<OrderInvoice> invoices,
-                 Project project, Employee employee, Customer customer, Price paid) throws DataWriteException;
+    List<OrderDto> findAllByProjectId(int id) throws DataAccessException;
+    OrderDto findById(int id) throws DataAccessException;
+    Order create(LocalDateTime createdAt, OrderStatus status, int customerId, int employeeId, int projectId)
+            throws DataWriteException;
     // I don't see why you'd need update + delete tbh, can discuss this.
 }

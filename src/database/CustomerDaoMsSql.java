@@ -108,7 +108,7 @@ public class CustomerDaoMsSql implements CustomerDao {
     }
 
     @Override
-    public Customer findId(int id) throws DataAccessException {
+    public Customer findById(int id) throws DataAccessException {
         final Customer customer;
 
         try {
