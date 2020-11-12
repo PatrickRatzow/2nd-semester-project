@@ -53,7 +53,7 @@ public class OrderService {
         return buildObject(orderDao.findById(orderId));
     }
 
-    public List<Order> findByProjectId(int orderId) throws DataAccessException {
+    public List<Order> findAllByProjectId(int orderId) throws DataAccessException {
         List<Order> orders = new ArrayList<>();
         // Setup
         List<OrderDto> orderDtos = orderDao.findAllByProjectId(orderId);
