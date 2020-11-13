@@ -37,12 +37,12 @@ public class OrderService {
         order.setEmployee(employee);
 
         // Now find all our order lines for that order
-        Set<OrderLine> orderLines = new HashSet<>(orderLineService.findAllByOrderId(orderDto.getId()));
+        Set<OrderLine> orderLines = new HashSet<>(orderLineService.findByOrderId(orderDto.getId()));
         order.setOrderLines(orderLines);
 
         // Get the invoices
-        Set<OrderInvoice> orderInvoices = new HashSet<>(orderInvoiceService.findAllByOrderId(orderDto.getId()));
-        order.setOrderInvoices(orderInvoices);
+        OrderInvoice orderInvoice = orderInvoiceService.findById(orderDto.getId());
+        order.setOrderInvoice(orderInvoice);
 
         return order;
     }
@@ -63,10 +63,8 @@ public class OrderService {
             orderLineService.create(order, orderLine);
         }
 
-        // Create all the invoices
-        for (OrderInvoice orderInvoice : order.getOrderInvoices()) {
-            orderInvoiceService.create(order, orderInvoice);
-        }
+        // Create invoice
+        orderInvoiceService.create(order, order.getOrderInvoice());
 
         return order;
     }

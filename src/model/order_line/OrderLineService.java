@@ -14,9 +14,9 @@ public class OrderLineService {
     private final OrderLineDao orderLineDao = new OrderLineDaoMsSql();
     private final ProductDao productDao = new ProductDaoMsSql();
 
-    public List<OrderLine> findAllByOrderId(int orderId) throws DataAccessException {
+    public List<OrderLine> findByOrderId(int id) throws DataAccessException {
         final List<OrderLine> orderLines = new ArrayList<>();
-        final List<OrderLineDto> orderLinesDto = orderLineDao.findAllByOrderId(orderId);
+        final List<OrderLineDto> orderLinesDto = orderLineDao.findByOrderId(id);
         for (OrderLineDto orderLineDto : orderLinesDto) {
             Product product = productDao.findById(orderLineDto.getProductId());
 

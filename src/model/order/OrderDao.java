@@ -4,10 +4,8 @@ import exception.DataAccessException;
 import exception.DataWriteException;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface OrderDao {
-    List<OrderDto> findAllByProjectId(int id) throws DataAccessException;
     OrderDto findById(int id) throws DataAccessException;
     Order create(LocalDateTime createdAt, OrderStatus status, int customerId, int employeeId, int projectId)
             throws DataWriteException;

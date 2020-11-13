@@ -50,18 +50,31 @@ public class OrderLineDaoMsSql implements OrderLineDao {
 
         return orderLineDtos;
     }
+
     @Override
-    public List<OrderLineDto> findAllByOrderId(int id) throws DataAccessException {
+    public List<OrderLineDto> findByOrderId(int id) throws DataAccessException {
         final List<OrderLineDto> orderLineDtos;
 
         try {
             findAllByOrderId.setInt(1, id);
             ResultSet rs = findAllByOrderId.executeQuery();
+
             orderLineDtos = buildObjects(rs);
         } catch (SQLException e) {
             e.printStackTrace();
 
             throw new DataAccessException("Unable to find any order lines");
+        }
+
+        return orderLineDtos;
+    }
+
+    @Override
+    public List<List<OrderLineDto>> findByOrderId(List<Integer> ids) throws DataAccessException {
+        final List<List<OrderLineDto>> orderLineDtos = new ArrayList<>();
+
+        for (int id : ids) {
+            orderLineDtos.add(findByOrderId(id));
         }
 
         return orderLineDtos;

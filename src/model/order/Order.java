@@ -13,19 +13,19 @@ public class Order {
     private LocalDateTime date;
     private OrderStatus status;
     private Set<OrderLine> orderLines;
-    private Set<OrderInvoice> orderInvoices;
+    private OrderInvoice orderInvoice;
     private Customer customer;
     private Employee employee;
 
     public Order() {}
 
     public Order(int id, LocalDateTime date, OrderStatus status, Set<OrderLine> orderLines,
-                 Set<OrderInvoice> orderInvoices, Customer customer, Employee employee) {
+                 OrderInvoice orderInvoice, Customer customer, Employee employee) {
         this.id = id;
         this.date = date;
         this.status = status;
         this.orderLines = orderLines;
-        this.orderInvoices = orderInvoices;
+        this.orderInvoice = orderInvoice;
         this.customer = customer;
         this.employee = employee;
     }
@@ -62,12 +62,12 @@ public class Order {
         this.orderLines = orderLines;
     }
 
-    public void setOrderInvoices(Set<OrderInvoice> orderInvoices) {
-        this.orderInvoices = orderInvoices;
+    public void setOrderInvoice(OrderInvoice orderInvoice) {
+        this.orderInvoice = orderInvoice;
     }
 
-    public Set<OrderInvoice> getOrderInvoices() {
-        return orderInvoices;
+    public OrderInvoice getOrderInvoice() {
+        return orderInvoice;
     }
 
     public Customer getCustomer() {

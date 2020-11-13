@@ -7,7 +7,9 @@ import model.DBConnection;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDaoMsSql implements OrderDao {
     private static final String FIND_ALL_BY_PROJECT_ID_Q = "SELECT * FROM GetOrders WHERE projectId = ?";
@@ -40,7 +42,7 @@ public class OrderDaoMsSql implements OrderDao {
     }
 
     private OrderDto buildObject(ResultSet rs) {
-        final OrderDto order = new OrderDto();
+        OrderDto order = new OrderDto();
 
         try {
             order.setId(rs.getInt("orderId"));
@@ -49,6 +51,9 @@ public class OrderDaoMsSql implements OrderDao {
             order.setCreatedAt(LocalDateTime.now());
             order.setCustomerId(rs.getInt("customerId"));
             order.setEmployeeId(rs.getInt("employeeId"));
+            order.setOrderId(rs.getInt("orderInvoiceId"));
+
+            order = mergeObject(order, rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,36 +61,32 @@ public class OrderDaoMsSql implements OrderDao {
         return order;
     }
 
+    private OrderDto mergeObject(OrderDto orderDto, ResultSet rs) throws SQLException {
+        int orderLineId = rs.getInt("orderLineId");
+        int orderInvoiceId = rs.getInt("orderInvoiceId");
 
-    private List<OrderDto> buildObjects(ResultSet rs) {
-        final List<OrderDto> orders = new ArrayList<>();
-
-        try {
-            while (rs.next()) {
-                orders.add(buildObject(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (orderLineId != 0) {
+            orderDto.addOrderLineId(orderLineId);
         }
 
-        return orders;
+        return orderDto;
     }
 
-    @Override
-    public List<OrderDto> findAllByProjectId(int id) throws DataAccessException {
-        final List<OrderDto> orders;
+    private List<OrderDto> buildObjects(ResultSet rs) throws SQLException {
+        final Map<Integer, OrderDto> orderDtoMap = new HashMap<>();
 
-        try {
-            findAllByProjectIdPS.setInt(1, id);
-            ResultSet rs = findAllByProjectIdPS.executeQuery();
-            orders = buildObjects(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        while (rs.next()) {
+            int orderId = rs.getInt("orderId");
+            OrderDto orderDto = orderDtoMap.get(orderId);
 
-            throw new DataAccessException("Unable to search in the database");
+            if (orderDto == null) {
+                orderDtoMap.put(orderId, buildObject(rs));
+            } else {
+                orderDtoMap.put(orderId, mergeObject(orderDto, rs));
+            }
         }
 
-        return orders;
+        return new ArrayList<>(orderDtoMap.values());
     }
 
     @Override
@@ -95,16 +96,15 @@ public class OrderDaoMsSql implements OrderDao {
         try {
             findByIdPS.setInt(1, id);
             ResultSet rs = findByIdPS.executeQuery();
-
-            if (!rs.next()) {
-                throw new DataAccessException("Unable to find any order with this ID");
-            }
-
-            order = buildObject(rs);
+            order = buildObjects(rs).get(0);
         } catch (SQLException e) {
             e.printStackTrace();
 
             throw new DataAccessException("Unable to find any order with this ID");
+        }
+
+        if (order == null) {
+            throw new DataAccessException("Unable to find any order with id " + id);
         }
 
         return order;

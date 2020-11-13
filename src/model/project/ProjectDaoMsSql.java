@@ -35,6 +35,7 @@ public class ProjectDaoMsSql implements ProjectDao {
 	
 	private void init() {
 		DBConnection con = DBConnection.getInstance();
+
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);
 			findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
@@ -152,7 +153,6 @@ public class ProjectDaoMsSql implements ProjectDao {
 
 			throw new DataAccessException("Unable to build project");
 		}
-		
-		
+
 		return new ArrayList<>(projectDtoMap.values());
 	}}

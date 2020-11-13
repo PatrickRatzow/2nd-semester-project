@@ -1,10 +1,11 @@
 package model.order_invoice;
 
+import exception.DataAccessException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface OrderInvoiceDao {
-    List<OrderInvoice> findAllByOrderId(int id);
+    OrderInvoice findById(int id) throws DataAccessException;
     OrderInvoice create(int orderId, LocalDateTime createdAt, LocalDate dueDate, int toPay, int hasPaid);
 }
