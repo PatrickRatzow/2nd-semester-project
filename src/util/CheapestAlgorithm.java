@@ -2,8 +2,8 @@ package util;
 
 import model.CheapestProduct;
 import model.Price;
+import model.Product;
 import model.Specification;
-import model.product.Product;
 
 import java.util.Random;
 import java.util.function.Consumer;

@@ -3,9 +3,9 @@ package gui;
 import controller.EmployeeController;
 import exception.DataAccessException;
 import exception.WrongPasswordException;
-import model.employee.Employee;
-import model.project.Project;
-import model.project.ProjectService;
+import model.Employee;
+import model.Project;
+import service.mssql.ProjectService;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

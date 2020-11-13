@@ -1,7 +1,5 @@
 package model;
 
-import model.product.Product;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;

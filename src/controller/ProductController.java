@@ -2,11 +2,11 @@ package controller;
 
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.product.Product;
-import model.product.ProductDao;
-import model.product.ProductDaoMsSql;
-import model.product_category.ProductCategory;
-import model.supplier.Supplier;
+import model.Product;
+import model.ProductCategory;
+import model.Supplier;
+import persistance.ProductDao;
+import persistance.mssql.ProductDaoMsSql;
 
 import java.util.List;
 

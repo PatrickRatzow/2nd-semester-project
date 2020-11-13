@@ -3,10 +3,10 @@ package controller;
 import exception.DataAccessException;
 import exception.DataWriteException;
 import model.DBConnection;
-import model.product.Product;
-import model.product_category.ProductCategory;
-import model.product_category.ProductCategoryDao;
-import model.product_category.ProductCategoryDaoMsSql;
+import model.Product;
+import model.ProductCategory;
+import persistance.ProductCategoryDao;
+import persistance.mssql.ProductCategoryDaoMsSql;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -3,11 +3,8 @@ package test.controller;
 import controller.ProductController;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.DBConnection;
-import model.Price;
-import model.product.Product;
-import model.product_category.ProductCategory;
-import model.supplier.Supplier;
+import model.*;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;

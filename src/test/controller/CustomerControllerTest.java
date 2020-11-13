@@ -3,8 +3,8 @@ package test.controller;
 import controller.CustomerController;
 import exception.DataAccessException;
 import exception.DataWriteException;
+import model.Customer;
 import model.DBConnection;
-import model.customer.Customer;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;

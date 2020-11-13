@@ -5,7 +5,7 @@ import exception.DataAccessException;
 import exception.DataWriteException;
 import exception.WrongPasswordException;
 import model.DBConnection;
-import model.employee.Employee;
+import model.Employee;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;

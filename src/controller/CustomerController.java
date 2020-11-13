@@ -2,9 +2,9 @@ package controller;
 
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.customer.Customer;
-import model.customer.CustomerDao;
-import model.customer.CustomerDaoMsSql;
+import model.Customer;
+import persistance.CustomerDao;
+import persistance.mssql.CustomerDaoMsSql;
 
 import java.util.List;
 

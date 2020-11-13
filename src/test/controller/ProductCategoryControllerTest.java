@@ -4,7 +4,7 @@ import controller.ProductCategoryController;
 import exception.DataAccessException;
 import exception.DataWriteException;
 import model.DBConnection;
-import model.product_category.ProductCategory;
+import model.ProductCategory;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;

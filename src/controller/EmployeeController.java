@@ -3,9 +3,9 @@ package controller;
 import exception.DataAccessException;
 import exception.DataWriteException;
 import exception.WrongPasswordException;
-import model.employee.Employee;
-import model.employee.EmployeeDao;
-import model.employee.EmployeeDaoMsSql;
+import model.Employee;
+import persistance.EmployeeDao;
+import persistance.mssql.EmployeeDaoMsSql;
 import util.Validator;
 
 import java.util.List;
