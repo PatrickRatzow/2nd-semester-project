@@ -44,15 +44,15 @@ public class Password implements Comparable<Password> {
                 .array();
     }
 
-    private static byte[] generateSalt() {
-        SecureRandom random = new SecureRandom();
+    private byte[] generateSalt() {
+        final SecureRandom random = new SecureRandom();
         final byte[] salt = new byte[16];
         random.nextBytes(salt);
 
         return salt;
     }
 
-    private static byte[] hashPassword(final String password, final byte[] salt) {
+    private byte[] hashPassword(final String password, final byte[] salt) {
         byte[] bytes = new byte[64];
 
         try {
