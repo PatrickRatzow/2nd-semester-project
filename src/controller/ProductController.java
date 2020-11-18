@@ -5,13 +5,13 @@ import exception.DataWriteException;
 import model.Product;
 import model.ProductCategory;
 import model.Supplier;
-import persistance.ProductDao;
-import persistance.mssql.ProductDaoMsSql;
+import persistence.dao.ProductDao;
+import persistence.dao.mssql.MsSqlProductDao;
 
 import java.util.List;
 
 public class ProductController {
-    ProductDao productDB = new ProductDaoMsSql();
+    ProductDao productDB = new MsSqlProductDao();
 
     public List<Product> findAll() {
         return productDB.findAll();

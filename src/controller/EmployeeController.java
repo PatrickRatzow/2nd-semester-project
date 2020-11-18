@@ -4,14 +4,14 @@ import exception.DataAccessException;
 import exception.DataWriteException;
 import exception.WrongPasswordException;
 import model.Employee;
-import persistance.EmployeeDao;
-import persistance.mssql.EmployeeDaoMsSql;
+import persistence.dao.EmployeeDao;
+import persistence.dao.mssql.MsSqlEmployeeDao;
 import util.Validator;
 
 import java.util.List;
 
 public class EmployeeController {
-    EmployeeDao employeeDao = new EmployeeDaoMsSql();
+    EmployeeDao employeeDao = new MsSqlEmployeeDao();
 
     public List<Employee> findAll() throws DataAccessException {
         return employeeDao.findAll();

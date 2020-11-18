@@ -3,13 +3,13 @@ package controller;
 import exception.DataAccessException;
 import exception.DataWriteException;
 import model.Customer;
-import persistance.CustomerDao;
-import persistance.mssql.CustomerDaoMsSql;
+import persistence.dao.CustomerDao;
+import persistence.dao.mssql.MsSqlCustomerDao;
 
 import java.util.List;
 
 public class CustomerController {
-    CustomerDao customerDao = new CustomerDaoMsSql();
+    CustomerDao customerDao = new MsSqlCustomerDao();
 
     public List<Customer> findAll() throws DataAccessException {
         return customerDao.findAll();

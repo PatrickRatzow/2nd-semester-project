@@ -1,20 +1,18 @@
 package controller;
 
 import exception.DataAccessException;
-import exception.DataWriteException;
-import model.DBConnection;
-import model.Product;
 import model.ProductCategory;
-import persistance.ProductCategoryDao;
-import persistance.mssql.ProductCategoryDaoMsSql;
-
-import java.sql.SQLException;
-import java.util.List;
+import persistence.repository.ProductCategoryRepository;
+import persistence.repository.mssql.MsSqlProductCategoryRepository;
 
 public class ProductCategoryController {
-    ProductCategoryDao productCategoryDB = new ProductCategoryDaoMsSql();
-    ProductController productController = new ProductController();
+    ProductCategoryRepository productCategoryRepository = new MsSqlProductCategoryRepository();
 
+    public ProductCategory findById(int id) throws DataAccessException {
+        return productCategoryRepository.findById(id);
+    }
+
+    /*
     public List<ProductCategory> findAll(boolean populateProducts) throws SQLException, DataAccessException {
         if (!populateProducts) {
             return productCategoryDB.findAll();
@@ -134,4 +132,5 @@ public class ProductCategoryController {
         // Loop over each product and call the addProduct method with it
         products.forEach(category::addProduct);
     }
+     */
 }

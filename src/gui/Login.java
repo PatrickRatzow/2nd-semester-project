@@ -5,7 +5,7 @@ import exception.DataAccessException;
 import exception.WrongPasswordException;
 import model.Employee;
 import model.Project;
-import service.mssql.ProjectService;
+import persistence.repository.mssql.MsSqlProjectRepository;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -42,7 +42,7 @@ public class Login {
 			}
 		});
 
-		ProjectService service = new ProjectService();
+		MsSqlProjectRepository service = new MsSqlProjectRepository();
 		try {
 			Project project = service.findById(1);
 			System.out.println(project.getName());

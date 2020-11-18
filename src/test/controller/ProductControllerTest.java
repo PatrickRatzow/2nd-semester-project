@@ -3,9 +3,12 @@ package test.controller;
 import controller.ProductController;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.*;
-import org.junit.jupiter.api.Order;
+import model.Price;
+import model.Product;
+import model.ProductCategory;
+import model.Supplier;
 import org.junit.jupiter.api.*;
+import persistence.connection.mssql.MsSqlPersistenceConnection;
 
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -22,7 +25,7 @@ class ProductControllerTest {
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-        DBConnection.getInstance().startTransaction();
+        MsSqlPersistenceConnection.getInstance().startTransaction();
     }
 
     @BeforeEach
@@ -261,6 +264,6 @@ class ProductControllerTest {
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-        DBConnection.getInstance().rollbackTransaction();
+        MsSqlPersistenceConnection.getInstance().rollbackTransaction();
     }
 }
