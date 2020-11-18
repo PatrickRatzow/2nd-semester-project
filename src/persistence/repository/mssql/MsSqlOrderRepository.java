@@ -3,9 +3,16 @@ package persistence.repository.mssql;
 import exception.DataAccessException;
 import exception.DataWriteException;
 import model.*;
+import persistence.dao.CustomerDao;
+import persistence.dao.EmployeeDao;
 import persistence.dao.OrderDao;
+import persistence.dao.OrderInvoiceDao;
+import persistence.dao.mssql.MsSqlCustomerDao;
+import persistence.dao.mssql.MsSqlEmployeeDao;
 import persistence.dao.mssql.MsSqlOrderDao;
-import persistence.repository.*;
+import persistence.dao.mssql.MsSqlOrderInvoiceDao;
+import persistence.repository.OrderLineRepository;
+import persistence.repository.OrderRepository;
 import persistence.repository.mssql.dto.OrderDto;
 
 import java.util.HashSet;
@@ -15,9 +22,9 @@ import java.util.concurrent.atomic.AtomicReference;
 public class MsSqlOrderRepository implements OrderRepository {
     private final OrderDao orderDao = new MsSqlOrderDao();
     private final OrderLineRepository orderLineRepository = new MsSqlOrderLineRepository();
-    private final OrderInvoiceRepository orderInvoiceRepository = new MsSqlOrderInvoiceRepository();
-    private final CustomerRepository customerRepository = new MsSqlCustomerRepository();
-    private final EmployeeRepository employeeRepository = new MsSqlEmployeeRepository();
+    private final OrderInvoiceDao orderInvoiceDao = new MsSqlOrderInvoiceDao();
+    private final CustomerDao customerDao = new MsSqlCustomerDao();
+    private final EmployeeDao employeeDao = new MsSqlEmployeeDao();
 
     private Order buildObject(final OrderDto orderDto) throws DataAccessException {
         // Setup
@@ -26,24 +33,24 @@ public class MsSqlOrderRepository implements OrderRepository {
         order.setDate(orderDto.getCreatedAt());
         order.setStatus(orderDto.getStatus());
 
-        AtomicReference<DataAccessException> dataAccessException = new AtomicReference<>();
-        Thread employeeThread = new Thread(() -> {
+        final AtomicReference<DataAccessException> dataAccessException = new AtomicReference<>();
+        final Thread employeeThread = new Thread(() -> {
             try {
-                final Employee employee = employeeRepository.findById(orderDto.getEmployeeId());
+                final Employee employee = employeeDao.findById(orderDto.getEmployeeId());
                 order.setEmployee(employee);
             } catch (DataAccessException e) {
                 dataAccessException.set(e);
             }
         });
-        Thread customerThread = new Thread(() -> {
+        final Thread customerThread = new Thread(() -> {
             try {
-                final Customer customer = customerRepository.findById(orderDto.getCustomerId());
+                final Customer customer = customerDao.findById(orderDto.getCustomerId());
                 order.setCustomer(customer);
             } catch (DataAccessException e) {
                 dataAccessException.set(e);
             }
         });
-        Thread orderLinesThread = new Thread(() -> {
+        final Thread orderLinesThread = new Thread(() -> {
             try {
                 final Set<OrderLine> orderLines = new HashSet<>(orderLineRepository.findById(orderDto.getId()));
                 order.setOrderLines(orderLines);
@@ -51,9 +58,9 @@ public class MsSqlOrderRepository implements OrderRepository {
                 dataAccessException.set(e);
             }
         });
-        Thread invoiceThread = new Thread(() -> {
+        final Thread invoiceThread = new Thread(() -> {
             try {
-                final OrderInvoice orderInvoice = orderInvoiceRepository.findById(orderDto.getId());
+                final OrderInvoice orderInvoice = orderInvoiceDao.findById(orderDto.getId());
                 order.setOrderInvoice(orderInvoice);
             } catch (DataAccessException e) {
                 dataAccessException.set(e);
@@ -101,7 +108,7 @@ public class MsSqlOrderRepository implements OrderRepository {
 
         // Create invoice
         final OrderInvoice orderInvoice = order.getOrderInvoice();
-        orderInvoiceRepository.create(order.getId(), orderInvoice);
+        orderInvoiceDao.create(order.getId(), orderInvoice);
 
         return order;
     }
