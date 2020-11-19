@@ -51,6 +51,7 @@ public class MsSqlDataSource implements DataSource {
             startTransaction();
 
             Files.walk(Paths.get("./sql/"))
+                .sorted()
                 /* Only allow SQL files */
                 .filter(p -> p.getFileName().toString().endsWith(".sql"))
                 /* Execute each script sequentially to ensure that everything gets created correctly */
