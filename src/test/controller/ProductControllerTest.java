@@ -8,7 +8,7 @@ import model.Product;
 import model.ProductCategory;
 import model.Supplier;
 import org.junit.jupiter.api.*;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -25,7 +25,7 @@ class ProductControllerTest {
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-        MsSqlPersistenceConnection.getInstance().startTransaction();
+        MsSqlDataSource.getInstance().startTransaction();
     }
 
     @BeforeEach
@@ -264,6 +264,6 @@ class ProductControllerTest {
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-        MsSqlPersistenceConnection.getInstance().rollbackTransaction();
+        MsSqlDataSource.getInstance().rollbackTransaction();
     }
 }

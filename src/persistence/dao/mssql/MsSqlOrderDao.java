@@ -4,7 +4,7 @@ import exception.DataAccessException;
 import exception.DataWriteException;
 import model.Order;
 import model.OrderStatus;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 import persistence.dao.OrderDao;
 import persistence.repository.mssql.dto.OrderDto;
 
@@ -26,7 +26,7 @@ public class MsSqlOrderDao implements OrderDao {
     }
 
     private void init() {
-        final MsSqlPersistenceConnection con = MsSqlPersistenceConnection.getInstance();
+        final MsSqlDataSource con = MsSqlDataSource.getInstance();
 
         try {
             findByIdPS = con.prepareStatement(FIND_BY_ID_Q);

@@ -1,24 +1,25 @@
-package test.service.mssql;
+package test.persistence.dao.mssql;
 
 import exception.DataAccessException;
+import exception.DataWriteException;
 import model.Customer;
 import org.junit.jupiter.api.*;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
-import persistence.repository.CustomerRepository;
-import persistence.repository.mssql.MsSqlCustomerRepository;
+import persistence.connection.mssql.MsSqlDataSource;
+import persistence.dao.CustomerDao;
+import persistence.dao.mssql.MsSqlCustomerDao;
 
 import java.sql.SQLException;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class MsSqlCustomerRepositoryTest {
-    private CustomerRepository customerRepository = new MsSqlCustomerRepository();
+public class MsSqlCustomerDaoTest {
+    private CustomerDao customerDao = new MsSqlCustomerDao();
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-        MsSqlPersistenceConnection.getInstance().startTransaction();
+        MsSqlDataSource.getInstance().startTransaction();
     }
 
     @Test
@@ -29,7 +30,7 @@ public class MsSqlCustomerRepositoryTest {
         final int id = 3;
 
         // Act
-        customer = customerRepository.findById(id);
+        customer = customerDao.findById(id);
 
         // Assert
         assertNotNull(customer);
@@ -41,10 +42,9 @@ public class MsSqlCustomerRepositoryTest {
         // Arrange
         final int id = 1;
 
-        assertThrows(DataAccessException.class, () -> customerRepository.findById(id));
+        assertThrows(DataAccessException.class, () -> customerDao.findById(id));
     }
 
-    /*
     @Test
     @Order(1)
     @DisplayName("findAll() returns expected amount of customers")
@@ -54,7 +54,7 @@ public class MsSqlCustomerRepositoryTest {
         final int expectedSize = 2;
 
         // Act
-        customers = customerController.findAll();
+        customers = customerDao.findAll();
 
         // Assert
         assertEquals(customers.size(), expectedSize);
@@ -82,20 +82,19 @@ public class MsSqlCustomerRepositoryTest {
 
     @Test
     @DisplayName("Can add a person to the database")
-    void testAddPersonToDatabase() throws DataWriteException {
+    void testAddCustomerToDatabase() throws DataWriteException {
     	// Arrange
         final String firstName = "Patrick";
         final String lastName = "Jensen";
         final String email = "patrick@ucn.dk";
         final String phoneNo = "23423422";
-        final Customer customer = new Customer(firstName, lastName, email, phoneNo);
-    	final Customer returnCustomer;
+        final Customer customer;
 
     	// Act
-    	returnCustomer = customerController.create(customer);
+    	customer = customerDao.create(firstName, lastName, email, phoneNo);
     	
     	// Assert
-    	assertNotNull(returnCustomer);
+    	assertNotNull(customer);
     }
 
 
@@ -111,10 +110,9 @@ public class MsSqlCustomerRepositoryTest {
     void testFindEmployeeByUsernameAndPassword() {
         fail();
     }
-     */
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-        MsSqlPersistenceConnection.getInstance().rollbackTransaction();
+        MsSqlDataSource.getInstance().rollbackTransaction();
     }
 }

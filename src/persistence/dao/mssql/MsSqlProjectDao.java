@@ -1,7 +1,7 @@
 package persistence.dao.mssql;
 
 import exception.DataAccessException;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 import persistence.dao.ProjectDao;
 import persistence.repository.mssql.dto.ProjectDto;
 
@@ -34,7 +34,7 @@ public class MsSqlProjectDao implements ProjectDao {
 	}
 	
 	private void init() {
-		MsSqlPersistenceConnection con = MsSqlPersistenceConnection.getInstance();
+		MsSqlDataSource con = MsSqlDataSource.getInstance();
 
 		try {
 			findAllPS = con.prepareStatement(FIND_ALL_Q);

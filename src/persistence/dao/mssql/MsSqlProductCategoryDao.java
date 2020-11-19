@@ -3,7 +3,7 @@ package persistence.dao.mssql;
 import exception.DataAccessException;
 import exception.DataWriteException;
 import model.ProductCategory;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 import persistence.dao.ProductCategoryDao;
 import persistence.repository.mssql.dto.ProductCategoryDto;
 
@@ -33,7 +33,7 @@ public class MsSqlProductCategoryDao implements ProductCategoryDao {
     }
 
     private void init() {
-        final MsSqlPersistenceConnection con = MsSqlPersistenceConnection.getInstance();
+        final MsSqlDataSource con = MsSqlDataSource.getInstance();
 
         try {
             findAllPS = con.prepareStatement(FIND_ALL_Q);

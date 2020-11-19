@@ -3,7 +3,7 @@ package persistence.dao.mssql;
 import exception.DataAccessException;
 import exception.DataWriteException;
 import model.OrderLine;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 import persistence.dao.OrderLineDao;
 import persistence.repository.mssql.dto.OrderLineDto;
 
@@ -23,7 +23,7 @@ public class MsSqlOrderLineDao implements OrderLineDao {
     }
 
     private void init() {
-        final MsSqlPersistenceConnection con = MsSqlPersistenceConnection.getInstance();
+        final MsSqlDataSource con = MsSqlDataSource.getInstance();
 
         try {
             insertPS = con.prepareStatement(INSERT_Q);
@@ -58,7 +58,7 @@ public class MsSqlOrderLineDao implements OrderLineDao {
         final List<OrderLineDto> orderLineDtos;
 
         try {
-            PreparedStatement findAllByOrderId = MsSqlPersistenceConnection.getInstance().prepareStatement(FIND_ALL_BY_ORDER_ID_Q);
+            PreparedStatement findAllByOrderId = MsSqlDataSource.getInstance().prepareStatement(FIND_ALL_BY_ORDER_ID_Q);
             findAllByOrderId.setInt(1, id);
             ResultSet rs = findAllByOrderId.executeQuery();
 

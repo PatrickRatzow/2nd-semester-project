@@ -5,9 +5,10 @@ import exception.DataWriteException;
 import model.OrderLine;
 import model.Product;
 import persistence.dao.OrderLineDao;
+import persistence.dao.ProductDao;
 import persistence.dao.mssql.MsSqlOrderLineDao;
+import persistence.dao.mssql.MsSqlProductDao;
 import persistence.repository.OrderLineRepository;
-import persistence.repository.ProductRepository;
 import persistence.repository.mssql.dto.OrderLineDto;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class MsSqlOrderLineRepository implements OrderLineRepository {
     private final OrderLineDao orderLineDao = new MsSqlOrderLineDao();
-    private final ProductRepository productRepository = new MsSqlProductRepository();
+    private final ProductDao productDao = new MsSqlProductDao();
 
     @Override
     public List<OrderLine> findById(final int id) throws DataAccessException {
@@ -24,9 +25,9 @@ public class MsSqlOrderLineRepository implements OrderLineRepository {
 
         final List<OrderLineDto> orderLinesDto = orderLineDao.findByOrderId(id);
         for (OrderLineDto orderLineDto : orderLinesDto) {
-            Thread thread = new Thread(() -> {
+            final Thread thread = new Thread(() -> {
                 try {
-                    final Product product = productRepository.findById(orderLineDto.getProductId());
+                    final Product product = productDao.findById(orderLineDto.getProductId());
                     final OrderLine orderLine = new OrderLine(product, orderLineDto.getOrderId());
                     orderLines.add(orderLine);
                 } catch (DataAccessException e) {

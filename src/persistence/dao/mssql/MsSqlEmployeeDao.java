@@ -4,7 +4,7 @@ import exception.DataAccessException;
 import exception.DataWriteException;
 import model.Employee;
 import model.Password;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 import persistence.dao.EmployeeDao;
 
 import java.sql.*;
@@ -28,7 +28,7 @@ public class MsSqlEmployeeDao implements EmployeeDao {
     }
 
     private void init() {
-        MsSqlPersistenceConnection con = MsSqlPersistenceConnection.getInstance();
+        MsSqlDataSource con = MsSqlDataSource.getInstance();
 
         try {
             findByIdPS = con.prepareStatement(FIND_BY_ID_Q);

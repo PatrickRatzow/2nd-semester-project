@@ -1,6 +1,8 @@
 package persistence.connection.mssql;
 
-import persistence.connection.PersistenceConnection;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import persistence.connection.DataSource;
 import persistence.connection.PersistenceRepositoryFactory;
 import util.JUnit;
 
@@ -12,38 +14,37 @@ import java.sql.*;
 /**
  * The type Db connection.
  */
-public class MsSqlPersistenceConnection implements PersistenceConnection {
-    private Connection connection = null;
-    private static final MsSqlPersistenceConnection persistenceConnection = new MsSqlPersistenceConnection();
+public class MsSqlDataSource implements DataSource {
+    private static HikariDataSource ds;
+    private static Connection connection;
+    private static final MsSqlDataSource persistenceConnection = new MsSqlDataSource();
     private final MsSqlRepositoryFactory repositoryFactory = new MsSqlRepositoryFactory();
 
-    private static final String driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static final String serverAddress = "hildur.ucn.dk";
-    private static final int    serverPort = 1433;
-    private static final String password = "Password1!";
-
-    public MsSqlPersistenceConnection() {
+    public MsSqlDataSource() {
         final boolean isJUnit = JUnit.isJUnitTest();
-        final String name = isJUnit ? "dmaa0220_1083802" : "dmaa0220_1083750";
+        final String name = isJUnit ? "dmaa0220_1083750" : "dmaa0220_1083802";
 
-        String connectionString = String.format("jdbc:sqlserver://%s:%s;database=%s;user=%s;password=%s",
-                serverAddress, serverPort, name, name, password);
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        config.setMaximumPoolSize(500);
+        config.setConnectionTestQuery("SELECT GETDATE()");
+        config.setJdbcUrl("jdbc:sqlserver://hildur.ucn.dk:1433");
+        config.addDataSourceProperty("databaseName", name);
+        config.addDataSourceProperty("user", name);
+        config.addDataSourceProperty("password", "Password1!");
+        ds = new HikariDataSource(config);
+
         try {
-            Class.forName(driverClass);
-            connection = DriverManager.getConnection(connectionString);
-        } catch (ClassNotFoundException e) {
-            System.err.println("Could not load JDBC driver");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.err.println("Could not connect to database " + name + "@" + serverAddress + ":" + serverPort + " as user " + name + " using password ******");
-            System.out.println("Connection string was: " + connectionString.substring(0, connectionString.length() - password.length()) + "....");
-            e.printStackTrace();
+            connection = ds.getConnection();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         //if (isJUnit) {
-            setupDatabase();
+        setupDatabase();
         //}
     }
+
 
     private void setupDatabase() {
         try {
@@ -73,7 +74,7 @@ public class MsSqlPersistenceConnection implements PersistenceConnection {
         }
     }
 
-    public static MsSqlPersistenceConnection getInstance() {
+    public static MsSqlDataSource getInstance() {
         return persistenceConnection;
     }
 
@@ -82,12 +83,20 @@ public class MsSqlPersistenceConnection implements PersistenceConnection {
      *
      * @throws SQLException the sql exception
      */
+    public void startTransaction(Connection conn) throws SQLException {
+        conn.setAutoCommit(false);
+    }
+
     public void startTransaction() throws SQLException {
-        connection.setAutoCommit(false);
+        startTransaction(connection);
+    }
+
+    public Savepoint setSavepoint(Connection conn) throws SQLException {
+        return conn.setSavepoint();
     }
 
     public Savepoint setSavepoint() throws SQLException {
-        return connection.setSavepoint();
+        return setSavepoint(connection);
     }
 
     /**
@@ -95,9 +104,13 @@ public class MsSqlPersistenceConnection implements PersistenceConnection {
      *
      * @throws SQLException the sql exception
      */
+    public void commitTransaction(Connection conn) throws SQLException {
+        conn.commit();
+        conn.setAutoCommit(true);
+    }
+
     public void commitTransaction() throws SQLException {
-        connection.commit();
-        connection.setAutoCommit(true);
+        commitTransaction(connection);
     }
 
     /**
@@ -105,21 +118,31 @@ public class MsSqlPersistenceConnection implements PersistenceConnection {
      *
      * @throws SQLException the sql exception
      */
+    public void rollbackTransaction(Connection conn) throws SQLException {
+        conn.rollback();
+        conn.setAutoCommit(true);
+    }
+
     public void rollbackTransaction() throws SQLException {
-        connection.rollback();
-        connection.setAutoCommit(true);
+        rollbackTransaction(connection);
+    }
+
+    public void rollbackTransaction(Connection conn, Savepoint savepoint) throws SQLException {
+        conn.rollback(savepoint);
+        conn.setAutoCommit(true);
     }
 
     public void rollbackTransaction(Savepoint savepoint) throws SQLException {
-        connection.rollback(savepoint);
-        connection.setAutoCommit(true);
+        rollbackTransaction(connection, savepoint);
     }
+
 
     /**
      * Gets connection.
      *
      * @return the connection
      */
+    @Override
     public Connection getConnection() {
         return connection;
     }
@@ -131,12 +154,20 @@ public class MsSqlPersistenceConnection implements PersistenceConnection {
      * @return the prepared statement
      * @throws SQLException the sql exception
      */
+    public PreparedStatement prepareStatement(Connection conn, String sql) throws SQLException {
+        return conn.prepareStatement(sql);
+    }
+
     public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return connection.prepareStatement(sql);
+        return prepareStatement(connection, sql);
+    }
+
+    public CallableStatement prepareCall(Connection conn, String sql) throws SQLException {
+        return conn.prepareCall(sql);
     }
 
     public CallableStatement prepareCall(String sql) throws SQLException {
-        return connection.prepareCall(sql);
+        return prepareCall(connection, sql);
     }
 
     /**
@@ -147,19 +178,19 @@ public class MsSqlPersistenceConnection implements PersistenceConnection {
      * @return the prepared statement
      * @throws SQLException the sql exception
      */
+    public PreparedStatement prepareStatement(Connection conn, String sql, int autoGeneratedKeys) throws SQLException {
+        return conn.prepareStatement(sql, autoGeneratedKeys);
+    }
+
     public PreparedStatement prepareStatement(String sql, int autoGeneratedKeys) throws SQLException {
-        return connection.prepareStatement(sql, autoGeneratedKeys);
+        return prepareStatement(connection, sql, autoGeneratedKeys);
     }
 
     /**
      * Disconnect.
      */
-    public void disconnect() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void disconnect(Connection conn) throws SQLException {
+        conn.close();
     }
 
     @Override

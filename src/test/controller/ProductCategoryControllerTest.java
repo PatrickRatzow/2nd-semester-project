@@ -5,7 +5,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 
 import java.sql.SQLException;
 import java.sql.Savepoint;
@@ -14,12 +14,12 @@ import java.sql.Savepoint;
 class ProductCategoryControllerTest {
     private static ProductCategoryController productCategoryController = new ProductCategoryController();
     private static Savepoint savepoint;
-    private static MsSqlPersistenceConnection conn = MsSqlPersistenceConnection.getInstance();
+    private static MsSqlDataSource ds = MsSqlDataSource.getInstance();
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-        conn.startTransaction();
-        savepoint = conn.setSavepoint();
+        ds.startTransaction();
+        savepoint = ds.setSavepoint();
     }
 
     /*
@@ -256,7 +256,6 @@ class ProductCategoryControllerTest {
 */
     @AfterAll
     static void tearDownAll() throws SQLException {
-        conn.getConnection().setAutoCommit(false);
-        conn.rollbackTransaction(savepoint);
+        ds.rollbackTransaction(savepoint);
     }
 }

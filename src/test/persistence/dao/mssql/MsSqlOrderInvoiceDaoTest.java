@@ -1,4 +1,4 @@
-package test.service.mssql;
+package test.persistence.dao.mssql;
 
 import exception.DataAccessException;
 import exception.DataWriteException;
@@ -8,9 +8,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
-import persistence.repository.OrderInvoiceRepository;
-import persistence.repository.mssql.MsSqlOrderInvoiceRepository;
+import persistence.connection.mssql.MsSqlDataSource;
+import persistence.dao.OrderInvoiceDao;
+import persistence.dao.mssql.MsSqlOrderInvoiceDao;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -19,12 +19,12 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MsSqlOrderInvoiceRepositoryTest {
-    private final OrderInvoiceRepository orderInvoiceRepository = new MsSqlOrderInvoiceRepository();
+class MsSqlOrderInvoiceDaoTest {
+    private final OrderInvoiceDao orderInvoiceDao = new MsSqlOrderInvoiceDao();
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-        MsSqlPersistenceConnection.getInstance().startTransaction();
+       MsSqlDataSource.getInstance().startTransaction();
     }
 
     @Test
@@ -35,7 +35,7 @@ class MsSqlOrderInvoiceRepositoryTest {
         final int id = 1;
 
         // Act
-        orderInvoice = orderInvoiceRepository.findById(id);
+        orderInvoice = orderInvoiceDao.findById(id);
 
         // Assert
         assertNotNull(orderInvoice);
@@ -47,7 +47,7 @@ class MsSqlOrderInvoiceRepositoryTest {
         // Arrange
         final int id = 500;
 
-        assertThrows(DataAccessException.class, () -> orderInvoiceRepository.findById(id));
+        assertThrows(DataAccessException.class, () -> orderInvoiceDao.findById(id));
     }
 
     @Test
@@ -63,7 +63,7 @@ class MsSqlOrderInvoiceRepositoryTest {
         final OrderInvoice returnOrderInvoice;
 
         // Act
-        returnOrderInvoice = orderInvoiceRepository.create(id, orderInvoice);
+        returnOrderInvoice = orderInvoiceDao.create(id, orderInvoice);
 
         // Assert
         assertNotNull(returnOrderInvoice);
@@ -80,11 +80,11 @@ class MsSqlOrderInvoiceRepositoryTest {
         orderInvoice.setDueDate(LocalDate.of(2021, 2, 5));
         orderInvoice.setCreatedAt(LocalDateTime.of(2020, 10, 28, 6, 45));
 
-        assertThrows(DataWriteException.class, () -> orderInvoiceRepository.create(id, orderInvoice));
+        assertThrows(DataWriteException.class, () -> orderInvoiceDao.create(id, orderInvoice));
     }
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-        MsSqlPersistenceConnection.getInstance().commitTransaction();
+       MsSqlDataSource.getInstance().commitTransaction();
     }
 }

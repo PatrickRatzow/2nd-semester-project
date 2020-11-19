@@ -4,7 +4,7 @@ import exception.DataAccessException;
 import exception.DataWriteException;
 import model.OrderInvoice;
 import model.Price;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 import persistence.dao.OrderInvoiceDao;
 import util.SQLDateConverter;
 
@@ -28,7 +28,7 @@ public class MsSqlOrderInvoiceDao implements OrderInvoiceDao {
     }
 
     private void init() {
-        final MsSqlPersistenceConnection con = MsSqlPersistenceConnection.getInstance();
+        final MsSqlDataSource con = MsSqlDataSource.getInstance();
 
         try {
             findByIdPS = con.prepareStatement(FIND_BY_ID_Q);

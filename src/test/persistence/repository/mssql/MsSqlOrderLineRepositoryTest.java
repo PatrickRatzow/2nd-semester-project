@@ -1,9 +1,9 @@
-package test.service.mssql;
+package test.persistence.repository.mssql;
 
 import exception.DataAccessException;
 import model.OrderLine;
 import org.junit.jupiter.api.*;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 import persistence.repository.OrderLineRepository;
 import persistence.repository.mssql.MsSqlOrderLineRepository;
 
@@ -18,7 +18,7 @@ public class MsSqlOrderLineRepositoryTest {
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-        MsSqlPersistenceConnection.getInstance().startTransaction();
+        MsSqlDataSource.getInstance().startTransaction();
     }
 
     @Test
@@ -49,6 +49,6 @@ public class MsSqlOrderLineRepositoryTest {
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-        MsSqlPersistenceConnection.getInstance().commitTransaction();
+        MsSqlDataSource.getInstance().commitTransaction();
     }
 }

@@ -1,5 +1,8 @@
 package persistence.connection;
 
-public interface PersistenceConnection {
+import java.sql.Connection;
+
+public interface DataSource {
+    Connection getConnection();
     PersistenceRepositoryFactory getRepositoryFactory();
 }

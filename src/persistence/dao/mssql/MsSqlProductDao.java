@@ -4,7 +4,7 @@ import exception.DataAccessException;
 import exception.DataWriteException;
 import model.Price;
 import model.Product;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 import persistence.dao.ProductDao;
 
 import java.sql.*;
@@ -37,7 +37,7 @@ public class MsSqlProductDao implements ProductDao {
     }
 
     private void init() {
-        MsSqlPersistenceConnection con = MsSqlPersistenceConnection.getInstance();
+        MsSqlDataSource con = MsSqlDataSource.getInstance();
 
         try {
             findAllPS = con.prepareStatement(FIND_ALL_Q);
@@ -92,7 +92,7 @@ public class MsSqlProductDao implements ProductDao {
         Product product = null;
 
         try {
-            PreparedStatement findByIdPS = MsSqlPersistenceConnection.getInstance().prepareStatement(FIND_BY_ID_Q);
+            PreparedStatement findByIdPS = MsSqlDataSource.getInstance().prepareStatement(FIND_BY_ID_Q);
             findByIdPS.setInt(1, id);
             ResultSet rs = findByIdPS.executeQuery();
 

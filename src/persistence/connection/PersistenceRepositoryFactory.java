@@ -1,9 +1,9 @@
 package persistence.connection;
 
 import persistence.repository.OrderRepository;
-import persistence.repository.ProductRepository;
+import persistence.repository.ProjectRepository;
 
 public interface PersistenceRepositoryFactory {
-    ProductRepository createProductRepository();
     OrderRepository createOrderRepository();
+    ProjectRepository createProjectRepository();
 }

@@ -3,7 +3,7 @@ package persistence.dao.mssql;
 import exception.DataAccessException;
 import exception.DataWriteException;
 import model.Customer;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
+import persistence.connection.mssql.MsSqlDataSource;
 import persistence.dao.CustomerDao;
 
 import java.sql.*;
@@ -27,7 +27,7 @@ public class MsSqlCustomerDao implements CustomerDao {
     }
 
     private void init() {
-        final MsSqlPersistenceConnection con = MsSqlPersistenceConnection.getInstance();
+        final MsSqlDataSource con = MsSqlDataSource.getInstance();
 
         try {
             findByPhoneNoPS = con.prepareStatement(FIND_BY_PHONENO_Q);

@@ -4,16 +4,17 @@ import exception.DataAccessException;
 import model.Product;
 import model.ProductCategory;
 import persistence.dao.ProductCategoryDao;
+import persistence.dao.ProductDao;
 import persistence.dao.mssql.MsSqlProductCategoryDao;
+import persistence.dao.mssql.MsSqlProductDao;
 import persistence.repository.ProductCategoryRepository;
-import persistence.repository.ProductRepository;
 import persistence.repository.mssql.dto.ProductCategoryDto;
 
 import java.util.List;
 
 public class MsSqlProductCategoryRepository implements ProductCategoryRepository {
     final ProductCategoryDao productCategoryDao = new MsSqlProductCategoryDao();
-    final ProductRepository productRepository = new MsSqlProductRepository();
+    final ProductDao productDao = new MsSqlProductDao();
 
     private ProductCategory buildObject(final ProductCategoryDto productCategoryDto) throws DataAccessException {
         final ProductCategory productCategory = new ProductCategory();
@@ -22,7 +23,7 @@ public class MsSqlProductCategoryRepository implements ProductCategoryRepository
         productCategory.setDesc(productCategoryDto.getDesc());
 
         for (final int id : productCategoryDto.getProductIds()) {
-            final Product product = productRepository.findById(id);
+            final Product product = productDao.findById(id);
             productCategory.addProduct(product);
         }
 

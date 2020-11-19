@@ -2,18 +2,18 @@ package persistence.connection.mssql;
 
 import persistence.connection.PersistenceRepositoryFactory;
 import persistence.repository.OrderRepository;
-import persistence.repository.ProductRepository;
+import persistence.repository.ProjectRepository;
 import persistence.repository.mssql.MsSqlOrderRepository;
-import persistence.repository.mssql.MsSqlProductRepository;
+import persistence.repository.mssql.MsSqlProjectRepository;
 
 public class MsSqlRepositoryFactory implements PersistenceRepositoryFactory {
     @Override
-    public ProductRepository createProductRepository() {
-        return new MsSqlProductRepository();
+    public OrderRepository createOrderRepository() {
+        return new MsSqlOrderRepository();
     }
 
     @Override
-    public OrderRepository createOrderRepository() {
-        return new MsSqlOrderRepository();
+    public ProjectRepository createProjectRepository() {
+        return new MsSqlProjectRepository();
     }
 }

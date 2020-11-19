@@ -1,4 +1,4 @@
-package test.service.mssql;
+package test.persistence.dao.mssql;
 
 import exception.DataAccessException;
 import model.Product;
@@ -6,21 +6,21 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import persistence.connection.mssql.MsSqlPersistenceConnection;
-import persistence.repository.ProductRepository;
-import persistence.repository.mssql.MsSqlProductRepository;
+import persistence.connection.mssql.MsSqlDataSource;
+import persistence.dao.ProductDao;
+import persistence.dao.mssql.MsSqlProductDao;
 
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class MsSqlProductRepositoryTest {
-    private final ProductRepository productRepository = new MsSqlProductRepository();
+public class MsSqlProductDaoTest {
+    private final ProductDao productDao = new MsSqlProductDao();
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-        MsSqlPersistenceConnection.getInstance().startTransaction();
+        MsSqlDataSource.getInstance().startTransaction();
     }
 
     @Test
@@ -31,7 +31,7 @@ public class MsSqlProductRepositoryTest {
         final int id = 1;
 
         // Act
-        product = productRepository.findById(id);
+        product = productDao.findById(id);
 
         // Assert
         assertNotNull(product);
@@ -44,11 +44,11 @@ public class MsSqlProductRepositoryTest {
         final int id = 800;
 
         // Act
-        assertThrows(DataAccessException.class, () -> productRepository.findById(id));
+        assertThrows(DataAccessException.class, () -> productDao.findById(id));
     }
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-        MsSqlPersistenceConnection.getInstance().commitTransaction();
+        MsSqlDataSource.getInstance().commitTransaction();
     }
 }

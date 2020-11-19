@@ -17,7 +17,6 @@ import persistence.repository.mssql.dto.OrderDto;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MsSqlOrderRepository implements OrderRepository {
     private final OrderDao orderDao = new MsSqlOrderDao();
@@ -33,57 +32,14 @@ public class MsSqlOrderRepository implements OrderRepository {
         order.setDate(orderDto.getCreatedAt());
         order.setStatus(orderDto.getStatus());
 
-        final AtomicReference<DataAccessException> dataAccessException = new AtomicReference<>();
-        final Thread employeeThread = new Thread(() -> {
-            try {
-                final Employee employee = employeeDao.findById(orderDto.getEmployeeId());
-                order.setEmployee(employee);
-            } catch (DataAccessException e) {
-                dataAccessException.set(e);
-            }
-        });
-        final Thread customerThread = new Thread(() -> {
-            try {
-                final Customer customer = customerDao.findById(orderDto.getCustomerId());
-                order.setCustomer(customer);
-            } catch (DataAccessException e) {
-                dataAccessException.set(e);
-            }
-        });
-        final Thread orderLinesThread = new Thread(() -> {
-            try {
-                final Set<OrderLine> orderLines = new HashSet<>(orderLineRepository.findById(orderDto.getId()));
-                order.setOrderLines(orderLines);
-            } catch (DataAccessException e) {
-                dataAccessException.set(e);
-            }
-        });
-        final Thread invoiceThread = new Thread(() -> {
-            try {
-                final OrderInvoice orderInvoice = orderInvoiceDao.findById(orderDto.getId());
-                order.setOrderInvoice(orderInvoice);
-            } catch (DataAccessException e) {
-                dataAccessException.set(e);
-            }
-        });
-
-        employeeThread.start();
-        customerThread.start();
-        orderLinesThread.start();
-        invoiceThread.start();
-
-        try {
-            employeeThread.join();
-            customerThread.join();
-            orderLinesThread.join();
-            invoiceThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (dataAccessException.get() != null) {
-            throw dataAccessException.get();
-        }
+        final Employee employee = employeeDao.findById(orderDto.getEmployeeId());
+        order.setEmployee(employee);
+        final Customer customer = customerDao.findById(orderDto.getCustomerId());
+        order.setCustomer(customer);
+        final Set<OrderLine> orderLines = new HashSet<>(orderLineRepository.findById(orderDto.getId()));
+        order.setOrderLines(orderLines);
+        final OrderInvoice orderInvoice = orderInvoiceDao.findById(orderDto.getId());
+        order.setOrderInvoice(orderInvoice);
 
         return order;
     }
