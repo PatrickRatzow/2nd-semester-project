@@ -181,7 +181,7 @@ description</panel_attributes>
       <w>180</w>
       <h>315</h>
     </coordinates>
-    <panel_attributes>lt=-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1= 1
 m2= 0..*
 </panel_attributes>
@@ -373,7 +373,7 @@ hasPaid</panel_attributes>
       <w>414</w>
       <h>468</h>
     </coordinates>
-    <panel_attributes>lt=-
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=0..*
 </panel_attributes>
