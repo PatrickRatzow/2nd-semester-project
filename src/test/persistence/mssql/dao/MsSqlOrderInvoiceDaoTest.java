@@ -1,4 +1,4 @@
-package test.persistence.dao.mssql;
+package test.persistence.mssql.dao;
 
 import exception.DataAccessException;
 import exception.DataWriteException;
