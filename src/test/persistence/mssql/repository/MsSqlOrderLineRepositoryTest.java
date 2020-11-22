@@ -1,4 +1,4 @@
-package test.persistence.repository.mssql;
+package test.persistence.mssql.repository;
 
 import exception.DataAccessException;
 import model.OrderLine;
