@@ -3,9 +3,6 @@ package datasource;
 import datasource.mssql.DataSourceMsSql;
 import service.ServiceFactory;
 import service.mssql.ServiceFactoryMsSql;
-import util.Config;
-
-import java.io.IOException;
 
 public class DataSourceManager {
     private static volatile DataSource connection;
@@ -16,11 +13,7 @@ public class DataSourceManager {
         if (dataSource == null) {
             synchronized(DataSourceManager.class) {
                 if (dataSource == null) {
-                    try {
-                        dataSource = Config.getProperty("dataSource");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    dataSource = "mssql";//Config.getProperty("dataSource");
                 }
             }
         }

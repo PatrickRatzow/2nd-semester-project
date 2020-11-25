@@ -7,9 +7,8 @@ import dao.mssql.CustomerDaoMsSql;
 import dao.mssql.EmployeeDaoMsSql;
 import dao.mssql.ProjectDaoMsSql;
 import dto.ProjectDto;
-import exception.DataAccessException;
 import entity.*;
-import service.OrderService;
+import exception.DataAccessException;
 import service.ProjectService;
 
 import java.util.HashSet;
@@ -19,7 +18,7 @@ public class ProjectServiceMsSql implements ProjectService {
     private final ProjectDao projectDao = new ProjectDaoMsSql();
     private final CustomerDao customerDao = new CustomerDaoMsSql();
     private final EmployeeDao employeeDao = new EmployeeDaoMsSql();
-    private final OrderService orderService = new OrderServiceMsSql();
+    //private final OrderService orderService = new OrderServiceMsSql();
 
     public Project findById(int projectId) throws DataAccessException {
         // Setup
@@ -50,8 +49,8 @@ public class ProjectServiceMsSql implements ProjectService {
         // Create orders for project
         final Set<Order> orders = new HashSet<>();
         for (final int orderId : projectDto.getOrderIds()) {
-            final Order order = orderService.findById(orderId);
-            orders.add(order);
+            //final Order order = orderService.findById(orderId);
+            //orders.add(order);
         }
         project.setOrderSet(orders);
 

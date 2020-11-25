@@ -1,24 +1,34 @@
 package controller;
 
 import datasource.DataSourceManager;
+import entity.Order;
 import entity.OrderLine;
 import entity.Product;
 import entity.Project;
 import exception.DataAccessException;
-import entity.Order;
 import exception.DataWriteException;
 import service.OrderService;
 
 import java.util.List;
 
 public class OrderController {
-    private final OrderService orderService = DataSourceManager.getServiceFactory().createOrderService();
-    private final ProductController productController = new ProductController();
+    private final OrderService orderService;
+    private final ProductController productController;
+    private final Project project;
     private Order order;
-    private Project project;
+
+    public OrderController(Project project, ProductController productController, OrderService orderService) {
+        this.project = project;
+        this.productController = new ProductController();
+        this.orderService = DataSourceManager.getServiceFactory().createOrderService();
+    }
+
+    public OrderController(Project project, ProductController productController) {
+        this(project, productController, DataSourceManager.getServiceFactory().createOrderService());
+    }
 
     public OrderController(Project project) {
-        this.project = project;
+        this(project, new ProductController(), DataSourceManager.getServiceFactory().createOrderService());
     }
 
     public List<Product> findProductsByName(String name) throws DataAccessException {

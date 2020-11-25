@@ -1,41 +1,48 @@
 package entity;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
-import java.util.Set;
 
 public class Order {
     private int id;
     private LocalDateTime date;
     private OrderStatus status;
     private Map<Integer, OrderLine> orderLines;
-    private OrderInvoice orderInvoice;
+    private Collection<OrderInvoice> orderInvoices;
     private Customer customer;
     private Employee employee;
 
     public Order() {
         orderLines = new HashMap<>();
+        orderInvoices = new LinkedList<>();
+    }
+
+    public Order(int id, LocalDateTime date, OrderStatus status) {
+        this.id = id;
+        this.date = date;
+        this.status = status;
     }
 
     public Order(int id, LocalDateTime date, OrderStatus status, Map<Integer, OrderLine> orderLines,
-                 OrderInvoice orderInvoice, Customer customer, Employee employee) {
+                 Collection<OrderInvoice> orderInvoices, Customer customer, Employee employee) {
         this.id = id;
         this.date = date;
         this.status = status;
         this.orderLines = orderLines;
-        this.orderInvoice = orderInvoice;
+        this.orderInvoices = orderInvoices;
         this.customer = customer;
         this.employee = employee;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public Map<Integer, OrderLine> getOrderLines() {
+        return orderLines;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void addOrderLine(OrderLine orderLine) {
+        orderLines.put(orderLine.getProduct().getId(), orderLine);
     }
 
     public int getId() {
@@ -46,32 +53,28 @@ public class Order {
         this.id = id;
     }
 
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public Collection<OrderInvoice> getOrderInvoices() {
+        return orderInvoices;
+    }
+
+    public void addOrderInvoice(OrderInvoice orderInvoice) {
+        orderInvoices.add(orderInvoice);
+    }
+
     public OrderStatus getStatus() {
         return status;
     }
 
     public void setStatus(OrderStatus status) {
         this.status = status;
-    }
-
-    public Map<Integer, OrderLine> getOrderLines() {
-        return orderLines;
-    }
-
-    public void setOrderLines(Map<Integer, OrderLine> orderLines) {
-        this.orderLines = orderLines;
-    }
-
-    public void addOrderLine(OrderLine orderLine) {
-        this.orderLines.put(orderLine.getProduct().getId(), orderLine);
-    }
-
-    public void setOrderInvoice(OrderInvoice orderInvoice) {
-        this.orderInvoice = orderInvoice;
-    }
-
-    public OrderInvoice getOrderInvoice() {
-        return orderInvoice;
     }
 
     public Customer getCustomer() {

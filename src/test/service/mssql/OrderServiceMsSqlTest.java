@@ -1,21 +1,7 @@
 package test.service.mssql;
 
-import datasource.mssql.DataSourceMsSql;
-import exception.DataAccessException;
-import entity.Order;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import service.OrderService;
-import service.mssql.OrderServiceMsSql;
-
-import java.sql.SQLException;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public class OrderServiceMsSqlTest {
+    /*
     private final OrderService orderService = new OrderServiceMsSql();
 
     @BeforeAll
@@ -51,4 +37,5 @@ public class OrderServiceMsSqlTest {
     static void tearDownAll() throws SQLException {
         DataSourceMsSql.getInstance().commitTransaction();
     }
+     */
 }
