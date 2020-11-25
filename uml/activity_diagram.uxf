@@ -73,7 +73,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>1224</x>
-      <y>0</y>
+      <y>8</y>
       <w>144</w>
       <h>56</h>
     </coordinates>
@@ -84,7 +84,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>904</x>
-      <y>0</y>
+      <y>8</y>
       <w>144</w>
       <h>56</h>
     </coordinates>
@@ -319,21 +319,10 @@ Vil høre om pris</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>968</x>
-      <y>360</y>
-      <w>24</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLState</id>
     <coordinates>
       <x>920</x>
-      <y>384</y>
+      <y>336</y>
       <w>112</w>
       <h>32</h>
     </coordinates>
@@ -344,7 +333,7 @@ Vil høre om pris</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1208</x>
-      <y>504</y>
+      <y>456</y>
       <w>96</w>
       <h>32</h>
     </coordinates>
@@ -355,7 +344,7 @@ Vil høre om pris</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>968</x>
-      <y>408</y>
+      <y>360</y>
       <w>304</w>
       <h>112</h>
     </coordinates>
@@ -366,7 +355,7 @@ Vil høre om pris</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1208</x>
-      <y>552</y>
+      <y>504</y>
       <w>96</w>
       <h>32</h>
     </coordinates>
@@ -388,23 +377,12 @@ Vil høre om pris</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1248</x>
-      <y>528</y>
+      <y>480</y>
       <w>24</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>920</x>
-      <y>336</y>
-      <w>112</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>Opret Ordre</panel_attributes>
-    <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
@@ -421,7 +399,7 @@ Vil høre om pris</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>720</x>
-      <y>720</y>
+      <y>672</y>
       <w>24</w>
       <h>40</h>
     </coordinates>
@@ -432,7 +410,7 @@ Vil høre om pris</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>672</x>
-      <y>696</y>
+      <y>648</y>
       <w>112</w>
       <h>32</h>
     </coordinates>
@@ -443,7 +421,7 @@ Vil høre om pris</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>672</x>
-      <y>744</y>
+      <y>696</y>
       <w>112</w>
       <h>32</h>
     </coordinates>
@@ -454,7 +432,7 @@ Vil høre om pris</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>720</x>
-      <y>592</y>
+      <y>544</y>
       <w>512</w>
       <h>120</h>
     </coordinates>
@@ -465,7 +443,7 @@ Vil høre om pris</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1248</x>
-      <y>576</y>
+      <y>528</y>
       <w>24</w>
       <h>40</h>
     </coordinates>
@@ -476,7 +454,7 @@ Vil høre om pris</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1160</x>
-      <y>592</y>
+      <y>544</y>
       <w>224</w>
       <h>24</h>
     </coordinates>
@@ -487,7 +465,7 @@ Vil høre om pris</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1320</x>
-      <y>592</y>
+      <y>544</y>
       <w>24</w>
       <h>104</h>
     </coordinates>
@@ -498,7 +476,7 @@ Vil høre om pris</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1272</x>
-      <y>680</y>
+      <y>632</y>
       <w>112</w>
       <h>32</h>
     </coordinates>
@@ -509,7 +487,7 @@ Vil høre om pris</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>680</x>
-      <y>848</y>
+      <y>800</y>
       <w>704</w>
       <h>24</h>
     </coordinates>
@@ -520,7 +498,7 @@ Vil høre om pris</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>720</x>
-      <y>768</y>
+      <y>720</y>
       <w>80</w>
       <h>104</h>
     </coordinates>
@@ -532,7 +510,7 @@ Ordre udført</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1320</x>
-      <y>704</y>
+      <y>656</y>
       <w>112</w>
       <h>168</h>
     </coordinates>
@@ -544,7 +522,7 @@ Betaling modtaget</panel_attributes>
     <id>UMLSpecialState</id>
     <coordinates>
       <x>976</x>
-      <y>920</y>
+      <y>872</y>
       <w>16</w>
       <h>16</h>
     </coordinates>
@@ -555,7 +533,7 @@ Betaling modtaget</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>976</x>
-      <y>896</y>
+      <y>848</y>
       <w>24</w>
       <h>40</h>
     </coordinates>
@@ -566,7 +544,7 @@ Betaling modtaget</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>928</x>
-      <y>872</y>
+      <y>824</y>
       <w>112</w>
       <h>32</h>
     </coordinates>
@@ -577,7 +555,7 @@ Betaling modtaget</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>976</x>
-      <y>848</y>
+      <y>800</y>
       <w>24</w>
       <h>40</h>
     </coordinates>
