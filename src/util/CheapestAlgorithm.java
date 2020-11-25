@@ -1,9 +1,9 @@
 package util;
 
-import model.CheapestProduct;
-import model.Price;
-import model.Product;
-import model.Specification;
+import entity.CheapestProduct;
+import entity.Price;
+import entity.Product;
+import entity.Specification;
 
 import java.util.Random;
 import java.util.function.Consumer;

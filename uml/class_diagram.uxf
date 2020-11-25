@@ -1,0 +1,1130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1090</x>
+      <y>0</y>
+      <w>440</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>ui</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>700</x>
+      <y>260</y>
+      <w>1290</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>controller</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>0</x>
+      <y>760</y>
+      <w>2170</w>
+      <h>1840</h>
+    </coordinates>
+    <panel_attributes>persistence</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1140</x>
+      <y>50</y>
+      <w>340</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>OrderGUI
+--
+project: Project
+controller: OrderController
+--
++ &lt;&lt;constructor&gt;&gt;(controller: OrderController)
+- getOrder(id: int): Order
+- saveOrder()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1140</x>
+      <y>310</y>
+      <w>340</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>OrderController
+--
+- productController: ProductController
+- repository: OrderRepository
+- order: Order
+--
++ findById(id: int): Order
++ create(order: Order, project: Project): Order
++ findProductsByName(name: String): List&lt;Product&gt;
++ addProductById(int: id)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>160</y>
+      <w>30</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1280</x>
+      <y>460</y>
+      <w>40</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>20.0;350.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1470</x>
+      <y>370</y>
+      <w>130</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1580</x>
+      <y>310</y>
+      <w>290</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>ProductController
+--
+- repository: ProductRepository
+- product: Product
+--
++ findById(id: int): Product
++ findByName(name: String): List&lt;Product&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1740</x>
+      <y>1110</y>
+      <w>290</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ProductRepository
+--
++ findById(id: int): Product
++ findByName(name: String): List&lt;Product&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1430</x>
+      <y>460</y>
+      <w>320</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;350.0;10.0;290.0;300.0;290.0;300.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1750</x>
+      <y>1700</y>
+      <w>290</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>MsSqlProductRepository
+--
+- productDao: MsSqlProductDao
+--
++ findById(id: int): Product
++ findByName(name: String): List&lt;Product&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1740</x>
+      <y>1270</y>
+      <w>290</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ProductDao
+--
++ findById(id: int): Product
++ findByName(name: String): List&lt;Product&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1750</x>
+      <y>1870</y>
+      <w>290</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>MsSqlProductDao
+--
+_- FIND_BY_ID_Q: String_
+- findByIdPS: PreparedStatement
+_- FIND_BY_NAME_Q: String_
+- findByNamePS: PreparedStatement
+--
+- init()
+- buildObject(rs: ResultSet): Product
+- buildObjects(rs: ResultSet): List&lt;Product&gt;
++ findById(id: int): Product
++ findByName(name: String): List&lt;Product&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>430</x>
+      <y>2690</y>
+      <w>1440</w>
+      <h>640</h>
+    </coordinates>
+    <panel_attributes>entity</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1430</x>
+      <y>2750</y>
+      <w>290</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Product
+--
+- id: int
+- name: String
+- desc: String
+- price: Price
+--
++ &lt;&lt;constructor&gt;&gt;(id: int, name: String, 
+    desc: String, price: int)
++ hashCode(): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1430</x>
+      <y>2930</y>
+      <w>290</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Price
+--
+- amount: int
+--
++ &lt;&lt;constructor&gt;&gt;(amount: int)
++ toString(): String
++ compareTo(price: Price): int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1570</x>
+      <y>2870</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>40</x>
+      <y>1600</y>
+      <w>2100</w>
+      <h>970</h>
+    </coordinates>
+    <panel_attributes>mssql</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1670</x>
+      <y>1170</y>
+      <w>100</w>
+      <h>630</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;610.0;10.0;610.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1670</x>
+      <y>1770</y>
+      <w>100</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;190.0;10.0;190.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1670</x>
+      <y>1330</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1880</x>
+      <y>1810</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2020</x>
+      <y>1160</y>
+      <w>80</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2020</x>
+      <y>1330</y>
+      <w>80</w>
+      <h>650</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;630.0;20.0;630.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1240</x>
+      <y>1110</y>
+      <w>330</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+PersistenceRepositoryFactory
+--
++ createProductRepostory(): ProductRepository
++ createOrderRepostory(): OrderRepository
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1560</x>
+      <y>1170</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1190</x>
+      <y>2050</y>
+      <w>350</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>MsSqlRepositoryFactory
+--
++ createProductRepostory(): MsSqlProductRepository
++ createOrderRepostory(): MsSqlOrderRepository
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1380</x>
+      <y>1790</y>
+      <w>390</w>
+      <h>460</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>370.0;10.0;270.0;10.0;270.0;440.0;10.0;440.0;10.0;380.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>1110</y>
+      <w>370</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+OrderRepository
+--
++ findById(id: int): Order
++ create(order: Order, project: Project): Order</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>1700</y>
+      <w>370</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>MsSqlOrderRepository
+--
+- orderDao: MsSqlOrderDao
+- orderInvoiceDao: MsSqlOrderInvoiceDao
+--
+- buildObject(order: OrderDto): Order
++ findById(id: int): Order
++ create(order: Order, project: Project): Order</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>1270</y>
+      <w>370</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+OrderDao
+--
++ findById(id: int): Order
++ create(status: OrderStatus, createdAt: LocalDateTime,
+    projectId: int, employeeId: int, customerId: int): Order</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>1880</y>
+      <w>370</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>MsSqlOrderDao
+--
+_- FIND_BY_ID_Q: String_
+- findByIdPS: PreparedStatement
+_- INSERT_Q: String_
+- insertPS: PreparedStatement
+--
+- init()
+- buildObject(rs: ResultSet): OrderDto
+- buildObjects(rs: ResultSet): List&lt;OrderDto&gt;
++ findById(id: int): Order
++ create(status: OrderStatus, createdAt: LocalDateTime,
+    projectId: int, employeeId: int, customerId: int): OrderDto</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>1160</y>
+      <w>110</w>
+      <h>630</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;610.0;10.0;610.0;10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>1760</y>
+      <w>100</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;210.0;10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>1330</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>990</x>
+      <y>1160</y>
+      <w>70</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0;50.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>1330</y>
+      <w>80</w>
+      <h>660</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>20.0;10.0;60.0;10.0;60.0;640.0;10.0;640.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>1820</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>2150</y>
+      <w>310</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>OrderDto
+-
+- id: int
+- status: OrderStatus
+- createdAt: LocalDateTime
+- customerId: int
+- employeeId: int
+- orderId: orderId
+- orderLineIds: Set&lt;Integer&gt; 
+-
++ &lt;&lt;constructor&gt;&gt;(id: int, status: OrderStatus, 
+    createdAt: LocalDateTime, customerId: int, 
+    employeeId: int, orderId: int)
+- addOrderLineId(id: int)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>2090</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1220</x>
+      <y>960</y>
+      <w>360</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+PersistenceConnection
+--
++ getRepositoryFactory(): PersistenceRepositoryFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1160</x>
+      <y>1640</y>
+      <w>400</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>MsSqlPersistenceConnection
+--
+- connection: Connection
+- repositoryFactory: MsSqlPersistenceRepositoryFactory
+_- driverClass: String_
+_- serverAddress: String_
+_- serverPort: int_
+_- serverPassword: String_
+--
+- init()
++ getRepositoryFactory(): MsSqlPersistenceRepositoryFactory
++ startTransaction()
++ setSavepoint(): Savepoint
++ commitTransaction()
++ rollbackTransaction()
++ rollbackTransaction(savepoint: Savepoint)
++ prepareStatement(sql: String): PreparedStatement
++ prepareStatement(sql: String, autoGeneratedKeys: int): 
+    PreparedStatement
++ prepareCall(sql: String): CallableStatement
++ disconnect()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>990</x>
+      <y>1140</y>
+      <w>270</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1560</x>
+      <y>1140</y>
+      <w>200</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>180.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1400</x>
+      <y>1050</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1550</x>
+      <y>990</y>
+      <w>100</w>
+      <h>860</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30.0;10.0;80.0;10.0;80.0;840.0;10.0;840.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1530</x>
+      <y>1820</y>
+      <w>120</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;290.0;10.0;290.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>1760</y>
+      <w>370</w>
+      <h>490</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0;120.0;470.0;350.0;470.0;350.0;410.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1220</x>
+      <y>810</y>
+      <w>360</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>PersistenceConnectionManager
+--
+- connection: PersistenceConnection
+--
+_+ getConnection(): PersistenceConnection_
++ getRepositoryFactory(): PersistenceRepositoryFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1350</x>
+      <y>1970</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>890</x>
+      <y>460</y>
+      <w>360</w>
+      <h>670</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;650.0;10.0;280.0;340.0;280.0;340.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1400</x>
+      <y>900</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1160</x>
+      <y>860</y>
+      <w>80</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>60.0;140.0;10.0;140.0;10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1130</x>
+      <y>990</y>
+      <w>60</w>
+      <h>730</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>30.0;710.0;10.0;710.0;10.0;400.0;40.0;400.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>2750</y>
+      <w>430</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>Order
+--
+- id: int
+- createdAt: LocalDateTime
+- status: OrderStatus
+- orderLines: Set&lt;OrderLine&gt;
+- orderInvoice: OrderInvoice
+- customer: Customer
+- employee: Employee
+--
++ &lt;&lt;constructor&gt;&gt;(id: int, date: LocalDateTime, status: OrderStatus, 
+    orderLines: Set&lt;OrderLine&gt;, orderInvoice: OrderInvoice,
+    customer: Customer, employee: Employee)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>510</x>
+      <y>3040</y>
+      <w>290</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>OrderInvoice
+--
+- id: int
+- dueDate: LocalDate
+- toPay: Price
+- hasPaid: Price
+--
++ &lt;&lt;constructor&gt;&gt;(id: int, dueDate: LocalDate, 
+    toPay: int, hasPaid: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
+      <y>2940</y>
+      <w>30</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>970</x>
+      <y>2940</y>
+      <w>30</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>3040</y>
+      <w>300</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>OrderLine
+--
+- product: Product
+- int: quantity
+--
++ &lt;&lt;constructor&gt;&gt;(product: Product, quantity: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1110</x>
+      <y>2760</y>
+      <w>170</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+OrderStatus
+--
++ Awaiting = 0
++ IN_Progress = 1
++ Finished = 2
+- value: int
+--
+- &lt;&lt;constructor&gt;&gt;(value: int)
++ getValue(): int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1020</x>
+      <y>2840</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>970</x>
+      <y>2810</y>
+      <w>480</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>460.0;10.0;410.0;10.0;410.0;370.0;10.0;370.0;10.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
+      <y>3040</y>
+      <w>950</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;170.0;10.0;220.0;930.0;220.0;930.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>950</x>
+      <y>2260</y>
+      <w>260</w>
+      <h>520</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>240.0;500.0;240.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>2020</y>
+      <w>290</w>
+      <h>750</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>270.0;730.0;270.0;620.0;10.0;620.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1570</x>
+      <y>2050</y>
+      <w>350</w>
+      <h>720</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;700.0;10.0;600.0;330.0;600.0;330.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1160</x>
+      <y>1180</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>1880</y>
+      <w>370</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>MsSqlOrderInvoiceDao
+--
+_- FIND_BY_ID_Q: String_
+- findByIdPS: PreparedStatement
+_- INSERT_Q: String_
+- insertPS: PreparedStatement
+--
+- init()
+- buildObject(rs: ResultSet): OrderInvoice
+- buildObjects(rs: ResultSet): List&lt;OrderInvoice&gt;
++ findById(id: int): OrderInvoice
++ create(orderId: int, dueDate: LocalDate, toPay: int,
+    hasPaid: int): OrderInvoice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>2020</y>
+      <w>70</w>
+      <h>1040</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>50.0;1020.0;50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>1790</y>
+      <w>320</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>300.0;10.0;10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>2150</y>
+      <w>370</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>MsSqlOrderLineDao
+--
+_- FIND_BY_ORDER_ID_Q: String_
+_- INSERT_Q: String_
+- insertPS: PreparedStatement
+--
+- init()
+- buildObject(rs: ResultSet): OrderLine
+- buildObjects(rs: ResultSet): List&lt;OrderLine&gt;
++ findByOrderId(id: int): OrderInvoice
++ create(orderId: int, productId: int, quantity: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>2440</y>
+      <w>370</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>OrderLineDto
+-
+- orderId: int
+- productId: int
+- quantity: int
+-
++ &lt;&lt;constructor&gt;&gt;(orderId: int, productId: int, quantity: int)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>2370</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>1440</y>
+      <w>370</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+OrderLineDao
+--
++ findById(id: int): Order
++ create(orderId: int, productId: int, quantity: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>1270</y>
+      <w>370</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+OrderInvoiceDao
+--
++ findById(id: int): OrderInvoice
++ create(orderId: int, dueDate: LocalDate, toPay: int,
+    hasPaid: int): OrderInvoice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>1330</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>1960</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>1490</y>
+      <w>80</w>
+      <h>790</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;770.0;30.0;770.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>50</x>
+      <y>2010</y>
+      <w>480</w>
+      <h>1130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>460.0;1110.0;430.0;1110.0;430.0;630.0;10.0;630.0;10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>50</x>
+      <y>2250</y>
+      <w>1050</w>
+      <h>810</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1030.0;790.0;1030.0;390.0;10.0;390.0;10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>1810</y>
+      <w>320</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>300.0;10.0;210.0;10.0;210.0;310.0;10.0;310.0;10.0;340.0</additional_attributes>
+  </element>
+</diagram>

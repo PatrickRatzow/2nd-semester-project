@@ -3,9 +3,9 @@ package gui;
 import controller.EmployeeController;
 import exception.DataAccessException;
 import exception.WrongPasswordException;
-import model.Employee;
-import model.Project;
-import persistence.repository.mssql.MsSqlProjectRepository;
+import entity.Employee;
+import entity.Project;
+import service.mssql.ProjectServiceMsSql;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -42,7 +42,7 @@ public class Login {
 			}
 		});
 
-		MsSqlProjectRepository service = new MsSqlProjectRepository();
+		ProjectServiceMsSql service = new ProjectServiceMsSql();
 		try {
 			Project project = service.findById(1);
 			System.out.println(project.getName());

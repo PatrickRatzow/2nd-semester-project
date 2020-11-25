@@ -1,11 +1,11 @@
 package test.controller;
 
 import controller.ProductCategoryController;
+import datasource.mssql.DataSourceMsSql;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
-import persistence.connection.mssql.MsSqlDataSource;
 
 import java.sql.SQLException;
 import java.sql.Savepoint;
@@ -14,7 +14,7 @@ import java.sql.Savepoint;
 class ProductCategoryControllerTest {
     private static ProductCategoryController productCategoryController = new ProductCategoryController();
     private static Savepoint savepoint;
-    private static MsSqlDataSource ds = MsSqlDataSource.getInstance();
+    private static DataSourceMsSql ds = DataSourceMsSql.getInstance();
 
     @BeforeAll
     static void setUpAll() throws SQLException {

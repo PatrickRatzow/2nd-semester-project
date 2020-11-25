@@ -1,15 +1,15 @@
 package controller;
 
 import exception.DataAccessException;
-import model.ProductCategory;
-import persistence.repository.ProductCategoryRepository;
-import persistence.repository.mssql.MsSqlProductCategoryRepository;
+import entity.ProductCategory;
+import service.ProductCategoryService;
+import service.mssql.ProductCategoryServiceMsSql;
 
 public class ProductCategoryController {
-    ProductCategoryRepository productCategoryRepository = new MsSqlProductCategoryRepository();
+    ProductCategoryService productCategoryService = new ProductCategoryServiceMsSql();
 
     public ProductCategory findById(int id) throws DataAccessException {
-        return productCategoryRepository.findById(id);
+        return productCategoryService.findById(id);
     }
 
     /*
