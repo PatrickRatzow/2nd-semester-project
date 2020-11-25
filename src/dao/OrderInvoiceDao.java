@@ -2,7 +2,7 @@ package dao;
 
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.OrderInvoice;
+import entity.OrderInvoice;
 
 public interface OrderInvoiceDao {
     OrderInvoice findById(int id) throws DataAccessException;

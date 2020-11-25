@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 public enum OrderStatus {
     AWAITING(0),

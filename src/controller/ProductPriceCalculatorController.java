@@ -1,9 +1,9 @@
 package controller;
 
-import model.CheapestProduct;
-import model.Product;
-import model.ProductCategory;
-import model.Specification;
+import entity.CheapestProduct;
+import entity.Product;
+import entity.ProductCategory;
+import entity.Specification;
 import util.CheapestAlgorithm;
 
 import java.util.ArrayList;

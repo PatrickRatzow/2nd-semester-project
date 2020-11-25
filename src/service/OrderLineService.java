@@ -2,7 +2,7 @@ package service;
 
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.OrderLine;
+import entity.OrderLine;
 
 import java.util.List;
 

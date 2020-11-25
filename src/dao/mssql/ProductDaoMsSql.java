@@ -4,8 +4,8 @@ import dao.ProductDao;
 import datasource.mssql.DataSourceMsSql;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.Price;
-import model.Product;
+import entity.Price;
+import entity.Product;
 
 import java.sql.*;
 import java.util.ArrayList;

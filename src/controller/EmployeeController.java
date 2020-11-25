@@ -5,7 +5,7 @@ import dao.mssql.EmployeeDaoMsSql;
 import exception.DataAccessException;
 import exception.DataWriteException;
 import exception.WrongPasswordException;
-import model.Employee;
+import entity.Employee;
 import util.Validator;
 
 import java.util.List;

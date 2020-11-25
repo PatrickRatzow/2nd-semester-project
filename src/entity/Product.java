@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -88,6 +88,13 @@ public class Product {
      * @param price the price
      */
     public Product(String name, String desc, Price price) {
+        this.name = name;
+        this.desc = desc;
+        this.price = price;
+    }
+
+    public Product(int id, String name, String desc, Price price) {
+        this.id = id;
         this.name = name;
         this.desc = desc;
         this.price = price;

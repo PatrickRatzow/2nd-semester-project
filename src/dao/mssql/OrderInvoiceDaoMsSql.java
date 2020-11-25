@@ -4,8 +4,8 @@ import dao.OrderInvoiceDao;
 import datasource.mssql.DataSourceMsSql;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.OrderInvoice;
-import model.Price;
+import entity.OrderInvoice;
+import entity.Price;
 import util.SQLDateConverter;
 
 import java.sql.PreparedStatement;

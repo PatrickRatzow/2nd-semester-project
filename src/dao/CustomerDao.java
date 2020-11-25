@@ -2,7 +2,7 @@ package dao;
 
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.Customer;
+import entity.Customer;
 
 import java.util.List;
 

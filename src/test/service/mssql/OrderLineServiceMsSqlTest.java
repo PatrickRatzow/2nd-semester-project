@@ -2,7 +2,7 @@ package test.service.mssql;
 
 import datasource.mssql.DataSourceMsSql;
 import exception.DataAccessException;
-import model.OrderLine;
+import entity.OrderLine;
 import org.junit.jupiter.api.*;
 import service.OrderLineService;
 import service.mssql.OrderLineServiceMsSql;

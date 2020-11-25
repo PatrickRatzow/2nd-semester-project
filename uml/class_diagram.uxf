@@ -211,7 +211,7 @@ _- FIND_BY_NAME_Q: String_
       <w>1440</w>
       <h>640</h>
     </coordinates>
-    <panel_attributes>model</panel_attributes>
+    <panel_attributes>entity</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

@@ -4,10 +4,10 @@ import controller.ProductController;
 import datasource.mssql.DataSourceMsSql;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.Price;
-import model.Product;
-import model.ProductCategory;
-import model.Supplier;
+import entity.Price;
+import entity.Product;
+import entity.ProductCategory;
+import entity.Supplier;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;

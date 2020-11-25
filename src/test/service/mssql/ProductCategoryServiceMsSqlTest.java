@@ -2,7 +2,7 @@ package test.service.mssql;
 
 import datasource.mssql.DataSourceMsSql;
 import exception.DataAccessException;
-import model.ProductCategory;
+import entity.ProductCategory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

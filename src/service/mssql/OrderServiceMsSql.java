@@ -11,7 +11,7 @@ import dao.mssql.OrderInvoiceDaoMsSql;
 import dto.OrderDto;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.*;
+import entity.*;
 import service.OrderLineService;
 import service.OrderService;
 
@@ -37,7 +37,7 @@ public class OrderServiceMsSql implements OrderService {
         final Customer customer = customerDao.findById(orderDto.getCustomerId());
         order.setCustomer(customer);
         final Set<OrderLine> orderLines = new HashSet<>(orderLineService.findById(orderDto.getId()));
-        order.setOrderLines(orderLines);
+        //order.setOrderLines(orderLines);
         final OrderInvoice orderInvoice = orderInvoiceDao.findById(orderDto.getId());
         order.setOrderInvoice(orderInvoice);
 
@@ -58,9 +58,9 @@ public class OrderServiceMsSql implements OrderService {
         order.setId(newOrder.getId());
 
         // Create all the order lines
-        for (final OrderLine orderLine : order.getOrderLines()) {
-            orderLineService.create(order.getId(), orderLine);
-        }
+        //for (final OrderLine orderLine : order.getOrderLines()) {
+        //    orderLineService.create(order.getId(), orderLine);
+        //}
 
         // Create invoice
         final OrderInvoice orderInvoice = order.getOrderInvoice();

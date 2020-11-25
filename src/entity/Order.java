@@ -1,20 +1,25 @@
-package model;
+package entity;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Order {
     private int id;
     private LocalDateTime date;
     private OrderStatus status;
-    private Set<OrderLine> orderLines;
+    private Map<Integer, OrderLine> orderLines;
     private OrderInvoice orderInvoice;
     private Customer customer;
     private Employee employee;
 
-    public Order() {}
+    public Order() {
+        orderLines = new HashMap<>();
+    }
 
-    public Order(int id, LocalDateTime date, OrderStatus status, Set<OrderLine> orderLines,
+    public Order(int id, LocalDateTime date, OrderStatus status, Map<Integer, OrderLine> orderLines,
                  OrderInvoice orderInvoice, Customer customer, Employee employee) {
         this.id = id;
         this.date = date;
@@ -49,12 +54,16 @@ public class Order {
         this.status = status;
     }
 
-    public Set<OrderLine> getOrderLines() {
+    public Map<Integer, OrderLine> getOrderLines() {
         return orderLines;
     }
 
-    public void setOrderLines(Set<OrderLine> orderLines) {
+    public void setOrderLines(Map<Integer, OrderLine> orderLines) {
         this.orderLines = orderLines;
+    }
+
+    public void addOrderLine(OrderLine orderLine) {
+        this.orderLines.put(orderLine.getProduct().getId(), orderLine);
     }
 
     public void setOrderInvoice(OrderInvoice orderInvoice) {

@@ -5,7 +5,7 @@ import datasource.mssql.DataSourceMsSql;
 import dto.OrderLineDto;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.OrderLine;
+import entity.OrderLine;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

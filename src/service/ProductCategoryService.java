@@ -1,7 +1,7 @@
 package service;
 
 import exception.DataAccessException;
-import model.ProductCategory;
+import entity.ProductCategory;
 
 import java.util.List;
 

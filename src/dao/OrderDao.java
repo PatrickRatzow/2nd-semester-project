@@ -3,8 +3,8 @@ package dao;
 import dto.OrderDto;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.Order;
-import model.OrderStatus;
+import entity.Order;
+import entity.OrderStatus;
 
 import java.time.LocalDateTime;
 

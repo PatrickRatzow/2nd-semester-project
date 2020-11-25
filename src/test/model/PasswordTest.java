@@ -1,6 +1,6 @@
 package test.model;
 
-import model.Password;
+import entity.Password;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -5,7 +5,7 @@ import datasource.mssql.DataSourceMsSql;
 import dto.ProductCategoryDto;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.ProductCategory;
+import entity.ProductCategory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

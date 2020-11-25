@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 /**
  * The type Price.

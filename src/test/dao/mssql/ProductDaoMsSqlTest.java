@@ -4,7 +4,7 @@ import dao.ProductDao;
 import dao.mssql.ProductDaoMsSql;
 import datasource.mssql.DataSourceMsSql;
 import exception.DataAccessException;
-import model.Product;
+import entity.Product;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

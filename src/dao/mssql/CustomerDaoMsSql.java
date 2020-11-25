@@ -4,7 +4,7 @@ import dao.CustomerDao;
 import datasource.mssql.DataSourceMsSql;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.Customer;
+import entity.Customer;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -3,7 +3,7 @@ package dao;
 import dto.ProductCategoryDto;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.ProductCategory;
+import entity.ProductCategory;
 
 import java.util.List;
 

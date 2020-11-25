@@ -6,8 +6,8 @@ import dao.mssql.ProductCategoryDaoMsSql;
 import dao.mssql.ProductDaoMsSql;
 import dto.ProductCategoryDto;
 import exception.DataAccessException;
-import model.Product;
-import model.ProductCategory;
+import entity.Product;
+import entity.ProductCategory;
 import service.ProductCategoryService;
 
 import java.util.List;

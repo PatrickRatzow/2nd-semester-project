@@ -2,12 +2,14 @@ package datasource;
 
 import datasource.mssql.DataSourceMsSql;
 import service.ServiceFactory;
+import service.mssql.ServiceFactoryMsSql;
 import util.Config;
 
 import java.io.IOException;
 
 public class DataSourceManager {
     private static volatile DataSource connection;
+    private static volatile ServiceFactory factory;
     private static volatile String dataSource;
 
     private static void loadSource() {
@@ -40,7 +42,18 @@ public class DataSourceManager {
     }
 
     // Just a wrapper
-    public static ServiceFactory getRepositoryFactory() {
-        return getConnection().getRepositoryFactory();
+    public static ServiceFactory getServiceFactory() {
+        if (factory == null) {
+            synchronized(DataSourceManager.class) {
+                if (factory == null) {
+                    loadSource();
+
+                    if (dataSource.equalsIgnoreCase("mssql"))
+                        factory = new ServiceFactoryMsSql();
+                }
+            }
+        }
+
+        return factory;
     }
 }

@@ -2,8 +2,8 @@ package service;
 
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.Order;
-import model.Project;
+import entity.Order;
+import entity.Project;
 
 public interface OrderService {
     Order findById(int id) throws DataAccessException;

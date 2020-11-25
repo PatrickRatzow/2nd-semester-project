@@ -4,9 +4,9 @@ import dao.ProductDao;
 import dao.mssql.ProductDaoMsSql;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.Product;
-import model.ProductCategory;
-import model.Supplier;
+import entity.Product;
+import entity.ProductCategory;
+import entity.Supplier;
 
 import java.util.List;
 

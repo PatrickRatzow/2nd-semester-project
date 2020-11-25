@@ -1,7 +1,7 @@
 package controller;
 
 import exception.DataAccessException;
-import model.ProductCategory;
+import entity.ProductCategory;
 import service.ProductCategoryService;
 import service.mssql.ProductCategoryServiceMsSql;
 

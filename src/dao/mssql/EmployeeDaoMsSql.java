@@ -4,8 +4,8 @@ import dao.EmployeeDao;
 import datasource.mssql.DataSourceMsSql;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.Employee;
-import model.Password;
+import entity.Employee;
+import entity.Password;
 
 import java.sql.*;
 import java.util.ArrayList;

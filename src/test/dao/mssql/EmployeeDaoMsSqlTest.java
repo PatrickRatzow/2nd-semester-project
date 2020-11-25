@@ -5,7 +5,7 @@ import dao.mssql.EmployeeDaoMsSql;
 import datasource.mssql.DataSourceMsSql;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.Employee;
+import entity.Employee;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;

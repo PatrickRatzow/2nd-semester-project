@@ -4,7 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import datasource.DataSource;
 import service.ServiceFactory;
-import service.mssql.RepositoryFactoryMsSql;
+import service.mssql.ServiceFactoryMsSql;
 import util.JUnit;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class DataSourceMsSql implements DataSource {
     private static HikariDataSource ds;
     private static Connection connection;
     private static final DataSourceMsSql persistenceConnection = new DataSourceMsSql();
-    private final RepositoryFactoryMsSql repositoryFactory = new RepositoryFactoryMsSql();
+    private final ServiceFactoryMsSql repositoryFactory = new ServiceFactoryMsSql();
 
     public DataSourceMsSql() {
         final boolean isJUnit = JUnit.isJUnitTest();

@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 public class Employee extends Person {
     private String username;

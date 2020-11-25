@@ -2,7 +2,7 @@ package service;
 
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.OrderInvoice;
+import entity.OrderInvoice;
 
 public interface OrderInvoiceService {
     OrderInvoice findById(int id) throws DataAccessException;

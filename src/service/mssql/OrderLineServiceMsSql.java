@@ -7,8 +7,8 @@ import dao.mssql.ProductDaoMsSql;
 import dto.OrderLineDto;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import model.OrderLine;
-import model.Product;
+import entity.OrderLine;
+import entity.Product;
 import service.OrderLineService;
 
 import java.util.ArrayList;

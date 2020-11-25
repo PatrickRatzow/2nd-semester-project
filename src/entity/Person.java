@@ -1,4 +1,4 @@
-package model;
+package entity;
 
 abstract public class Person {
     private int id;

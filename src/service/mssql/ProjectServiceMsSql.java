@@ -8,7 +8,7 @@ import dao.mssql.EmployeeDaoMsSql;
 import dao.mssql.ProjectDaoMsSql;
 import dto.ProjectDto;
 import exception.DataAccessException;
-import model.*;
+import entity.*;
 import service.OrderService;
 import service.ProjectService;
 
