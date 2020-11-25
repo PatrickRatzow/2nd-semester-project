@@ -12,9 +12,9 @@ import service.OrderService;
 import java.util.List;
 
 public class OrderController {
-    private final OrderService orderService;
-    private final ProductController productController;
-    private final Project project;
+    private OrderService orderService;
+    private ProductController productController;
+    private Project project;
     private Order order;
 
     public OrderController(Project project, ProductController productController, OrderService orderService) {

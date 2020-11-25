@@ -5,31 +5,24 @@ import controller.ProductController;
 import entity.Order;
 import entity.Price;
 import entity.Product;
-import entity.Project;
 import exception.DataAccessException;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class OrderControllerTest {
     @Mock
     private ProductController productController;
-    @Mock
-    private Project project;
     @InjectMocks
     private OrderController orderController;
-
-    @BeforeEach
-    void setup() {
-        productController = mock(ProductController.class);
-        project = mock(Project.class);
-        orderController = new OrderController(project, productController);
-    }
 
     @Test
     void canAddOrderLine() throws DataAccessException {
@@ -49,6 +42,5 @@ public class OrderControllerTest {
     @AfterEach
     void tearDown() {
         reset(productController);
-        reset(project);
     }
 }
