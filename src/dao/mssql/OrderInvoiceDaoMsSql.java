@@ -1,11 +1,11 @@
 package dao.mssql;
 
 import dao.OrderInvoiceDao;
-import datasource.mssql.DataSourceMsSql;
-import exception.DataAccessException;
-import exception.DataWriteException;
+import datasource.DBConnection;
 import entity.OrderInvoice;
 import entity.Price;
+import exception.DataAccessException;
+import exception.DataWriteException;
 import util.SQLDateConverter;
 
 import java.sql.PreparedStatement;
@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class OrderInvoiceDaoMsSql implements OrderInvoiceDao {
@@ -23,16 +23,14 @@ public class OrderInvoiceDaoMsSql implements OrderInvoiceDao {
             + "VALUES(?, ?, ?, ?, ?)";
     private PreparedStatement insertPS;
 
-    public OrderInvoiceDaoMsSql() {
-        init();
+    public OrderInvoiceDaoMsSql(DBConnection conn) {
+        init(conn);
     }
 
-    private void init() {
-        final DataSourceMsSql con = DataSourceMsSql.getInstance();
-
+    private void init(DBConnection conn) {
         try {
-            findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
-            insertPS = con.prepareStatement(INSERT_Q);
+            findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
+            insertPS = conn.prepareStatement(INSERT_Q);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,7 +49,7 @@ public class OrderInvoiceDaoMsSql implements OrderInvoiceDao {
     }
 
     private List<OrderInvoice> buildObjects(ResultSet rs) throws SQLException {
-        final List<OrderInvoice> orderInvoices = new ArrayList<>();
+        final List<OrderInvoice> orderInvoices = new LinkedList<>();
 
         while (rs.next()) {
             orderInvoices.add(buildObject(rs));

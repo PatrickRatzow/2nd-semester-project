@@ -1,11 +1,11 @@
 package dao.mssql;
 
 import dao.ProductDao;
-import datasource.mssql.DataSourceMsSql;
-import exception.DataAccessException;
-import exception.DataWriteException;
+import datasource.DBConnection;
 import entity.Price;
 import entity.Product;
+import exception.DataAccessException;
+import exception.DataWriteException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ public class ProductDaoMsSql implements ProductDao {
     private static final String FIND_ALL_Q = "SELECT * FROM GetProducts";
     private PreparedStatement findAllPS;
     private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE productId = ?";
+    private PreparedStatement findByIdPS;
     private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE productName = ?";
     private PreparedStatement findByNamePS;
     private static final String FIND_BY_CATEGORY_NAME_Q = "SELECT * FROM GetProductsWithCategories WHERE productCategoryName = ?";
@@ -32,20 +33,19 @@ public class ProductDaoMsSql implements ProductDao {
     /**
      * Instantiates a new Product db.
      */
-    public ProductDaoMsSql() {
-        init();
+    public ProductDaoMsSql(DBConnection conn) {
+        init(conn);
     }
 
-    private void init() {
-        DataSourceMsSql con = DataSourceMsSql.getInstance();
-
+    private void init(DBConnection conn) {
         try {
-            findAllPS = con.prepareStatement(FIND_ALL_Q);
-            findByNamePS = con.prepareStatement(FIND_BY_NAME_Q);
-            findByCategoryNamePS = con.prepareStatement(FIND_BY_CATEGORY_NAME_Q);
-            findByCategoryIdPS = con.prepareStatement(FIND_BY_CATEGORY_ID_Q);
-            insertPC = con.prepareCall(INSERT_Q);
-            updatePC = con.prepareCall(UPDATE_Q);
+            findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
+            findAllPS = conn.prepareStatement(FIND_ALL_Q);
+            findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
+            findByCategoryNamePS = conn.prepareStatement(FIND_BY_CATEGORY_NAME_Q);
+            findByCategoryIdPS = conn.prepareStatement(FIND_BY_CATEGORY_ID_Q);
+            insertPC = conn.prepareCall(INSERT_Q);
+            updatePC = conn.prepareCall(UPDATE_Q);
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -92,7 +92,6 @@ public class ProductDaoMsSql implements ProductDao {
         Product product = null;
 
         try {
-            PreparedStatement findByIdPS = DataSourceMsSql.getInstance().prepareStatement(FIND_BY_ID_Q);
             findByIdPS.setInt(1, id);
             ResultSet rs = findByIdPS.executeQuery();
 

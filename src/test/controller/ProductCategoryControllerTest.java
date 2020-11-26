@@ -1,17 +1,11 @@
 package test.controller;
 
-import controller.ProductCategoryController;
-import datasource.mssql.DataSourceMsSql;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import java.sql.SQLException;
-import java.sql.Savepoint;
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProductCategoryControllerTest {
+    /*
     private static ProductCategoryController productCategoryController = new ProductCategoryController();
     private static Savepoint savepoint;
     private static DataSourceMsSql ds = DataSourceMsSql.getInstance();
@@ -253,9 +247,11 @@ class ProductCategoryControllerTest {
         // Act + assert
         assertThrows(DataAccessException.class, () -> productCategoryController.findById(id, false));
     }
-*/
+
     @AfterAll
     static void tearDownAll() throws SQLException {
         ds.rollbackTransaction(savepoint);
     }
+
+     */
 }

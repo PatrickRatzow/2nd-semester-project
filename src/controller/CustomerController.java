@@ -1,14 +1,7 @@
 package controller;
 
-import dao.CustomerDao;
-import dao.mssql.CustomerDaoMsSql;
-import exception.DataAccessException;
-import exception.DataWriteException;
-import entity.Customer;
-
-import java.util.List;
-
 public class CustomerController {
+    /*
     CustomerDao customerDao = new CustomerDaoMsSql();
 
     public List<Customer> findAll() throws DataAccessException {
@@ -34,4 +27,5 @@ public class CustomerController {
     public void findByPhoneNo(String phoneNo) throws DataAccessException {
     	customerDao.findByPhoneNo(phoneNo);
     }
+     */
 }

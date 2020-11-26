@@ -1,11 +1,11 @@
 package dao.mssql;
 
 import dao.OrderLineDao;
-import datasource.mssql.DataSourceMsSql;
-import dto.OrderLineDto;
+import datasource.DBConnection;
+import entity.OrderLine;
+import entity.Product;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import entity.OrderLine;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,14 +17,14 @@ public class OrderLineDaoMsSql implements OrderLineDao {
     private static final String FIND_ALL_BY_ORDER_ID_Q = "SELECT * FROM GetOrderLines WHERE orderId = ?";
     private static final String INSERT_Q = "";
     private PreparedStatement insertPS;
+    private DBConnection connection;
 
-    public OrderLineDaoMsSql() {
-        init();
+    public OrderLineDaoMsSql(DBConnection conn) {
+        init(conn);
+        connection = conn;
     }
 
-    private void init() {
-        final DataSourceMsSql con = DataSourceMsSql.getInstance();
-
+    private void init(DBConnection conn) {
         try {
             insertPS = con.prepareStatement(INSERT_Q);
         } catch (SQLException e) {
@@ -58,9 +58,8 @@ public class OrderLineDaoMsSql implements OrderLineDao {
         final List<OrderLineDto> orderLineDtos;
 
         try {
-            PreparedStatement findAllByOrderId = DataSourceMsSql.getInstance().prepareStatement(FIND_ALL_BY_ORDER_ID_Q);
-            findAllByOrderId.setInt(1, id);
-            ResultSet rs = findAllByOrderId.executeQuery();
+            findAllByOrderIdPS.setInt(1, id);
+            ResultSet rs = findAllByOrderIdPS.executeQuery();
 
             orderLineDtos = buildObjects(rs);
             if (orderLineDtos.size() == 0) {

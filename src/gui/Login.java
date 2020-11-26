@@ -1,11 +1,6 @@
 package gui;
 
 import controller.EmployeeController;
-import exception.DataAccessException;
-import exception.WrongPasswordException;
-import entity.Employee;
-import entity.Project;
-import service.mssql.ProjectServiceMsSql;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -41,14 +36,6 @@ public class Login {
 				}
 			}
 		});
-
-		ProjectServiceMsSql service = new ProjectServiceMsSql();
-		try {
-			Project project = service.findById(1);
-			System.out.println(project.getName());
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public Login() {
@@ -135,16 +122,16 @@ public class Login {
 			public void actionPerformed(ActionEvent e) {
 				String usernameText = usernameInput.getText();
 				String passwordText = String.valueOf(passwordInput.getPassword());
-
+/*
 				try {
 					Employee employee = employeeController.findByUsernameAndPassword(usernameText, passwordText);
 					
-					/*
-					 * TODO: Do something with the employee. New UI? Remember to keep track of the employee
-					 */
-				} catch (DataAccessException | WrongPasswordException exception) { /* FIXME: Perhaps just send one kind of exception up to the UI layer? */
+				} catch (DataAccessException | WrongPasswordException exception) {
 					setDisplayError("Was unable to login");
 				}
+
+ */
+
 			}
 		});
 		loginContainer.add(loginButton);

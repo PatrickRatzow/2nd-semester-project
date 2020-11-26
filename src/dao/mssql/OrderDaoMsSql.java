@@ -20,17 +20,18 @@ public class OrderDaoMsSql implements OrderDao {
     private PreparedStatement findByIdPS;
     private static final String INSERT_Q = "";
     private PreparedStatement insertPS;
+    private DBConnection connection;
 
-    public OrderDaoMsSql() {
-        init();
+    public OrderDaoMsSql(DBConnection conn) {
+        init(conn);
     }
 
-    private void init() {
-        final DataSourceMsSql con = DataSourceMsSql.getInstance();
+    private void init(DBConnection conn) {
+        connection = conn;
 
         try {
-            findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
-            insertPS = con.prepareStatement(INSERT_Q, Statement.RETURN_GENERATED_KEYS);
+            findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
+            insertPS = conn.prepareStatement(INSERT_Q, Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException e) {
             e.printStackTrace();
         }

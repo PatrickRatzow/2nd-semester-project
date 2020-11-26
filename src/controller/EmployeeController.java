@@ -1,16 +1,7 @@
 package controller;
 
-import dao.EmployeeDao;
-import dao.mssql.EmployeeDaoMsSql;
-import exception.DataAccessException;
-import exception.DataWriteException;
-import exception.WrongPasswordException;
-import entity.Employee;
-import util.Validator;
-
-import java.util.List;
-
 public class EmployeeController {
+    /*
     EmployeeDao employeeDao = new EmployeeDaoMsSql();
 
     public List<Employee> findAll() throws DataAccessException {
@@ -59,4 +50,5 @@ public class EmployeeController {
         return employeeDao.create(employee.getFirstName(), employee.getLastName(), employee.getEmail(), employee.getPhoneNo(),
                 employee.getUsername(), employee.getPassword().getBytes());
     }
+     */
 }

@@ -592,7 +592,7 @@ PersistenceConnection
     </coordinates>
     <panel_attributes>MsSqlPersistenceConnection
 --
-- connection: Connection
+- DBConnection: Connection
 - repositoryFactory: MsSqlPersistenceRepositoryFactory
 _- driverClass: String_
 _- serverAddress: String_
@@ -690,7 +690,7 @@ _- serverPassword: String_
     </coordinates>
     <panel_attributes>PersistenceConnectionManager
 --
-- connection: PersistenceConnection
+- DBConnection: PersistenceConnection
 --
 _+ getConnection(): PersistenceConnection_
 + getRepositoryFactory(): PersistenceRepositoryFactory</panel_attributes>

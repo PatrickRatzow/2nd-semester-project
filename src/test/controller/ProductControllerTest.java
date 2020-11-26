@@ -1,24 +1,11 @@
 package test.controller;
 
-import controller.ProductController;
-import datasource.mssql.DataSourceMsSql;
-import exception.DataAccessException;
-import exception.DataWriteException;
-import entity.Price;
-import entity.Product;
-import entity.ProductCategory;
-import entity.Supplier;
-import org.junit.jupiter.api.*;
-
-import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProductControllerTest {
+    /*
     private final ProductCategory categoryMursten = new ProductCategory(1, "Mursten", "");
     private final Supplier supplierBygma = new Supplier(1, "Bygma");
     private ProductController productController;
@@ -266,4 +253,6 @@ class ProductControllerTest {
     static void tearDownAll() throws SQLException {
         DataSourceMsSql.getInstance().rollbackTransaction();
     }
+
+     */
 }

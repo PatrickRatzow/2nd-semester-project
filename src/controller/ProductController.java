@@ -1,16 +1,7 @@
 package controller;
 
-import dao.ProductDao;
-import dao.mssql.ProductDaoMsSql;
-import exception.DataAccessException;
-import exception.DataWriteException;
-import entity.Product;
-import entity.ProductCategory;
-import entity.Supplier;
-
-import java.util.List;
-
 public class ProductController {
+    /*
     ProductDao productDB = new ProductDaoMsSql();
 
     public List<Product> findAll() {
@@ -59,4 +50,6 @@ public class ProductController {
 
         productDB.update(product.getId(), product.getName(), product.getDesc(), category.getId(), supplier.getId(), product.getPrice().getAmount());
     }
+
+     */
 }

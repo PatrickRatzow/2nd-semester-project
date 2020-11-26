@@ -1,18 +1,13 @@
 package controller;
 
-import exception.DataAccessException;
-import entity.ProductCategory;
-import service.ProductCategoryService;
-import service.mssql.ProductCategoryServiceMsSql;
-
 public class ProductCategoryController {
+    /*
     ProductCategoryService productCategoryService = new ProductCategoryServiceMsSql();
 
     public ProductCategory findById(int id) throws DataAccessException {
         return productCategoryService.findById(id);
     }
 
-    /*
     public List<ProductCategory> findAll(boolean populateProducts) throws SQLException, DataAccessException {
         if (!populateProducts) {
             return productCategoryDB.findAll();

@@ -1,12 +1,12 @@
 package dao;
 
 
-import dto.ProjectDto;
+import entity.Project;
 import exception.DataAccessException;
 
 import java.util.List;
 
 public interface ProjectDao {
-	List<ProjectDto> findAll() throws DataAccessException;
-	ProjectDto findById(int id) throws DataAccessException;
+	List<Project> findAll() throws DataAccessException;
+	Project findById(int id) throws DataAccessException;
 }
