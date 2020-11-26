@@ -2,10 +2,11 @@ package test.dao.mssql;
 
 import dao.EmployeeDao;
 import dao.mssql.EmployeeDaoMsSql;
-import datasource.mssql.DataSourceMsSql;
+import datasource.DBConnection;
+import datasource.DBManager;
+import entity.Employee;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import entity.Employee;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
@@ -15,11 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class EmployeeDaoMsSqlTest {
-    private EmployeeDao employeeDao = new EmployeeDaoMsSql();
+    private static DBConnection connection;
+    private static EmployeeDao employeeDao;
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-        DataSourceMsSql.getInstance().startTransaction();
+        connection = DBManager.getPool().getConnection();
+        employeeDao = new EmployeeDaoMsSql(connection);
     }
 
     @Test
@@ -149,6 +152,6 @@ class EmployeeDaoMsSqlTest {
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-        DataSourceMsSql.getInstance().rollbackTransaction();
+        connection.release();
     }
 }

@@ -1,21 +1,7 @@
 package test.service.mssql;
 
-import datasource.mssql.DataSourceMsSql;
-import exception.DataAccessException;
-import entity.Project;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import service.ProjectService;
-import service.mssql.ProjectServiceMsSql;
-
-import java.sql.SQLException;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public class ProjectServiceMsSqlTest {
+    /*
     private final ProjectService projectService = new ProjectServiceMsSql();
 
     @BeforeAll
@@ -51,4 +37,6 @@ public class ProjectServiceMsSqlTest {
     static void tearDownAll() throws SQLException {
         DataSourceMsSql.getInstance().commitTransaction();
     }
+
+     */
 }

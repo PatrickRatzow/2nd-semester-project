@@ -1,17 +1,15 @@
 package dao.mssql;
 
 import dao.ProjectDao;
-import datasource.mssql.DataSourceMsSql;
-import dto.ProjectDto;
+import datasource.DBConnection;
+import entity.Project;
 import exception.DataAccessException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class ProjectDaoMsSql implements ProjectDao {
 	private static final String FIND_ALL_Q = "SELECT * FROM GetProjects";
@@ -29,24 +27,22 @@ public class ProjectDaoMsSql implements ProjectDao {
 	private static final String DELETE_Q = "";
 	private PreparedStatement deletePS;
 	
-	public ProjectDaoMsSql() {
-		init();
+	public ProjectDaoMsSql(DBConnection conn) {
+		init(conn);
 	}
 	
-	private void init() {
-		DataSourceMsSql con = DataSourceMsSql.getInstance();
-
+	private void init(DBConnection conn) {
 		try {
-			findAllPS = con.prepareStatement(FIND_ALL_Q);
-			findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
+			findAllPS = conn.prepareStatement(FIND_ALL_Q);
+			findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
-	public List<ProjectDto> findAll() throws DataAccessException {
-		final List<ProjectDto> projects;
+	public List<Project> findAll() throws DataAccessException {
+		final List<Project> projects;
 		
 		try {
 			ResultSet rs = this.findAllPS.executeQuery();
@@ -60,18 +56,16 @@ public class ProjectDaoMsSql implements ProjectDao {
 	}
 
 	@Override
-	public ProjectDto findById(int id) throws DataAccessException {
-		final ProjectDto project;
+	public Project findById(int id) throws DataAccessException {
+		Project project = null;
 
 		try {
 			findByIdPS.setInt(1, id);
 			ResultSet rs = findByIdPS.executeQuery();
-			List<ProjectDto> projectDtos = buildObjects(rs);
-			if (projectDtos.isEmpty()) {
-				throw new DataAccessException("Unable to find any project with id " + id);
-			}
 
-			project = projectDtos.get(0);
+			if (rs.next()) {
+				project = buildObject(rs);
+			}
 		} catch(SQLException e) {
 			throw new DataAccessException("Unable to find any project with id " + id);
 		}
@@ -79,23 +73,24 @@ public class ProjectDaoMsSql implements ProjectDao {
 		return project;
 	}
 	
-	private ProjectDto buildObject(final ResultSet rs) throws SQLException {
-		final ProjectDto projectDto;
+	private Project buildObject(final ResultSet rs) throws SQLException {
+		final Project project;
 		final int id = rs.getInt("projectId");
 		final String name = rs.getString("projectName");
 		final int price = rs.getInt("projectPrice");
 
-		projectDto = new ProjectDto(id, name, price);
-		mergeObject(projectDto, rs);
+		project = new Project();//id, name, price);
+		//mergeObject(projectDto, rs);
 
-		return projectDto;
+		return project;
 	}
 
-	private void mergeObject(final ProjectDto projectDto, final ResultSet rs) throws SQLException {
+	private void mergeObject(final Project project, final ResultSet rs) throws SQLException {
 		final int customerId = rs.getInt("customerId");
 		final int employeeId = rs.getInt("employeeId");
 		final int orderId = rs.getInt("orderId");
 
+		/*
 		if (customerId != 0) {
 			projectDto.addCustomerId(customerId);
 		}
@@ -105,21 +100,16 @@ public class ProjectDaoMsSql implements ProjectDao {
 		if (orderId != 0) {
 			projectDto.addOrderId(orderId);
 		}
+		 */
 	}
 
-	private List<ProjectDto> buildObjects(ResultSet rs) throws DataAccessException {
-		final Map<Integer, ProjectDto> projectDtoMap = new HashMap<>();
+	private List<Project> buildObjects(ResultSet rs) throws DataAccessException {
+		final List<Project> projects = new LinkedList<>();
 
 		try {
 			while (rs.next()) {
 				final int projectId = rs.getInt("projectId");
-				final ProjectDto projectDto = projectDtoMap.get(projectId);
-
-				if (projectDto == null) {
-					projectDtoMap.put(projectId, buildObject(rs));
-				} else {
-					mergeObject(projectDto, rs);
-				}
+				projects.add(buildObject(rs));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -127,5 +117,5 @@ public class ProjectDaoMsSql implements ProjectDao {
 			throw new DataAccessException("Unable to build project");
 		}
 
-		return new ArrayList<>(projectDtoMap.values());
+		return projects;
 	}}

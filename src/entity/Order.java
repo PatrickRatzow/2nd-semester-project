@@ -1,9 +1,7 @@
 package entity;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class Order {
@@ -11,28 +9,29 @@ public class Order {
     private LocalDateTime date;
     private OrderStatus status;
     private Map<Integer, OrderLine> orderLines;
-    private Collection<OrderInvoice> orderInvoices;
+    private OrderInvoice orderInvoice;
     private Customer customer;
     private Employee employee;
 
     public Order() {
         orderLines = new HashMap<>();
-        orderInvoices = new LinkedList<>();
     }
 
     public Order(int id, LocalDateTime date, OrderStatus status) {
         this.id = id;
         this.date = date;
         this.status = status;
+
+        orderLines = new HashMap<>();
     }
 
     public Order(int id, LocalDateTime date, OrderStatus status, Map<Integer, OrderLine> orderLines,
-                 Collection<OrderInvoice> orderInvoices, Customer customer, Employee employee) {
+                 OrderInvoice orderInvoice, Customer customer, Employee employee) {
         this.id = id;
         this.date = date;
         this.status = status;
         this.orderLines = orderLines;
-        this.orderInvoices = orderInvoices;
+        this.orderInvoice = orderInvoice;
         this.customer = customer;
         this.employee = employee;
     }
@@ -61,12 +60,12 @@ public class Order {
         this.date = date;
     }
 
-    public Collection<OrderInvoice> getOrderInvoices() {
-        return orderInvoices;
+    public OrderInvoice getOrderInvoice() {
+        return orderInvoice;
     }
 
-    public void addOrderInvoice(OrderInvoice orderInvoice) {
-        orderInvoices.add(orderInvoice);
+    public void setOrderInvoice(OrderInvoice orderInvoice) {
+        this.orderInvoice = orderInvoice;
     }
 
     public OrderStatus getStatus() {

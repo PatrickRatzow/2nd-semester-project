@@ -1,45 +1,46 @@
 package dao.mssql;
 
 import dao.*;
+import datasource.DBConnection;
 
 public class DaoFactoryMsSql implements DaoFactory {
     @Override
-    public CustomerDao createCustomerDao() {
-        return new CustomerDaoMsSql();
+    public CustomerDao createCustomerDao(DBConnection connection) {
+        return new CustomerDaoMsSql(connection);
     }
 
     @Override
-    public EmployeeDao createEmployeeDao() {
-        return new EmployeeDaoMsSql();
+    public EmployeeDao createEmployeeDao(DBConnection connection) {
+        return new EmployeeDaoMsSql(connection);
     }
 
     @Override
-    public OrderDao createOrderDao() {
-        return new OrderDaoMsSql();
+    public OrderDao createOrderDao(DBConnection connection) {
+        return new OrderDaoMsSql(connection);
     }
 
     @Override
-    public OrderInvoiceDao createOrderInvoiceDao() {
-        return new OrderInvoiceDaoMsSql();
+    public OrderInvoiceDao createOrderInvoiceDao(DBConnection connection) {
+        return new OrderInvoiceDaoMsSql(connection);
     }
 
     @Override
-    public OrderLineDao createOrderLineDao() {
-        return new OrderLineDaoMsSql();
+    public OrderLineDao createOrderLineDao(DBConnection connection) {
+        return new OrderLineDaoMsSql(connection);
     }
 
     @Override
-    public ProductCategoryDao createProductCategoryDao() {
-        return new ProductCategoryDaoMsSql();
+    public ProductCategoryDao createProductCategoryDao(DBConnection connection) {
+        return new ProductCategoryDaoMsSql(connection);
     }
 
     @Override
-    public ProductDao createProductDao() {
-        return new ProductDaoMsSql();
+    public ProductDao createProductDao(DBConnection connection) {
+        return new ProductDaoMsSql(connection);
     }
 
     @Override
-    public ProjectDao createProjectDao() {
-        return new ProjectDaoMsSql();
+    public ProjectDao createProjectDao(DBConnection connection) {
+        return new ProjectDaoMsSql(connection);
     }
 }

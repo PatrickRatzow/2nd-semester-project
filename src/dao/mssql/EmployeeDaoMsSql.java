@@ -1,11 +1,11 @@
 package dao.mssql;
 
 import dao.EmployeeDao;
-import datasource.mssql.DataSourceMsSql;
-import exception.DataAccessException;
-import exception.DataWriteException;
+import datasource.DBConnection;
 import entity.Employee;
 import entity.Password;
+import exception.DataAccessException;
+import exception.DataWriteException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,19 +23,17 @@ public class EmployeeDaoMsSql implements EmployeeDao {
     private static final String UPDATE_Q = "{CALL UpdateEmployee(?, ?, ?, ?, ?, ?, ?)}";
     private CallableStatement updatePC;
 
-    public EmployeeDaoMsSql() {
-        init();
+    public EmployeeDaoMsSql(DBConnection conn) {
+        init(conn);
     }
 
-    private void init() {
-        DataSourceMsSql con = DataSourceMsSql.getInstance();
-
+    private void init(DBConnection conn) {
         try {
-            findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
-            findByUsernamePS = con.prepareStatement(FIND_BY_USERNAME_Q);
-            findAllPS = con.prepareStatement(FIND_ALL_Q);
-            insertPC = con.prepareCall(INSERT_Q);
-            updatePC = con.prepareCall(UPDATE_Q);
+            findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
+            findByUsernamePS = conn.prepareStatement(FIND_BY_USERNAME_Q);
+            findAllPS = conn.prepareStatement(FIND_ALL_Q);
+            insertPC = conn.prepareCall(INSERT_Q);
+            updatePC = conn.prepareCall(UPDATE_Q);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -2,11 +2,12 @@ package test.dao.mssql;
 
 import dao.OrderInvoiceDao;
 import dao.mssql.OrderInvoiceDaoMsSql;
-import datasource.mssql.DataSourceMsSql;
-import exception.DataAccessException;
-import exception.DataWriteException;
+import datasource.DBConnection;
+import datasource.DBManager;
 import entity.OrderInvoice;
 import entity.Price;
+import exception.DataAccessException;
+import exception.DataWriteException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -20,11 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class OrderInvoiceDaoMsSqlTest {
-    private final OrderInvoiceDao orderInvoiceDao = new OrderInvoiceDaoMsSql();
+    private static DBConnection connection;
+    private static OrderInvoiceDao orderInvoiceDao;
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-       DataSourceMsSql.getInstance().startTransaction();
+        connection = DBManager.getPool().getConnection();
+        orderInvoiceDao = new OrderInvoiceDaoMsSql(connection);
     }
 
     @Test
@@ -85,6 +88,6 @@ class OrderInvoiceDaoMsSqlTest {
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-       DataSourceMsSql.getInstance().commitTransaction();
+       connection.release();
     }
 }

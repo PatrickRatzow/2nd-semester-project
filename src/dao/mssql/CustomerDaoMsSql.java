@@ -1,10 +1,10 @@
 package dao.mssql;
 
 import dao.CustomerDao;
-import datasource.mssql.DataSourceMsSql;
+import datasource.DBConnection;
+import entity.Customer;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import entity.Customer;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,19 +22,17 @@ public class CustomerDaoMsSql implements CustomerDao {
     private static final String UPDATE_Q = "{CALL UpdateCustomer(?, ?, ?, ?, ?)}";
     private CallableStatement updatePC;
 
-    public CustomerDaoMsSql() {
-        init();
+    public CustomerDaoMsSql(DBConnection conn) {
+        init(conn);
     }
 
-    private void init() {
-        final DataSourceMsSql con = DataSourceMsSql.getInstance();
-
+    private void init(DBConnection conn) {
         try {
-            findByPhoneNoPS = con.prepareStatement(FIND_BY_PHONENO_Q);
-            findAllPS = con.prepareStatement(FIND_ALL_Q);
-            findIdPS = con.prepareStatement(FIND_ID_Q);
-            insertPC = con.prepareCall(INSERT_Q);
-            updatePC = con.prepareCall(UPDATE_Q);
+            findByPhoneNoPS = conn.prepareStatement(FIND_BY_PHONENO_Q);
+            findAllPS = conn.prepareStatement(FIND_ALL_Q);
+            findIdPS = conn.prepareStatement(FIND_ID_Q);
+            insertPC = conn.prepareCall(INSERT_Q);
+            updatePC = conn.prepareCall(UPDATE_Q);
         } catch (SQLException e) {
             e.printStackTrace();
         }

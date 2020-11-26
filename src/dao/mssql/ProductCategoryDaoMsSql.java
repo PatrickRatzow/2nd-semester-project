@@ -1,17 +1,17 @@
 package dao.mssql;
 
 import dao.ProductCategoryDao;
-import datasource.mssql.DataSourceMsSql;
-import dto.ProductCategoryDto;
+import datasource.DBConnection;
+import entity.ProductCategory;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import entity.ProductCategory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ProductCategoryDaoMsSql implements ProductCategoryDao {
@@ -28,50 +28,48 @@ public class ProductCategoryDaoMsSql implements ProductCategoryDao {
     private static final String DELETE_Q = "DELETE FROM products_categories WHERE id = ?";
     private PreparedStatement deletePS;
 
-    public ProductCategoryDaoMsSql() {
-        init();
+    public ProductCategoryDaoMsSql(DBConnection conn) {
+        init(conn);
     }
 
-    private void init() {
-        final DataSourceMsSql con = DataSourceMsSql.getInstance();
-
+    private void init(DBConnection conn) {
         try {
-            findAllPS = con.prepareStatement(FIND_ALL_Q);
-            findByIdPS = con.prepareStatement(FIND_BY_ID_Q);
-            findByNamePS = con.prepareStatement(FIND_BY_NAME_Q);
-            insertPS = con.prepareStatement(INSERT_Q, Statement.RETURN_GENERATED_KEYS);
-            updatePS = con.prepareStatement(UPDATE_Q);
-            deletePS = con.prepareStatement(DELETE_Q);
+            findAllPS = conn.prepareStatement(FIND_ALL_Q);
+            findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
+            findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
+            insertPS = conn.prepareStatement(INSERT_Q, Statement.RETURN_GENERATED_KEYS);
+            updatePS = conn.prepareStatement(UPDATE_Q);
+            deletePS = conn.prepareStatement(DELETE_Q);
         } catch(SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private ProductCategoryDto buildObject(final ResultSet rs) throws SQLException {
-        final ProductCategoryDto categoryDto;
+    private ProductCategory buildObject(final ResultSet rs) throws SQLException {
+        ProductCategory category = null;
 
         final int id = rs.getInt("productCategoryId");
         final String name = rs.getString("productCategoryName");
         final String desc = rs.getString("productCategoryDesc");
-        categoryDto = new ProductCategoryDto(id, name, desc);
+        category = new ProductCategory(id, name, desc);
 
-        return categoryDto;
+        return category;
     }
 
-    private List<ProductCategoryDto> buildObjects(final ResultSet rs) throws SQLException {
-        final List<ProductCategoryDto> categoryDtos = new ArrayList<>();
+    private List<ProductCategory> buildObjects(final ResultSet rs) throws SQLException {
+        final List<ProductCategory> categories = new ArrayList<>();
 
         while (rs.next()) {
-            final ProductCategoryDto categoryDto = buildObject(rs);
-            categoryDtos.add(categoryDto);
+            final ProductCategory category = buildObject(rs);
+            categories.add(category);
         }
 
-        return categoryDtos;
+        return categories;
     }
 
     @Override
-    public List<ProductCategoryDto> findAll() {
-        List<ProductCategoryDto> categories = new ArrayList<>();
+    public List<ProductCategory> findAll() {
+        List<ProductCategory> categories = new LinkedList<>();
 
         try {
             ResultSet rs = findAllPS.executeQuery();
@@ -84,18 +82,16 @@ public class ProductCategoryDaoMsSql implements ProductCategoryDao {
     }
 
     @Override
-    public ProductCategoryDto findById(int id) throws DataAccessException {
-        final ProductCategoryDto categoryDto;
+    public ProductCategory findById(int id) throws DataAccessException {
+        ProductCategory category = null;
 
         try {
             findByIdPS.setInt(1, id);
             ResultSet rs = findByIdPS.executeQuery();
 
-            if (!rs.next()) {
-                throw new DataAccessException("Unable to find any category with this ID");
+            if (rs.next()) {
+                category = buildObject(rs);
             }
-
-            categoryDto = buildObject(rs);
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -103,12 +99,12 @@ public class ProductCategoryDaoMsSql implements ProductCategoryDao {
         }
 
 
-        return categoryDto;
+        return category;
     }
 
     @Override
-    public List<ProductCategoryDto> findByName(String name) throws DataAccessException {
-        List<ProductCategoryDto> categories = new ArrayList<>();
+    public List<ProductCategory> findByName(String name) throws DataAccessException {
+        List<ProductCategory> categories = new LinkedList<>();
 
         try {
             findByNamePS.setString(1, name);

@@ -2,9 +2,10 @@ package test.dao.mssql;
 
 import dao.ProductDao;
 import dao.mssql.ProductDaoMsSql;
-import datasource.mssql.DataSourceMsSql;
-import exception.DataAccessException;
+import datasource.DBConnection;
+import datasource.DBManager;
 import entity.Product;
+import exception.DataAccessException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -16,11 +17,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProductDaoMsSqlTest {
-    private final ProductDao productDao = new ProductDaoMsSql();
+    private static DBConnection connection;
+    private static ProductDao productDao;
 
     @BeforeAll
     static void setUpAll() throws SQLException {
-        DataSourceMsSql.getInstance().startTransaction();
+        connection = DBManager.getPool().getConnection();
+        productDao = new ProductDaoMsSql(connection);
     }
 
     @Test
@@ -49,6 +52,6 @@ public class ProductDaoMsSqlTest {
 
     @AfterAll
     static void tearDownAll() throws SQLException {
-        DataSourceMsSql.getInstance().commitTransaction();
+        connection.release();
     }
 }
