@@ -10,79 +10,65 @@ import exception.DataWriteException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class OrderLineDaoMsSql implements OrderLineDao {
     private static final String FIND_ALL_BY_ORDER_ID_Q = "SELECT * FROM GetOrderLines WHERE orderId = ?";
+    private PreparedStatement findAllByOrderIdPS;
     private static final String INSERT_Q = "";
     private PreparedStatement insertPS;
     private DBConnection connection;
 
     public OrderLineDaoMsSql(DBConnection conn) {
         init(conn);
-        connection = conn;
     }
 
     private void init(DBConnection conn) {
+        connection = conn;
+
         try {
-            insertPS = con.prepareStatement(INSERT_Q);
+            findAllByOrderIdPS = conn.prepareStatement(FIND_ALL_BY_ORDER_ID_Q);
+            insertPS = conn.prepareStatement(INSERT_Q);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private OrderLineDto buildObject(ResultSet rs) throws SQLException {
-        final OrderLineDto orderLineDto;
-
-        final int orderId = rs.getInt("orderId");
+    private OrderLine buildObject(ResultSet rs) throws SQLException, DataAccessException {
         final int productId = rs.getInt("productId");
         final int quantity = rs.getInt("quantity");
-        orderLineDto = new OrderLineDto(orderId, productId, quantity);
+        final Product product = new ProductDaoMsSql(connection).findById(productId);
 
-        return orderLineDto;
+        return new OrderLine(product, quantity);
     }
 
-    private List<OrderLineDto> buildObjects(ResultSet rs) throws SQLException {
-        final List<OrderLineDto> orderLineDtos = new ArrayList<>();
+    private List<OrderLine> buildObjects(ResultSet rs) throws SQLException, DataAccessException {
+        final List<OrderLine> orderLines = new LinkedList<>();
 
         while (rs.next()) {
-            orderLineDtos.add(buildObject(rs));
+            orderLines.add(buildObject(rs));
         }
 
-        return orderLineDtos;
+        return orderLines;
     }
 
     @Override
-    public List<OrderLineDto> findByOrderId(int id) throws DataAccessException {
-        final List<OrderLineDto> orderLineDtos;
+    public List<OrderLine> findByOrderId(int id) throws DataAccessException {
+        List<OrderLine> orderLines = new LinkedList<>();
 
         try {
             findAllByOrderIdPS.setInt(1, id);
             ResultSet rs = findAllByOrderIdPS.executeQuery();
 
-            orderLineDtos = buildObjects(rs);
-            if (orderLineDtos.size() == 0) {
-                throw new DataAccessException("Unable to find any order lines with orderId " + id);
-            }
+            orderLines = buildObjects(rs);
         } catch (SQLException e) {
             e.printStackTrace();
 
             throw new DataAccessException("Unable to find any order lines");
         }
 
-        return orderLineDtos;
-    }
-
-    @Override
-    public List<List<OrderLineDto>> findByOrderId(List<Integer> ids) throws DataAccessException {
-        final List<List<OrderLineDto>> orderLineDtos = new ArrayList<>();
-
-        for (int id : ids) {
-            orderLineDtos.add(findByOrderId(id));
-        }
-
-        return orderLineDtos;
+        return orderLines;
     }
 
     @Override
