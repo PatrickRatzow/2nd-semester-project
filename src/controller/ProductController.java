@@ -1,21 +1,33 @@
 package controller;
 
-public class ProductController {
-    /*
-    ProductDao productDB = new ProductDaoMsSql();
+import dao.ProductDao;
+import datasource.DBConnection;
+import datasource.DBManager;
+import entity.Product;
+import exception.DataAccessException;
 
+import java.util.List;
+
+public class ProductController {
+        /*
     public List<Product> findAll() {
         return productDB.findAll();
     }
 
     public Product findById(int id) throws DataAccessException {
         return productDB.findById(id);
-    }
+    }*/
 
     public List<Product> findByName(String name) throws DataAccessException {
-        return productDB.findByName(name);
-    }
+        DBConnection connection = DBManager.getPool().getConnection();
+        ProductDao productDao = DBManager.getDaoFactory().createProductDao(connection);
+        List<Product> products = productDao.findByName(name);
 
+        connection.release();
+
+        return products;
+    }
+    /*
     public List<Product> findByCategoryName(String name) throws DataAccessException {
         return productDB.findByCategoryName(name);
     }
