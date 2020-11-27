@@ -4,6 +4,11 @@ import datasource.DBConnection;
 import datasource.DBConnectionPool;
 import util.JUnit;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +30,49 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
 
         for (int i = 0; i < POOL_SIZE; i++) {
             pool.add(new DBConnectionMsSql(host, port, user, password, database));
+        }
+
+        //if (isJUnit) {
+            setupDatabase();
+        //}
+    }
+
+    private void setupDatabase() {
+        DBConnection conn = getConnection();
+
+        try {
+            conn.startTransaction();
+
+            Files.walk(Paths.get("./sql/"))
+                    .sorted()
+                    /* Only allow SQL files */
+                    .filter(p -> p.getFileName().toString().endsWith(".sql"))
+                    /* Execute each script sequentially to ensure that everything gets created correctly */
+                    .forEach(p -> {
+                        System.out.println(p.getFileName().toAbsolutePath());
+
+                        try {
+                            final StringBuilder sql = new StringBuilder();
+                            for (String line : Files.readAllLines(p)) {
+                                sql.append(line).append("\n");
+                            }
+                            final PreparedStatement ps = conn.prepareStatement(sql.toString());
+                            System.out.println(p.getFileName());
+                            ps.execute();
+                        } catch (IOException | SQLException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+            conn.commitTransaction();
+        } catch (SQLException | IOException e) {
+            try {
+                conn.rollbackTransaction();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } finally {
+            conn.release();
         }
     }
 

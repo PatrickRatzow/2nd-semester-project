@@ -1,19 +1,18 @@
 package dao.mssql;
 
-import dao.OrderDao;
-import datasource.mssql.DataSourceMsSql;
-import dto.OrderDto;
+import dao.*;
+import datasource.DBConnection;
+import entity.*;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import entity.Order;
-import entity.OrderStatus;
+import util.ConnectionThread;
+import util.SQLDateConverter;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class OrderDaoMsSql implements OrderDao {
     private static final String FIND_BY_ID_Q = "SELECT * FROM GetOrders WHERE orderId = ?";
@@ -37,61 +36,105 @@ public class OrderDaoMsSql implements OrderDao {
         }
     }
 
-    private OrderDto buildObject(final ResultSet rs) throws SQLException {
-        final OrderDto order;
+    private Order buildObject(final ResultSet rs, boolean fullAssociation) throws SQLException, DataAccessException {
+        final int id = rs.getInt("id");
+        final OrderStatus status = OrderStatus.values()[rs.getInt("status")];
+        final LocalDateTime createdAt = SQLDateConverter.timestampToLocalDateTime(
+                rs.getTimestamp("createdDate"));
+        final Order order = new Order(id, createdAt, status);
 
-        final int id = rs.getInt("orderId");
-        final OrderStatus status = OrderStatus.values()[rs.getInt("orderStatus")];
-        // TODO: Fix this
-        final LocalDateTime createdAt = LocalDateTime.now();
-        final int customerId = rs.getInt("customerId");
-        final int employeeId = rs.getInt("employeeId");
-        final int orderInvoiceId = rs.getInt("orderInvoiceId");
+        if (fullAssociation) {
+            // Catch exception later
+            AtomicReference<DataAccessException> exception = new AtomicReference<>();
+            // Setup objects
+            AtomicReference<Customer> customer = new AtomicReference<>();
+            AtomicReference<Employee> employee = new AtomicReference<>();
+            AtomicReference<OrderInvoice> invoice = new AtomicReference<>();
+            AtomicReference<List<OrderLine>> orderLines = new AtomicReference<>();
+            // Setup ids
+            int customerId = rs.getInt("customerId");
+            int employeeId = rs.getInt("employeeId");
 
-        order = new OrderDto(id, status, createdAt, customerId, employeeId, orderInvoiceId);
-        addOrderLineId(order, rs);
+            List<Thread> threads = new LinkedList<>();
+            threads.add(new ConnectionThread(conn -> {
+                CustomerDao dao = new CustomerDaoMsSql(conn);
+                try {
+                    customer.set(dao.findById(customerId));
+                } catch (DataAccessException e) {
+                    exception.set(e);
+                }
+            }));
+            threads.add(new ConnectionThread(conn -> {
+                EmployeeDao dao = new EmployeeDaoMsSql(conn);
+                try {
+                    employee.set(dao.findById(employeeId));
+                } catch (DataAccessException e) {
+                    exception.set(e);
+                }
+            }));
+            threads.add(new ConnectionThread(conn -> {
+                OrderInvoiceDao dao = new OrderInvoiceDaoMsSql(conn);
+                try {
+                    invoice.set(dao.findByOrderId(id));
+                } catch (DataAccessException e) {
+                    exception.set(e);
+                }
+            }));
+            threads.add(new ConnectionThread(conn -> {
+                OrderLineDao dao = new OrderLineDaoMsSql(conn);
+                try {
+                    orderLines.set(dao.findByOrderId(id));
+                } catch (DataAccessException e) {
+                    exception.set(e);
+                }
+            }));
+
+            for (Thread t : threads)
+                t.start();
+
+            for (Thread t : threads) {
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    throw new DataAccessException("An error occurred while trying to find an order");
+                }
+            }
+
+            if (exception.get() != null) {
+                throw exception.get();
+            }
+
+            order.setCustomer(customer.get());
+            order.setEmployee(employee.get());
+            order.setOrderInvoice(invoice.get());
+            orderLines.get().forEach(order::addOrderLine);
+        }
 
         return order;
     }
 
-    private void addOrderLineId(OrderDto orderDto, ResultSet rs) throws SQLException {
-        final int orderLineId = rs.getInt("orderLineId");
 
-        if (orderLineId != 0) {
-            orderDto.addOrderLineId(orderLineId);
-        }
-    }
-
-    private List<OrderDto> buildObjects(ResultSet rs) throws SQLException {
-        final Map<Integer, OrderDto> orderDtoMap = new HashMap<>();
+    private List<Order> buildObjects(ResultSet rs, boolean fullAssociation) throws SQLException, DataAccessException {
+        final List<Order> orders = new LinkedList<>();
 
         while (rs.next()) {
-            int orderId = rs.getInt("orderId");
-            OrderDto orderDto = orderDtoMap.get(orderId);
-
-            if (orderDto == null) {
-                orderDtoMap.put(orderId, buildObject(rs));
-            } else {
-                addOrderLineId(orderDto, rs);
-            }
+            orders.add(buildObject(rs, fullAssociation));
         }
 
-        return new ArrayList<>(orderDtoMap.values());
+        return orders;
     }
 
     @Override
-    public OrderDto findById(int id) throws DataAccessException {
-        final OrderDto order;
+    public Order findById(int id, boolean fullAssociation) throws DataAccessException {
+        Order order = null;
 
         try {
             findByIdPS.setInt(1, id);
             ResultSet rs = findByIdPS.executeQuery();
-            List<OrderDto> orderDtos = buildObjects(rs);
-            if (orderDtos.size() == 0) {
-                throw new DataAccessException("Unable to find any order with id " + id);
-            }
 
-            order = orderDtos.get(0);
+            if (rs.next()) {
+                order = buildObject(rs, fullAssociation);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -99,6 +142,17 @@ public class OrderDaoMsSql implements OrderDao {
         }
 
         return order;
+    }
+
+    @Override
+    public Order create(Order order) throws DataWriteException {
+        return create(order.getDate(), order.getStatus(), order.getCustomer().getId(),
+                order.getEmployee().getId(), 1);
+    }
+
+    @Override
+    public Order create(Order order, Project project) {
+        return null;
     }
 
     @Override

@@ -1,112 +1,109 @@
-CREATE TABLE projects (
+CREATE TABLE person (
     id INT IDENTITY(1, 1),
-    name NVARCHAR(255) NOT NULL,
-    price INT NOT NULL,
+    first_name NVARCHAR(127) NOT NULL,
+    last_name NVARCHAR(127) NOT NULL,
     PRIMARY KEY(id)
 );
 
-CREATE TABLE suppliers (
-    id INT IDENTITY(1, 1),
-    name NVARCHAR(255) NOT NULL,
-    PRIMARY KEY(id)
-);
-
-CREATE TABLE products_categories (
-    id INT IDENTITY(1, 1),
-    name NVARCHAR(255) NOT NULL UNIQUE,
-    description NVARCHAR(MAX) NOT NULL,
-    parentCategoryId INT,
+CREATE TABLE employee (
+    id INT,
     PRIMARY KEY(id),
-    FOREIGN KEY(parentCategoryId) REFERENCES products_categories
+    FOREIGN KEY(id) REFERENCES person(id)
 );
 
-CREATE TABLE products (
-    id INT IDENTITY(1, 1),
-    name NVARCHAR(255) NOT NULL,
-    description NVARCHAR(MAX) NOT NULL,
-    categoryId INT NOT NULL,
-    supplierId INT NOT NULL,
-    PRIMARY KEY(id),
-    FOREIGN KEY(categoryId) REFERENCES products_categories(id),
-    FOREIGN KEY(supplierId) REFERENCES suppliers(id)
-);
-
-CREATE TABLE products_prices (
-    productId INT,
-    startTime DATETIME DEFAULT GETUTCDATE(),
-    endTime DATETIME DEFAULT DATEFROMPARTS(9999, 12, 30),
-    price INT NOT NULL,
-    PRIMARY KEY(productId, startTime),
-    FOREIGN KEY(productId) REFERENCES products(id)
-);
-
-CREATE TABLE persons (
-    id INT IDENTITY(1, 1),
-    firstName NVARCHAR(127) NOT NULL,
-    lastName NVARCHAR(127) NOT NULL,
+CREATE TABLE customer (
+    id INT,
     email NVARCHAR(320) NOT NULL,
     phoneNo NVARCHAR(50) NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(id) REFERENCES person(id)
+);
+
+CREATE TABLE project (
+    id INT IDENTITY(1, 1),
+    name NVARCHAR(255) NOT NULL,
+    status INT NOT NULL,
+    customer_id INT NOT NULL,
+    employee_id INT NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(customer_id) REFERENCES customer(id),
+    FOREIGN KEY(employee_id) REFERENCES employee(id)
+);
+
+CREATE TABLE supplier (
+    id INT IDENTITY(1, 1),
+    name NVARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
 );
 
-CREATE TABLE employees (
-    id INT,
-    username NVARCHAR(63) NOT NULL UNIQUE,
-    password BINARY(80) NOT NULL,
-    PRIMARY KEY(id),
-    FOREIGN KEY(id) REFERENCES persons(id)
+CREATE TABLE product_category (
+    id INT IDENTITY(1, 1),
+    name NVARCHAR(255) NOT NULL,
+    description NVARCHAR(MAX) NOT NULL,
+    PRIMARY KEY(id)
 );
 
-CREATE TABLE customers (
-    id INT,
+CREATE TABLE product (
+    id INT IDENTITY(1, 1),
+    name NVARCHAR(255) NOT NULL,
+    description NVARCHAR(MAX) NOT NULL,
+    category_id INT NOT NULL,
+    supplier_id INT NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(id) REFERENCES persons(id)
+    FOREIGN KEY(category_id) REFERENCES product_category(id),
+    FOREIGN KEY(supplier_id) REFERENCES supplier(id)
 );
 
-CREATE TABLE orders (
+CREATE TABLE product_price (
+    product_id INT,
+    start_time DATETIME DEFAULT GETUTCDATE(),
+    end_time DATETIME DEFAULT DATEFROMPARTS(9999, 12, 30),
+    price INT NOT NULL,
+    PRIMARY KEY(product_id, start_time),
+    FOREIGN KEY(product_id) REFERENCES product(id)
+);
+
+CREATE TABLE [order] (
     id INT IDENTITY(1, 1),
     status INT NOT NULL,
-    createdDate DATETIME2 NOT NULL,
-    projectId INT NOT NULL,
-    employeeId INT NOT NULL,
-    customerId INT NOT NULL,
+    created_at DATETIME2 NOT NULL,
+    project_id INT NOT NULL,
+    employee_id INT NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(projectId) REFERENCES projects(id),
-    FOREIGN KEY(employeeId) REFERENCES employees(id),
-    FOREIGN KEY(customerId) REFERENCES customers(id)
+    FOREIGN KEY(project_id) REFERENCES project(id),
+    FOREIGN KEY(employee_id) REFERENCES employee(id),
 );
 
-CREATE TABLE orders_invoices (
-    orderId INT NOT NULL,
-    createdAt DATETIME2 NOT NULL,
-    dueDate DATE NOT NULL,
-    toPay INT NOT NULL,
-    hasPaid INT NOT NULL,
-    PRIMARY KEY(orderId),
-    FOREIGN KEY(orderId) REFERENCES orders(id),
+CREATE TABLE invoice (
+    id INT IDENTITY(1, 1),
+    created_at DATETIME2 NOT NULL,
+    due_date DATE NOT NULL,
+    to_pay INT NOT NULL,
+    has_paid INT NOT NULL,
+    PRIMARY KEY(id)
 );
 
-CREATE TABLE orders_lines (
-    orderId INT NOT NULL,
-    productId INT NOT NULL,
+CREATE TABLE project_invoice (
+    id INT NOT NULL,
+    project_id INT NOT NULL UNIQUE,
+    PRIMARY KEY(id),
+    FOREIGN KEY(id) REFERENCES invoice(id),
+    FOREIGN KEY(project_id) REFERENCES project(id)
+);
+
+CREATE TABLE order_invoice (
+    id INT,
+    order_id INT NOT NULL UNIQUE,
+    PRIMARY KEY(id),
+    FOREIGN KEY(id) REFERENCES invoice(id),
+    FOREIGN KEY(order_id) REFERENCES [order](id),
+);
+
+CREATE TABLE order_line (
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
     quantity INT NOT NULL,
-    PRIMARY KEY(orderId, productId),
-    FOREIGN KEY(orderId) REFERENCES orders(id),
-    FOREIGN KEY(productId) REFERENCES products(id)
-);
-
-CREATE TABLE projects_to_employees (
-    projectId INT NOT NULL,
-    employeeId INT NOT NULL,
-    PRIMARY KEY(projectId, employeeId),
-    FOREIGN KEY(projectId) REFERENCES projects(id),
-    FOREIGN KEY(employeeId) REFERENCES employees(id)
-);
-
-CREATE TABLE projects_to_customers (
-    projectId INT NOT NULL,
-    customerId INT NOT NULL,
-    PRIMARY KEY(projectId, customerId),
-    FOREIGN KEY(projectId) REFERENCES projects(id),
-    FOREIGN KEY(customerId) REFERENCES customers(id)
+    PRIMARY KEY(order_id, product_id),
+    FOREIGN KEY(order_id) REFERENCES [order](id),
+    FOREIGN KEY(product_id) REFERENCES product(id)
 );

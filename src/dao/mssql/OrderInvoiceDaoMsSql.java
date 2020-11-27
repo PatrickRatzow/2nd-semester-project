@@ -59,7 +59,7 @@ public class OrderInvoiceDaoMsSql implements OrderInvoiceDao {
     }
 
     @Override
-    public OrderInvoice findById(int id) throws DataAccessException {
+    public OrderInvoice findByOrderId(int id) throws DataAccessException {
         final OrderInvoice orderInvoice;
 
         try {

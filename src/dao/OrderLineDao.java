@@ -1,14 +1,12 @@
 package dao;
 
-import dto.OrderLineDto;
+import entity.OrderLine;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import entity.OrderLine;
 
 import java.util.List;
 
 public interface OrderLineDao {
-    List<OrderLineDto> findByOrderId(int id) throws DataAccessException;
-    List<List<OrderLineDto>>findByOrderId(List<Integer> ids) throws DataAccessException;
+    List<OrderLine> findByOrderId(int id) throws DataAccessException;
     OrderLine create(int orderId, int productId, int quantity) throws DataWriteException;
 }
