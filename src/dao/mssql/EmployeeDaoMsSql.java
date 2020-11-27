@@ -3,7 +3,6 @@ package dao.mssql;
 import dao.EmployeeDao;
 import datasource.DBConnection;
 import entity.Employee;
-import entity.Password;
 import exception.DataAccessException;
 import exception.DataWriteException;
 
@@ -47,10 +46,6 @@ public class EmployeeDaoMsSql implements EmployeeDao {
             employee.setId(rs.getInt("personId"));
             employee.setFirstName(rs.getString("personFirstName"));
             employee.setLastName(rs.getString("personLastName"));
-            employee.setEmail(rs.getString("personEmail"));
-            employee.setPhoneNo(rs.getString("personPhoneNo"));
-            employee.setUsername(rs.getString("employeeUsername"));
-            employee.setPassword(new Password(rs.getBytes("employeePassword")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -150,10 +145,6 @@ public class EmployeeDaoMsSql implements EmployeeDao {
             employee.setId(insertPC.getInt(7));
             employee.setFirstName(firstName);
             employee.setLastName(lastName);
-            employee.setEmail(email);
-            employee.setPhoneNo(phoneNo);
-            employee.setUsername(username);
-            employee.setPassword(new Password(password));
         } catch (SQLException e) {
             e.printStackTrace();
 

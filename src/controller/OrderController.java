@@ -49,9 +49,10 @@ public class OrderController {
     }
 
     public Order findById(int id, boolean fullAssociation) throws DataAccessException {
-        DBConnection connection = DBManager.getPool().getConnection();
-        OrderDao orderDao = DBManager.getDaoFactory().createOrderDao(connection);
-        Order order = orderDao.findById(id, fullAssociation);
+        final DBConnection connection = DBManager.getPool().getConnection();
+        final OrderDao orderDao = DBManager.getDaoFactory().createOrderDao(connection);
+
+        final Order order = orderDao.findById(id, fullAssociation);
 
         connection.release();
 
