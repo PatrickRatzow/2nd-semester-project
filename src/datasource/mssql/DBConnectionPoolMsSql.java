@@ -25,7 +25,7 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
 
     public DBConnectionPoolMsSql() {
         final boolean isJUnit = JUnit.isJUnitTest();
-        user = isJUnit ? "dmaa0220_1083750" : "dmaa0220_1083802";
+        user = isJUnit ? "dmaa0220_1083802" : "dmaa0220_1083750";
         database = user;
 
         for (int i = 0; i < POOL_SIZE; i++) {
@@ -49,8 +49,6 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
                     .filter(p -> p.getFileName().toString().endsWith(".sql"))
                     /* Execute each script sequentially to ensure that everything gets created correctly */
                     .forEach(p -> {
-                        System.out.println(p.getFileName().toAbsolutePath());
-
                         try {
                             final StringBuilder sql = new StringBuilder();
                             for (String line : Files.readAllLines(p)) {

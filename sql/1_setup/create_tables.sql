@@ -14,7 +14,7 @@ CREATE TABLE employee (
 CREATE TABLE customer (
     id INT,
     email NVARCHAR(320) NOT NULL,
-    phoneNo NVARCHAR(50) NOT NULL,
+    phone_number NVARCHAR(50) NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(id) REFERENCES person(id)
 );

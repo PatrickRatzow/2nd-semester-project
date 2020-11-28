@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class OrderDaoMsSql implements OrderDao {
-    private static final String FIND_BY_ID_Q = "SELECT * FROM GetOrders WHERE orderId = ?";
+    private static final String FIND_BY_ID_Q = "SELECT * FROM [order] WHERE id = ?";
     private PreparedStatement findByIdPS;
     private static final String INSERT_Q = "";
     private PreparedStatement insertPS;
@@ -40,11 +40,10 @@ public class OrderDaoMsSql implements OrderDao {
         final int id = rs.getInt("id");
         final OrderStatus status = OrderStatus.values()[rs.getInt("status")];
         final LocalDateTime createdAt = SQLDateConverter.timestampToLocalDateTime(
-                rs.getTimestamp("createdDate"));
+                rs.getTimestamp("created_at"));
         final Order order = new Order(id, createdAt, status);
 
         if (fullAssociation) {
-            // Catch exception later
             AtomicReference<DataAccessException> exception = new AtomicReference<>();
             // Setup objects
             AtomicReference<Customer> customer = new AtomicReference<>();
@@ -52,8 +51,8 @@ public class OrderDaoMsSql implements OrderDao {
             AtomicReference<OrderInvoice> invoice = new AtomicReference<>();
             AtomicReference<List<OrderLine>> orderLines = new AtomicReference<>();
             // Setup ids
-            int customerId = rs.getInt("customerId");
-            int employeeId = rs.getInt("employeeId");
+            int customerId = rs.getInt("project_id");
+            int employeeId = rs.getInt("employee_id");
 
             List<Thread> threads = new LinkedList<>();
             threads.add(new ConnectionThread(conn -> {

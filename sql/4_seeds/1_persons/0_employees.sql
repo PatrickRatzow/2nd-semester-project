@@ -1,7 +1,2 @@
--- Password is hunter2 with a random salt
-DECLARE @Password BINARY(80) = 0xDDA647DA0640C06B6368AA5310797B6C4D5991E1E332C3E2D0C1AB26C2D67B46AF0691067CB7820C25A9C1EAFBCE6A4460CB3FB627EC29FE99B71E7E39BA8A33859909E63F7FF098D10F71509649B6CB;
-
-EXEC InsertEmployee 'Cas', 'Sky', 'cas@example.com', '42424242',
-     'Cas789',@Password;
-EXEC InsertEmployee 'Malte', 'Storm', 'storm@example.com', '45454545',
-     'maltestorm',@Password;
+EXEC InsertEmployee 'Cas', 'Sky';
+EXEC InsertEmployee 'Malte', 'Storm';
