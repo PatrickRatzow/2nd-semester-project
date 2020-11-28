@@ -5,8 +5,7 @@ CREATE PROCEDURE InsertCustomer
     @PhoneNo NVARCHAR(50),
     @PersonId INT = NULL OUTPUT
 AS
-    EXEC InsertPerson @FirstName, @LastName, @Email, @PhoneNo, @PersonId OUT;
-    INSERT INTO customers(id)
-    VALUES (@PersonId)
+    EXEC InsertPerson @FirstName, @LastName, @PersonId OUT;
+    INSERT INTO customer(id, email, phone_number)
+    VALUES (@PersonId, @Email, @PhoneNo);
 ;
-

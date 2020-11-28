@@ -1,7 +1,5 @@
 package gui;
 
-import controller.EmployeeController;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -15,8 +13,6 @@ public class Login {
 	private JTextField usernameInput;
 	private JPasswordField passwordInput;
 	private JLabel title;
-	final private EmployeeController employeeController = new EmployeeController();
-
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel("com.bulenkov.darcula.DarculaLaf");

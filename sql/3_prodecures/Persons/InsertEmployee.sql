@@ -1,13 +1,9 @@
 CREATE PROCEDURE InsertEmployee
     @FirstName NVARCHAR(127),
     @LastName NVARCHAR(127),
-    @Email NVARCHAR(320),
-    @PhoneNo NVARCHAR(50),
-    @Username NVARCHAR(63),
-    @Password BINARY(80),
     @PersonId INT = NULL OUTPUT
 AS
-    EXEC InsertPerson @FirstName, @LastName, @Email, @PhoneNo, @PersonId OUT;
-    INSERT INTO employees(id, username, password)
-    VALUES (@PersonId, @Username, @Password)
+    EXEC InsertPerson @FirstName, @LastName, @PersonId OUT;
+    INSERT INTO employee(id)
+    VALUES (@PersonId)
 ;

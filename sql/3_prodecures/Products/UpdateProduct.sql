@@ -6,13 +6,13 @@ CREATE PROCEDURE UpdateProduct
     @SupplierId INT,
     @Price INT
 AS
-    UPDATE products
+    UPDATE product
     SET name = @Name,
         description = @Description,
-        categoryId = @CategoryId,
-        supplierId = @SupplierId
+        category_id = @CategoryId,
+        supplier_id = @SupplierId
     WHERE id = @Id;
-    DECLARE @CurrentPrice INT = (SELECT price FROM products_prices WHERE productId = @Id AND endTime > GETUTCDATE());
+    DECLARE @CurrentPrice INT = (SELECT price FROM product_price WHERE product_id = @Id AND end_time > GETUTCDATE());
     IF @CurrentPrice != @Price
         EXEC AddPriceToProduct @Id, @Price
 ;

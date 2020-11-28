@@ -16,9 +16,13 @@ public class ConnectionThread extends Thread {
     public void run() {
         DBConnection conn = DBManager.getPool().getConnection();
 
+        System.out.println("Running " + currentThread().getName());
+        System.out.println(conn);
+
         callback.accept(conn);
 
-        if (conn != null)
+        if (conn != null) {
             conn.release();
+        }
     }
 }

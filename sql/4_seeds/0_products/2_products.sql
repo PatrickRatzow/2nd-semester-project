@@ -1,7 +1,7 @@
-DECLARE @TagstenId INT = (SELECT id FROM products_categories WHERE name = 'Tagsten');
-DECLARE @TeglstenId INT = (SELECT id FROM products_categories WHERE name = 'Teglsten');
-DECLARE @BygmaId INT = (SELECT id FROM suppliers WHERE name = 'Bygma');
-DECLARE @XLBygId INT = (SELECT id FROM suppliers WHERE name = 'XL Byg');
+DECLARE @TagstenId INT = (SELECT id FROM product_category WHERE name = 'Tagsten');
+DECLARE @TeglstenId INT = (SELECT id FROM product_category WHERE name = 'Teglsten');
+DECLARE @BygmaId INT = (SELECT id FROM supplier WHERE name = 'Bygma');
+DECLARE @XLBygId INT = (SELECT id FROM supplier WHERE name = 'XL Byg');
 
 EXEC InsertProduct 'Lille tagsten', '', @TagstenId, @BygmaId, 20000;
 EXEC InsertProduct 'Tagsten', '', @TagstenId, @BygmaId, 250000;

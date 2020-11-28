@@ -6,12 +6,8 @@ CREATE PROCEDURE InsertProduct
     @Price INT,
     @ProductId INT = NULL OUTPUT
 AS
-    BEGIN TRANSACTION;
-
-    INSERT INTO products(name, description, categoryId, supplierId)
+    INSERT INTO product(name, description, category_id, supplier_id)
     VALUES(@Name, @Description, @CategoryId, @SupplierId);
-    SET @ProductId = (SELECT IDENT_CURRENT('products'));
+    SET @ProductId = (SELECT IDENT_CURRENT('product'));
     EXEC AddPriceToProduct @ProductId, @Price;
-
-    COMMIT TRANSACTION;
 ;
