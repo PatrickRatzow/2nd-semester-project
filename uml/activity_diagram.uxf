@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>8</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>48</x>
-      <y>104</y>
-      <w>16</w>
-      <h>16</h>
+      <x>54</x>
+      <y>135</y>
+      <w>18</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -15,10 +15,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>48</x>
-      <y>112</y>
-      <w>24</w>
-      <h>40</h>
+      <x>54</x>
+      <y>144</y>
+      <w>27</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 
@@ -28,10 +28,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>624</x>
-      <y>16</y>
-      <w>144</w>
-      <h>56</h>
+      <x>702</x>
+      <y>36</y>
+      <w>162</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>Tømrersvend</panel_attributes>
     <additional_attributes/>
@@ -39,10 +39,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>784</x>
-      <y>80</y>
-      <w>32</w>
-      <h>976</h>
+      <x>891</x>
+      <y>108</y>
+      <w>36</w>
+      <h>1098</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>20.0;10.0;10.0;1200.0</additional_attributes>
@@ -50,10 +50,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1184</x>
-      <y>80</y>
-      <w>24</w>
-      <h>968</h>
+      <x>1332</x>
+      <y>108</y>
+      <w>27</w>
+      <h>1089</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;1190.0</additional_attributes>
@@ -61,10 +61,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1424</x>
-      <y>88</y>
-      <w>24</w>
-      <h>968</h>
+      <x>1602</x>
+      <y>117</y>
+      <w>27</w>
+      <h>1089</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;1190.0</additional_attributes>
@@ -72,10 +72,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1224</x>
-      <y>16</y>
-      <w>144</w>
-      <h>56</h>
+      <x>1377</x>
+      <y>36</y>
+      <w>162</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>Kontor Ansvarlig</panel_attributes>
     <additional_attributes/>
@@ -83,10 +83,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>904</x>
-      <y>16</y>
-      <w>144</w>
-      <h>56</h>
+      <x>1017</x>
+      <y>36</y>
+      <w>162</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>Direktør</panel_attributes>
     <additional_attributes/>
@@ -94,10 +94,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
-      <y>80</y>
-      <w>24</w>
-      <h>968</h>
+      <x>648</x>
+      <y>108</y>
+      <w>27</w>
+      <h>1089</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;1190.0</additional_attributes>
@@ -106,9 +106,9 @@
     <id>UMLState</id>
     <coordinates>
       <x>0</x>
-      <y>136</y>
-      <w>112</w>
-      <h>32</h>
+      <y>171</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Opret ordre</panel_attributes>
     <additional_attributes/>
@@ -116,10 +116,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>48</x>
-      <y>208</y>
-      <w>24</w>
-      <h>40</h>
+      <x>54</x>
+      <y>252</y>
+      <w>27</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 
@@ -130,9 +130,9 @@
     <id>UMLState</id>
     <coordinates>
       <x>0</x>
-      <y>232</y>
-      <w>112</w>
-      <h>32</h>
+      <y>279</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Varer bestilt</panel_attributes>
     <additional_attributes/>
@@ -140,10 +140,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>48</x>
-      <y>256</y>
-      <w>24</w>
-      <h>40</h>
+      <x>54</x>
+      <y>306</y>
+      <w>27</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 </panel_attributes>
@@ -153,9 +153,9 @@
     <id>UMLState</id>
     <coordinates>
       <x>0</x>
-      <y>280</y>
-      <w>112</w>
-      <h>32</h>
+      <y>333</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Projekt udføres</panel_attributes>
     <additional_attributes/>
@@ -164,9 +164,9 @@
     <id>UMLState</id>
     <coordinates>
       <x>0</x>
-      <y>184</y>
-      <w>112</w>
-      <h>32</h>
+      <y>225</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Faktura udsendes</panel_attributes>
     <additional_attributes/>
@@ -174,10 +174,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>48</x>
-      <y>160</y>
-      <w>24</w>
-      <h>40</h>
+      <x>54</x>
+      <y>198</y>
+      <w>27</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 </panel_attributes>
@@ -186,10 +186,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>48</x>
-      <y>304</y>
-      <w>24</w>
-      <h>40</h>
+      <x>54</x>
+      <y>360</y>
+      <w>27</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 </panel_attributes>
@@ -198,10 +198,10 @@
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>48</x>
-      <y>328</y>
-      <w>16</w>
-      <h>16</h>
+      <x>54</x>
+      <y>387</y>
+      <w>18</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -209,10 +209,10 @@
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>968</x>
-      <y>88</y>
-      <w>16</w>
-      <h>16</h>
+      <x>1089</x>
+      <y>117</y>
+      <w>18</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -220,10 +220,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>968</x>
-      <y>96</y>
-      <w>128</w>
-      <h>56</h>
+      <x>1089</x>
+      <y>126</y>
+      <w>144</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 Kunde henvender sig</panel_attributes>
@@ -232,10 +232,10 @@ Kunde henvender sig</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>960</x>
-      <y>136</y>
-      <w>32</w>
-      <h>32</h>
+      <x>1080</x>
+      <y>171</y>
+      <w>36</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>type=decision</panel_attributes>
     <additional_attributes/>
@@ -243,21 +243,10 @@ Kunde henvender sig</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>968</x>
-      <y>160</y>
-      <w>24</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>848</x>
-      <y>96</y>
-      <w>128</w>
-      <h>72</h>
+      <x>954</x>
+      <y>126</y>
+      <w>144</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 Vil høre om pris</panel_attributes>
@@ -266,10 +255,10 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>848</x>
-      <y>88</y>
-      <w>16</w>
-      <h>16</h>
+      <x>954</x>
+      <y>117</y>
+      <w>18</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>type=termination</panel_attributes>
     <additional_attributes/>
@@ -277,21 +266,21 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>920</x>
-      <y>384</y>
-      <w>112</w>
-      <h>32</h>
+      <x>1035</x>
+      <y>360</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
-    <panel_attributes>Opret Projekt</panel_attributes>
+    <panel_attributes>Registrer Projekt</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>968</x>
-      <y>408</y>
-      <w>24</w>
-      <h>40</h>
+      <x>1089</x>
+      <y>387</y>
+      <w>27</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -299,10 +288,10 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>920</x>
-      <y>432</y>
-      <w>112</w>
-      <h>32</h>
+      <x>1035</x>
+      <y>414</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Bestille varer</panel_attributes>
     <additional_attributes/>
@@ -310,21 +299,21 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>1216</x>
-      <y>536</y>
-      <w>112</w>
-      <h>32</h>
+      <x>1368</x>
+      <y>531</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
-    <panel_attributes>Regnskab</panel_attributes>
+    <panel_attributes>Bogføring</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1016</x>
-      <y>480</y>
-      <w>272</w>
-      <h>72</h>
+      <x>1143</x>
+      <y>468</y>
+      <w>306</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0;320.0;40.0;320.0;70.0</additional_attributes>
@@ -332,10 +321,10 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>1216</x>
-      <y>760</y>
-      <w>112</w>
-      <h>32</h>
+      <x>1368</x>
+      <y>729</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Sende Faktura</panel_attributes>
     <additional_attributes/>
@@ -343,10 +332,10 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>720</x>
-      <y>552</y>
-      <w>24</w>
-      <h>48</h>
+      <x>810</x>
+      <y>549</y>
+      <w>27</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
@@ -354,10 +343,10 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>672</x>
-      <y>528</y>
-      <w>112</w>
-      <h>32</h>
+      <x>756</x>
+      <y>522</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Varer modtaget</panel_attributes>
     <additional_attributes/>
@@ -365,21 +354,21 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>672</x>
-      <y>584</y>
-      <w>112</w>
-      <h>32</h>
+      <x>756</x>
+      <y>585</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
-    <panel_attributes>Udføre ordre</panel_attributes>
+    <panel_attributes>Udføre projekt</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>720</x>
-      <y>480</y>
-      <w>232</w>
-      <h>64</h>
+      <x>810</x>
+      <y>468</y>
+      <w>261</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>270.0;10.0;270.0;40.0;10.0;40.0;10.0;60.0</additional_attributes>
@@ -387,10 +376,10 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1264</x>
-      <y>784</y>
-      <w>24</w>
-      <h>40</h>
+      <x>1422</x>
+      <y>756</y>
+      <w>27</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -398,21 +387,21 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>1216</x>
-      <y>808</y>
-      <w>112</w>
-      <h>32</h>
+      <x>1368</x>
+      <y>783</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
-    <panel_attributes>Modtage betaling</panel_attributes>
+    <panel_attributes>Registrer betaling</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>688</x>
-      <y>648</y>
-      <w>640</w>
-      <h>24</h>
+      <x>765</x>
+      <y>657</y>
+      <w>720</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>780.0;10.0;10.0;10.0</additional_attributes>
@@ -420,22 +409,22 @@ Vil høre om pris</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>720</x>
-      <y>608</y>
-      <w>80</w>
-      <h>64</h>
+      <x>810</x>
+      <y>612</y>
+      <w>99</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-Ordre udført</panel_attributes>
+Projekt udført</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>968</x>
-      <y>944</y>
-      <w>16</w>
-      <h>16</h>
+      <x>1089</x>
+      <y>918</y>
+      <w>18</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>type=initial</panel_attributes>
     <additional_attributes/>
@@ -443,21 +432,21 @@ Ordre udført</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>920</x>
-      <y>896</y>
-      <w>112</w>
-      <h>32</h>
+      <x>1035</x>
+      <y>864</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
-    <panel_attributes>Afslutte ordre</panel_attributes>
+    <panel_attributes>Afslutte projekt</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>968</x>
-      <y>920</y>
-      <w>24</w>
-      <h>40</h>
+      <x>1089</x>
+      <y>891</y>
+      <w>27</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -465,22 +454,22 @@ Ordre udført</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>968</x>
-      <y>832</y>
-      <w>320</w>
-      <h>80</h>
+      <x>1089</x>
+      <y>810</y>
+      <w>360</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-Betaling modtaget</panel_attributes>
-    <additional_attributes>380.0;10.0;380.0;40.0;10.0;40.0;10.0;80.0</additional_attributes>
+</panel_attributes>
+    <additional_attributes>380.0;10.0;380.0;40.0;10.0;40.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>968</x>
-      <y>456</y>
-      <w>24</w>
-      <h>48</h>
+      <x>1089</x>
+      <y>441</y>
+      <w>27</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
@@ -488,43 +477,21 @@ Betaling modtaget</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>896</x>
-      <y>480</y>
-      <w>168</w>
-      <h>24</h>
+      <x>1008</x>
+      <y>468</y>
+      <w>189</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>190.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>1216</x>
-      <y>712</y>
-      <w>112</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>Opgørelse</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>1264</x>
-      <y>736</y>
-      <w>24</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1264</x>
-      <y>560</y>
-      <w>24</w>
-      <h>112</h>
+      <x>1422</x>
+      <y>558</y>
+      <w>27</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
@@ -532,21 +499,33 @@ Betaling modtaget</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>968</x>
-      <y>648</y>
-      <w>320</w>
-      <h>80</h>
+      <x>1089</x>
+      <y>657</y>
+      <w>360</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0;380.0;50.0;380.0;80.0</additional_attributes>
   </element>
   <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1089</x>
+      <y>198</y>
+      <w>135</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Eksiserende kunde</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>960</x>
-      <y>232</y>
-      <w>32</w>
-      <h>32</h>
+      <x>1080</x>
+      <y>252</y>
+      <w>36</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>type=decision</panel_attributes>
     <additional_attributes/>
@@ -554,54 +533,10 @@ Betaling modtaget</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>968</x>
-      <y>256</y>
-      <w>24</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLSpecialState</id>
-    <coordinates>
-      <x>960</x>
-      <y>336</y>
-      <w>32</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>type=decision</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>920</x>
-      <y>280</y>
-      <w>112</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>Eksistrende kunde</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>968</x>
-      <y>304</y>
-      <w>24</w>
-      <h>48</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>968</x>
-      <y>360</y>
-      <w>24</w>
-      <h>40</h>
+      <x>1089</x>
+      <y>279</y>
+      <w>27</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -609,32 +544,22 @@ Betaling modtaget</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>984</x>
-      <y>240</y>
-      <w>160</w>
-      <h>56</h>
+      <x>1107</x>
+      <y>171</y>
+      <w>189</w>
+      <h>99</h>
     </coordinates>
-    <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;180.0;10.0;180.0;50.0</additional_attributes>
+    <panel_attributes>lt=-&gt;
+Ny kunde</panel_attributes>
+    <additional_attributes>10.0;20.0;190.0;20.0;190.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>1072</x>
-      <y>280</y>
-      <w>112</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>Ny kunde</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>1072</x>
-      <y>336</y>
-      <w>112</w>
-      <h>32</h>
+      <x>1215</x>
+      <y>252</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Oprette kunde</panel_attributes>
     <additional_attributes/>
@@ -642,45 +567,34 @@ Betaling modtaget</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1120</x>
-      <y>304</y>
-      <w>24</w>
-      <h>48</h>
+      <x>1107</x>
+      <y>261</y>
+      <w>126</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>984</x>
-      <y>344</y>
-      <w>104</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>968</x>
-      <y>208</y>
-      <w>24</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>920</x>
-      <y>184</y>
-      <w>112</w>
-      <h>32</h>
+      <x>1035</x>
+      <y>306</y>
+      <w>126</w>
+      <h>36</h>
     </coordinates>
-    <panel_attributes>Modtager Ordre</panel_attributes>
+    <panel_attributes>Møde hos kunden</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1089</x>
+      <y>333</y>
+      <w>27</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
   </element>
 </diagram>
