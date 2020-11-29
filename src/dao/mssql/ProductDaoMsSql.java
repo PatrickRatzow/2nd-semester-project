@@ -5,9 +5,10 @@ import datasource.DBConnection;
 import entity.Price;
 import entity.Product;
 import exception.DataAccessException;
-import exception.DataWriteException;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,18 +18,12 @@ import java.util.List;
 public class ProductDaoMsSql implements ProductDao {
     private static final String FIND_ALL_Q = "SELECT * FROM GetProducts";
     private PreparedStatement findAllPS;
-    private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE productId = ?";
+    private static final String FIND_BY_ID_Q = "SELECT TOP 1 * FROM GetProducts WHERE id = ? " +
+            "ORDER BY price_end_time DESC";
     private PreparedStatement findByIdPS;
-    private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE productName = ?";
+    private static final String FIND_BY_NAME_Q = "SELECT TOP 1 * FROM GetProducts WHERE name LIKE CONCAT('%', ?, '%') " +
+            "ORDER BY price_end_time DESC";
     private PreparedStatement findByNamePS;
-    private static final String FIND_BY_CATEGORY_NAME_Q = "SELECT * FROM GetProductsWithCategories WHERE productCategoryName = ?";
-    private PreparedStatement findByCategoryNamePS;
-    private static final String FIND_BY_CATEGORY_ID_Q = "SELECT * FROM GetProductsWithCategories WHERE productCategoryId = ?";
-    private PreparedStatement findByCategoryIdPS;
-    private static final String INSERT_Q = "{CALL InsertProduct(?, ?, ?, ?, ?, ?)}";
-    private CallableStatement insertPC;
-    private static final String UPDATE_Q = "{CALL UpdateProduct(?, ?, ?, ?, ?, ?)}";
-    private CallableStatement updatePC;
 
     /**
      * Instantiates a new Product db.
@@ -42,10 +37,6 @@ public class ProductDaoMsSql implements ProductDao {
             findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
             findAllPS = conn.prepareStatement(FIND_ALL_Q);
             findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
-            findByCategoryNamePS = conn.prepareStatement(FIND_BY_CATEGORY_NAME_Q);
-            findByCategoryIdPS = conn.prepareStatement(FIND_BY_CATEGORY_ID_Q);
-            insertPC = conn.prepareCall(INSERT_Q);
-            updatePC = conn.prepareCall(UPDATE_Q);
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -54,10 +45,10 @@ public class ProductDaoMsSql implements ProductDao {
     private Product buildObject(ResultSet rs) throws SQLException {
         final Product product = new Product();
 
-        product.setId(rs.getInt("productId"));
-        product.setName(rs.getString("productName"));
-        product.setDesc(rs.getString("productDesc"));
-        product.setPrice(new Price(rs.getInt("productPrice")));
+        product.setId(rs.getInt("id"));
+        product.setName(rs.getString("name"));
+        product.setDesc(rs.getString("description"));
+        product.setPrice(new Price(rs.getInt("price")));
 
         return product;
     }
@@ -102,10 +93,6 @@ public class ProductDaoMsSql implements ProductDao {
             throw new DataAccessException("Unable to find any product with id " + id);
         }
 
-        if (product == null) {
-            throw new DataAccessException("Unable to find any product with id " + id);
-        }
-
         return product;
     }
 
@@ -126,85 +113,5 @@ public class ProductDaoMsSql implements ProductDao {
         }
 
         return products;
-    }
-
-    @Override
-    public List<Product> findByCategoryName(String name) throws DataAccessException {
-        List<Product> products = new ArrayList<>();
-
-        try {
-            findByCategoryNamePS.setString(1, name);
-            ResultSet rs = findByCategoryNamePS.executeQuery();
-            products = buildObjects(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        if (products.size() == 0) {
-            throw new DataAccessException("Couldn't find any products that has that category name");
-        }
-
-
-        return products;
-    }
-
-    @Override
-    public List<Product> findByCategoryId(int id) {
-        List<Product> products = new ArrayList<>();
-
-        try {
-            findByCategoryIdPS.setInt(1, id);
-            ResultSet rs = findByCategoryIdPS.executeQuery();
-            products = buildObjects(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return products;
-    }
-
-
-    @Override
-    public Product create(String name, String description, int categoryId, int supplierId, int price) throws DataWriteException {
-        final Product product = new Product();
-
-        try {
-            insertPC.setString(1, name);
-            insertPC.setString(2, description);
-            insertPC.setInt(3, categoryId);
-            insertPC.setInt(4, supplierId);
-            insertPC.setInt(5, price);
-            insertPC.registerOutParameter(6, Types.INTEGER);
-            insertPC.execute();
-
-            product.setId(insertPC.getInt(6));
-            product.setName(name);
-            product.setDesc(description);
-            product.setPrice(new Price(price));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataWriteException("Unable to create product");
-        }
-
-        return product;
-    }
-
-    @Override
-    public void update(int id, String name, String description, int categoryId, int supplierId, int price) throws DataWriteException {
-        try {
-            updatePC.setInt(1, id);
-            updatePC.setString(2, name);
-            updatePC.setString(3, description);
-            updatePC.setInt(4, categoryId);
-            updatePC.setInt(5, supplierId);
-            updatePC.setInt(6, price);
-            int affected = updatePC.executeUpdate();
-            if (affected == 0) {
-                throw new DataWriteException("Unable to update product");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataWriteException("Unable to update product");
-        }
     }
 }

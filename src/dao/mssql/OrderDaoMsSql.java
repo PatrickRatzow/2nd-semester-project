@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class OrderDaoMsSql implements OrderDao {
-    private static final String FIND_BY_ID_Q = "SELECT * FROM [order] WHERE id = ?";
+    private static final String FIND_BY_ID_Q = "SELECT * From GetOrders WHERE id = ?";
     private PreparedStatement findByIdPS;
     private static final String INSERT_Q = "";
     private PreparedStatement insertPS;
@@ -51,7 +51,7 @@ public class OrderDaoMsSql implements OrderDao {
             AtomicReference<OrderInvoice> invoice = new AtomicReference<>();
             AtomicReference<List<OrderLine>> orderLines = new AtomicReference<>();
             // Setup ids
-            int customerId = rs.getInt("project_id");
+            int customerId = rs.getInt("customer_id");
             int employeeId = rs.getInt("employee_id");
 
             List<Thread> threads = new LinkedList<>();
@@ -106,7 +106,11 @@ public class OrderDaoMsSql implements OrderDao {
             order.setCustomer(customer.get());
             order.setEmployee(employee.get());
             order.setOrderInvoice(invoice.get());
-            orderLines.get().forEach(order::addOrderLine);
+            orderLines.get().forEach(o -> {
+                System.out.println(o);
+
+                order.addOrderLine(o);
+            });
         }
 
         return order;

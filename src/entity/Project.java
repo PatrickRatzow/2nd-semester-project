@@ -1,25 +1,27 @@
 package entity;
 
-import java.util.Set;
+import java.util.Map;
 
 public class Project {
     private int id;
     private String name;
-    private Price price;
-    private Set<Order> orderSet;
-    private Set<Customer> customerSet;
-    private Set<Employee> employeeSet;
+    private Map<Integer, Order> orders;
+    private Customer customer;
+    private Employee employee;
 
     public Project() {}
 
-    public Project(int id, String name, Price price, Set<Order> orderSet,
-    		Set<Customer> customerSet, Set<Employee> employeeSet) {
+    public Project(int id, String name) {
         this.id = id;
         this.name = name;
-        this.price = price;
-        this.orderSet = orderSet;
-        this.customerSet = customerSet;
-        this.employeeSet = employeeSet;
+    }
+    public Project(int id, String name, Map<Integer, Order> orders,
+    		Customer customer, Employee employee) {
+        this.id = id;
+        this.name = name;
+        this.orders = orders;
+        this.customer = customer;
+        this.employee = employee;
     }
 
     public String getName() {
@@ -30,14 +32,6 @@ public class Project {
         this.name = name;
     }
 
-    public Price getPrice() {
-        return price;
-    }
-
-    public void setPrice(Price price) {
-        this.price = price;
-    }
-
     public int getId() {
         return id;
     }
@@ -46,27 +40,27 @@ public class Project {
         this.id = id;
     }
 
-	public Set<Order> getOrderSet() {
-		return orderSet;
-	}
+    public Map<Integer, Order> getOrders() {
+        return orders;
+    }
 
-	public void setOrderSet(Set<Order> orderSet) {
-		this.orderSet = orderSet;
-	}
+    public void setOrders(Map<Integer, Order> orders) {
+        this.orders = orders;
+    }
 
-	public Set<Customer> getCustomerSet() {
-		return customerSet;
-	}
+    public Customer getCustomer() {
+        return customer;
+    }
 
-	public void setCustomerSet(Set<Customer> customerSet) {
-		this.customerSet = customerSet;
-	}
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
-	public Set<Employee> getEmployeeSet() {
-		return employeeSet;
-	}
+    public Employee getEmployee() {
+        return employee;
+    }
 
-	public void setEmployeeSet(Set<Employee> employeeSet) {
-		this.employeeSet = employeeSet;
-	}
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 }

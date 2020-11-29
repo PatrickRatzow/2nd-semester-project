@@ -4,23 +4,16 @@ import dao.EmployeeDao;
 import datasource.DBConnection;
 import entity.Employee;
 import exception.DataAccessException;
-import exception.DataWriteException;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDaoMsSql implements EmployeeDao {
-    private static final String FIND_BY_ID_Q = "SELECT * FROM GetEmployees WHERE personId = ?";
+    private static final String FIND_BY_ID_Q = "SELECT * FROM GetEmployees WHERE id = ?";
     private PreparedStatement findByIdPS;
-    private static final String FIND_BY_USERNAME_Q = "SELECT * FROM GetEmployees WHERE employeeUsername = ?";
-    private PreparedStatement findByUsernamePS;
-    private static final String FIND_ALL_Q = "SELECT * FROM GetEmployees";
-    private PreparedStatement findAllPS;
-    private static final String INSERT_Q = "{CALL InsertEmployee(?, ?, ?, ?, ?, ?, ?)}";
-    private CallableStatement insertPC;
-    private static final String UPDATE_Q = "{CALL UpdateEmployee(?, ?, ?, ?, ?, ?, ?)}";
-    private CallableStatement updatePC;
 
     public EmployeeDaoMsSql(DBConnection conn) {
         init(conn);
@@ -29,10 +22,6 @@ public class EmployeeDaoMsSql implements EmployeeDao {
     private void init(DBConnection conn) {
         try {
             findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
-            findByUsernamePS = conn.prepareStatement(FIND_BY_USERNAME_Q);
-            findAllPS = conn.prepareStatement(FIND_ALL_Q);
-            insertPC = conn.prepareCall(INSERT_Q);
-            updatePC = conn.prepareCall(UPDATE_Q);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,9 +32,9 @@ public class EmployeeDaoMsSql implements EmployeeDao {
         final Employee employee = new Employee();
 
         try {
-            employee.setId(rs.getInt("personId"));
-            employee.setFirstName(rs.getString("personFirstName"));
-            employee.setLastName(rs.getString("personLastName"));
+            employee.setId(rs.getInt("id"));
+            employee.setFirstName(rs.getString("first_name"));
+            employee.setLastName(rs.getString("last_name"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,41 +58,16 @@ public class EmployeeDaoMsSql implements EmployeeDao {
     }
 
     @Override
-    public Employee findByUsername(String username) throws DataAccessException {
+    public Employee findById(int id) throws DataAccessException {
         Employee employee = null;
 
         try {
-            findByUsernamePS.setString(1, username);
-            ResultSet rs = this.findByUsernamePS.executeQuery();
+            findByIdPS.setInt(1, id);
+            ResultSet rs = findByIdPS.executeQuery();
 
             if (rs.next()) {
                 employee = buildObject(rs);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataAccessException("Unable to find an employee");
-        }
-
-        if (employee == null) {
-            throw new DataAccessException("Unable to find an employee");
-        }
-
-        return employee;
-    }
-
-    @Override
-    public Employee findById(int id) throws DataAccessException {
-        final Employee employee;
-
-        try {
-            findByIdPS.setInt(1, id);
-            ResultSet rs = this.findByIdPS.executeQuery();
-
-            if (!rs.next()) {
-                throw new DataAccessException("Unable to find an employee with id " + id);
-            }
-
-            employee = buildObject(rs);
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -111,67 +75,5 @@ public class EmployeeDaoMsSql implements EmployeeDao {
         }
 
         return employee;
-    }
-
-    @Override
-    public List<Employee> findAll() throws DataAccessException {
-        final List<Employee> employees;
-
-        try {
-            ResultSet rs = this.findAllPS.executeQuery();
-            employees = buildObjects(rs);
-        } catch (SQLException e) {
-            throw new DataAccessException("Unable to find any employees");
-        }
-
-        return employees;
-    }
-
-    @Override
-    public Employee create(String firstName, String lastName,
-                       String email, String phoneNo, String username, byte[] password) throws DataWriteException {
-        Employee employee = new Employee();
-
-        try {
-            insertPC.setString(1, firstName);
-            insertPC.setString(2, lastName);
-            insertPC.setString(3, email);
-            insertPC.setString(4, phoneNo);
-            insertPC.setString(5, username);
-            insertPC.setBytes(6, password);
-            insertPC.registerOutParameter(7, Types.INTEGER);
-            insertPC.execute();
-
-            employee.setId(insertPC.getInt(7));
-            employee.setFirstName(firstName);
-            employee.setLastName(lastName);
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-            throw new DataWriteException("Unable to create employee");
-        }
-
-        return employee;
-    }
-
-    @Override
-    public void update(int id, String firstName, String lastName,
-                       String email, String phoneNo, String username, byte[] password) throws DataWriteException, DataAccessException {
-        try {
-            updatePC.setInt(1, id);
-            updatePC.setString(2, firstName);
-            updatePC.setString(3, lastName);
-            updatePC.setString(4, email);
-            updatePC.setString(5, phoneNo);
-            updatePC.setString(6, username);
-            updatePC.setBytes(7, password);
-            int affected = updatePC.executeUpdate();
-            if (affected == 0) {
-                throw new DataAccessException("Unable to find any employee to update");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataWriteException("Unable to update employee");
-        }
     }
 }

@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class OrderInvoiceDaoMsSql implements OrderInvoiceDao {
-    private static final String FIND_BY_ID_Q = "SELECT * FROM GetOrderInvoices WHERE orderId = ?";
+    private static final String FIND_BY_ID_Q = "SELECT * FROM GetOrderInvoices WHERE order_id = ?";
     private PreparedStatement findByIdPS;
     private static final String INSERT_Q = "INSERT INTO orders_invoices (orderId, createdAt, dueDate, toPay, hasPaid) "
             + "VALUES(?, ?, ?, ?, ?)";
@@ -39,9 +39,9 @@ public class OrderInvoiceDaoMsSql implements OrderInvoiceDao {
     private OrderInvoice buildObject(ResultSet rs) throws SQLException {
         final OrderInvoice orderInvoice = new OrderInvoice();
 
-        orderInvoice.setId(rs.getInt("orderId"));
-        orderInvoice.setHasPaid(new Price(rs.getInt("invoiceHasPaid")));
-        orderInvoice.setToPay(new Price(rs.getInt("invoiceToPay")));
+        orderInvoice.setId(rs.getInt("order_id"));
+        orderInvoice.setHasPaid(new Price(rs.getInt("has_paid")));
+        orderInvoice.setToPay(new Price(rs.getInt("to_pay")));
         orderInvoice.setCreatedAt(LocalDateTime.now());
         orderInvoice.setDueDate(LocalDate.now());
 
@@ -98,3 +98,6 @@ public class OrderInvoiceDaoMsSql implements OrderInvoiceDao {
         return orderInvoice;
     }
 }
+
+
+

@@ -9,3 +9,4 @@ EXEC InsertProduct 'Stor tagsten', '', @TagstenId, @XLBygId, 300000;
 EXEC InsertProduct 'Lille teglsten', '', @TeglstenId, @BygmaId, 100000;
 EXEC InsertProduct 'Teglsten', '', @TeglstenId, @BygmaId, 150000;
 EXEC InsertProduct 'Stor teglsten', '', @TeglstenId, @BygmaId, 200000;
+EXEC UpdateProduct 1, 'Lille tagsten', '', @TagstenId, @BygmaId, 25000;

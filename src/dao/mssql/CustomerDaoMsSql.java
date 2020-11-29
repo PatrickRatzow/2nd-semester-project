@@ -7,15 +7,13 @@ import exception.DataAccessException;
 import exception.DataWriteException;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CustomerDaoMsSql implements CustomerDao {
-    private static final String FIND_BY_PHONENO_Q = "SELECT * FROM GetCustomers WHERE customerPhoneNo = ?";
-    private PreparedStatement findByPhoneNoPS;
-    private static final String FIND_ALL_Q = "SELECT * FROM GetCustomers";
-    private PreparedStatement findAllPS;
-    private static final String FIND_ID_Q = "SELECT * FROM GetCustomers WHERE personId = ?";
+    private static final String FIND_BY_PHONE_NUMBER_Q = "SELECT * FROM GetCustomers WHERE phone_number = ?";
+    private PreparedStatement findByPhoneNumberPS;
+    private static final String FIND_ID_Q = "SELECT * FROM GetCustomers WHERE id = ?";
     private PreparedStatement findIdPS;
     private static final String INSERT_Q = "{CALL InsertCustomer(?, ?, ?, ?, ?)}";
     private CallableStatement insertPC;
@@ -28,8 +26,7 @@ public class CustomerDaoMsSql implements CustomerDao {
 
     private void init(DBConnection conn) {
         try {
-            findByPhoneNoPS = conn.prepareStatement(FIND_BY_PHONENO_Q);
-            findAllPS = conn.prepareStatement(FIND_ALL_Q);
+            findByPhoneNumberPS = conn.prepareStatement(FIND_BY_PHONE_NUMBER_Q);
             findIdPS = conn.prepareStatement(FIND_ID_Q);
             insertPC = conn.prepareCall(INSERT_Q);
             updatePC = conn.prepareCall(UPDATE_Q);
@@ -40,14 +37,16 @@ public class CustomerDaoMsSql implements CustomerDao {
 
 
     private Customer buildObject(ResultSet rs) {
-        final Customer customer = new Customer();
+        Customer customer = null;
 
         try {
-            customer.setId(rs.getInt("personId"));
-            customer.setFirstName(rs.getString("personFirstName"));
-            customer.setLastName(rs.getString("personLastName"));
-            customer.setEmail(rs.getString("personEmail"));
-            customer.setPhoneNo(rs.getString("personPhoneNo"));
+            customer = new Customer(
+                rs.getInt("id"),
+                rs.getString("first_name"),
+                rs.getString("last_name"),
+                rs.getString("email"),
+                rs.getString("phone_number")
+            );
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,7 +56,7 @@ public class CustomerDaoMsSql implements CustomerDao {
 
 
     private List<Customer> buildObjects(ResultSet rs) {
-        final List<Customer> customers = new ArrayList<>();
+        final List<Customer> customers = new LinkedList<>();
 
         try {
             while (rs.next()) {
@@ -71,34 +70,19 @@ public class CustomerDaoMsSql implements CustomerDao {
     }
 
     @Override
-    public List<Customer> findAll() throws DataAccessException {
-        final List<Customer> customers;
+    public Customer findByPhoneNumber(String phoneNumber) throws DataAccessException {
+        Customer customer = null;
 
         try {
-            ResultSet rs = findAllPS.executeQuery();
-            customers = buildObjects(rs);
-        } catch (SQLException e) {
-            throw new DataAccessException("Unable to find any customers");
-        }
+            findByPhoneNumberPS.setString(1, phoneNumber);
+            ResultSet rs = this.findByPhoneNumberPS.executeQuery();
 
-        return customers;
-    }
-
-    @Override
-    public Customer findByPhoneNo(String phoneNo) throws DataAccessException {
-        final Customer customer;
-
-        try {
-            findByPhoneNoPS.setString(1, phoneNo);
-            ResultSet rs = this.findByPhoneNoPS.executeQuery();
-
-            if (!rs.next()) {
-                throw new DataAccessException("Unable to find a customer");
+            if (rs.next()) {
+                customer = buildObject(rs);
             }
-
-            customer = buildObject(rs);
         } catch (SQLException e) {
             e.printStackTrace();
+
             throw new DataAccessException("Unable to find a customer");
         }
 
@@ -127,22 +111,24 @@ public class CustomerDaoMsSql implements CustomerDao {
     }
 
     @Override
-    public Customer create(String firstName, String lastName, String email, String phoneNo) throws DataWriteException {
-    	final Customer customer = new Customer();
+    public Customer create(String firstName, String lastName, String email, String phoneNumber) throws DataWriteException {
+        Customer customer = null;
     	
     	try {
     		insertPC.setString(1, firstName);
     		insertPC.setString(2, lastName);
     		insertPC.setString(3, email);
-    		insertPC.setString(4, phoneNo);
+    		insertPC.setString(4, phoneNumber);
     		insertPC.registerOutParameter(5, Types.INTEGER);
     		insertPC.execute();
-    		
-    		customer.setId(insertPC.getInt(5));
-    		customer.setFirstName(firstName);
-    		customer.setLastName(lastName);
-    		customer.setEmail(email);
-    		customer.setPhoneNo(phoneNo);
+
+            customer = new Customer(
+                insertPC.getInt(5),
+                firstName,
+                lastName,
+                email,
+                phoneNumber
+            );
     	} catch(SQLException e) {
     		e.printStackTrace();
 
@@ -153,7 +139,8 @@ public class CustomerDaoMsSql implements CustomerDao {
     }
 
     @Override
-    public void update(int id, String firstName, String lastName, String email, String phoneNo) throws DataWriteException, DataAccessException {
+    public void update(int id, String firstName, String lastName, String email, String phoneNo)
+            throws DataWriteException, DataAccessException {
         try {
             updatePC.setInt(1, id);
             updatePC.setString(2, firstName);

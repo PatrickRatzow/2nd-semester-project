@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class OrderLineDaoMsSql implements OrderLineDao {
-    private static final String FIND_ALL_BY_ORDER_ID_Q = "SELECT * FROM GetOrderLines WHERE orderId = ?";
+    private static final String FIND_ALL_BY_ORDER_ID_Q = "SELECT quantity, product_id FROM order_line WHERE order_id = ?";
     private PreparedStatement findAllByOrderIdPS;
     private static final String INSERT_Q = "";
     private PreparedStatement insertPS;
@@ -36,7 +36,7 @@ public class OrderLineDaoMsSql implements OrderLineDao {
     }
 
     private OrderLine buildObject(ResultSet rs) throws SQLException, DataAccessException {
-        final int productId = rs.getInt("productId");
+        final int productId = rs.getInt("product_id");
         final int quantity = rs.getInt("quantity");
         final Product product = new ProductDaoMsSql(connection).findById(productId);
 

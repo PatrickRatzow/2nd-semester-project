@@ -2,15 +2,15 @@ package entity;
 
 public class Customer extends Person {
     private String email;
-    private String phoneNo;
+    private String phoneNumber;
 
-    public Customer() {
-    }
+    public Customer() {}
 
-    public Customer(String firstName, String lastName, String email, String phoneNo) {
-        super(firstName, lastName);
+    public Customer(int id, String firstName, String lastName, String email, String phoneNumber) {
+        super(id, firstName, lastName);
+
         this.email = email;
-        this.phoneNo = phoneNo;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -21,11 +21,11 @@ public class Customer extends Person {
         this.email = email;
     }
 
-    public String getPhoneNo() {
-        return phoneNo;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
