@@ -106,11 +106,7 @@ public class OrderDaoMsSql implements OrderDao {
             order.setCustomer(customer.get());
             order.setEmployee(employee.get());
             order.setOrderInvoice(invoice.get());
-            orderLines.get().forEach(o -> {
-                System.out.println(o);
-
-                order.addOrderLine(o);
-            });
+            orderLines.get().forEach(order::addOrderLine);
         }
 
         return order;
