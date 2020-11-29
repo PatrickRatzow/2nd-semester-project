@@ -55,7 +55,7 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
                                 sql.append(line).append("\n");
                             }
                             final PreparedStatement ps = conn.prepareStatement(sql.toString());
-                            System.out.println(p.getFileName());
+                            System.out.println("Running SQL script: " + p.getFileName());
                             ps.execute();
                         } catch (IOException | SQLException e) {
                             e.printStackTrace();

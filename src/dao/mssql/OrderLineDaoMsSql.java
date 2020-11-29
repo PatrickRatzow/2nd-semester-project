@@ -10,8 +10,8 @@ import exception.DataWriteException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
 
 public class OrderLineDaoMsSql implements OrderLineDao {
     private static final String FIND_ALL_BY_ORDER_ID_Q = "SELECT quantity, product_id FROM order_line WHERE order_id = ?";
@@ -35,19 +35,22 @@ public class OrderLineDaoMsSql implements OrderLineDao {
         }
     }
 
-    private OrderLine buildObject(ResultSet rs) throws SQLException, DataAccessException {
+    private Entry<Integer, OrderLine> buildObject(ResultSet rs) throws SQLException, DataAccessException {
         final int productId = rs.getInt("product_id");
         final int quantity = rs.getInt("quantity");
-        final Product product = new ProductDaoMsSql(connection).findById(productId);
 
-        return new OrderLine(product, quantity);
+        final OrderLine orderLine = new OrderLine();
+        orderLine.setQuantity(quantity);
+
+        return new AbstractMap.SimpleEntry<>(productId, orderLine);
     }
 
-    private List<OrderLine> buildObjects(ResultSet rs) throws SQLException, DataAccessException {
-        final List<OrderLine> orderLines = new LinkedList<>();
+    private Map<Integer, OrderLine> buildObjects(ResultSet rs) throws SQLException, DataAccessException {
+        final Map<Integer, OrderLine> orderLines = new HashMap<>();
 
         while (rs.next()) {
-            orderLines.add(buildObject(rs));
+            final Entry<Integer, OrderLine> orderLine = buildObject(rs);
+            orderLines.put(orderLine.getKey(), orderLine.getValue());
         }
 
         return orderLines;
@@ -61,7 +64,14 @@ public class OrderLineDaoMsSql implements OrderLineDao {
             findAllByOrderIdPS.setInt(1, id);
             ResultSet rs = findAllByOrderIdPS.executeQuery();
 
-            orderLines = buildObjects(rs);
+            final Map<Integer, OrderLine> map = buildObjects(rs);
+            List<Product> products = new ProductDaoMsSql(connection).findByIds(new LinkedList<>(map.keySet()));
+            for (Product product : products) {
+                OrderLine orderLine = map.get(product.getId());
+                orderLine.setProduct(product);
+
+                orderLines.add(orderLine);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
 

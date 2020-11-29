@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The type Product db.
@@ -18,12 +20,15 @@ import java.util.List;
 public class ProductDaoMsSql implements ProductDao {
     private static final String FIND_ALL_Q = "SELECT * FROM GetProducts";
     private PreparedStatement findAllPS;
-    private static final String FIND_BY_ID_Q = "SELECT TOP 1 * FROM GetProducts WHERE id = ? " +
+    private static final String FIND_BY_ID_Q = "SELECT * FROM GetProducts WHERE id = ? " +
+            "AND GETUTCDATE() BETWEEN price_start_time AND price_end_time " +
             "ORDER BY price_end_time DESC";
     private PreparedStatement findByIdPS;
-    private static final String FIND_BY_NAME_Q = "SELECT TOP 1 * FROM GetProducts WHERE name LIKE CONCAT('%', ?, '%') " +
+    private static final String FIND_BY_NAME_Q = "SELECT * FROM GetProducts WHERE name LIKE CONCAT('%', ?, '%') " +
+            "GETUTCDATE() BETWEEN price_start_time AND price_end_time" +
             "ORDER BY price_end_time DESC";
     private PreparedStatement findByNamePS;
+    private DBConnection connection;
 
     /**
      * Instantiates a new Product db.
@@ -33,6 +38,8 @@ public class ProductDaoMsSql implements ProductDao {
     }
 
     private void init(DBConnection conn) {
+        connection = conn;
+
         try {
             findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
             findAllPS = conn.prepareStatement(FIND_ALL_Q);
@@ -94,6 +101,35 @@ public class ProductDaoMsSql implements ProductDao {
         }
 
         return product;
+    }
+
+    @Override
+    public List<Product> findByIds(List<Integer> ids) throws DataAccessException {
+        if (ids.size() == 0) throw new DataAccessException("Empty list passed! You need at least 1 entry");
+
+        List<Product> products = new LinkedList<>();
+
+        try {
+            String idParameters = ids.stream().map(x -> "?").collect(Collectors.joining(","));
+            String query = "SELECT * FROM GetProducts WHERE id IN (" + idParameters + ") " +
+                    "AND GETUTCDATE() BETWEEN price_start_time AND price_end_time " +
+                    "ORDER BY price_end_time DESC";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            int size = ids.size();
+            for (int i = 0; i < size; i++) {
+                stmt.setInt(i + 1, ids.get(i));
+            }
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                products = buildObjects(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Unable to find any product with ids " + ids.toString());
+        }
+
+        return products;
     }
 
     @Override
