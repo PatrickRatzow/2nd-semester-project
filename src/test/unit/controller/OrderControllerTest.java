@@ -5,6 +5,7 @@ import controller.ProductController;
 import entity.Order;
 import entity.Price;
 import entity.Product;
+import exception.DataWriteException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ public class OrderControllerTest {
     private OrderController orderController;
 
     @Test
-    void canAddOrderLine() {
+    void testCanAddOrderLine() {
         // Arrange
         Product product = new Product(1, "Test Product", "Desc", new Price(100 * 100));
         Order order;
@@ -40,7 +41,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    void cantAddOrderLineIfProductIsNull() {
+    void testCantAddOrderLineIfProductIsNull() {
         // Assert + Act
         assertThrows(IllegalArgumentException.class, () ->
                 orderController.addProduct(null, 1)
@@ -48,7 +49,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    void cantAddOrderLineIfQuantityIs0OrBelow() {
+    void testCantAddOrderLineIfQuantityIs0OrBelow() {
         // Arrange
         Product product = new Product(42, "Product", "Desc", new Price(120 * 100));
 
@@ -59,7 +60,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    void canAddOrderLineWithSameProductMultipleTimesAndStillHaveOnlyOneOrderLineForThatProduct() {
+    void testCanAddOrderLineWithSameProductMultipleTimesAndStillHaveOnlyOneOrderLineForThatProduct() {
         // Arrange
         Product product = new Product(2, "The Product", "Desc", new Price(500 * 100));
         Order order;
@@ -75,7 +76,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    void canAddOrderLineWithSameProductMultipleTimesAndTheSharedOrderLineHasTheCorrectQuantity() {
+    void testCanAddOrderLineWithSameProductMultipleTimesAndTheSharedOrderLineHasTheCorrectQuantity() {
         // Arrange
         int id = 4;
         Product product = new Product(id, "The Product 45", "Desc", new Price(500 * 100));
@@ -88,6 +89,11 @@ public class OrderControllerTest {
 
         // Assert
         assertEquals(order.getOrderLines().get(id).getQuantity(), 11);
+    }
+
+    @Test
+    void createOrder() throws DataWriteException {
+        //orderController.create();
     }
 
     @AfterEach
