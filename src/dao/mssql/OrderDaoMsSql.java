@@ -139,6 +139,11 @@ public class OrderDaoMsSql implements OrderDao {
             }
 
             order.setId(rs.getInt(1));
+
+            OrderLineDao orderLineDao = new OrderLineDaoMsSql(connection);
+            for (OrderLine orderLine : order.getOrderLines().values()) {
+                orderLineDao.create(order, orderLine);
+            }
         } catch(SQLException e) {
             e.printStackTrace();
 

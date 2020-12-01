@@ -2,10 +2,10 @@ package dao.mssql;
 
 import dao.OrderLineDao;
 import datasource.DBConnection;
+import entity.Order;
 import entity.OrderLine;
 import entity.Product;
 import exception.DataAccessException;
-import exception.DataWriteException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,7 +82,7 @@ public class OrderLineDaoMsSql implements OrderLineDao {
     }
 
     @Override
-    public OrderLine create(int orderId, int productId, int quantity) throws DataWriteException {
-        return null;
+    public void create(Order order, OrderLine orderLine) throws DataAccessException {
+
     }
 }
