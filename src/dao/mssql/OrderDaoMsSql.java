@@ -1,6 +1,5 @@
 package dao.mssql;
 
-import dao.CustomerDao;
 import dao.EmployeeDao;
 import dao.OrderDao;
 import dao.OrderLineDao;
@@ -8,13 +7,11 @@ import datasource.DBConnection;
 import entity.*;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import util.ConnectionThread;
 import util.SQLDateConverter;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -53,21 +50,11 @@ public class OrderDaoMsSql implements OrderDao {
             // Setup objects
             AtomicReference<Customer> customer = new AtomicReference<>();
             AtomicReference<Employee> employee = new AtomicReference<>();
-            AtomicReference<ProjectInvoice> invoice = new AtomicReference<>();
             AtomicReference<List<OrderLine>> orderLines = new AtomicReference<>();
             // Setup ids
-            int customerId = rs.getInt("customer_id");
             int employeeId = rs.getInt("employee_id");
 
             List<Thread> threads = new LinkedList<>();
-            threads.add(new ConnectionThread(conn -> {
-                CustomerDao dao = new CustomerDaoMsSql(conn);
-                try {
-                    customer.set(dao.findById(customerId));
-                } catch (DataAccessException e) {
-                    exception.set(e);
-                }
-            }));
             threads.add(new ConnectionThread(conn -> {
                 EmployeeDao dao = new EmployeeDaoMsSql(conn);
                 try {
@@ -138,10 +125,6 @@ public class OrderDaoMsSql implements OrderDao {
 
         return order;
     }
-    
-    public void getAllOrders() {
-    	
-    }
 
     @Override
     public Order create(Order order) throws DataWriteException {
@@ -158,12 +141,8 @@ public class OrderDaoMsSql implements OrderDao {
     public Order create(LocalDateTime createdAt, OrderStatus status, int customerId, int employeeId, int projectId)
             throws DataWriteException {
         final Order order = new Order();
-//        Collection<OrderLine> orderLines = order.getOrderLines().values();
-
 
         try {
-
-
             insertPS.setInt(1, OrderStatus.AWAITING.getValue());
             insertPS.setTimestamp(2, Timestamp.valueOf(createdAt));
             insertPS.setInt(3, projectId);
@@ -171,22 +150,11 @@ public class OrderDaoMsSql implements OrderDao {
             insertPS.executeUpdate();
 
             ResultSet rs = insertPS.getGeneratedKeys();
-            if(!rs.next()){
-                new DataWriteException("");
+            if (!rs.next()) {
+                throw new DataWriteException("Unable to access identity from order insertion");
             }
 
             final int id = rs.getInt(1);
-
-
-            insertPS.setTimestamp(1, Timestamp.valueOf(createdAt));
-            insertPS.setInt(2, customerId);
-            insertPS.setInt(3, employeeId);
-            insertPS.setInt(4, projectId);
-            insertPS.setInt(5, OrderStatus.AWAITING.getValue());
-            insertPS.executeUpdate();
-
-            final int id = insertPS.getGeneratedKeys().getInt(1);
-
             order.setId(id);
             order.setDate(createdAt);
             order.setStatus(OrderStatus.AWAITING);
