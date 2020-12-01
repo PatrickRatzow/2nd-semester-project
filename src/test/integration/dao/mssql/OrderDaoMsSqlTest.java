@@ -38,7 +38,7 @@ public class OrderDaoMsSqlTest {
     
     
     @Test
-    void create() throws DataAccessException {
+    void orderCreationTest() throws DataAccessException {
     	// Arrange
     	Order order = new Order();
     	order.setEmployee(new Employee(1, "Allan", "Jensen"));

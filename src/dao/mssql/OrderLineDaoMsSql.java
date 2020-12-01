@@ -16,7 +16,7 @@ import java.util.Map.Entry;
 public class OrderLineDaoMsSql implements OrderLineDao {
     private static final String FIND_ALL_BY_ORDER_ID_Q = "SELECT quantity, product_id FROM order_line WHERE order_id = ?";
     private PreparedStatement findAllByOrderIdPS;
-    private static final String INSERT_Q = "";
+    private static final String INSERT_Q = "INSERT INTO order_line(order_id, product_id, quantity) VALUES (?,?,?)";
     private PreparedStatement insertPS;
     private DBConnection connection;
 
@@ -83,6 +83,15 @@ public class OrderLineDaoMsSql implements OrderLineDao {
 
     @Override
     public void create(Order order, OrderLine orderLine) throws DataAccessException {
+        try {
+            insertPS.setInt(1, order.getId());
+            insertPS.setInt(2, orderLine.getProduct().getId());
+            insertPS.setInt(3, orderLine.getQuantity());
+            insertPS.executeQuery();
 
+
+        } catch(SQLException e) {
+            throw new DataAccessException("Unable to create order line!");
+        }
     }
 }
