@@ -1,3 +1,16 @@
+CREATE TABLE city (
+    zip_code INT,
+    name NVARCHAR(255),
+    PRIMARY KEY(zip_code)
+);
+
+CREATE TABLE street (
+    street NVARCHAR(255),
+    zip_code INT,
+    PRIMARY KEY(street, zip_code),
+    FOREIGN KEY(zip_code) REFERENCES city
+);
+
 CREATE TABLE person (
     id INT IDENTITY(1, 1),
     first_name NVARCHAR(127) NOT NULL,
@@ -15,8 +28,12 @@ CREATE TABLE customer (
     id INT,
     email NVARCHAR(320) NOT NULL,
     phone_number NVARCHAR(50) NOT NULL,
+    street NVARCHAR(255) NOT NULL,
+    zip_code INT NOT NULL,
+    street_number INT NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(id) REFERENCES person(id)
+    FOREIGN KEY(id) REFERENCES person(id),
+    FOREIGN KEY(street, zip_code) REFERENCES street(street, zip_code)
 );
 
 CREATE TABLE project (

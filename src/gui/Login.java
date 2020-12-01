@@ -13,12 +13,8 @@ public class Login {
 	private JTextField usernameInput;
 	private JPasswordField passwordInput;
 	private JLabel title;
+
 	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel("com.bulenkov.darcula.DarculaLaf");
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

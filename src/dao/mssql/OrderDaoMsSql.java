@@ -159,7 +159,7 @@ public class OrderDaoMsSql implements OrderDao {
             insertPS.setInt(3, employeeId);
             insertPS.setInt(4, projectId);
             insertPS.setInt(5, OrderStatus.AWAITING.getValue());
-            insertPS.executeQuery();
+            insertPS.executeUpdate();
 
             final int id = insertPS.getGeneratedKeys().getInt(1);
             order.setId(id);
