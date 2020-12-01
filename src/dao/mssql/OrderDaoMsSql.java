@@ -13,6 +13,7 @@ import util.SQLDateConverter;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -20,7 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class OrderDaoMsSql implements OrderDao {
     private static final String FIND_BY_ID_Q = "SELECT * From GetOrders WHERE id = ?";
     private PreparedStatement findByIdPS;
-    private static final String INSERT_Q = "";
+    private static final String INSERT_Q = "INSERT INTO order(id, status, created_at, project_id, employee_id) VALUES (?,?,?,?,?)";
     private PreparedStatement insertPS;
     private DBConnection connection;
 
@@ -136,6 +137,10 @@ public class OrderDaoMsSql implements OrderDao {
 
         return order;
     }
+    
+    public void getAllOrders() {
+    	
+    }
 
     @Override
     public Order create(Order order) throws DataWriteException {
@@ -145,13 +150,14 @@ public class OrderDaoMsSql implements OrderDao {
 
     @Override
     public Order create(Order order, Project project) {
-        return null;
+    	return null;
     }
 
     @Override
     public Order create(LocalDateTime createdAt, OrderStatus status, int customerId, int employeeId, int projectId)
             throws DataWriteException {
         final Order order = new Order();
+//        Collection<OrderLine> orderLines = order.getOrderLines().values();
 
         try {
             insertPS.setTimestamp(1, Timestamp.valueOf(createdAt));
