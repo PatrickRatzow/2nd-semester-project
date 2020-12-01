@@ -1,6 +1,5 @@
 package dao.mssql;
 
-import dao.CustomerDao;
 import dao.EmployeeDao;
 import dao.OrderDao;
 import dao.OrderLineDao;
@@ -8,13 +7,11 @@ import datasource.DBConnection;
 import entity.*;
 import exception.DataAccessException;
 import exception.DataWriteException;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import util.ConnectionThread;
 import util.SQLDateConverter;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -51,23 +48,12 @@ public class OrderDaoMsSql implements OrderDao {
         if (fullAssociation) {
             AtomicReference<DataAccessException> exception = new AtomicReference<>();
             // Setup objects
-            AtomicReference<Customer> customer = new AtomicReference<>();
             AtomicReference<Employee> employee = new AtomicReference<>();
-            AtomicReference<ProjectInvoice> invoice = new AtomicReference<>();
             AtomicReference<List<OrderLine>> orderLines = new AtomicReference<>();
             // Setup ids
-            int customerId = rs.getInt("customer_id");
             int employeeId = rs.getInt("employee_id");
 
             List<Thread> threads = new LinkedList<>();
-            threads.add(new ConnectionThread(conn -> {
-                CustomerDao dao = new CustomerDaoMsSql(conn);
-                try {
-                    customer.set(dao.findById(customerId));
-                } catch (DataAccessException e) {
-                    exception.set(e);
-                }
-            }));
             threads.add(new ConnectionThread(conn -> {
                 EmployeeDao dao = new EmployeeDaoMsSql(conn);
                 try {
@@ -100,7 +86,6 @@ public class OrderDaoMsSql implements OrderDao {
                 throw exception.get();
             }
 
-            order.setCustomer(customer.get());
             order.setEmployee(employee.get());
             orderLines.get().forEach(order::addOrderLine);
         }
@@ -154,7 +139,7 @@ public class OrderDaoMsSql implements OrderDao {
     public Order create(LocalDateTime createdAt, OrderStatus status, int customerId, int employeeId, int projectId)
             throws DataWriteException {
         final Order order = new Order();
-//        Collection<OrderLine> orderLines = order.getOrderLines().values();
+
         try {
             insertPS.setTimestamp(1, Timestamp.valueOf(createdAt));
             insertPS.setInt(2, customerId);

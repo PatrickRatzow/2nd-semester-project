@@ -5,7 +5,9 @@ public class Customer extends Person {
     private String phoneNumber;
     private Address address;
 
-    public Customer() {}
+    public Customer() {
+        address = new Address();
+    }
     public Customer(int id, String firstName, String lastName, String email, String phoneNumber, Address address) {
         super(id, firstName, lastName);
 
