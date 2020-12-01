@@ -6,7 +6,6 @@ import dao.OrderLineDao;
 import datasource.DBConnection;
 import entity.*;
 import exception.DataAccessException;
-import exception.DataWriteException;
 import util.ConnectionThread;
 import util.SQLDateConverter;
 
@@ -124,42 +123,26 @@ public class OrderDaoMsSql implements OrderDao {
         return order;
     }
 
-    @Override
-    public Order create(Order order) throws DataWriteException {
-        return create(order.getDate(), order.getStatus(), order.getCustomer().getId(),
-                order.getEmployee().getId(), 1);
-    }
 
     @Override
-    public Order create(Order order, Project project) {
-    	return null;
-    }
-
-    @Override
-    public Order create(LocalDateTime createdAt, OrderStatus status, int customerId, int employeeId, int projectId)
-            throws DataWriteException {
-        final Order order = new Order();
-
+    public Order create(Order order, Project project) throws DataAccessException {
         try {
             insertPS.setInt(1, OrderStatus.AWAITING.getValue());
-            insertPS.setTimestamp(2, Timestamp.valueOf(createdAt));
-            insertPS.setInt(3, projectId);
-            insertPS.setInt(4, employeeId);
+            insertPS.setTimestamp(2, Timestamp.valueOf(order.getDate()));
+            insertPS.setInt(3, project.getId());
+            insertPS.setInt(4, order.getEmployee().getId());
             insertPS.executeUpdate();
 
             ResultSet rs = insertPS.getGeneratedKeys();
             if (!rs.next()) {
-                throw new DataWriteException("Not able to get identity for order");
+                throw new DataAccessException("Not able to get identity for order");
             }
 
-            final int id = rs.getInt(1);
-            order.setId(id);
-            order.setDate(createdAt);
-            order.setStatus(OrderStatus.AWAITING);
+            order.setId(rs.getInt(1));
         } catch(SQLException e) {
             e.printStackTrace();
 
-            throw new DataWriteException("Unable to create order");
+            throw new DataAccessException("Unable to create order");
         }
 
         return order;

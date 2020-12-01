@@ -8,10 +8,8 @@ import entity.OrderLine;
 import entity.Product;
 import entity.Project;
 import exception.DataAccessException;
-import exception.DataWriteException;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class OrderController {
     private ProductController productController;
@@ -24,10 +22,6 @@ public class OrderController {
     }
     public OrderController(Project project) {
         this(project, new ProductController());
-    }
-
-    public List<Product> findProductsByName(String name) throws DataAccessException {
-        return productController.findByName(name);
     }
 
     public void addProduct(Product product, int quantity) {
@@ -59,9 +53,8 @@ public class OrderController {
         return order;
     }
 
-    public Order create() throws DataWriteException {
+    public Order create() throws DataAccessException {
         if (order.getOrderLines().size() == 0) throw new IllegalArgumentException("The order needs at least 1 product");
-        if (order.getCustomer() == null) throw new IllegalArgumentException("The order needs a customer");
         if (order.getEmployee() == null) throw new IllegalArgumentException("The order needs an employee");
         if (order.getId() != 0) throw new IllegalArgumentException("Can't create an order that already exists");
 
@@ -72,12 +65,22 @@ public class OrderController {
         try {
             connection.startTransaction();
 
-            newOrder = orderDao.create(order);
+            newOrder = orderDao.create(order, project);
 
             connection.commitTransaction();
             connection.release();
         } catch (SQLException e) {
-            throw new DataWriteException("Unable to create Order: " + e.getMessage());
+            e.printStackTrace();
+
+            try {
+                connection.rollbackTransaction();
+            } catch (SQLException re) {
+                re.printStackTrace();
+
+                throw new DataAccessException("Unable to create Order: " + e.getMessage());
+            }
+
+            throw new DataAccessException("Unable to create Order: " + e.getMessage());
         }
 
         return newOrder;

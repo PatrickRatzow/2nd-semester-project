@@ -6,6 +6,8 @@ import datasource.DBManager;
 import entity.Customer;
 import exception.DataAccessException;
 
+import java.sql.SQLException;
+
 public class CustomerController {
     private Customer customer;
 
@@ -53,7 +55,24 @@ public class CustomerController {
 
         final DBConnection connection = DBManager.getPool().getConnection();
         final CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(connection);
-        customer = dao.create(customer);
+
+        try {
+            connection.startTransaction();
+            customer = dao.create(customer);
+            connection.commitTransaction();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            try {
+                connection.rollbackTransaction();
+            } catch (SQLException re) {
+                re.printStackTrace();
+
+                throw new DataAccessException("Something went wrong while creating the order");
+            }
+
+            throw new DataAccessException("Something went wrong while creating the order");
+        }
 
         connection.release();
     }
