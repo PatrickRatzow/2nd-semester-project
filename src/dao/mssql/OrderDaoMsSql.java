@@ -138,10 +138,6 @@ public class OrderDaoMsSql implements OrderDao {
 
         return order;
     }
-    
-    public void getAllOrders() {
-    	
-    }
 
     @Override
     public Order create(Order order) throws DataWriteException {
@@ -159,16 +155,11 @@ public class OrderDaoMsSql implements OrderDao {
             throws DataWriteException {
         final Order order = new Order();
 //        Collection<OrderLine> orderLines = order.getOrderLines().values();
-
-
         try {
-
-
             ResultSet rs = insertPS.getGeneratedKeys();
             if(!rs.next()){
-                new DataWriteException("");
+                throw new DataWriteException("");
             }
-            
             insertPS.setTimestamp(1, Timestamp.valueOf(createdAt));
             insertPS.setInt(2, customerId);
             insertPS.setInt(3, employeeId);
