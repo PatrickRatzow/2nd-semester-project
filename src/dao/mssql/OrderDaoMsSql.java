@@ -164,20 +164,11 @@ public class OrderDaoMsSql implements OrderDao {
         try {
 
 
-            insertPS.setInt(1, OrderStatus.AWAITING.getValue());
-            insertPS.setTimestamp(2, Timestamp.valueOf(createdAt));
-            insertPS.setInt(3, projectId);
-            insertPS.setInt(4, employeeId);
-            insertPS.executeUpdate();
-
             ResultSet rs = insertPS.getGeneratedKeys();
             if(!rs.next()){
                 new DataWriteException("");
             }
-
-            final int id = rs.getInt(1);
-
-
+            
             insertPS.setTimestamp(1, Timestamp.valueOf(createdAt));
             insertPS.setInt(2, customerId);
             insertPS.setInt(3, employeeId);
