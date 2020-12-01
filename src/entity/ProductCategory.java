@@ -1,9 +1,9 @@
 package entity;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 /**
  * The type Product category.
@@ -12,8 +12,7 @@ public class ProductCategory {
     private int id;
     private String name;
     private String desc;
-    private Set<Product> products = new HashSet<>();
-    private Set<ProductCategory> categories = new HashSet<>();
+    private Map<Integer, Product> products = new HashMap<>();
 
     public ProductCategory() {
 
@@ -80,26 +79,14 @@ public class ProductCategory {
     }
 
     public List<Product> getProducts() {
-        return new ArrayList<>(products);
+        return new ArrayList<>(products.values());
     }
 
     public void addProduct(Product product) {
-        products.add(product);
+        products.put(product.getId(), product);
     }
 
     public void removeProduct(Product product) {
-        products.remove(product);
-    }
-
-    public List<ProductCategory> getCategories() {
-        return new ArrayList<>(categories);
-    }
-
-    public void addCategory(ProductCategory category) {
-        categories.add(category);
-    }
-
-    public void removeProduct(ProductCategory category) {
-        categories.remove(category);
+        products.remove(product.getId());
     }
 }

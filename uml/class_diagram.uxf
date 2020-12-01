@@ -766,12 +766,12 @@ _+ getConnection(): PersistenceConnection_
 - createdAt: LocalDateTime
 - status: OrderStatus
 - orderLines: Set&lt;OrderLine&gt;
-- orderInvoice: OrderInvoice
+- projectInvoice: OrderInvoice
 - customer: Customer
 - employee: Employee
 --
 + &lt;&lt;constructor&gt;&gt;(id: int, date: LocalDateTime, status: OrderStatus, 
-    orderLines: Set&lt;OrderLine&gt;, orderInvoice: OrderInvoice,
+    orderLines: Set&lt;OrderLine&gt;, projectInvoice: OrderInvoice,
     customer: Customer, employee: Employee)
 </panel_attributes>
     <additional_attributes/>

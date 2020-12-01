@@ -9,7 +9,6 @@ public class Order {
     private LocalDateTime date;
     private OrderStatus status;
     private Map<Integer, OrderLine> orderLines;
-    private OrderInvoice orderInvoice;
     private Customer customer;
     private Employee employee;
 
@@ -25,13 +24,11 @@ public class Order {
         orderLines = new HashMap<>();
     }
 
-    public Order(int id, LocalDateTime date, OrderStatus status, Map<Integer, OrderLine> orderLines,
-                 OrderInvoice orderInvoice, Customer customer, Employee employee) {
+    public Order(int id, LocalDateTime date, OrderStatus status, Map<Integer, OrderLine> orderLines, Customer customer, Employee employee) {
         this.id = id;
         this.date = date;
         this.status = status;
         this.orderLines = orderLines;
-        this.orderInvoice = orderInvoice;
         this.customer = customer;
         this.employee = employee;
     }
@@ -58,14 +55,6 @@ public class Order {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public OrderInvoice getOrderInvoice() {
-        return orderInvoice;
-    }
-
-    public void setOrderInvoice(OrderInvoice orderInvoice) {
-        this.orderInvoice = orderInvoice;
     }
 
     public OrderStatus getStatus() {

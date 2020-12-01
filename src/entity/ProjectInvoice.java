@@ -3,16 +3,16 @@ package entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class OrderInvoice {
+public class ProjectInvoice {
     private int id;
     private LocalDateTime createdAt;
     private LocalDate dueDate;
     private Price toPay;
     private Price hasPaid;
 
-    public OrderInvoice() {}
+    public ProjectInvoice() {}
 
-    public OrderInvoice(int id, LocalDateTime createdAt, LocalDate dueDate, Price toPay, Price hasPaid) {
+    public ProjectInvoice(int id, LocalDateTime createdAt, LocalDate dueDate, Price toPay, Price hasPaid) {
         this.id = id;
         this.createdAt = createdAt;
         this.dueDate = dueDate;

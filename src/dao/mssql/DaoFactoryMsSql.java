@@ -20,11 +20,6 @@ public class DaoFactoryMsSql implements DaoFactory {
     }
 
     @Override
-    public OrderInvoiceDao createOrderInvoiceDao(DBConnection connection) {
-        return new OrderInvoiceDaoMsSql(connection);
-    }
-
-    @Override
     public OrderLineDao createOrderLineDao(DBConnection connection) {
         return new OrderLineDaoMsSql(connection);
     }
@@ -42,5 +37,10 @@ public class DaoFactoryMsSql implements DaoFactory {
     @Override
     public ProjectDao createProjectDao(DBConnection connection) {
         return new ProjectDaoMsSql(connection);
+    }
+
+    @Override
+    public ProjectInvoiceDao createProjectInvoiceDao(DBConnection connection) {
+        return new ProjectInvoiceDaoMsSql(connection);
     }
 }

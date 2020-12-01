@@ -7,7 +7,7 @@ public class Project {
     private String name;
     private Map<Integer, Order> orders;
     private Customer customer;
-    private Employee employee;
+    private ProjectInvoice invoice;
 
     public Project() {}
 
@@ -16,12 +16,12 @@ public class Project {
         this.name = name;
     }
     public Project(int id, String name, Map<Integer, Order> orders,
-    		Customer customer, Employee employee) {
+    		Customer customer, ProjectInvoice invoice) {
         this.id = id;
         this.name = name;
         this.orders = orders;
         this.customer = customer;
-        this.employee = employee;
+        this.invoice = invoice;
     }
 
     public String getName() {
@@ -56,11 +56,11 @@ public class Project {
         this.customer = customer;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public ProjectInvoice getInvoice() {
+        return invoice;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setInvoice(ProjectInvoice invoice) {
+        this.invoice = invoice;
     }
 }

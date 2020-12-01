@@ -74,29 +74,14 @@ CREATE TABLE [order] (
     FOREIGN KEY(employee_id) REFERENCES employee(id),
 );
 
-CREATE TABLE invoice (
-    id INT IDENTITY(1, 1),
+CREATE TABLE project_invoice (
+    project_id INT NOT NULL,
     created_at DATETIME2 NOT NULL,
     due_date DATE NOT NULL,
     to_pay INT NOT NULL,
     has_paid INT NOT NULL,
-    PRIMARY KEY(id)
-);
-
-CREATE TABLE project_invoice (
-    id INT NOT NULL,
-    project_id INT NOT NULL UNIQUE,
-    PRIMARY KEY(id),
-    FOREIGN KEY(id) REFERENCES invoice(id),
+    PRIMARY KEY(project_id),
     FOREIGN KEY(project_id) REFERENCES project(id)
-);
-
-CREATE TABLE order_invoice (
-    id INT,
-    order_id INT NOT NULL UNIQUE,
-    PRIMARY KEY(id),
-    FOREIGN KEY(id) REFERENCES invoice(id),
-    FOREIGN KEY(order_id) REFERENCES [order](id),
 );
 
 CREATE TABLE order_line (

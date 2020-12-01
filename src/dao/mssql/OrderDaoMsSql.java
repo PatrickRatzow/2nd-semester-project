@@ -1,6 +1,9 @@
 package dao.mssql;
 
-import dao.*;
+import dao.CustomerDao;
+import dao.EmployeeDao;
+import dao.OrderDao;
+import dao.OrderLineDao;
 import datasource.DBConnection;
 import entity.*;
 import exception.DataAccessException;
@@ -48,7 +51,7 @@ public class OrderDaoMsSql implements OrderDao {
             // Setup objects
             AtomicReference<Customer> customer = new AtomicReference<>();
             AtomicReference<Employee> employee = new AtomicReference<>();
-            AtomicReference<OrderInvoice> invoice = new AtomicReference<>();
+            AtomicReference<ProjectInvoice> invoice = new AtomicReference<>();
             AtomicReference<List<OrderLine>> orderLines = new AtomicReference<>();
             // Setup ids
             int customerId = rs.getInt("customer_id");
@@ -67,14 +70,6 @@ public class OrderDaoMsSql implements OrderDao {
                 EmployeeDao dao = new EmployeeDaoMsSql(conn);
                 try {
                     employee.set(dao.findById(employeeId));
-                } catch (DataAccessException e) {
-                    exception.set(e);
-                }
-            }));
-            threads.add(new ConnectionThread(conn -> {
-                OrderInvoiceDao dao = new OrderInvoiceDaoMsSql(conn);
-                try {
-                    invoice.set(dao.findByOrderId(id));
                 } catch (DataAccessException e) {
                     exception.set(e);
                 }
@@ -105,7 +100,6 @@ public class OrderDaoMsSql implements OrderDao {
 
             order.setCustomer(customer.get());
             order.setEmployee(employee.get());
-            order.setOrderInvoice(invoice.get());
             orderLines.get().forEach(order::addOrderLine);
         }
 
