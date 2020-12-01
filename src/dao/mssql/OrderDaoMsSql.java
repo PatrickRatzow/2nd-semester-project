@@ -156,10 +156,6 @@ public class OrderDaoMsSql implements OrderDao {
         final Order order = new Order();
 //        Collection<OrderLine> orderLines = order.getOrderLines().values();
         try {
-            ResultSet rs = insertPS.getGeneratedKeys();
-            if(!rs.next()){
-                throw new DataWriteException("Not able to get identity for order");
-            }
             insertPS.setTimestamp(1, Timestamp.valueOf(createdAt));
             insertPS.setInt(2, customerId);
             insertPS.setInt(3, employeeId);
@@ -167,7 +163,11 @@ public class OrderDaoMsSql implements OrderDao {
             insertPS.setInt(5, OrderStatus.AWAITING.getValue());
             insertPS.executeUpdate();
 
-            final int id = insertPS.getGeneratedKeys().getInt(1);
+            ResultSet rs = insertPS.getGeneratedKeys();
+            if (!rs.next()) {
+                throw new DataWriteException("Not able to get identity for order");
+            }
+            final int id = rs.getInt(1);
             order.setId(id);
             order.setDate(createdAt);
             order.setStatus(OrderStatus.AWAITING);
