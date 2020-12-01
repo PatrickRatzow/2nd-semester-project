@@ -158,7 +158,7 @@ public class OrderDaoMsSql implements OrderDao {
         try {
             ResultSet rs = insertPS.getGeneratedKeys();
             if(!rs.next()){
-                throw new DataWriteException("");
+                throw new DataWriteException("Not able to get identity for order");
             }
             insertPS.setTimestamp(1, Timestamp.valueOf(createdAt));
             insertPS.setInt(2, customerId);
