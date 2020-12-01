@@ -48,7 +48,7 @@ public class OrderDaoMsSqlTest {
     	
     	//Act
     	
-    	order = dao.create(LocalDateTime.now(), OrderStatus.AWAITING, 1, 1, 1);
+    	order = dao.create(LocalDateTime.now(), OrderStatus.AWAITING, 3, 1, 1);
     	
     	//Assert
     	assertNotNull(order);

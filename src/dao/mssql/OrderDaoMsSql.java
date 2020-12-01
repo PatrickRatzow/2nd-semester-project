@@ -8,6 +8,7 @@ import datasource.DBConnection;
 import entity.*;
 import exception.DataAccessException;
 import exception.DataWriteException;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import util.ConnectionThread;
 import util.SQLDateConverter;
 
@@ -21,7 +22,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class OrderDaoMsSql implements OrderDao {
     private static final String FIND_BY_ID_Q = "SELECT * From GetOrders WHERE id = ?";
     private PreparedStatement findByIdPS;
-    private static final String INSERT_Q = "INSERT INTO order(id, status, created_at, project_id, employee_id) VALUES (?,?,?,?,?)";
+    private static final String INSERT_Q = "INSERT INTO [order](status, created_at, project_id, employee_id) VALUES (?,?,?,?)";
     private PreparedStatement insertPS;
     private DBConnection connection;
 
@@ -159,15 +160,22 @@ public class OrderDaoMsSql implements OrderDao {
         final Order order = new Order();
 //        Collection<OrderLine> orderLines = order.getOrderLines().values();
 
-        try {
-            insertPS.setTimestamp(1, Timestamp.valueOf(createdAt));
-            insertPS.setInt(2, customerId);
-            insertPS.setInt(3, employeeId);
-            insertPS.setInt(4, projectId);
-            insertPS.setInt(5, OrderStatus.AWAITING.getValue());
-            insertPS.executeQuery();
 
-            final int id = insertPS.getGeneratedKeys().getInt(1);
+        try {
+
+            insertPS.setInt(1, OrderStatus.AWAITING.getValue());
+            insertPS.setTimestamp(2, Timestamp.valueOf(createdAt));
+            insertPS.setInt(3, projectId);
+            insertPS.setInt(4, employeeId);
+            insertPS.executeUpdate();
+
+            ResultSet rs = insertPS.getGeneratedKeys();
+            if(!rs.next()){
+                new DataWriteException("");
+            }
+
+            final int id = rs.getInt(1);
+
             order.setId(id);
             order.setDate(createdAt);
             order.setStatus(OrderStatus.AWAITING);
