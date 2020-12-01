@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ProjectDaoMsSql implements ProjectDao {
 	private static final String FIND_ALL_Q = "SELECT * FROM project";
-	private static final String FIND_BY_NAME_Q = FIND_ALL_Q + "WHERE name LIKE CONCAT('%', ?, '%')";
+	private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE name LIKE CONCAT('%', ?, '%')";
 	private PreparedStatement findByNamePS;
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE id = ?";
 	private PreparedStatement findByIdPS;
@@ -47,6 +47,7 @@ public class ProjectDaoMsSql implements ProjectDao {
 
 			projects = buildObjects(rs, fullAssociation);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DataAccessException("Something went wrong while searching for projects");
 		}
 
