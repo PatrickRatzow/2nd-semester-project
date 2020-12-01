@@ -88,8 +88,6 @@ public class OrderLineDaoMsSql implements OrderLineDao {
             insertPS.setInt(2, orderLine.getProduct().getId());
             insertPS.setInt(3, orderLine.getQuantity());
             insertPS.executeQuery();
-
-
         } catch(SQLException e) {
             throw new DataAccessException("Unable to create order line!");
         }

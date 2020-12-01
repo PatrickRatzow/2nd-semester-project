@@ -5,7 +5,6 @@ import controller.ProductController;
 import entity.Order;
 import entity.Price;
 import entity.Product;
-import exception.DataWriteException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -91,13 +90,8 @@ public class OrderControllerTest {
         assertEquals(order.getOrderLines().get(id).getQuantity(), 11);
     }
 
-    @Test
-    void createOrder() throws DataWriteException {
-        //orderController.create();
-    }
-
     @AfterEach
-    void tearDown() {
+    void teardown() {
         reset(productController);
     }
 }
