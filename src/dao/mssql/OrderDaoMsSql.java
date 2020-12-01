@@ -48,7 +48,6 @@ public class OrderDaoMsSql implements OrderDao {
         if (fullAssociation) {
             AtomicReference<DataAccessException> exception = new AtomicReference<>();
             // Setup objects
-            AtomicReference<Customer> customer = new AtomicReference<>();
             AtomicReference<Employee> employee = new AtomicReference<>();
             AtomicReference<List<OrderLine>> orderLines = new AtomicReference<>();
             // Setup ids
@@ -87,7 +86,6 @@ public class OrderDaoMsSql implements OrderDao {
                 throw exception.get();
             }
 
-            order.setCustomer(customer.get());
             order.setEmployee(employee.get());
             orderLines.get().forEach(order::addOrderLine);
         }
@@ -151,7 +149,7 @@ public class OrderDaoMsSql implements OrderDao {
 
             ResultSet rs = insertPS.getGeneratedKeys();
             if (!rs.next()) {
-                throw new DataWriteException("Unable to access identity from order insertion");
+                throw new DataWriteException("Not able to get identity for order");
             }
 
             final int id = rs.getInt(1);
