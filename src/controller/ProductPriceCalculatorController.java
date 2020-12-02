@@ -45,9 +45,9 @@ public class ProductPriceCalculatorController {
             final int size = products.size();
             for (int j = 0; i < size; i++) {
                 Product product = products.get(j);
-                specification.setProduct(product);
+                //specification.setProduct(product);
                 // For testing we have this locked at 1
-                specification.setQuantity(1);
+                //specification.setQuantity(1);
                 // Supply the specification + our consumer
                 Thread thread = new CheapestAlgorithm(specification, this::updateCheapest);
                 threads.add(thread);
