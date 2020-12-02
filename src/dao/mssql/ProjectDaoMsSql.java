@@ -13,6 +13,7 @@ import util.ConnectionThread;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -23,7 +24,12 @@ public class ProjectDaoMsSql implements ProjectDao {
 	private PreparedStatement findByNamePS;
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE id = ?";
 	private PreparedStatement findByIdPS;
-
+	private static final String INSERT_Q = " INSERT INTO [project](name, status, price, estimated_hours, customer_id," +
+			" employee_id) VALUES (?, ?, ?, ?, ?, ?)";
+	private PreparedStatement insertPS;
+	private static final String UPDATE_Q = " UPDATE project set name = ?, status = ?, price = ?," +
+			" estimated_hours = ?, customer_id = ?, employee_id = ? WHERE id = ? ";
+	private PreparedStatement updatePS;
 	public ProjectDaoMsSql(DBConnection conn) {
 		init(conn);
 	}
@@ -32,6 +38,8 @@ public class ProjectDaoMsSql implements ProjectDao {
 		try {
 			findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
 			findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
+			insertPS = conn.prepareStatement(INSERT_Q, Statement.RETURN_GENERATED_KEYS);
+			updatePS = conn.prepareStatement(UPDATE_Q);
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -71,7 +79,48 @@ public class ProjectDaoMsSql implements ProjectDao {
 
 		return project;
 	}
-	
+
+	@Override
+	public Project create(Project project, boolean fullAssociation) throws DataAccessException {
+		try{
+			insertPS.setString(1, project.getName());
+			insertPS.setInt(2, project.getStatus().getValue());
+			insertPS.setInt(3, project.getPrice().getAmount());
+			insertPS.setInt(4, project.getEstimatedHours());
+			insertPS.setInt(5, project.getCustomer().getId());
+			insertPS.setInt(6, project.getEmployee().getId());
+			insertPS.executeUpdate();
+
+			ResultSet rs = insertPS.getGeneratedKeys();
+			if (!rs.next()) {
+				throw new DataAccessException("Unable to get identity for project");
+			}
+
+			project.setId(rs.getInt(1));
+
+		}
+		catch(SQLException e) {
+
+			throw new DataAccessException("Unable to create project");
+		}
+		return project;
+	}
+
+	@Override
+	public void update(Project project, boolean fullAssociation) throws DataAccessException {
+		try {
+			updatePS.setString(1, project.getName());
+			updatePS.setInt(2, project.getStatus().getValue());
+			updatePS.setInt(3, project.getPrice().getAmount());
+			updatePS.setInt(4, project.getEstimatedHours());
+			updatePS.setInt(5, project.getCustomer().getId());
+			updatePS.setInt(6, project.getEmployee().getId());
+			updatePS.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to find project to update");
+		}
+	}
+
 	private Project buildObject(ResultSet rs, boolean fullAssociation) throws SQLException, DataAccessException {
 		final int id = rs.getInt("id");
 		final String name = rs.getString("name");
