@@ -18,7 +18,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class OrderDaoMsSql implements OrderDao {
     private static final String FIND_BY_ID_Q = "SELECT * From GetOrders WHERE id = ?";
     private PreparedStatement findByIdPS;
-    private static final String INSERT_Q = "INSERT INTO [order](status, created_at, project_id, employee_id) VALUES (?,?,?,?)";
+    private static final String INSERT_Q = "INSERT INTO [order](status, created_at, project_id, employee_id) " +
+            "VALUES (?,?,?,?)";
     private PreparedStatement insertPS;
     private DBConnection connection;
 
