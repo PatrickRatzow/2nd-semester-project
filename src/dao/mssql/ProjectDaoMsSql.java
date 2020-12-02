@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ProjectDaoMsSql implements ProjectDao {
-	private static final String FIND_ALL_Q = "SELECT * FROM project";
+	private static final String FIND_ALL_Q = "SELECT * FROM project"; //[project] ?
 	private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE name LIKE CONCAT('%', ?, '%')";
 	private PreparedStatement findByNamePS;
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE id = ?";

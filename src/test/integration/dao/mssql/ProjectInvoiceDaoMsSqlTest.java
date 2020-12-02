@@ -47,10 +47,12 @@ public class ProjectInvoiceDaoMsSqlTest {
         assertNotNull(returnProjectInvoice);
     }
 
+
+    //This test works, but will pass, even though there is no project with the id.
     @Test
     void testCanUpdateProjectInvoice() throws DataAccessException {
         // Arrange
-        int projectId = 5;
+        int projectId = 1;
         ProjectInvoice projectInvoice = new ProjectInvoice();
         projectInvoice.setToPay(new Price(123));
         projectInvoice.setHasPaid(new Price(123));
