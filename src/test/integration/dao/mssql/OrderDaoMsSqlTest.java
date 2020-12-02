@@ -52,7 +52,7 @@ public class OrderDaoMsSqlTest {
     
     
     @Test
-    void testCreateOrderWhenValidInformation() throws DataAccessException {
+    void testCreateOrderWithValidInformation() throws DataAccessException {
     	// Arrange
     	Order order = new Order();
     	order.setEmployee(new Employee(1, "Allan", "Jensen"));
@@ -64,6 +64,7 @@ public class OrderDaoMsSqlTest {
     	Product product = new Product(1, "Lille tagsten", "", new Price(250000));
     	order.addOrderLine(new OrderLine(product, 15));
     	Project project = new Project();
+    	project.setId(1);
     	Order returnOrder;
 
     	// Act
@@ -85,6 +86,7 @@ public class OrderDaoMsSqlTest {
         Product product = new Product(1, "PP", "", new Price(2242));
         order.addOrderLine(new OrderLine(product, 3));
         Project project = new Project();
+        project.setId(1);
 
         // Assert + Act
         assertThrows(DataAccessException.class, () ->  dao.create(order, project));
