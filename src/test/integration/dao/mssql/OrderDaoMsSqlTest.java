@@ -1,6 +1,7 @@
 package test.integration.dao.mssql;
 
 import dao.OrderDao;
+import dao.ProjectDao;
 import dao.mssql.OrderDaoMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
@@ -9,10 +10,11 @@ import exception.DataAccessException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class OrderDaoMsSqlTest {
     private static DBConnection connection;
@@ -35,10 +37,22 @@ public class OrderDaoMsSqlTest {
         // Assert
         assertNotNull(order);
     }
+
+    @Test
+    void cannotFindById() throws DataAccessException {
+        // Arrange
+        Order order = null;
+
+        // Act
+        order = dao.findById(1312312, true);
+
+        //Assert
+        assertNull(order);
+    }
     
     
     @Test
-    void orderCreationTest() throws DataAccessException {
+    void testCreateOrderWhenValidInformation() throws DataAccessException {
     	// Arrange
     	Order order = new Order();
     	order.setEmployee(new Employee(1, "Allan", "Jensen"));
@@ -50,7 +64,6 @@ public class OrderDaoMsSqlTest {
     	Product product = new Product(1, "Lille tagsten", "", new Price(250000));
     	order.addOrderLine(new OrderLine(product, 15));
     	Project project = new Project();
-    	project.setId(1);
     	Order returnOrder;
 
     	// Act
@@ -58,6 +71,24 @@ public class OrderDaoMsSqlTest {
     	
     	// Assert
     	assertNotNull(returnOrder);
+    }
+
+    @Test
+    void testFailsToCreateOrderWithInvalidInformation() throws DataAccessException {
+        // Arrange
+        Order order = new Order();
+        order.setEmployee(new Employee(5000,"Allan", "Jensen"));
+        order.setCustomer(new Customer(1, "", "", "", "",
+                    new Address("", 54, "", 9000)));
+        order.setDate(LocalDateTime.now());
+        order.setStatus(OrderStatus.AWAITING);
+        Product product = new Product(1, "PP", "", new Price(2242));
+        order.addOrderLine(new OrderLine(product, 3));
+        Project project = new Project();
+
+        // Assert + Act
+        assertThrows(DataAccessException.class, () ->  dao.create(order, project));
+
     }
 
     @AfterAll
