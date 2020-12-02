@@ -4,8 +4,7 @@ import dao.ProjectInvoiceDao;
 import dao.mssql.ProjectInvoiceDaoMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
-import entity.Price;
-import entity.ProjectInvoice;
+import entity.*;
 import exception.DataAccessException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,19 +27,23 @@ public class ProjectInvoiceDaoMsSqlTest {
 
     @Test
     void testCanCreate() throws DataAccessException {
-        //Arrange
+        // Arrange
+
+        Project p = new Project();
+        p.setId(4);
+
         ProjectInvoice projectInvoice = new ProjectInvoice();
         projectInvoice.setToPay(new Price(123));
-        projectInvoice.setHasPaid(new Price(123));
+        projectInvoice.setHasPaid(new Price(123543));
         projectInvoice.setDueDate(LocalDate.now());
         projectInvoice.setCreatedAt(LocalDateTime.now());
-        projectInvoice.setId(3);
+        projectInvoice.setId(p.getId());
         ProjectInvoice returnProjectInvoice;
 
-        //Act
+        // Act
         returnProjectInvoice = dao.create(projectInvoice.getId(), projectInvoice);
 
-        //Assert
+        // Assert
         assertNotNull(returnProjectInvoice);
     }
 
