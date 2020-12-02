@@ -4,7 +4,8 @@ import dao.ProjectInvoiceDao;
 import dao.mssql.ProjectInvoiceDaoMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
-import entity.*;
+import entity.Price;
+import entity.ProjectInvoice;
 import exception.DataAccessException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProjectInvoiceDaoMsSqlTest {
     private static DBConnection connection;
@@ -26,44 +28,49 @@ public class ProjectInvoiceDaoMsSqlTest {
     }
 
     @Test
-    void testCanCreate() throws DataAccessException {
+    void testCanCreateIfTheresAProjectWithEqualId() throws DataAccessException {
         // Arrange
-
-        Project p = new Project();
-        p.setId(4);
-
+        int projectId = 4;
         ProjectInvoice projectInvoice = new ProjectInvoice();
-        projectInvoice.setToPay(new Price(123));
-        projectInvoice.setHasPaid(new Price(123543));
+        projectInvoice.setToPay(new Price(100 * 100));
+        projectInvoice.setHasPaid(new Price(0));
         projectInvoice.setDueDate(LocalDate.now());
         projectInvoice.setCreatedAt(LocalDateTime.now());
-        projectInvoice.setId(p.getId());
+        projectInvoice.setId(projectId);
         ProjectInvoice returnProjectInvoice;
 
         // Act
-        returnProjectInvoice = dao.create(projectInvoice.getId(), projectInvoice);
+        returnProjectInvoice = dao.create(projectInvoice);
 
         // Assert
         assertNotNull(returnProjectInvoice);
     }
 
-
-    //This test works, but will pass, even though there is no project with the id.
     @Test
-    void testCanUpdateProjectInvoice() throws DataAccessException {
+    void testCantCreateIfTheresNoProjectWithEqualId() {
         // Arrange
-        int projectId = 1;
+        int projectId = 50000;
         ProjectInvoice projectInvoice = new ProjectInvoice();
-        projectInvoice.setToPay(new Price(123));
-        projectInvoice.setHasPaid(new Price(123));
+        projectInvoice.setToPay(new Price(100 * 100));
+        projectInvoice.setHasPaid(new Price(0));
         projectInvoice.setDueDate(LocalDate.now());
         projectInvoice.setCreatedAt(LocalDateTime.now());
         projectInvoice.setId(projectId);
 
         // Act
+        assertThrows(DataAccessException.class, () -> dao.create(projectInvoice));
+    }
+
+    @Test
+    void testCanUpdateProjectInvoice() throws DataAccessException {
+        // Arrange
+        int projectId = 1;
+        ProjectInvoice projectInvoice = new ProjectInvoice();
+        projectInvoice.setToPay(new Price(100 * 100));
+        projectInvoice.setId(projectId);
+
+        // Act
         dao.update(projectInvoice);
-
-
     }
 
 

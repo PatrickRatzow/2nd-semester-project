@@ -144,7 +144,8 @@ public class ProductDaoMsSql implements ProductDao {
                     "    pp.start_time AS price_start_time,\n" +
                     "    pp.end_time AS price_end_time\n" +
                     "FROM product p\n" +
-                    "INNER JOIN product_price pp ON p.id = pp.product_id AND GETUTCDATE() BETWEEN pp.start_time AND pp.end_time\n" +
+                    "INNER JOIN product_price pp ON p.id = pp.product_id " +
+                    "  AND GETUTCDATE() BETWEEN pp.start_time AND pp.end_time\n" +
                     "INNER JOIN product_category pc ON p.category_id = pc.id\n" +
                     "INNER JOIN product_field pf ON p.id = pf.product_id\n" +
                     "WHERE p.category_id IN (" + idsStr + ") \n" +
@@ -158,11 +159,9 @@ public class ProductDaoMsSql implements ProductDao {
             int i = 0;
             for (int id : ids) {
                 ps.setInt(++i, id);
-                System.out.println(id + " - " + i);
             }
             for (String value : parameters) {
                 ps.setString(++i, value);
-                System.out.println(value + " - " + i);
             }
             ps.setInt(++i, requirements.size());
             ResultSet rs = ps.executeQuery();

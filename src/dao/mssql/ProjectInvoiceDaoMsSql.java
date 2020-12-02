@@ -7,7 +7,9 @@ import entity.ProjectInvoice;
 import exception.DataAccessException;
 import util.SQLDateConverter;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -19,8 +21,7 @@ public class ProjectInvoiceDaoMsSql implements ProjectInvoiceDao {
     private static final String INSERT_Q = "INSERT INTO project_invoice (project_id, created_at, due_date, to_pay, has_paid) "
             + "VALUES(?, ?, ?, ?, ?)";
     private PreparedStatement insertPS;
-    private static final String UPDATE_Q = " UPDATE project_invoice set created_at = ?, due_date = ?, to_pay = ?," +
-            " has_paid = ? WHERE project_id = ? ";
+    private static final String UPDATE_Q = " UPDATE project_invoice SET has_paid = ? WHERE project_id = ?";
     private PreparedStatement updatePS;
 
     public ProjectInvoiceDaoMsSql(DBConnection conn) {
@@ -60,7 +61,7 @@ public class ProjectInvoiceDaoMsSql implements ProjectInvoiceDao {
     }
 
     @Override
-    public ProjectInvoice findByOrderId(int id) throws DataAccessException {
+    public ProjectInvoice findById(int id) throws DataAccessException {
         final ProjectInvoice projectInvoice;
 
         try {
@@ -81,9 +82,9 @@ public class ProjectInvoiceDaoMsSql implements ProjectInvoiceDao {
     }
 
     @Override
-    public ProjectInvoice create(int projectId, ProjectInvoice projectInvoice) throws DataAccessException {
+    public ProjectInvoice create(ProjectInvoice projectInvoice) throws DataAccessException {
         try {
-            insertPS.setInt(1, projectId);
+            insertPS.setInt(1, projectInvoice.getId());
             insertPS.setTimestamp(2,
                     SQLDateConverter.localDateTimeToTimestamp(projectInvoice.getCreatedAt()));
             insertPS.setDate(3, SQLDateConverter.localDateToDate(projectInvoice.getDueDate()));
@@ -91,10 +92,8 @@ public class ProjectInvoiceDaoMsSql implements ProjectInvoiceDao {
             insertPS.setInt(5, projectInvoice.getHasPaid().getAmount());
             insertPS.execute();
         } catch (SQLException e) {
-            throw new DataAccessException("Unable to save ProjectInvoice with order id - " + projectId);
+            throw new DataAccessException("Unable to save ProjectInvoice with order id - " + projectInvoice.getId());
         }
-
-        projectInvoice.setId(projectId);
 
         return projectInvoice;
     }
@@ -102,18 +101,12 @@ public class ProjectInvoiceDaoMsSql implements ProjectInvoiceDao {
     @Override
     public void update(ProjectInvoice projectInvoice) throws DataAccessException {
         try {
-            updatePS.setTimestamp(1,
-                    Timestamp.valueOf(projectInvoice.getCreatedAt()));
-            updatePS.setDate(2, new Date(1234));
-            updatePS.setInt(3, projectInvoice.getToPay().getAmount());
-            updatePS.setInt(4, projectInvoice.getHasPaid().getAmount());
-            updatePS.setInt(5, projectInvoice.getId());
+            updatePS.setInt(1, projectInvoice.getToPay().getAmount());
+            updatePS.setInt(2, projectInvoice.getId());
             updatePS.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
-
             throw new DataAccessException("Unable to update ProjectInvoice with project id - " + projectInvoice.getId());
-    }
+        }
     }
 }
 

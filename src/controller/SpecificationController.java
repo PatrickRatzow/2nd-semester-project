@@ -29,8 +29,6 @@ public class SpecificationController {
                 DBManager.getDaoFactory().createSpecificationToProductCategoryDao(connection);
         final List<Product> products = dao.findBySpecificationId(specification);
 
-        //specification.setCategories(categories);
-
         connection.release();
     }
 
