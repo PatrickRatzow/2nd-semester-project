@@ -11,6 +11,12 @@ public class Roof extends Specification {
     }
 
     @Override
+    public Specification clone() {
+        return null;
+    }
+
+    /*
+    @Override
     public Roof clone() {
         return new Roof();
     }
@@ -28,4 +34,6 @@ public class Roof extends Specification {
 
         return price;
     }
+
+     */
 }

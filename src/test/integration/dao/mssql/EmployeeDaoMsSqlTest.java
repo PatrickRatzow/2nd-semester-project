@@ -1,7 +1,7 @@
 package test.integration.dao.mssql;
 
 import dao.EmployeeDao;
-import dao.mssql.EmployeeDaoMsSql;
+import dao.mssql.DaoFactoryMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
 import entity.Employee;
@@ -10,7 +10,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class EmployeeDaoMsSqlTest {
     private static DBConnection connection;
@@ -19,7 +20,7 @@ public class EmployeeDaoMsSqlTest {
     @BeforeAll
     static void setup() {
         connection = DBManager.getPool().getConnection();
-        dao = new EmployeeDaoMsSql(connection);
+        dao = new DaoFactoryMsSql().createEmployeeDao(connection);
     }
 
     @Test
@@ -47,7 +48,8 @@ public class EmployeeDaoMsSqlTest {
         assertNull(employee);
     }
 
-
     @AfterAll
-    static void teardown() {connection.release();}
+    static void teardown() {
+        connection.release();
+    }
 }

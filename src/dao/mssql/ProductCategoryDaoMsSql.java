@@ -13,11 +13,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ProductCategoryDaoMsSql implements ProductCategoryDao {
-    private static final String FIND_ALL_Q = "SELECT * FROM GetCategories";
+    private static final String FIND_ALL_Q = "SELECT * FROM product_category";
     private PreparedStatement findAllPS;
-    private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE productCategoryId = ?";
+    private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE id = ?";
     private PreparedStatement findByIdPS;
-    private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE productCategoryName = ?";
+    private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE name = ?";
     private PreparedStatement findByNamePS;
 
     public ProductCategoryDaoMsSql(DBConnection conn) {
@@ -37,9 +37,9 @@ public class ProductCategoryDaoMsSql implements ProductCategoryDao {
     private ProductCategory buildObject(final ResultSet rs) throws SQLException {
         ProductCategory category = null;
 
-        final int id = rs.getInt("productCategoryId");
-        final String name = rs.getString("productCategoryName");
-        final String desc = rs.getString("productCategoryDesc");
+        final int id = rs.getInt("id");
+        final String name = rs.getString("name");
+        final String desc = rs.getString("description");
         category = new ProductCategory(id, name, desc);
 
         return category;

@@ -1,11 +1,8 @@
 package util;
 
 import entity.CheapestProduct;
-import entity.Price;
-import entity.Product;
 import entity.Specification;
 
-import java.util.Random;
 import java.util.function.Consumer;
 
 
@@ -20,6 +17,7 @@ public class CheapestAlgorithm extends Thread {
 
     @Override
     public void run() {
+        /*
         Product product = specification.getProduct();
         Price price = specification.getPrice();
         int quantity = specification.getQuantity();
@@ -33,5 +31,7 @@ public class CheapestAlgorithm extends Thread {
         }
 
         this.callback.accept(cheapestProduct);
+
+         */
     }
 }

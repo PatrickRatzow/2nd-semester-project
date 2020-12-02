@@ -1,6 +1,5 @@
 package test.integration.dao.mssql;
 
-import dao.ProductCategoryDao;
 import dao.mssql.ProductCategoryDaoMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +22,6 @@ public class ProductCategoryDaoMsSqlTest {
         connection = DBManager.getPool().getConnection();
         dao = new ProductCategoryDaoMsSql(connection);
     }
-
 
     @Test
     void canFindById() throws DataAccessException {
@@ -55,24 +52,31 @@ public class ProductCategoryDaoMsSqlTest {
     @Test
     void canFindByName() throws  DataAccessException {
         // Arrange
-        List<ProductCategory> categories = new LinkedList<>();
+        List<ProductCategory> categories;
 
         // Act
-        categories = dao.findByName("Nails");
-        /// TODO: 12/2/2020 might need to change the product name here
+        categories = dao.findByName("Tagsten");
 
         // Assert
-        assertNotEquals(categories.size(), 0);
-        // TODO: 12/2/2020 This is definitely retarded 
+        assertEquals(categories.size(), 1);
     }
 
     
     @Test
-    void cannotFindByName() {
-        // TODO: 12/2/2020 all of this
+    void cannotFindByName() throws DataAccessException {
+        // Arrange
+        List<ProductCategory> categories;
+
+        // Act
+        categories = dao.findByName("XDXDXDXDXDXD");
+
+        // Assert
+        assertEquals(categories.size(), 0);
     }
     
     
     @AfterAll
-    static void teardown() {connection.release();}
+    static void teardown() {
+        connection.release();
+    }
 }
