@@ -27,6 +27,9 @@ public class ProjectDaoMsSql implements ProjectDao {
 	private static final String INSERT_Q = " INSERT INTO [project](name, status, price, estimated_hours, customer_id," +
 			" employee_id) VALUES (?, ?, ?, ?, ?, ?)";
 	private PreparedStatement insertPS;
+	private static final String UPDATE_Q = " UPDATE project set name = ?, status = ?, price = ?," +
+			" estimated_hours = ?, customer_id = ?, employee_id = ? WHERE id = ? ";
+	private PreparedStatement updatePS;
 	public ProjectDaoMsSql(DBConnection conn) {
 		init(conn);
 	}
@@ -36,6 +39,7 @@ public class ProjectDaoMsSql implements ProjectDao {
 			findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
 			findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
 			insertPS = conn.prepareStatement(INSERT_Q, Statement.RETURN_GENERATED_KEYS);
+			updatePS = conn.prepareStatement(UPDATE_Q);
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -100,6 +104,21 @@ public class ProjectDaoMsSql implements ProjectDao {
 			throw new DataAccessException("Unable to create project");
 		}
 		return project;
+	}
+
+	@Override
+	public void update(Project project, boolean fullAssociation) throws DataAccessException {
+		try {
+			updatePS.setString(1, project.getName());
+			updatePS.setInt(2, project.getStatus().getValue());
+			updatePS.setInt(3, project.getPrice().getAmount());
+			updatePS.setInt(4, project.getEstimatedHours());
+			updatePS.setInt(5, project.getCustomer().getId());
+			updatePS.setInt(6, project.getEmployee().getId());
+			updatePS.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to find project to update");
+		}
 	}
 
 	private Project buildObject(ResultSet rs, boolean fullAssociation) throws SQLException, DataAccessException {
