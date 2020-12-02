@@ -97,22 +97,16 @@ public class CustomerDaoMsSqlTest {
         Address address = new Address("Testing", 1, "Test", 1);
         Customer customer = new Customer(id,"Test", "Test", "test@ucn.dk",
                 "11111111", address);
+        Customer returnCustomer;
 
-        // It would throw an exception if unable to update
+        // Act
         dao.update(customer);
+        returnCustomer = dao.findById(id);
+
+        // Assert
+        assertEquals(returnCustomer.getEmail(), customer.getEmail());
     }
 
-    @Test
-    void testCantUpdateCustomerIfTheyDontExistInDatabase() {
-        // Arrange
-        int id = 50000;
-        Address address = new Address("Testing", 1, "Test", 1);
-        Customer customer = new Customer(id,"Test", "Test", "test@ucn.dk",
-                "11111111", address);
-
-        // It would throw an exception if unable to update
-        assertThrows(DataAccessException.class, () -> dao.update(customer));
-    }
 
     @AfterAll
     static void teardown() {

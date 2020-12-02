@@ -145,10 +145,7 @@ public class CustomerDaoMsSql implements CustomerDao {
             updatePC.setString(7, customer.getAddress().getStreetName());
             updatePC.setInt(8, customer.getAddress().getStreetNumber());
             updatePC.setInt(9, customer.getId());
-            final int affected = updatePC.executeUpdate();
-            if (affected == 0) {
-                throw new DataAccessException("Unable to find any customer to update");
-            }
+            updatePC.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
 

@@ -79,6 +79,14 @@ CREATE TABLE product (
     FOREIGN KEY(supplier_id) REFERENCES supplier(id)
 );
 
+CREATE TABLE product_field (
+    product_id INT,
+    field_id NVARCHAR(64),
+    value NVARCHAR(MAX),
+    PRIMARY KEY(product_id, field_id),
+    FOREIGN KEY(product_id) REFERENCES product(id)
+);
+
 CREATE TABLE product_price (
     product_id INT,
     start_time DATETIME DEFAULT GETUTCDATE(),
@@ -90,7 +98,7 @@ CREATE TABLE product_price (
 
 CREATE TABLE [order] (
     id INT IDENTITY(1, 1),
-    status INT NOT NULL,
+    delivered BIT NOT NULL,
     created_at DATETIME2 NOT NULL,
     project_id INT NOT NULL,
     employee_id INT NOT NULL,
@@ -116,4 +124,17 @@ CREATE TABLE order_line (
     PRIMARY KEY(order_id, product_id),
     FOREIGN KEY(order_id) REFERENCES [order](id),
     FOREIGN KEY(product_id) REFERENCES product(id)
+);
+
+CREATE TABLE specification (
+    id NVARCHAR(255),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE specification_to_product_category (
+    specification_id NVARCHAR(255),
+    product_category_id INT,
+    PRIMARY KEY(specification_id, product_category_id),
+    FOREIGN KEY(specification_id) REFERENCES specification(id),
+    FOREIGN KEY(product_category_id) REFERENCES product_category(id)
 );

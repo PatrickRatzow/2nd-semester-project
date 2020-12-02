@@ -25,4 +25,14 @@ public class Window extends Specification {
     public Specification clone() {
         return new Window();
     }
+
+    @Override
+    public String getId() {
+        return "window";
+    }
+
+    @Override
+    public String getName() {
+        return "Window";
+    }
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 public class Order {
     private int id;
     private LocalDateTime date;
-    private OrderStatus status;
+    private boolean delivered;
     private Map<Integer, OrderLine> orderLines;
     private Customer customer;
     private Employee employee;
@@ -16,18 +16,18 @@ public class Order {
         orderLines = new HashMap<>();
     }
 
-    public Order(int id, LocalDateTime date, OrderStatus status) {
+    public Order(int id, LocalDateTime date, boolean delivered) {
         this.id = id;
         this.date = date;
-        this.status = status;
+        this.delivered = delivered;
 
         orderLines = new HashMap<>();
     }
 
-    public Order(int id, LocalDateTime date, OrderStatus status, Map<Integer, OrderLine> orderLines, Customer customer, Employee employee) {
+    public Order(int id, LocalDateTime date, boolean delivered, Map<Integer, OrderLine> orderLines, Customer customer, Employee employee) {
         this.id = id;
         this.date = date;
-        this.status = status;
+        this.delivered = delivered;
         this.orderLines = orderLines;
         this.customer = customer;
         this.employee = employee;
@@ -57,12 +57,12 @@ public class Order {
         this.date = date;
     }
 
-    public OrderStatus getStatus() {
-        return status;
+    public boolean isDelivered() {
+        return delivered;
     }
 
-    public void setStatus(OrderStatus status) {
-        this.status = status;
+    public void setDelivered(boolean delivered) {
+        this.delivered = delivered;
     }
 
     public Customer getCustomer() {

@@ -11,4 +11,5 @@ public interface DaoFactory {
     ProductDao createProductDao(DBConnection connection);
     ProjectDao createProjectDao(DBConnection connection);
     ProjectInvoiceDao createProjectInvoiceDao(DBConnection connection);
+    SpecificationToProductCategoryDao createSpecificationToProductCategoryDao(DBConnection connection);
 }

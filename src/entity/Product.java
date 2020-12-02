@@ -11,7 +11,7 @@ public class Product {
     private String name;
     private String desc;
     private Price price;
-    private Map<String, Object> attributes = new HashMap<>();
+    private Map<String, Object> fields = new HashMap<>();
 
     public int getId() {
         return id;
@@ -21,6 +21,13 @@ public class Product {
         this.id = id;
     }
 
+    public void setField(String key, Object value) {
+        fields.put(key, value);
+    }
+
+    public Map<String, Object> getFields() {
+        return fields;
+    }
     /**
      * Gets name.
      *

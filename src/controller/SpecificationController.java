@@ -1,12 +1,16 @@
 package controller;
 
+import dao.SpecificationToProductCategoryDao;
+import datasource.DBConnection;
+import datasource.DBManager;
+import entity.Product;
 import entity.Requirement;
 import entity.Specification;
 import entity.specifications.Window;
+import exception.DataAccessException;
 
 import java.awt.*;
 import java.util.List;
-import java.util.Scanner;
 
 public class SpecificationController {
     private Specification specification;
@@ -19,20 +23,40 @@ public class SpecificationController {
         return specification.getRequirements();
     }
 
+    public void load() throws DataAccessException {
+        final DBConnection connection = DBManager.getPool().getConnection();
+        final SpecificationToProductCategoryDao dao =
+                DBManager.getDaoFactory().createSpecificationToProductCategoryDao(connection);
+        final List<Product> products = dao.findBySpecificationId(specification);
+
+        //specification.setCategories(categories);
+
+        connection.release();
+    }
+
     public static void main(String[] args) {
         SpecificationController ctr = new SpecificationController(new Window());
 
-        Scanner scanner = new Scanner(System.in);
-        for (Requirement req : ctr.getRequirements()) {
-            String name = req.getName();
-            System.out.println("Value for " + name);
-            String value = scanner.nextLine();
+        for (Requirement reg : ctr.getRequirements()) {
+            switch (reg.getId()) {
+                case "color":
+                    reg.setValue(Color.BLUE);
+                    break;
 
-            if (name.equals("Color")) {
-                req.setValue(Color.BLUE);
-            } else {
-                req.setValue(Integer.parseInt(value));
+                case "width":
+                    reg.setValue(150);
+                    break;
+
+                case "height":
+                    reg.setValue(100);
+                    break;
             }
+        }
+
+        try {
+            ctr.load();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
         }
 
         ctr.getRequirements().forEach(r -> System.out.println(r.getName() + " - " + r.getValue()));

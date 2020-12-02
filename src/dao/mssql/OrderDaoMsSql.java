@@ -4,7 +4,10 @@ import dao.EmployeeDao;
 import dao.OrderDao;
 import dao.OrderLineDao;
 import datasource.DBConnection;
-import entity.*;
+import entity.Employee;
+import entity.Order;
+import entity.OrderLine;
+import entity.Project;
 import exception.DataAccessException;
 import util.ConnectionThread;
 import util.SQLDateConverter;
@@ -18,7 +21,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class OrderDaoMsSql implements OrderDao {
     private static final String FIND_BY_ID_Q = "SELECT * From GetOrders WHERE id = ?";
     private PreparedStatement findByIdPS;
-    private static final String INSERT_Q = "INSERT INTO [order](status, created_at, project_id, employee_id) VALUES (?,?,?,?)";
+    private static final String INSERT_Q = "INSERT INTO [order](delivered, created_at, project_id, employee_id) " +
+            "VALUES (?, ?, ?, ?)";
     private PreparedStatement insertPS;
     private DBConnection connection;
 
@@ -39,10 +43,10 @@ public class OrderDaoMsSql implements OrderDao {
 
     private Order buildObject(final ResultSet rs, boolean fullAssociation) throws SQLException, DataAccessException {
         final int id = rs.getInt("id");
-        final OrderStatus status = OrderStatus.values()[rs.getInt("status")];
+        final boolean delivered = rs.getBoolean("delivered");
         final LocalDateTime createdAt = SQLDateConverter.timestampToLocalDateTime(
                 rs.getTimestamp("created_at"));
-        final Order order = new Order(id, createdAt, status);
+        final Order order = new Order(id, createdAt, delivered);
 
         if (fullAssociation) {
             AtomicReference<DataAccessException> exception = new AtomicReference<>();
@@ -127,7 +131,7 @@ public class OrderDaoMsSql implements OrderDao {
     @Override
     public Order create(Order order, Project project) throws DataAccessException {
         try {
-            insertPS.setInt(1, OrderStatus.AWAITING.getValue());
+            insertPS.setBoolean(1, order.isDelivered());
             insertPS.setTimestamp(2, Timestamp.valueOf(order.getDate()));
             insertPS.setInt(3, project.getId());
             insertPS.setInt(4, order.getEmployee().getId());
@@ -145,7 +149,6 @@ public class OrderDaoMsSql implements OrderDao {
                 orderLineDao.create(order, orderLine);
             }
         } catch(SQLException e) {
-
             throw new DataAccessException("Unable to create order");
         }
 

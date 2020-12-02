@@ -1,7 +1,7 @@
 CREATE VIEW GetOrders AS
 SELECT
     o.id AS id,
-    o.status AS status,
+    o.delivered AS delivered,
     o.created_at AS created_at,
     o.employee_id AS employee_id,
     o.project_id AS project_id,

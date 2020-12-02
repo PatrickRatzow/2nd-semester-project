@@ -1,7 +1,6 @@
 package test.integration.dao.mssql;
 
 import dao.OrderDao;
-import dao.ProjectDao;
 import dao.mssql.OrderDaoMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
@@ -10,7 +9,6 @@ import exception.DataAccessException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 import java.time.LocalDateTime;
 
@@ -60,10 +58,11 @@ public class OrderDaoMsSqlTest {
                 "4545454545", new Address("Sofiendalsvej", 60,
                 "Aalborg SV", 9200)));
     	order.setDate(LocalDateTime.now());
-    	order.setStatus(OrderStatus.AWAITING);
+    	order.setDelivered(false);
     	Product product = new Product(1, "Lille tagsten", "", new Price(250000));
     	order.addOrderLine(new OrderLine(product, 15));
     	Project project = new Project();
+    	project.setId(1);
     	Order returnOrder;
 
     	// Act
@@ -81,10 +80,11 @@ public class OrderDaoMsSqlTest {
         order.setCustomer(new Customer(1, "", "", "", "",
                     new Address("", 54, "", 9000)));
         order.setDate(LocalDateTime.now());
-        order.setStatus(OrderStatus.AWAITING);
+        order.setDelivered(false);
         Product product = new Product(1, "PP", "", new Price(2242));
         order.addOrderLine(new OrderLine(product, 3));
         Project project = new Project();
+        project.setId(1);
 
         // Assert + Act
         assertThrows(DataAccessException.class, () ->  dao.create(order, project));
