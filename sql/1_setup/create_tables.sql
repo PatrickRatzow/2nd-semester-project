@@ -48,6 +48,8 @@ CREATE TABLE project (
     id INT IDENTITY(1, 1),
     name NVARCHAR(255) NOT NULL,
     status INT NOT NULL,
+    price INT NOT NULL,
+    estimated_hours INT NOT NULL,
     customer_id INT NOT NULL,
     employee_id INT NOT NULL,
     PRIMARY KEY(id),
