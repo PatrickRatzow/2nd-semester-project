@@ -12,6 +12,7 @@ import java.awt.*;
 public class CustomersTab extends JPanel {
 	private TabPanel panelManager;
 	private CustomerController customerController;
+	private JPanel container;
 	
 	public CustomersTab(TabPanel panelManager) {
 		customerController = new CustomerController();
@@ -22,24 +23,35 @@ public class CustomersTab extends JPanel {
 		TitleBar titleBar = new TitleBar();
 		titleBar.setTitle("Kunder");
 		titleBar.setButtonName("Opret Kunde");
-		//titleBar.addActionListener(e -> new );
+		titleBar.addActionListener(e -> 
+			panelManager.setActive("create_customer", () -> new CreateCustomer(panelManager)));
 		JTextField searchBar = titleBar.createSearchBar("Kunde telefon/email");
-		searchBar.addActionListener(e -> search(searchBar.getText()));
+		searchBar.addActionListener(e -> {
+			String text = searchBar.getText();
+			if (text.isEmpty()) {
+				customerController.getAll();
+			} else {
+				customerController.getSearch(text);
+			}
+		});
 		add(titleBar, BorderLayout.NORTH);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel container = new JPanel();
+		container = new JPanel();
 		scrollPane.setViewportView(container);
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 		
-		Customer customer = new Customer();
-		customer.setFirstName("Allan");
-		customer.setLastName("Jensen");
-		customer.setPhoneNumber("45454545");
-		
-		container.add(createRow(customer));
+		customerController.addFindListener(customers -> {
+			container.removeAll();
+			for (Customer customer : customers) {
+				container.add(createRow(customer));
+			}
+			container.repaint();
+		});
+	
+		customerController.getAll();
 	}
 	
 	private Row createRow(Customer customer) {
@@ -48,9 +60,5 @@ public class CustomersTab extends JPanel {
 		row.setButtonText("Aaben");
 		
 		return row;
-	}
-	
-	private void search(String search) {
-		
 	}
 }

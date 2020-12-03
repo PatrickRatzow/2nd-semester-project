@@ -11,8 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CustomerDaoMsSql implements CustomerDao {
-    private static final String FIND_BY_PHONE_NUMBER_Q = "SELECT * FROM GetCustomers WHERE phone_number = ?";
-    private PreparedStatement findByPhoneNumberPS;
+    private static final String FIND_ALL_Q = "SELECT * FROM GetCustomers";
+    private PreparedStatement findAllPS;
+    private static final String FIND_BY_PHONE_NUMBER_OR_EMAIL_Q = FIND_ALL_Q + " WHERE phone_number = ? OR email = ?";
+    private PreparedStatement findByPhoneNumberOrEmailPS;
     private static final String FIND_ID_Q = "SELECT * FROM GetCustomers WHERE id = ?";
     private PreparedStatement findIdPS;
     private static final String INSERT_Q = "{CALL InsertCustomer(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
@@ -26,7 +28,8 @@ public class CustomerDaoMsSql implements CustomerDao {
 
     private void init(DBConnection conn) {
         try {
-            findByPhoneNumberPS = conn.prepareStatement(FIND_BY_PHONE_NUMBER_Q);
+            findAllPS = conn.prepareStatement(FIND_ALL_Q);
+            findByPhoneNumberOrEmailPS = conn.prepareStatement(FIND_BY_PHONE_NUMBER_OR_EMAIL_Q);
             findIdPS = conn.prepareStatement(FIND_ID_Q);
             insertPC = conn.prepareCall(INSERT_Q);
             updatePC = conn.prepareCall(UPDATE_Q);
@@ -75,23 +78,33 @@ public class CustomerDaoMsSql implements CustomerDao {
     }
 
     @Override
-    public Customer findByPhoneNumber(String phoneNumber) throws DataAccessException {
-        Customer customer = null;
+    public List<Customer> findAll() throws DataAccessException {
+        List<Customer> customers;
 
         try {
-            findByPhoneNumberPS.setString(1, phoneNumber);
-            ResultSet rs = this.findByPhoneNumberPS.executeQuery();
-
-            if (rs.next()) {
-                customer = buildObject(rs);
-            }
+            ResultSet rs = findAllPS.executeQuery();
+            customers = buildObjects(rs);
         } catch (SQLException e) {
-            e.printStackTrace();
-
-            throw new DataAccessException("Unable to find a customer");
+            throw new DataAccessException("Unable to find all customers");
         }
 
-        return customer;
+        return customers;
+    }
+
+    @Override
+    public List<Customer> findByPhoneNumberOrEmail(String phoneNumber, String email) throws DataAccessException {
+        List<Customer> customers;
+
+        try {
+            findByPhoneNumberOrEmailPS.setString(1, phoneNumber);
+            findByPhoneNumberOrEmailPS.setString(2, email);
+            ResultSet rs = findByPhoneNumberOrEmailPS.executeQuery();
+            customers = buildObjects(rs);
+        } catch (SQLException e) {
+            throw new DataAccessException("Unable to find customers by phone number/email");
+        }
+
+        return customers;
     }
 
     @Override

@@ -7,18 +7,58 @@ import entity.Customer;
 import exception.DataAccessException;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class CustomerController {
     private Customer customer;
+    private List<Consumer<List<Customer>>> onFindListeners = new LinkedList<>();
+    
+    public void addFindListener(Consumer<List<Customer>> consumer) {
+    	onFindListeners.add(consumer);
+    }
+    
+    public void getAll() {
+    	new Thread(() -> {
+	    	try {
+	    		List<Customer> customers = findAll();
+	    		onFindListeners.forEach(l -> l.accept(customers));
+	    	} catch (DataAccessException e) {
+	    		// Ignore for now
+	    	}
+    	}).start();
+    }
+    
+    public void getSearch(String search) {
+        new Thread(() -> {
+            try {
+                List<Customer> customers = findByPhoneNumberOrEmail(search);
+                onFindListeners.forEach(l -> l.accept(customers));
+            } catch (DataAccessException e) {
+                // Ignore for now
+            }
+        }).start();
+    }
 
-    public Customer findByPhoneNumber(String phoneNumber) throws DataAccessException {
+    private List<Customer> findAll() throws DataAccessException {
         final DBConnection connection = DBManager.getPool().getConnection();
         final CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(connection);
-        final Customer customer = dao.findByPhoneNumber(phoneNumber);
+        final List<Customer> customers = dao.findAll();
 
         connection.release();
 
-        return customer;
+        return customers;
+    }
+
+    private List<Customer> findByPhoneNumberOrEmail(String search) throws DataAccessException {
+        final DBConnection connection = DBManager.getPool().getConnection();
+        final CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(connection);
+        final List<Customer> customers = dao.findByPhoneNumberOrEmail(search, search);
+
+        connection.release();
+
+        return customers;
     }
 
     private boolean isCustomerValid(Customer customer) {

@@ -1,17 +1,12 @@
 package gui.components.customer;
 
+import controller.CustomerController;
+import exception.DataAccessException;
+import gui.components.core.TabPanel;
 import gui.components.core.TitleBar;
 
 import javax.swing.*;
 import java.awt.*;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import controller.CustomerController;
-import exception.DataAccessException;
-
-import com.jgoodies.forms.layout.FormSpecs;
 
 public class CreateCustomer extends JPanel {
 	
@@ -24,18 +19,25 @@ public class CreateCustomer extends JPanel {
 	private JTextField txtZipCode;
 	private JTextField txtEmail;
 	private CustomerController customerController; 
-
-	/**
-	 * Create the panel.
-	 */
-	public CreateCustomer() {
+	private TabPanel panelManager;
+	private String previousId;
+	
+	public CreateCustomer(TabPanel panelManager) {
+		this.panelManager = panelManager;
+		previousId = panelManager.getCurrentId();
 		customerController = new CustomerController();
 		
 		setLayout(new BorderLayout(0, 0));
 		
 		TitleBar titleBar = new TitleBar();
 		titleBar.setTitle("Kunde Infomation");
-		titleBar.setButtonName("Gå Tilbage");
+		titleBar.setButtonName("Gï¿½ Tilbage");
+		titleBar.addActionListener(e -> {
+			String currentId = panelManager.getCurrentId();
+			
+			panelManager.setActive(previousId);
+			panelManager.removePanel(currentId);
+		});
 		add(titleBar, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
