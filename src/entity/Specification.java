@@ -11,6 +11,8 @@ public abstract class Specification {
     public abstract Specification clone();
     public abstract String getId();
     public abstract String getName();
+    private String displayName;
+    private int resultAmount;
 
     public List<Requirement> getRequirements() {
         return requirements;
@@ -26,5 +28,21 @@ public abstract class Specification {
 
     public void setCategories(List<ProductCategory> categories) {
         this.categories = categories;
+    }
+    
+    public void setDisplayName(String newDisplayName) {
+    	this.displayName = newDisplayName;
+    }
+    
+    public String getDisplayName() {
+    	return displayName;
+    }
+    
+    public void setResultAmount(int newResultAmount) {
+    	this.resultAmount = newResultAmount;
+    }
+    
+    public int getResultAmount() {
+    	return resultAmount;
     }
 }
