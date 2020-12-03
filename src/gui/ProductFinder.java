@@ -10,12 +10,6 @@ public class ProductFinder extends JPanel{
 	
 	//Just using this for a panelManager atm, change later;
 	public ProductFinder(TabPanel panelManager) {
-		
-	}
-	
-import gui.components.core.TabPanel;
-
-public class ProductFinder extends TabPanel {
-	public ProductFinder() {
 		// setActive("product_finder");
 	}
+}
