@@ -1,4 +1,4 @@
-package gui;
+package gui.components.customer;
 
 import gui.components.core.TitleBar;
 
@@ -13,7 +13,7 @@ import exception.DataAccessException;
 
 import com.jgoodies.forms.layout.FormSpecs;
 
-public class Test extends JPanel {
+public class CreateCustomer extends JPanel {
 	
 	private JTextField txtFirstName;
 	private JTextField txtLastName;
@@ -28,7 +28,7 @@ public class Test extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Test() {
+	public CreateCustomer() {
 		customerController = new CustomerController();
 		
 		setLayout(new BorderLayout(0, 0));
@@ -145,17 +145,6 @@ public class Test extends JPanel {
 			
 		});
 		
-		for(int i = 0; i < 10; i++) {
-			panel.add(createRow(i));
-		}
-	}
-	
-	private Projects createRow(int i) {
-		Projects rows = new Projects();
-		rows.setName(String.valueOf(i));
-		
-		
-		return rows;
 	}
 	
 }
