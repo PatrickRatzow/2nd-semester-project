@@ -3,19 +3,13 @@ package gui;
 import javax.swing.JPanel;
 
 import gui.components.core.TabPanel;
-
-public class ProductFinder extends JPanel{
-	
-	private TabPanel panelManager;
-	
-	//Just using this for a panelManager atm, change later;
-	public ProductFinder(TabPanel panelManager) {
-		
-	}
-	
-import gui.components.core.TabPanel;
+import gui.components.specification.SpecificationsProjectTab;
 
 public class ProductFinder extends TabPanel {
+	
+	
+	//Just using this for a panelManager atm, change later;
 	public ProductFinder() {
-		// setActive("product_finder");
+		setActive("specifications", () -> new SpecificationsProjectTab(this));
 	}
+}
