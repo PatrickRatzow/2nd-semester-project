@@ -1,18 +1,13 @@
 package gui.components;
 
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.GridLayout;
-import javax.swing.JScrollPane;
+import javax.swing.*;
+import java.awt.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CustomerInformationGui extends JPanel {
-
-	/**
-	 * Create the panel.
-	 */
+	private JPanel panel;
+	
 	public CustomerInformationGui() {
 		setBackground(Color.GRAY);
 		setLayout(new BorderLayout(0, 0));
@@ -24,26 +19,32 @@ public class CustomerInformationGui extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.LIGHT_GRAY);
-		panel.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+		List<String[]> rows = new LinkedList<>();
+		rows.add(new String[]{ "Fornavn", "Anders" });
+		rows.add(new String[]{ "Efternavn", "Andersen" });
+		rows.add(new String[]{ "Email", "email@email.xd" });
 		
-		JLabel lblNewLabel_1 = new JLabel("Fornavn");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 10));
-		panel_1.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Anders");
-		panel_1.add(lblNewLabel_2);
-		
-		
-		
-		
-
+		for (String[] strings : rows) {
+			panel.add(createRow(strings[0], strings[1]));
+		}
 	}
 
+	private JPanel createRow(String titleText, String bodyText) {
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel title = new JLabel(titleText);
+		title.setFont(new Font("Tahoma", Font.BOLD, 10));
+		panel.add(title);
+		
+		JLabel body = new JLabel(bodyText);
+		panel.add(body);
+		
+		return panel;
+	}
 }
