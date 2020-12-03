@@ -20,7 +20,7 @@ public class SpecificationTab extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SpecificationTab() {
+	public SpecificationTab(int amountOfRows) {
 		setLayout(new BorderLayout(0, 0));
 		
 		Titlebar title = new Titlebar();
@@ -43,7 +43,8 @@ public class SpecificationTab extends JPanel {
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		for(int i = 0; i < 10; i++) {
+		//change to names
+		for(int i = 0; i < amountOfRows; i++) {
 			panel.add(createRow(i));
 		}
 

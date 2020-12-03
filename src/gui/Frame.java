@@ -38,7 +38,7 @@ public class Frame extends JFrame {
 		contentPane.add(tabbedPane);
 		
 	    JComponent projects = new Projects();
-	    JComponent s = new SpecificationTab();
+	    JComponent s = new SpecificationTab(8);
 	    
 	    tabbedPane.addTab("SpecificationTab", s);
 	    JComponent customers = new JPanel(false);
