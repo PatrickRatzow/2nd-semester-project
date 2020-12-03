@@ -21,7 +21,9 @@ public class Projects extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 
 		TitleBar titleBar = new TitleBar();
-		JTextField searchBar = titleBar.createSearchBar();
+		titleBar.setTitle("Projekter");
+		titleBar.setButtonName("Opret nyt projekt");
+		JTextField searchBar = titleBar.createSearchBar("S�g efter projekter");
 		searchBar.addActionListener(e -> searchProjects(searchBar.getText()));
 		titleBar.setMinimumSize(new Dimension(184, 50));
 		add(titleBar, BorderLayout.NORTH);
@@ -31,8 +33,8 @@ public class Projects extends JPanel {
 
 		panel = new JPanel();
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new GridLayout(0, 1));
-
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
 		loadProjects();
 	}
 
@@ -56,6 +58,7 @@ public class Projects extends JPanel {
 					for (Project project : projects) {
 						panel.add(createRow(project));
 					}
+					panel.repaint();
 				}
 			} catch (DataAccessException e) {
 				e.printStackTrace();
@@ -79,6 +82,7 @@ public class Projects extends JPanel {
 					for (Project project : projects) {
 						panel.add(createRow(project));
 					}
+					panel.repaint();
 				}
 			} catch (DataAccessException e) {
 				e.printStackTrace();

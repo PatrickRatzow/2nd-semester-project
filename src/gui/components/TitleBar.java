@@ -6,6 +6,8 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class TitleBar extends JPanel {
 	private JLabel title;
@@ -47,7 +49,7 @@ public class TitleBar extends JPanel {
 		actionButton.setText(buttonName);
 	}
 	
-	public JTextField createSearchBar() {
+	public JTextField createSearchBar(String placeholderText) {
 		if (searchContainer != null) return searchField;
 		
 		searchContainer = new JPanel();
@@ -60,6 +62,25 @@ public class TitleBar extends JPanel {
 		searchField.setBorder(new EmptyBorder(0, 0, 0, 0));
 		searchContainer.add(searchField);
 		searchField.setColumns(20);
+		searchField.setForeground(Color.GRAY);
+		searchField.setText(placeholderText);
+		searchField.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (searchField.getText().equals(placeholderText)) {
+					searchField.setText("");
+					searchField.setForeground(Color.BLACK);
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (searchField.getText().isEmpty()) {
+					searchField.setForeground(Color.GRAY);
+					searchField.setText(placeholderText);
+				}
+			}
+		});
 		
 		return searchField;
 	}
