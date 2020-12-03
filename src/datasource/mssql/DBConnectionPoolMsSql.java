@@ -28,13 +28,22 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
         user = isJUnit ? "dmaa0220_1083802" : "dmaa0220_1083750";
         database = user;
 
+        List<Thread> threads = new LinkedList<>();
         for (int i = 0; i < POOL_SIZE; i++) {
-            pool.add(new DBConnectionMsSql(host, port, user, password, database));
+            threads.add(new Thread(() -> pool.add(new DBConnectionMsSql(host, port, user, password, database))));
         }
-
-        //if (isJUnit) {
+        for (Thread t : threads) {
+        	t.start();
+        }
+        for (Thread t : threads) {
+        	try {
+				t.join();
+			} catch (InterruptedException e) {}
+        }
+        
+        if (isJUnit) {
             setupDatabase();
-        //}
+        }
     }
 
     private void setupDatabase() {
