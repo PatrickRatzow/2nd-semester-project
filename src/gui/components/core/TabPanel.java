@@ -41,12 +41,6 @@ public class TabPanel extends JPanel {
     public String getCurrentId() {
     	return currentId;
     }
-    
-    private void addPanel(String id, JComponent component) {
-        components.putIfAbsent(id, component);
-
-        add(component, id);
-    }
 
     public void setActive(String id) {
         if (components.get(id) == null) {
@@ -57,5 +51,12 @@ public class TabPanel extends JPanel {
         cl.show(this, id);
         currentId = id;
     }
+    
+    private void addPanel(String id, JComponent component) {
+        components.putIfAbsent(id, component);
+
+        add(component, id);
+    }
+
 }
 

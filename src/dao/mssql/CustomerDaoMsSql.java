@@ -45,7 +45,12 @@ public class CustomerDaoMsSql implements CustomerDao {
                 rs.getString("last_name"),
                 rs.getString("email"),
                 rs.getString("phone_number"),
-                new Address()
+                new Address(
+                        rs.getString("street_name"),
+                        rs.getInt("street_number"),
+                        rs.getString("city"),
+                        rs.getInt("zip_code")
+                )
             );
         } catch (SQLException e) {
             e.printStackTrace();

@@ -60,7 +60,6 @@ public class SpecificationTab extends JPanel {
 		}
 	}
 	
-	//send Jcomponent;
 	private SpecificationRow createRequirementRow(Requirement requirement) {
 		SpecificationRow rows = new SpecificationRow();
 		rows.setTitleName(requirement.getName());
