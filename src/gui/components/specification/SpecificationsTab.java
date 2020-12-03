@@ -1,21 +1,20 @@
 package gui.components.specification;
 
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.SwingConstants;
 import gui.components.core.TabPanel;
 
-public class SpecificationsTab extends JPanel {
+import javax.swing.*;
+import java.awt.*;
 
+public class SpecificationsTab extends JPanel {
 	private TabPanel panelManager;
 	
 	public SpecificationsTab(TabPanel panelManager) {
+		setOpaque(false);
 		this.panelManager = panelManager;
 		setLayout(new BorderLayout(0, 0));
+	
+		ListAndChosenSpecifications listAndChosenSpecifications = new ListAndChosenSpecifications(panelManager);
+		add(listAndChosenSpecifications, BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.SOUTH);
@@ -26,9 +25,5 @@ public class SpecificationsTab extends JPanel {
 		continueBtn.setForeground(new Color(0, 0, 0));
 		continueBtn.setBackground(new Color(152, 251, 152));
 		panel.add(continueBtn, BorderLayout.EAST);
-		
-		ListAndChosenSpecifications listAndChosenSpecifications = new ListAndChosenSpecifications((TabPanel) null);
-		add(listAndChosenSpecifications, BorderLayout.CENTER);
 	}
-
 }

@@ -1,54 +1,47 @@
 package gui.components.specification;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.util.List;
-
-import javax.swing.JScrollPane;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-
 import controller.SpecificationsController;
 import entity.Specification;
 import gui.components.core.Row;
 import gui.components.core.TabPanel;
 import net.miginfocom.swing.MigLayout;
 
-public class ListAndChosenSpecifications extends JPanel {
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
-	private JTextField txtChosenSpecifications;
-	private JTextField txtListSpecifications;
+public class ListAndChosenSpecifications extends JPanel {
 	private JPanel specificationsList;
+	private JPanel chosenSpecifications;
 	private TabPanel panelManager;
 	private SpecificationsController specificationsController;
 
 	public ListAndChosenSpecifications(TabPanel panelManger) {
+		this.panelManager = panelManager;
 		specificationsController = new SpecificationsController();
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(UIManager.getColor("Button.shadow"));
-		panel.setLayout(new MigLayout("", "[::250px,grow][grow]", "[][grow]"));
+		setLayout(new MigLayout("", "[::250px,grow][grow]", "[][grow]"));
+		
+		JPanel listContainer = new JPanel();
+		listContainer.setBackground(Color.GRAY);
+		listContainer.setFont(new Font("Tahoma", Font.BOLD, 15));
+		add(listContainer, "cell 0 0,grow");
+		
+		JLabel titleList = new JLabel("Specifikationer");
+		titleList.setFont(new Font("Tahoma", Font.BOLD, 15));
+		listContainer.add(titleList);
 
-		txtListSpecifications = new JTextField();
-		txtListSpecifications.setBackground(Color.GRAY);
-		txtListSpecifications.setFont(new Font("Tahoma", Font.BOLD, 15));
-		txtListSpecifications.setHorizontalAlignment(SwingConstants.CENTER);
-		txtListSpecifications.setText("Liste af specifikationer");
-		panel.add(txtListSpecifications, "cell 0 0,grow");
-
-		txtChosenSpecifications = new JTextField();
-		txtChosenSpecifications.setBackground(Color.GRAY);
-		txtChosenSpecifications.setFont(new Font("Tohoma", Font.BOLD, 15));
-		txtChosenSpecifications.setHorizontalAlignment(SwingConstants.CENTER);
-		txtChosenSpecifications.setText("Valgte specifikationer");
-		panel.add(txtChosenSpecifications, "cell 1 0,grow");
-
+		JPanel chosenContainer = new JPanel();
+		chosenContainer.setBackground(Color.GRAY);
+		chosenContainer.setFont(new Font("Tohoma", Font.BOLD, 15));
+		add(chosenContainer, "cell 1 0,grow");
+		
+		JLabel titleChosen = new JLabel("Valgte specifikationer");
+		titleChosen.setFont(new Font("Tahoma", Font.BOLD, 15));
+		chosenContainer.add(titleChosen);
+	
 		JScrollPane listScrollPane = new JScrollPane();
-		panel.add(listScrollPane, "cell 0 1,grow");
+		add(listScrollPane, "cell 0 1,grow");
 
 		specificationsList = new JPanel();
 		listScrollPane.setViewportView(specificationsList);
@@ -56,19 +49,30 @@ public class ListAndChosenSpecifications extends JPanel {
 		specificationsList.setLayout(new BoxLayout(specificationsList, BoxLayout.Y_AXIS));
 
 		JScrollPane chosenScrollPane = new JScrollPane();
-		panel.add(chosenScrollPane, "cell 1 1,grow");
+		add(chosenScrollPane, "cell 1 1,grow");
 
-		JPanel chosenSpecifications = new JPanel();
+		chosenSpecifications = new JPanel();
 		chosenScrollPane.setViewportView(chosenSpecifications);
 		chosenSpecifications.setBackground(Color.GRAY);
 		chosenSpecifications.setLayout(new BoxLayout(chosenSpecifications, BoxLayout.Y_AXIS));
+		
 		loadSpecifications();
 	}
 
-	private Row createRow(Specification specification) {
+	private Row createListRow(Specification specification) {
 		Row specificationRow = new Row();
 		specificationRow.setTitleText(specification.getName());
 		specificationRow.setButtonText("Tilf\u00F8j");
+		specificationRow.addActionListener(System.out::println);
+		specificationRow.setMaximumSize(new Dimension(10000, 50));
+		
+		return specificationRow;
+	}
+	
+	private Row createSelectedRow(Specification specification) {
+		Row specificationRow = new Row();
+		specificationRow.setTitleText(specification.getName());
+		specificationRow.setButtonText("Rediger");
 		specificationRow.addActionListener(System.out::println);
 		specificationRow.setMaximumSize(new Dimension(10000, 50));
 		
@@ -80,7 +84,8 @@ public class ListAndChosenSpecifications extends JPanel {
 		
 		specifications = specificationsController.getSpecifications();
 		for (Specification specification : specifications) {
-			specificationsList.add(createRow(specification));
+			specificationsList.add(createListRow(specification));
+			chosenSpecifications.add(createSelectedRow(specification));
 		}
 	}
 }

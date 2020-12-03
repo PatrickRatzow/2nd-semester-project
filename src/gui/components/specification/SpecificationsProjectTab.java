@@ -37,8 +37,7 @@ public class SpecificationsProjectTab extends JPanel {
 		title.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		titleContainer.add(title);
 		
-		JPanel specificationsTab = new SpecificationsTab(panelManager);
+		JComponent specificationsTab = new SpecificationsTab(panelManager);
 		container.add(specificationsTab, BorderLayout.CENTER);
-		previousId = panelManager.getCurrentId();
 	}
 }
