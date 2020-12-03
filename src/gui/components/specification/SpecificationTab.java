@@ -42,6 +42,7 @@ public class SpecificationTab extends JPanel {
 		JButton save = new JButton("Gem krav");
 		save.setHorizontalAlignment(SwingConstants.RIGHT);
 		buttomBar.add(save);
+		//Send reuqirements have been saved, and back to Specifications window.
 		save.addActionListener(e -> System.out.println("Krav er gemt"));
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -50,7 +51,7 @@ public class SpecificationTab extends JPanel {
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
-		
+		panel.add(new SpecificationRow(specification.getDisplayName()));
 		panel.add(createSpecificationRow("Navn"));
 		panel.add(createSpecificationRow("Antal"));
 		
@@ -66,7 +67,6 @@ public class SpecificationTab extends JPanel {
 		
 		return rows;
 	}
-	
 	private SpecificationRow createSpecificationRow(String displayValue) {
 		SpecificationRow rows = new SpecificationRow();
 		rows.setTitleName(displayValue);

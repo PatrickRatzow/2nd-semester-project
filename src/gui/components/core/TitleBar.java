@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -47,7 +48,7 @@ public class TitleBar extends JPanel {
 	public void addActionListener(ActionListener listener) {
 		actionButton.addActionListener(listener);
 	}
-	
+
 	public JTextField createSearchBar(String placeholderText) {
 		if (searchContainer != null) return searchField;
 		
