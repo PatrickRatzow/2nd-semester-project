@@ -6,9 +6,11 @@ import entity.ProjectStatus;
 import entity.Specification;
 import entity.specifications.Window;
 import exception.DataAccessException;
+import gui.ProductFinder;
 import gui.components.core.TabPanel;
 import gui.components.core.TitleBar;
 import gui.components.specification.SpecificationTab;
+import gui.components.specification.SpecificationsProjectTab;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,12 +35,7 @@ public class ProjectsOverview extends JPanel {
 		titleBar.setMinimumSize(new Dimension(184, 50));
 		add(titleBar, BorderLayout.NORTH);
 		titleBar.addActionListener(e -> {
-			panelManager.setActive("project_orverview", () -> {
-				String currentId = panelManager.getCurrentId();
-				JComponent component = new SpecificationTab(panelManager, new Window());
-				
-				return component;
-			});
+			panelManager.setActive("find_project_customer", () -> new SpecificationsProjectTab(panelManager));
 		});
 
 		JScrollPane scrollPane = new JScrollPane();

@@ -2,6 +2,7 @@ package gui;
 
 import entity.Specification;
 import entity.specifications.Window;
+import gui.components.customer.CreateProjectCustomerGui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
