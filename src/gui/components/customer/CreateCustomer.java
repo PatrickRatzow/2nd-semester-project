@@ -1,4 +1,4 @@
-package gui;
+package gui.components.customer;
 
 import gui.components.core.TitleBar;
 
