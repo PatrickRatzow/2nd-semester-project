@@ -46,7 +46,7 @@ public class Frame extends JFrame {
 	    JComponent s = new ProductFinder();
 	    
 	    
-	    tabbedPane.addTab("SpecificationTab", s);
+	    tabbedPane.addTab("Projekter", projects);
 	    JComponent customers = new JPanel(false);
 	    tabbedPane.addTab("Kunder", customers);
 	    JComponent cheapestProducts = new JPanel(false);
