@@ -1,10 +1,10 @@
 package gui;
 
 import gui.components.core.TabPanel;
-import gui.components.specification.SpecificationsProjectTab;
+import gui.components.specification.SpecificationsTab;
 
 public class ProductFinder extends TabPanel {
 	public ProductFinder() {
-		setActive("specifications", () -> new SpecificationsProjectTab(this));
+		setActive("specifications", () -> new SpecificationsTab(this));
 	}
 }

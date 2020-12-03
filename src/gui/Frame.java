@@ -2,7 +2,6 @@ package gui;
 
 import entity.Specification;
 import entity.specifications.Window;
-import gui.components.customer.CreateProjectCustomerGui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -41,15 +40,13 @@ public class Frame extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
 		
-	    JComponent projects = new Projects();
 	    Specification window = new Window();
-	    JComponent s = new ProductFinder();
+	    JComponent s = new Projects();
 	    
 	    tabbedPane.addTab("SpecificationTab", s);
-	    JComponent customers = new JPanel(false);
-	    tabbedPane.addTab("Kunder", customers);
-	    JComponent cheapestProducts = new JPanel(false);
-	    tabbedPane.addTab("Billigste produkter", cheapestProducts);
+	    tabbedPane.addTab("Kunder", new Customers());
+	    tabbedPane.addTab("Billigste produkter", new ProductFinder());
+	    tabbedPane.setSelectedIndex(1);
 	}
 
 }

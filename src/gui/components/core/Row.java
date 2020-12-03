@@ -18,6 +18,7 @@ public class Row extends JPanel {
 	public Row(String titleText, String buttonText) {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setLayout(new BorderLayout(0, 0));
+		setMaximumSize(new Dimension(32746, 50));
 		
 		rightContainer = new JPanel();
 		rightContainer.setBorder(new EmptyBorder(5, 5, 5, 5));
