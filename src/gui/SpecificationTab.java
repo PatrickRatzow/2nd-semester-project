@@ -11,7 +11,10 @@ public class SpecificationTab extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SpecificationTab() {
+	
+	private String[] titleNameList = {"Navn", "Farve", "m2", "Antal"};
+ 	
+	public SpecificationTab(int amountOfRows) {
 		setLayout(new BorderLayout(0, 0));
 		
 		TitleBar title = new TitleBar();
@@ -34,15 +37,17 @@ public class SpecificationTab extends JPanel {
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		for(int i = 0; i < 10; i++) {
-			panel.add(createRow(i));
+		//change to names
+		for(int i = 0; i < titleNameList.length; i++) {
+			String getI = titleNameList[i];
+			panel.add(createRow(getI));
 		}
 	}
 	
 	
-	private SpecificationRow createRow(int i) {
+	private SpecificationRow createRow(String s) {
 		SpecificationRow rows = new SpecificationRow();
-		rows.setTitleName(String.valueOf(i));
+		rows.setTitleName(s);
 		
 		
 		return rows;
