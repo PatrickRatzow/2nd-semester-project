@@ -4,9 +4,7 @@ import dao.CustomerDao;
 import dao.EmployeeDao;
 import dao.ProjectDao;
 import datasource.DBConnection;
-import entity.Customer;
-import entity.Employee;
-import entity.Project;
+import entity.*;
 import exception.DataAccessException;
 import util.ConnectionThread;
 
@@ -19,7 +17,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ProjectDaoMsSql implements ProjectDao {
-	private static final String FIND_ALL_Q = "SELECT * FROM project"; //[project] ?
+	private static final String FIND_ALL_Q = "SELECT * FROM project";
+	private PreparedStatement findAllPS;
 	private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE name LIKE CONCAT('%', ?, '%')";
 	private PreparedStatement findByNamePS;
 	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE id = ?";
@@ -36,6 +35,7 @@ public class ProjectDaoMsSql implements ProjectDao {
 	
 	private void init(DBConnection conn) {
 		try {
+			findAllPS = conn.prepareStatement(FIND_ALL_Q);
 			findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
 			findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
 			insertPS = conn.prepareStatement(INSERT_Q, Statement.RETURN_GENERATED_KEYS);
@@ -43,6 +43,22 @@ public class ProjectDaoMsSql implements ProjectDao {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Project> findAll(boolean fullAssociation) throws DataAccessException {
+		List<Project> projects;
+
+		try {
+			ResultSet rs = findAllPS.executeQuery();
+
+			projects = buildObjects(rs, fullAssociation);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DataAccessException("Something went wrong while searching for projects");
+		}
+
+		return projects;
 	}
 
 	@Override
@@ -125,6 +141,9 @@ public class ProjectDaoMsSql implements ProjectDao {
 		final int id = rs.getInt("id");
 		final String name = rs.getString("name");
 		final Project project = new Project(id, name);
+		project.setStatus(ProjectStatus.values()[rs.getInt("status")]);
+		project.setPrice(new Price(rs.getInt("price")));
+		project.setEstimatedHours(rs.getInt("estimated_hours"));
 
 		if (fullAssociation) {
 			// Setup atomic references

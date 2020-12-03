@@ -10,6 +10,8 @@ public class ProjectRow extends Row {
 	public ProjectRow() {
 		super();
 		
+		setMaximumSize(new Dimension(32746, 50));
+		
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));

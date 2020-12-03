@@ -1,40 +1,88 @@
 package gui;
 
+import controller.ProjectController;
+import entity.Project;
+import entity.ProjectStatus;
+import exception.DataAccessException;
 import gui.components.ProjectRow;
 import gui.components.TitleBar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class Projects extends JPanel {
+	private ProjectController projectController;
+	private JPanel panel;
+	
 	public Projects() {
+		projectController = new ProjectController();
+		
 		setLayout(new BorderLayout(0, 0));
 		
 		TitleBar titleBar = new TitleBar();
 		JTextField searchBar = titleBar.createSearchBar();
+		searchBar.addActionListener(e -> searchProjects(searchBar.getText()));
 		titleBar.setMinimumSize(new Dimension(184, 50));
 		add(titleBar, BorderLayout.NORTH);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 1));
 		
-		for (int i = 0; i < 10; i++) {
-			panel.add(createRow(String.valueOf(i), i % 2 == 0));
-		}
+		loadProjects();
 	}
 	
-	private ProjectRow createRow(String name, boolean isCompleted) {
+	private ProjectRow createRow(Project project) {
 		ProjectRow row = new ProjectRow();
-		row.setTitleText(name);
+		row.setTitleText(project.getName());
 		row.setButtonText("Aaben");
-		row.setCompleted(isCompleted);
-		row.addActionListener(e -> System.out.println("Clicked on " + name));
+		row.setCompleted(project.getStatus().equals(ProjectStatus.FINISHED));
+		row.addActionListener(e -> System.out.println("Clicked on " + project.getName()));
 	
 		return row;
 	}
-
+	
+	private void loadProjects() {
+		new Thread(() -> {
+			List<Project> projects;
+			try {
+				projects = projectController.findAll();
+				if (panel != null) {
+					panel.removeAll();
+					for (Project project : projects) {
+						panel.add(createRow(project));
+					}
+				}
+			} catch (DataAccessException e) {
+				e.printStackTrace();
+			}
+		}).start();
+	}
+	
+	private void searchProjects(String name) {
+		if (name.isEmpty()) {
+			loadProjects();
+			
+			return;
+		}
+		
+		new Thread(() -> {
+			List<Project> projects;
+			try {
+				projects = projectController.findByName(name, false);
+				if (panel != null) {
+					panel.removeAll();
+					for (Project project : projects) {
+						panel.add(createRow(project));
+					}
+				}
+			} catch (DataAccessException e) {
+				e.printStackTrace();
+			}
+		}).start();
+	}
 }

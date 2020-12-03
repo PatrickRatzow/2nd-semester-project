@@ -27,6 +27,18 @@ public class ProjectDaoMsSqlTest {
     }
 
     @Test
+    void testCanFindAllExpectedProjects() throws DataAccessException {
+        // Arrange
+        List<Project> projects;
+
+        // Act
+        projects = dao.findAll(false);
+
+        // Assert
+        assertEquals(projects.size(), 4);
+    }
+
+    @Test
     void testCanFindById() throws DataAccessException {
         //Arrange
         Project project;
@@ -36,7 +48,6 @@ public class ProjectDaoMsSqlTest {
 
         //assert
         assertNotNull(project);
-
     }
 
     @Test
