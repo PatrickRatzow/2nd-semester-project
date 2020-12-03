@@ -61,7 +61,6 @@ public class SpecificationTab extends JPanel {
 		
 		return rows;
 	}
-	
 	private SpecificationRow createSpecificationRow(String displayValue) {
 		SpecificationRow rows = new SpecificationRow();
 		rows.setTitleName(displayValue);
