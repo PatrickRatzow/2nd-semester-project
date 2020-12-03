@@ -6,7 +6,7 @@ import java.awt.*;
 public class ProjectRow extends Row {
 	private JLabel iconLbl;
 	private ImageIcon icon;
-	
+
 	public ProjectRow() {
 		super();
 		

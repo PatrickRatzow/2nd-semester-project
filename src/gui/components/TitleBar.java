@@ -47,8 +47,8 @@ public class TitleBar extends JPanel {
 		actionButton.setText(buttonName);
 	}
 	
-	public void createSearchBar() {
-		if (searchContainer != null) return;
+	public JTextField createSearchBar() {
+		if (searchContainer != null) return searchField;
 		
 		searchContainer = new JPanel();
 		searchContainer.setOpaque(false);
@@ -60,5 +60,7 @@ public class TitleBar extends JPanel {
 		searchField.setBorder(new EmptyBorder(0, 0, 0, 0));
 		searchContainer.add(searchField);
 		searchField.setColumns(20);
+		
+		return searchField;
 	}
 }

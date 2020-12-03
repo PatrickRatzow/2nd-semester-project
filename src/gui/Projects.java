@@ -5,15 +5,13 @@ import gui.components.TitleBar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Projects extends JPanel {
 	public Projects() {
 		setLayout(new BorderLayout(0, 0));
 		
 		TitleBar titleBar = new TitleBar();
-		titleBar.createSearchBar();
+		JTextField searchBar = titleBar.createSearchBar();
 		titleBar.setMinimumSize(new Dimension(184, 50));
 		add(titleBar, BorderLayout.NORTH);
 		
@@ -32,14 +30,9 @@ public class Projects extends JPanel {
 	private ProjectRow createRow(String name, boolean isCompleted) {
 		ProjectRow row = new ProjectRow();
 		row.setTitleText(name);
-		row.setButtonText("�ben");
+		row.setButtonText("Aaben");
 		row.setCompleted(isCompleted);
-		row.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Clicked on " + name);
-			}
-		});
-		
+		row.addActionListener(e -> System.out.println("Clicked on " + name));
 	
 		return row;
 	}
