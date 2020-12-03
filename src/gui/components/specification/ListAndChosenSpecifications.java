@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+import gui.components.core.TabPanel;
 import net.miginfocom.swing.MigLayout;
 
 public class ListAndChosenSpecifications extends JPanel{
@@ -16,8 +17,9 @@ public class ListAndChosenSpecifications extends JPanel{
 	private JTextField txtChosenSpecifications;
 	private JTextField txtListSpecifications;
 	private JPanel specificationsList;
+	private TabPanel panelManager;
 	
-	public ListAndChosenSpecifications() {
+	public ListAndChosenSpecifications(TabPanel panelManger) {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(UIManager.getColor("Button.shadow"));

@@ -32,6 +32,14 @@ public class ProjectsOverview extends JPanel {
 		searchBar.addActionListener(e -> searchProjects(searchBar.getText()));
 		titleBar.setMinimumSize(new Dimension(184, 50));
 		add(titleBar, BorderLayout.NORTH);
+		titleBar.addActionListener(e -> {
+			panelManager.setActive("project_orverview", () -> {
+				String currentId = panelManager.getCurrentId();
+				JComponent component = new SpecificationTab(panelManager, new Window());
+				
+				return component;
+			});
+		});
 
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);

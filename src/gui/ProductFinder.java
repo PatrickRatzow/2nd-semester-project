@@ -1,10 +1,16 @@
 package gui;
 
-import javax.swing.JComponent;
+import javax.swing.JPanel;
 
-import entity.Specification;
+import gui.components.core.TabPanel;
 
-public class ProductFinder {
+public class ProductFinder extends JPanel{
 	
+	private TabPanel panelManager;
+	
+	//Just using this for a panelManager atm, change later;
+	public ProductFinder(TabPanel panelManager) {
+		
+	}
 	
 }
