@@ -22,6 +22,7 @@ public class CustomersTab extends JPanel {
 		TitleBar titleBar = new TitleBar();
 		titleBar.setTitle("Kunder");
 		titleBar.setButtonName("Opret Kunde");
+		//titleBar.addActionListener(e -> new );
 		JTextField searchBar = titleBar.createSearchBar("Kunde telefon/email");
 		searchBar.addActionListener(e -> search(searchBar.getText()));
 		add(titleBar, BorderLayout.NORTH);
