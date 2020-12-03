@@ -6,10 +6,8 @@ import datasource.DBManager;
 import entity.Product;
 import entity.Requirement;
 import entity.Specification;
-import entity.specifications.Window;
 import exception.DataAccessException;
 
-import java.awt.*;
 import java.util.List;
 
 public class SpecificationController {
@@ -32,6 +30,7 @@ public class SpecificationController {
         connection.release();
     }
 
+    /*
     public static void main(String[] args) {
         SpecificationController ctr = new SpecificationController(new Window());
 
@@ -59,4 +58,5 @@ public class SpecificationController {
 
         ctr.getRequirements().forEach(r -> System.out.println(r.getName() + " - " + r.getValue()));
     }
+    */
 }

@@ -119,7 +119,7 @@ public class ProductDaoMsSql implements ProductDao {
     }
 
     @Override
-    public List<Product> findByCategoryId(List<Integer> ids, List<Requirement> requirements) throws DataAccessException {
+    public List<Product> findByCategoryId(List<Integer> ids, List<Requirement> requirements, int resultAmount) throws DataAccessException {
         List<Product> products;
 
         try {
@@ -134,7 +134,7 @@ public class ProductDaoMsSql implements ProductDao {
                 .collect(Collectors.joining(" OR "));
             String idsStr = ids.stream().map(x -> "?").collect(Collectors.joining(","));
 
-            String query = "SELECT\n" +
+            String query = "SELECT TOP ?\n" +
                     "    p.id AS id,\n" +
                     "    p.description AS description,\n" +
                     "    p.name AS name,\n" +
@@ -154,9 +154,11 @@ public class ProductDaoMsSql implements ProductDao {
                     "    FROM product_field pf2\n" +
                     "    WHERE pf2.product_id = p.id\n" +
                     "      AND (" + whereStr + ")" +
-                    "  ) = ?";
+                    "  ) = ? " + 
+                    "ORDER BY pp.price";
             PreparedStatement ps = connection.prepareStatement(query);
             int i = 0;
+            ps.setInt(++i, resultAmount);
             for (int id : ids) {
                 ps.setInt(++i, id);
             }
