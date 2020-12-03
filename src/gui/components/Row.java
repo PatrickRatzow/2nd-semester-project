@@ -4,12 +4,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class Row extends JPanel {
-	JLabel title;
-	JButton mainButton;
-	JPanel rightContainer;
-	JPanel leftContainer;
+	protected JLabel title;
+	protected JButton mainButton;
+	protected JPanel rightContainer;
+	protected JPanel leftContainer;
 	
 	public Row() {
 		this("Unnamed Row", "Button");
@@ -44,5 +45,9 @@ public class Row extends JPanel {
 	
 	public void setButtonText(String text) {
 		mainButton.setText(text);
+	}
+	
+	public void addActionListener(ActionListener listener) {
+		mainButton.addActionListener(listener);
 	}
 }

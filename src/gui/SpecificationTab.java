@@ -1,7 +1,7 @@
 package gui;
 
 import gui.components.SpecificationRow;
-import gui.components.Titlebar;
+import gui.components.TitleBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class SpecificationTab extends JPanel {
 	public SpecificationTab() {
 		setLayout(new BorderLayout(0, 0));
 		
-		Titlebar title = new Titlebar();
+		TitleBar title = new TitleBar();
 		title.setTitle("Specification");
 		title.setButtonName("G� Tilbage");
 		add(title, BorderLayout.NORTH);
