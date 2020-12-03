@@ -13,8 +13,8 @@ public class Titlebar extends JPanel {
 	 * 
 	 */
 	
-	JLabel title;
-	JButton actionButton;
+	private JLabel title;
+	private JButton actionButton;
 	
 	public Titlebar() {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
