@@ -40,7 +40,7 @@ public class Frame extends JFrame {
 	    JComponent projects = new Projects();
 	    JComponent s = new SpecificationTab(8);
 	    
-	    tabbedPane.addTab("SpecificationTab", s);
+	    tabbedPane.addTab("SpecificationTab", projects);
 	    JComponent customers = new JPanel(false);
 	    tabbedPane.addTab("Kunder", customers);
 	    JComponent cheapestProducts = new JPanel(false);

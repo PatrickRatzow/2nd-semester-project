@@ -4,16 +4,22 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class Row extends JPanel {
-	JLabel title;
-	JButton mainButton;
+	protected JLabel title;
+	protected JButton mainButton;
+	protected JPanel rightContainer;
+	protected JPanel leftContainer;
 	
 	public Row() {
+		this("Unnamed Row", "Button");
+	}
+	public Row(String titleText, String buttonText) {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setLayout(new BorderLayout(0, 0));
 		
-		JPanel rightContainer = new JPanel();
+		rightContainer = new JPanel();
 		rightContainer.setBorder(new EmptyBorder(5, 5, 5, 5));
 		add(rightContainer, BorderLayout.EAST);
 		rightContainer.setLayout(new BorderLayout(0, 0));
@@ -22,11 +28,12 @@ public class Row extends JPanel {
 		mainButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		rightContainer.add(mainButton);
 		
-		JPanel leftContainer = new JPanel();
+		leftContainer = new JPanel();
 		add(leftContainer, BorderLayout.WEST);
 		leftContainer.setLayout(new BorderLayout(0, 0));
 		
 		title = new JLabel("New label");
+		title.setInheritsPopupMenu(false);
 		title.setBorder(new EmptyBorder(5, 5, 5, 5));
 		title.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		leftContainer.add(title);
@@ -38,5 +45,9 @@ public class Row extends JPanel {
 	
 	public void setButtonText(String text) {
 		mainButton.setText(text);
+	}
+	
+	public void addActionListener(ActionListener listener) {
+		mainButton.addActionListener(listener);
 	}
 }

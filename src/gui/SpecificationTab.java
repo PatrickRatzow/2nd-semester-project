@@ -1,19 +1,10 @@
 package gui;
 
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-
 import gui.components.SpecificationRow;
-import gui.components.Titlebar;
-import javax.swing.JScrollPane;
+import gui.components.TitleBar;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class SpecificationTab extends JPanel {
 
@@ -23,9 +14,9 @@ public class SpecificationTab extends JPanel {
 	public SpecificationTab(int amountOfRows) {
 		setLayout(new BorderLayout(0, 0));
 		
-		Titlebar title = new Titlebar();
+		TitleBar title = new TitleBar();
 		title.setTitle("Specification");
-		title.setButtonName("Gå Tilbage");
+		title.setButtonName("Gï¿½ Tilbage");
 		add(title, BorderLayout.NORTH);
 		
 		JPanel buttomBar = new JPanel();
@@ -47,7 +38,6 @@ public class SpecificationTab extends JPanel {
 		for(int i = 0; i < amountOfRows; i++) {
 			panel.add(createRow(i));
 		}
-
 	}
 	
 	

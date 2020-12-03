@@ -1,22 +1,19 @@
 package gui;
 
-import gui.components.Row;
-import gui.components.Titlebar;
+import gui.components.ProjectRow;
+import gui.components.TitleBar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Projects extends JPanel {
-	private List<Row> projects = new LinkedList<>();
-	
 	public Projects() {
 		setLayout(new BorderLayout(0, 0));
 		
-		Titlebar titlebar = new Titlebar();
-		titlebar.setMinimumSize(new Dimension(184, 50));
-		add(titlebar, BorderLayout.NORTH);
+		TitleBar titleBar = new TitleBar();
+		JTextField searchBar = titleBar.createSearchBar();
+		titleBar.setMinimumSize(new Dimension(184, 50));
+		add(titleBar, BorderLayout.NORTH);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
@@ -26,15 +23,17 @@ public class Projects extends JPanel {
 		panel.setLayout(new GridLayout(0, 1));
 		
 		for (int i = 0; i < 10; i++) {
-			panel.add(createRow(i));
+			panel.add(createRow(String.valueOf(i), i % 2 == 0));
 		}
 	}
 	
-	private Row createRow(int number) {
-		Row row = new Row();
-		row.setTitleText(String.valueOf(number));
-		row.setButtonText("Åben");
-		
+	private ProjectRow createRow(String name, boolean isCompleted) {
+		ProjectRow row = new ProjectRow();
+		row.setTitleText(name);
+		row.setButtonText("Aaben");
+		row.setCompleted(isCompleted);
+		row.addActionListener(e -> System.out.println("Clicked on " + name));
+	
 		return row;
 	}
 

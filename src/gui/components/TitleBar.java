@@ -7,21 +7,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Titlebar extends JPanel {
-	/**
-	 * Create the panel.
-	 * 
-	 */
-	
+public class TitleBar extends JPanel {
 	private JLabel title;
 	private JButton actionButton;
+	protected JPanel container;
+	private JTextField searchField;
+	private JPanel searchContainer;
 	
-	public Titlebar() {
+	public TitleBar() {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new CardLayout(0, 0));
 		
-		JPanel container = new JPanel();
+		container = new JPanel();
 		container.setBackground(Color.LIGHT_GRAY);
 		container.setOpaque(true);
 		container.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -39,14 +37,30 @@ public class Titlebar extends JPanel {
 			}
 		});
 		container.add(actionButton, BorderLayout.EAST);
-	
 	}
-	
+
 	public void setTitle(String titleName) {
 		title.setText(titleName);
 	}
-	
+
 	public void setButtonName(String buttonName) {
 		actionButton.setText(buttonName);
+	}
+	
+	public JTextField createSearchBar() {
+		if (searchContainer != null) return searchField;
+		
+		searchContainer = new JPanel();
+		searchContainer.setOpaque(false);
+		container.add(searchContainer, BorderLayout.CENTER);
+		searchContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		
+		searchField = new JTextField();
+		searchField.setPreferredSize(new Dimension(6, 37));
+		searchField.setBorder(new EmptyBorder(0, 0, 0, 0));
+		searchContainer.add(searchField);
+		searchField.setColumns(20);
+		
+		return searchField;
 	}
 }
