@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import gui.components.Titlebar;
 
 public class SpecificationTab extends JPanel {
 	private JTextField textField_Name;
@@ -21,8 +22,10 @@ public class SpecificationTab extends JPanel {
 	public SpecificationTab() {
 		setLayout(new BorderLayout(0, 0));
 		
-		JPanel Title = new JPanel();
-		add(Title, BorderLayout.NORTH);
+		Titlebar title = new Titlebar();
+		title.setTitle("Specification");
+		title.setButtonName("Gå Tilbage");
+		add(title, BorderLayout.NORTH);
 		
 		JPanel Buttom_bar = new JPanel();
 		add(Buttom_bar, BorderLayout.SOUTH);
@@ -59,4 +62,10 @@ public class SpecificationTab extends JPanel {
 		textField_1.setColumns(10);
 
 	}
+	
+	
+	public void setRow() {
+		
+	}
+	
 }
