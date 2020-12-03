@@ -4,8 +4,8 @@ import controller.ProjectController;
 import entity.Project;
 import entity.ProjectStatus;
 import exception.DataAccessException;
-import gui.components.ProjectRow;
-import gui.components.TitleBar;
+import gui.components.core.TitleBar;
+import gui.components.project.ProjectRow;
 
 import javax.swing.*;
 import java.awt.*;

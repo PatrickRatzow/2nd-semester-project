@@ -1,10 +1,8 @@
-package gui;
+package gui.components.customer;
 
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import java.awt.Font;
+import java.awt.*;
 
 public class CreateProjectCustomerGui extends JPanel {
 

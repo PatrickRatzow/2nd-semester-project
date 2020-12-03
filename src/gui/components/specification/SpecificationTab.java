@@ -1,14 +1,11 @@
-package gui;
-
-import gui.components.SpecificationRow;
-import gui.components.TitleBar;
-
-import javax.swing.*;
+package gui.components.specification;
 
 import controller.SpecificationController;
 import entity.Requirement;
 import entity.Specification;
+import gui.components.core.TitleBar;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 

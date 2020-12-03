@@ -1,4 +1,6 @@
-package gui.components;
+package gui.components.project;
+
+import gui.components.core.Row;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
