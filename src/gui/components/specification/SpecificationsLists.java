@@ -16,7 +16,7 @@ public class SpecificationsLists extends JPanel {
 	private TabPanel panelManager;
 	private SpecificationsController specificationsController;
 
-	public SpecificationsLists(TabPanel panelManger) {
+	public SpecificationsLists(TabPanel panelManager) {
 		this.panelManager = panelManager;
 		specificationsController = new SpecificationsController();
 		
@@ -63,7 +63,8 @@ public class SpecificationsLists extends JPanel {
 		Row specificationRow = new Row();
 		specificationRow.setTitleText(specification.getName());
 		specificationRow.setButtonText("Tilf\u00F8j");
-		specificationRow.addActionListener(System.out::println);
+		specificationRow.addActionListener(e ->
+			panelManager.setActive("specification_tab", () -> new SpecificationTab(panelManager, specification)));
 		specificationRow.setMaximumSize(new Dimension(10000, 50));
 		
 		return specificationRow;

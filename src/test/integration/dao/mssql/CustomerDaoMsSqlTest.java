@@ -11,6 +11,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomerDaoMsSqlTest {
@@ -53,26 +55,26 @@ public class CustomerDaoMsSqlTest {
     void testCanFindByPhoneNumber() throws DataAccessException {
         // Arrange
         String phoneNumber = "44332211";
-        Customer customer;
+        List<Customer> customers;
 
         // Act
-        customer = dao.findByPhoneNumber(phoneNumber);
+        customers = dao.findByPhoneNumberOrEmail(phoneNumber, "");
 
         // Assert
-        assertNotNull(customer);
+        assertEquals(customers.size(), 1);
     }
 
     @Test
     void testCantFindByPhoneNumberIfItDoesntExistInDatabase() throws DataAccessException {
         // Arrange
         String phoneNumber = "99239939";
-        Customer customer;
+        List<Customer> customers;
 
         // Act
-        customer = dao.findByPhoneNumber(phoneNumber);
+        customers = dao.findByPhoneNumberOrEmail(phoneNumber, "");
 
         // Assert
-        assertNull(customer);
+        assertEquals(customers.size(), 0);
     }
 
     @Test
