@@ -2,6 +2,7 @@ package gui;
 
 import entity.Specification;
 import entity.specifications.Window;
+import gui.components.customer.CreateProjectCustomerGui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -42,9 +43,9 @@ public class Frame extends JFrame {
 		
 	    JComponent projects = new Projects();
 	    Specification window = new Window();
-	    //JComponent s = new SpecificationTab(window);
+	    JComponent s = new CreateProjectCustomerGui();
 	    
-	    tabbedPane.addTab("SpecificationTab", projects);
+	    tabbedPane.addTab("SpecificationTab", s);
 	    JComponent customers = new JPanel(false);
 	    tabbedPane.addTab("Kunder", customers);
 	    JComponent cheapestProducts = new JPanel(false);
