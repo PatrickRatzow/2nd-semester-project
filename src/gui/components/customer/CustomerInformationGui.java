@@ -1,5 +1,7 @@
 package gui.components.customer;
 
+import entity.Customer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
@@ -7,8 +9,9 @@ import java.util.List;
 
 public class CustomerInformationGui extends JPanel {
 	private JPanel panel;
+	private Customer customer;
 	
-	public CustomerInformationGui() {
+	public CustomerInformationGui(Customer customer) {
 		setBackground(Color.GRAY);
 		setLayout(new BorderLayout(0, 0));
 		
@@ -20,13 +23,17 @@ public class CustomerInformationGui extends JPanel {
 		add(scrollPane, BorderLayout.CENTER);
 		
 		panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		List<String[]> rows = new LinkedList<>();
-		rows.add(new String[]{ "Fornavn", "Anders" });
-		rows.add(new String[]{ "Efternavn", "Andersen" });
-		rows.add(new String[]{ "Email", "email@email.xd" });
+		rows.add(new String[]{ "Fornavn", customer.getFirstName() });
+		rows.add(new String[]{ "Efternavn", customer.getLastName() });
+		rows.add(new String[]{ "Addresse", customer.getAddress().getStreetName() + customer.getAddress().getStreetNumber() });
+		rows.add(new String[]{ "By", customer.getAddress().getCity() });
+		rows.add(new String[]{ "Postnummer", String.valueOf(customer.getAddress().getZipCode()) });
+		rows.add(new String[]{ "Email", customer.getEmail() });
 		
 		for (String[] strings : rows) {
 			panel.add(createRow(strings[0], strings[1]));

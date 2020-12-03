@@ -59,7 +59,6 @@ public class ProjectsOverview extends JPanel {
 		row.addActionListener(e -> {
 			panelManager.setActive("project_overview", () -> {
 				Specification xd = new Window();
-				String currentId = panelManager.getCurrentId();
 				JComponent component = new SpecificationTab(panelManager, xd);
 				
 				return component;
