@@ -1,13 +1,12 @@
 package gui;
 
+import entity.Specification;
+import entity.specifications.Window;
+import gui.components.specification.SpecificationTab;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import entity.Requirement;
-import entity.Specification;
-
 import java.awt.*;
-import entity.specifications.Window;
 
 public class Frame extends JFrame {
 	private JPanel contentPane;

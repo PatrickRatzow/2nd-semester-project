@@ -1,12 +1,7 @@
-package gui.components;
+package gui.components.specification;
 
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import java.awt.*;
 
 public class SpecificationRow extends JPanel {
 	
