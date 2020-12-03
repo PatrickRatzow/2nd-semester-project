@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -34,10 +33,6 @@ public class TitleBar extends JPanel {
 		
 		actionButton = new JButton("Button");
 		actionButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		actionButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		container.add(actionButton, BorderLayout.EAST);
 	}
 
@@ -47,6 +42,10 @@ public class TitleBar extends JPanel {
 
 	public void setButtonName(String buttonName) {
 		actionButton.setText(buttonName);
+	}
+	
+	public void addActionListener(ActionListener listener) {
+		actionButton.addActionListener(listener);
 	}
 	
 	public JTextField createSearchBar(String placeholderText) {

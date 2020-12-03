@@ -5,12 +5,10 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.*;
 
 public class CreateProjectCustomerGui extends JPanel {
-
 	/**
 	 * Create the panel.
 	 */
 	public CreateProjectCustomerGui() {
-		
 		JLabel lblNewLabel = new JLabel("Kunde");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		GroupLayout groupLayout = new GroupLayout(this);
