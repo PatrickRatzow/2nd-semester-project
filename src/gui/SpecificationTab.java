@@ -11,9 +11,11 @@ import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
+import gui.components.SpecificationRow;
+import gui.components.Titlebar;
+import javax.swing.JScrollPane;
+
 public class SpecificationTab extends JPanel {
-	private JTextField textField_Name;
-	private JTextField textField_1;
 
 	/**
 	 * Create the panel.
@@ -21,42 +23,39 @@ public class SpecificationTab extends JPanel {
 	public SpecificationTab() {
 		setLayout(new BorderLayout(0, 0));
 		
-		JPanel Title = new JPanel();
-		add(Title, BorderLayout.NORTH);
+		Titlebar title = new Titlebar();
+		title.setTitle("Specification");
+		title.setButtonName("Gå Tilbage");
+		add(title, BorderLayout.NORTH);
 		
-		JPanel Buttom_bar = new JPanel();
-		add(Buttom_bar, BorderLayout.SOUTH);
-		Buttom_bar.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+		JPanel buttomBar = new JPanel();
+		add(buttomBar, BorderLayout.SOUTH);
+		buttomBar.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
 		JButton save = new JButton("Gem krav");
 		save.setHorizontalAlignment(SwingConstants.RIGHT);
-		Buttom_bar.add(save);
+		buttomBar.add(save);
 		
-		JPanel Center_Bar = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) Center_Bar.getLayout();
-		add(Center_Bar, BorderLayout.CENTER);
+		JScrollPane scrollPane = new JScrollPane();
+		add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
-		Center_Bar.add(panel);
+		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel window = new JLabel("Vindue", SwingConstants.CENTER);
-		panel.add(window);
-		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		JLabel lblNewLabel = new JLabel("New label", SwingConstants.CENTER);
-		panel_1.add(lblNewLabel);
-		
-		textField_Name = new JTextField();
-		panel_1.add(textField_Name);
-		textField_Name.setColumns(10);
-		
-		textField_1 = new JTextField();
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
+		for(int i = 0; i < 10; i++) {
+			panel.add(createRow(i));
+		}
 
 	}
+	
+	
+	private SpecificationRow createRow(int i) {
+		SpecificationRow rows = new SpecificationRow();
+		rows.setTitleName(String.valueOf(i));
+		
+		
+		return rows;
+	}
+	
 }
