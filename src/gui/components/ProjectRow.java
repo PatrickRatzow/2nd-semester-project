@@ -1,7 +1,10 @@
 package gui.components;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ProjectRow extends Row {
 	private JLabel iconLbl;
@@ -22,7 +25,12 @@ public class ProjectRow extends Row {
 	
 	public void setCompleted(boolean completed) {
 		if (completed && icon == null) {
-			icon = new ImageIcon(ProjectRow.class.getResource("/javax/swing/plaf/metal/icons/ocean/question.png"));
+			try {
+				InputStream stream = getClass().getResourceAsStream("/resources/images/checkmark.png");
+				icon = new ImageIcon(ImageIO.read(stream));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	
 		iconLbl.setIcon(completed ? icon : null);
