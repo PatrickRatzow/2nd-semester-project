@@ -58,6 +58,8 @@ public class CustomersTab extends JPanel {
 		Row row = new Row();
 		row.setTitleText(customer.getFirstName() + " " + customer.getLastName() + " (tlf. " + customer.getPhoneNumber() + ")");
 		row.setButtonText("Aaben");
+		row.addActionListener(e -> panelManager.setActive("update_customer", 
+				() -> new UpdateCustomer(panelManager, customer)));
 		
 		return row;
 	}
