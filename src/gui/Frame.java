@@ -2,7 +2,6 @@ package gui;
 
 import entity.Specification;
 import entity.specifications.Window;
-import gui.components.specification.SpecificationTab;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -43,9 +42,9 @@ public class Frame extends JFrame {
 		
 	    JComponent projects = new Projects();
 	    Specification window = new Window();
-	    JComponent s = new SpecificationTab(window);
+	    //JComponent s = new SpecificationTab(window);
 	    
-	    tabbedPane.addTab("SpecificationTab", s);
+	    tabbedPane.addTab("SpecificationTab", projects);
 	    JComponent customers = new JPanel(false);
 	    tabbedPane.addTab("Kunder", customers);
 	    JComponent cheapestProducts = new JPanel(false);

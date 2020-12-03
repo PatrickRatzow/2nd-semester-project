@@ -34,7 +34,6 @@ public class TitleBar extends JPanel {
 		
 		actionButton = new JButton("Button");
 		actionButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-
 		container.add(actionButton, BorderLayout.EAST);
 	}
 
@@ -46,10 +45,10 @@ public class TitleBar extends JPanel {
 		actionButton.setText(buttonName);
 	}
 	
-	public void addActionListener(ActionListener e) {
-		actionButton.addActionListener(e);
+	public void addActionListener(ActionListener listener) {
+		actionButton.addActionListener(listener);
 	}
-	
+
 	public JTextField createSearchBar(String placeholderText) {
 		if (searchContainer != null) return searchField;
 		

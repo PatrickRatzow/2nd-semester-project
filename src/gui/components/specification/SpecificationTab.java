@@ -3,6 +3,7 @@ package gui.components.specification;
 import controller.SpecificationController;
 import entity.Requirement;
 import entity.Specification;
+import gui.components.core.TabPanel;
 import gui.components.core.TitleBar;
 
 import javax.swing.*;
@@ -10,14 +11,13 @@ import java.awt.*;
 import java.util.List;
 
 public class SpecificationTab extends JPanel {
-	
+	private TabPanel panelManager;
+	private String previousId;
 	private SpecificationController specificationController;
 
-	/**
-	 * Create the panel.
-	 */
-	
-	public SpecificationTab(Specification specification) {
+	public SpecificationTab(TabPanel panelManager, Specification specification) {
+		this.panelManager = panelManager;
+		previousId = panelManager.getCurrentId();
 		specificationController = new SpecificationController(specification);
 		List<Requirement> requirements = specificationController.getRequirements();
 		
@@ -26,6 +26,12 @@ public class SpecificationTab extends JPanel {
 		TitleBar title = new TitleBar();
 		title.setTitle("Specification");
 		title.setButtonName("Gaa Tilbage");
+		title.addActionListener(e -> {
+			String currentId = panelManager.getCurrentId();
+			
+			panelManager.setActive(previousId);
+			panelManager.removePanel(currentId);
+		});
 		add(title, BorderLayout.NORTH);
 		
 		JPanel buttomBar = new JPanel();
