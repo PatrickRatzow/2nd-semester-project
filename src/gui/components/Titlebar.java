@@ -8,9 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Titlebar extends JPanel {
-	/**
-	 * Create the panel.
-	 */
 	public Titlebar() {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.LIGHT_GRAY);
@@ -34,6 +31,5 @@ public class Titlebar extends JPanel {
 			}
 		});
 		container.add(actionButton, BorderLayout.EAST);
-	
 	}
 }

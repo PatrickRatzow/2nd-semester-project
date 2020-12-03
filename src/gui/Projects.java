@@ -1,16 +1,12 @@
 package gui;
 
-import gui.components.Row;
+import gui.components.ProjectRow;
 import gui.components.Titlebar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Projects extends JPanel {
-	private List<Row> projects = new LinkedList<>();
-	
 	public Projects() {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -26,14 +22,15 @@ public class Projects extends JPanel {
 		panel.setLayout(new GridLayout(0, 1));
 		
 		for (int i = 0; i < 10; i++) {
-			panel.add(createRow(i));
+			panel.add(createRow(String.valueOf(i), i % 2 == 0));
 		}
 	}
 	
-	private Row createRow(int number) {
-		Row row = new Row();
-		row.setTitleText(String.valueOf(number));
+	private ProjectRow createRow(String name, boolean isCompleted) {
+		ProjectRow row = new ProjectRow();
+		row.setTitleText(name);
 		row.setButtonText("Åben");
+		row.setCompleted(isCompleted);
 		
 		return row;
 	}
