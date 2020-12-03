@@ -41,11 +41,17 @@ public class Frame extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
 		
-	    JComponent projects = new Projects();
-	    Specification window = new Window();
-	    JComponent s = new ProductFinder();
+	    //JComponent projects = new Projects();
+	    //Specification window = new Window();
+	    //JComponent s = new ProductFinder();
 	    
-	    tabbedPane.addTab("SpecificationTab", s);
+
+	    //tabbedPane.addTab("SpecificationTab", s);
+
+	    JComponent a = new Test();
+	    
+	    tabbedPane.addTab("Projekter", a);
+
 	    JComponent customers = new JPanel(false);
 	    tabbedPane.addTab("Kunder", customers);
 	    JComponent cheapestProducts = new JPanel(false);
