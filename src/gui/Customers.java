@@ -1,13 +1,10 @@
 package gui;
 
 import gui.components.core.TabPanel;
+import gui.components.customer.CustomersTab;
 
-public class Customers extends TabPanel{
-	
-	//Do not use for now it gives error
+public class Customers extends TabPanel {
 	public Customers() {
-		setActive("customer", () -> new AddCustomer()); 
-		//-- should probably be made to another Customer class;
+		setActive("customers", () -> new CustomersTab(this));
 	}
-	
 }

@@ -41,21 +41,13 @@ public class Frame extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
 		
-	    //JComponent projects = new Projects();
-	    //Specification window = new Window();
-	    //JComponent s = new ProductFinder();
+	    Specification window = new Window();
+	    JComponent s = new Projects();
 	    
-
-	    //tabbedPane.addTab("SpecificationTab", s);
-
-	    JComponent a = new Test();
-	    
-	    tabbedPane.addTab("Projekter", a);
-
-	    JComponent customers = new JPanel(false);
-	    tabbedPane.addTab("Kunder", customers);
-	    JComponent cheapestProducts = new JPanel(false);
-	    tabbedPane.addTab("Billigste produkter", cheapestProducts);
+	    tabbedPane.addTab("SpecificationTab", s);
+	    tabbedPane.addTab("Kunder", new Customers());
+	    tabbedPane.addTab("Billigste produkter", new ProductFinder());
+	    tabbedPane.setSelectedIndex(1);
 	}
 
 }

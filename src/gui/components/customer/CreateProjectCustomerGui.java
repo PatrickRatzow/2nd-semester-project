@@ -56,5 +56,4 @@ public class CreateProjectCustomerGui extends JPanel {
 		JButton btnCreate = new JButton("Opret kunde");
 		add(btnCreate, "cell 0 1");
 	}
-
 }
