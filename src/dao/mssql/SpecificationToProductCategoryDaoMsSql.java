@@ -50,7 +50,7 @@ public class SpecificationToProductCategoryDaoMsSql implements SpecificationToPr
             }
 
             ProductDao dao = new DaoFactoryMsSql().createProductDao(connection);
-            products = dao.findByCategoryId(ids, specification.getRequirements());
+            products = dao.findByCategoryId(ids, specification.getRequirements(), 5);
         } catch (SQLException e) {
             e.printStackTrace();
 

@@ -28,7 +28,7 @@ public class Frame extends JFrame {
 	 */
 	public Frame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 350);
+		setBounds(100, 100, 700, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -37,7 +37,8 @@ public class Frame extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
 		
-	    JComponent projects = new JPanel(false);
+	    JComponent projects = new Projects();
+	    BorderLayout borderLayout = (BorderLayout) projects.getLayout();
 	    tabbedPane.addTab("Projekter", projects);
 	    JComponent customers = new JPanel(false);
 	    tabbedPane.addTab("Kunder", customers);
