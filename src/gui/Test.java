@@ -129,7 +129,7 @@ public class Test extends JPanel {
 		txtEmail.setColumns(10);
 		
 		
-		
+		//Will make a NumberFormatException; - needs to make a check for empty Strings
 		btnAdd.addActionListener(e -> {
 			int parseStreet = Integer.parseInt(txtStreetNumber.getText());
 			int parseZip = Integer.parseInt(txtZipCode.getText());	
