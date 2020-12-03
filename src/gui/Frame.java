@@ -38,7 +38,6 @@ public class Frame extends JFrame {
 		contentPane.add(tabbedPane);
 		
 	    JComponent projects = new Projects();
-	    BorderLayout borderLayout = (BorderLayout) projects.getLayout();
 	    tabbedPane.addTab("Projekter", projects);
 	    JComponent customers = new JPanel(false);
 	    tabbedPane.addTab("Kunder", customers);

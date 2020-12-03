@@ -6,9 +6,9 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class Row extends JPanel {
-	/**
-	 * Create the panel.
-	 */
+	JLabel title;
+	JButton mainButton;
+	
 	public Row() {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setLayout(new BorderLayout(0, 0));
@@ -18,7 +18,7 @@ public class Row extends JPanel {
 		add(rightContainer, BorderLayout.EAST);
 		rightContainer.setLayout(new BorderLayout(0, 0));
 		
-		JButton mainButton = new JButton("New button");
+		mainButton = new JButton("New button");
 		mainButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		rightContainer.add(mainButton);
 		
@@ -26,11 +26,17 @@ public class Row extends JPanel {
 		add(leftContainer, BorderLayout.WEST);
 		leftContainer.setLayout(new BorderLayout(0, 0));
 		
-		JLabel title = new JLabel("New label");
+		title = new JLabel("New label");
 		title.setBorder(new EmptyBorder(5, 5, 5, 5));
 		title.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		leftContainer.add(title);
-
 	}
 
+	public void setTitleText(String text) {
+		title.setText(text);
+	}
+	
+	public void setButtonText(String text) {
+		mainButton.setText(text);
+	}
 }

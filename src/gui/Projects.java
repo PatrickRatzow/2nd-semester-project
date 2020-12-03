@@ -26,12 +26,16 @@ public class Projects extends JPanel {
 		panel.setLayout(new GridLayout(0, 1));
 		
 		for (int i = 0; i < 10; i++) {
-			panel.add(createRow());
+			panel.add(createRow(i));
 		}
 	}
 	
-	private Row createRow() {
-		return new Row();
+	private Row createRow(int number) {
+		Row row = new Row();
+		row.setTitleText(String.valueOf(number));
+		row.setButtonText("Åben");
+		
+		return row;
 	}
 
 }
