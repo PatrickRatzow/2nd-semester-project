@@ -9,12 +9,12 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-public class CreateProjectCustomerGui extends JPanel {
+public class FindOrCreateCustomer extends JPanel {
 	private JTextField searchTextField;
 	private CustomerController customerController;
 	private JComponent resultComponent;
 
-	public CreateProjectCustomerGui() {
+	public FindOrCreateCustomer() {
 		customerController = new CustomerController();
 
 		JLabel lblNewLabel = new JLabel("Kunde");
@@ -71,8 +71,8 @@ public class CreateProjectCustomerGui extends JPanel {
 		resultComponent = new JPanel();
 		add(resultComponent, "cell 0 3,grow");
 		resultComponent.setLayout(new BorderLayout());
-		CustomerInformationGui customerInformationGui = new CustomerInformationGui(customer);
-		resultComponent.add(customerInformationGui, BorderLayout.WEST);
+		CustomerInformationBox customerInformationBox = new CustomerInformationBox(customer);
+		resultComponent.add(customerInformationBox, BorderLayout.WEST);
 	}
 	
 	private void createNoResultDisplay() {

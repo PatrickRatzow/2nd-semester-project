@@ -13,8 +13,8 @@ public class SpecificationsTab extends JPanel {
 		this.panelManager = panelManager;
 		setLayout(new BorderLayout(0, 0));
 	
-		ListAndChosenSpecifications listAndChosenSpecifications = new ListAndChosenSpecifications(panelManager);
-		add(listAndChosenSpecifications, BorderLayout.CENTER);
+		SpecificationsLists specificationsLists = new SpecificationsLists(panelManager);
+		add(specificationsLists, BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.SOUTH);

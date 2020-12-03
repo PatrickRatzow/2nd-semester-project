@@ -10,13 +10,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class ListAndChosenSpecifications extends JPanel {
+public class SpecificationsLists extends JPanel {
 	private JPanel specificationsList;
 	private JPanel chosenSpecifications;
 	private TabPanel panelManager;
 	private SpecificationsController specificationsController;
 
-	public ListAndChosenSpecifications(TabPanel panelManger) {
+	public SpecificationsLists(TabPanel panelManger) {
 		this.panelManager = panelManager;
 		specificationsController = new SpecificationsController();
 		

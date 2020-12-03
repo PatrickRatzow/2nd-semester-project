@@ -4,16 +4,15 @@ import entity.Customer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CustomerInformationGui extends JPanel {
+public class CustomerInformationBox extends JPanel {
 	private JPanel panel;
 	private Customer customer;
 	
-	public CustomerInformationGui(Customer customer) {
+	public CustomerInformationBox(Customer customer) {
 		setBackground(Color.GRAY);
 		setLayout(new BorderLayout(0, 0));
 		
