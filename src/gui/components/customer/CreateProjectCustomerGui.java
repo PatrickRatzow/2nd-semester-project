@@ -13,27 +13,22 @@ public class CreateProjectCustomerGui extends JPanel {
 	private CustomerController customerController;
 	private JComponent resultComponent;
 
-
-
-	private void searchCustomer(String phoneNumber){
-
+	private void searchCustomer(String phoneNumber) {
 		try {
 			Customer customer = customerController.findByPhoneNumber(phoneNumber);
 			if (resultComponent != null) {
 				remove(resultComponent);
 			}
 			if (customer != null) {
-
 				resultComponent = new CustomerInformationGui(customer);
 				add(resultComponent, "cell 0 3,grow");
-			}
-			else {
-
+			} else {
 				resultComponent = new JLabel(phoneNumber + " does not exist");
 				resultComponent.setFont(new Font("Tahoma", Font.PLAIN, 18));
 				resultComponent.setForeground(Color.RED);
 				add(resultComponent, "cell 0 2");
 			}
+			
 			revalidate();
 			repaint();
 		} catch (DataAccessException e) {
@@ -60,8 +55,6 @@ public class CreateProjectCustomerGui extends JPanel {
 
 		JButton btnCreate = new JButton("Opret kunde");
 		add(btnCreate, "cell 0 1");
-
-
 	}
 
 }
