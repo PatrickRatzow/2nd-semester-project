@@ -5,6 +5,7 @@ import datasource.DBConnection;
 import datasource.DBManager;
 import entity.Customer;
 import exception.DataAccessException;
+import util.ConnectionThread;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -18,6 +19,10 @@ public class CustomerController {
     
     public void addFindListener(Consumer<List<Customer>> consumer) {
     	onFindListeners.add(consumer);
+    }
+    
+    public void addSaveListener(Consumer<Customer> consumer) {
+    	onSaveListeners.add(consumer);
     }
     
     public void getAll() {
@@ -73,6 +78,12 @@ public class CustomerController {
                 customer.getAddress().getZipCode() != 0;
     }
 
+    public void setCustomerInformation(int id, String firstName, String lastName, String email, String phoneNumber, String city,
+                                       String streetName, int streetNumber, int zipCode) {
+    	setCustomerInformation(firstName, lastName, email, phoneNumber, city, streetName, streetNumber, zipCode);
+    	customer.setId(id);
+    }
+
     public void setCustomerInformation(String firstName, String lastName, String email, String phoneNumber, String city,
                                        String streetName, int streetNumber, int zipCode) {
         if (customer == null) {
@@ -89,32 +100,66 @@ public class CustomerController {
         customer.getAddress().setZipCode(zipCode);
     }
 
-    public void create() throws DataAccessException {
+    public void save() {
+    	if (customer.getId() <= 0) {
+    		create();
+    	} else {
+    		update();
+    	}
+    }
+
+    private void create() {
+        if (customer == null) throw new IllegalArgumentException("No customer set");
+        // TODO: Could improve this?
+        if (!isCustomerValid(customer)) throw new IllegalArgumentException("Customer isn't valid");
+        final Customer customerTemp = this.customer;
+
+        new ConnectionThread(conn -> {
+        	CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(conn);
+
+        	try {
+        		conn.startTransaction();
+        		Customer customer = dao.create(customerTemp);
+        		conn.commitTransaction();
+
+        		onSaveListeners.forEach(l -> l.accept(customer));
+        	} catch (SQLException | DataAccessException e) {
+        		e.printStackTrace();
+
+        		try {
+        			conn.rollbackTransaction();
+        		} catch (SQLException e2) {
+        			e2.printStackTrace();
+        		}
+        	}
+        }).start();
+    }
+
+    private void update() {
         if (customer == null) throw new IllegalArgumentException("No customer set");
         // TODO: Could improve this?
         if (!isCustomerValid(customer)) throw new IllegalArgumentException("Customer isn't valid");
 
-        final DBConnection connection = DBManager.getPool().getConnection();
-        final CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(connection);
+        final Customer customerTemp = this.customer;
 
-        try {
-            connection.startTransaction();
-            customer = dao.create(customer);
-            connection.commitTransaction();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        new ConnectionThread(conn -> {
+        	CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(conn);
 
-            try {
-                connection.rollbackTransaction();
-            } catch (SQLException re) {
-                re.printStackTrace();
+        	try {
+        		conn.startTransaction();
+        		dao.update(customerTemp);
+        		conn.commitTransaction();
 
-                throw new DataAccessException("Something went wrong while creating the order");
-            }
-
-            throw new DataAccessException("Something went wrong while creating the order");
-        }
-
-        connection.release();
+        		onSaveListeners.forEach(l -> l.accept(customerTemp));
+        	} catch (SQLException | DataAccessException e) {
+        		e.printStackTrace();
+        		
+        		try {
+        			conn.rollbackTransaction();
+        		} catch (SQLException e2) {
+        			e2.printStackTrace();
+        		}
+        	}
+        });
     }
 }

@@ -1,9 +1,11 @@
 package gui.components.customer;
 
 import controller.CustomerController;
+import controller.ProjectController;
 import entity.Customer;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
+import gui.components.specification.SpecificationsProjectTab;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -17,61 +19,71 @@ public class FindOrCreateCustomer extends JPanel {
 	private JComponent resultComponent;
 	private PanelManager panelManager;
 	private String previousId;
+	private ProjectController projectController;
 	private JPanel panel;
 
-	public FindOrCreateCustomer(PanelManager panelManager) {
+	public FindOrCreateCustomer(PanelManager panelManager, ProjectController projectController) {
+		this.projectController = projectController;
 		customerController = new CustomerController();
 		previousId = panelManager.getCurrentId();
 		setLayout(new BorderLayout(0, 0));
 		String placeholderText = "Telefonnummer";
-		
-		
+
 		panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		panel.setLayout(new MigLayout("", "[439.00px]", "[23px][][][grow]"));
-						
+
 		JLabel lblNewLabel = new JLabel("Kunde");
 		panel.add(lblNewLabel, "cell 0 0,alignx left,aligny top");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		
+
 		searchTextField = new JTextField();
 		panel.add(searchTextField, "flowx,cell 0 1");
 		searchTextField.setColumns(10);
 		searchTextField.setForeground(Color.GRAY);
 		searchTextField.setText(placeholderText);
 		searchTextField.addFocusListener(new FocusListener() {
-		@Override
-		public void focusGained(FocusEvent e) {
-			if (searchTextField.getText().equals(placeholderText)) {
-				searchTextField.setText("");
-				searchTextField.setForeground(Color.BLACK);
-			}
-		}
-
-		@Override
-		public void focusLost(FocusEvent e) {
-		if (searchTextField.getText().isEmpty()) {
-			searchTextField.setForeground(Color.GRAY);
-			searchTextField.setText(placeholderText);
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (searchTextField.getText().equals(placeholderText)) {
+					searchTextField.setText("");
+					searchTextField.setForeground(Color.BLACK);
 				}
 			}
-			});
-		
-		
+
+			@Override
+			public void focusLost(FocusEvent e) {
+			if (searchTextField.getText().isEmpty()) {
+				searchTextField.setForeground(Color.GRAY);
+				searchTextField.setText(placeholderText);
+				}
+			}
+		});
+
+
 		JButton btnSearch = new JButton("Anmod");
 		btnSearch.addActionListener(e -> customerController.getSearch(searchTextField.getText()));
 		panel.add(btnSearch, "cell 0 1,alignx left,aligny top");
-		
+
 		JButton btnCreate = new JButton("Opret kunde");
 		panel.add(btnCreate, "cell 0 1,alignx left,aligny top");
-		btnCreate.addActionListener(l -> panelManager.setActive("create_customer", 
-				() -> new CreateCustomer(panelManager)));
+		btnCreate.addActionListener(l -> panelManager.setActive("create_customer",
+				() -> {
+					CreateCustomer createCustomer = new CreateCustomer(panelManager);
+					createCustomer.addSaveListener(customer ->
+							panelManager.setActive("specifications",
+									() -> new SpecificationsProjectTab(panelManager)));
+
+					return createCustomer;
+				}
+		));
 		btnSearch.addActionListener(e -> customerController.getSearch(searchTextField.getText()));
-										
+
 		TitleBar titleBar = new TitleBar();
 		titleBar.setTitle("Projekt");
 		titleBar.setButtonName("Gaa tilbage");
 		add(titleBar, BorderLayout.NORTH);
+		add(btnCreate, "cell 0 1");
 
 		customerController.addFindListener(customers -> {
 			if (resultComponent != null) {

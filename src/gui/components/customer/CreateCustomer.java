@@ -1,6 +1,5 @@
 package gui.components.customer;
 
-import exception.DataAccessException;
 import gui.components.core.PanelManager;
 
 public class CreateCustomer extends ManipulateCustomer {
@@ -21,12 +20,7 @@ public class CreateCustomer extends ManipulateCustomer {
 		int zipCode = Integer.parseInt(this.zipCode.getContentText());
 		
 		customerController.setCustomerInformation(firstName, lastName, email, phoneNumber, city, address, 
-				streetNumber, zipCode); 
-		
-		try {
-			customerController.create();
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-		}
+				streetNumber, zipCode);
+		customerController.save();
 	}
 }

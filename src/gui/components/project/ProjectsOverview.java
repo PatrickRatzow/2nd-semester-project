@@ -29,12 +29,12 @@ public class ProjectsOverview extends JPanel {
 		TitleBar titleBar = new TitleBar();
 		titleBar.setTitle("Projekter");
 		titleBar.setButtonName("Opret nyt projekt");
-		JTextField searchBar = titleBar.createSearchBar("S�g efter projekter");
+		JTextField searchBar = titleBar.createSearchBar("Soeg efter projekter");
 		searchBar.addActionListener(e -> searchProjects(searchBar.getText()));
 		titleBar.setMinimumSize(new Dimension(184, 50));
 		add(titleBar, BorderLayout.NORTH);
 		titleBar.addActionListener(e -> {
-			panelManager.setActive("find_project_customer", () -> new FindOrCreateCustomer(panelManager));
+			panelManager.setActive("find_project_customer", () -> new FindOrCreateCustomer(panelManager, projectController));
 		});
 
 		JScrollPane scrollPane = new JScrollPane();
