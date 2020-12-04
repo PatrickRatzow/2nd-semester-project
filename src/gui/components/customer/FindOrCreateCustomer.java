@@ -30,7 +30,7 @@ public class FindOrCreateCustomer extends JPanel {
 		String placeholderText = "Telefonnummer";
 
 		TitleBar titleBar = new TitleBar();
-		titleBar.setTitle("Projekt");
+		titleBar.setTitle("Find Kunde");
 		titleBar.setButtonName("Gaa tilbage");
 		titleBar.addActionListener(l -> {
 			String currentId = panelManager.getCurrentId();
@@ -44,7 +44,7 @@ public class FindOrCreateCustomer extends JPanel {
 		add(panel, BorderLayout.CENTER);
 		panel.setLayout(new MigLayout("", "[439.00px]", "[23px][][][grow]"));
 
-		JLabel lblNewLabel = new JLabel("Find Kunde");
+		JLabel lblNewLabel = new JLabel("Kunde");
 		panel.add(lblNewLabel, "cell 0 0,alignx left,aligny top");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 
@@ -70,7 +70,6 @@ public class FindOrCreateCustomer extends JPanel {
 				}
 			}
 		});
-
 
 		JButton btnSearch = new JButton("Anmod");
 		btnSearch.addActionListener(e -> customerController.getSearch(searchTextField.getText()));
@@ -101,6 +100,9 @@ public class FindOrCreateCustomer extends JPanel {
 			}
 			revalidate();
 			repaint();
+		});
+		customerController.addSaveListener(customer -> {
+			
 		});
 	}
 	
