@@ -37,6 +37,12 @@ public class SpecificationColumn extends JPanel {
 		textField = new JTextField();
 		add(textField);
 		textField.setColumns(10);
+
+	} 
+	
+	public SpecificationColumn(String labelName) {
+		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
 		
 		titleName.setFont(new Font(titleName.getFont().toString(), 1, 14));
 		
