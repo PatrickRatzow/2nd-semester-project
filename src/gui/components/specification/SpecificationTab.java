@@ -43,7 +43,7 @@ public class SpecificationTab extends JPanel {
 		
 		
 		JButton save = new JButton("Gem krav");
-		save.setBackground(Color.WHITE);
+		save.setBackground(Color.GREEN);
 		save.setForeground(Color.BLACK);
 		save.setHorizontalAlignment(SwingConstants.RIGHT);
 		buttomBar.add(save);
@@ -78,6 +78,7 @@ public class SpecificationTab extends JPanel {
 			attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 			titleLabel.setFont(font.deriveFont(attributes));
 
+
 		widthContainer.add(createSpacer());
 
 		widthContainer.add(createSpecificationRow("Navn"));
@@ -107,7 +108,6 @@ public class SpecificationTab extends JPanel {
 	}
 	private SpecificationColumn createSpecificationRow(String displayValue) {	
 		SpecificationColumn rows = new SpecificationColumn();
-		rows.getTitleName().setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		rows.setTitleName(displayValue);
 		
 		return rows;
