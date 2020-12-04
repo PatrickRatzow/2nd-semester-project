@@ -97,7 +97,7 @@ public class SpecificationsLists extends JPanel {
 	
 	private void createChosenRow(Specification spec) {
 		ChosenSpecificationRow existingRow = chosenMap.get(spec);
-		if (existingRow == null) {
+		if (existingRow != null) {
 			existingRow.setName(spec.getDisplayName());
 		} else {
 			boolean even = (chosenMap.size() + 1) % 2 == 0;
