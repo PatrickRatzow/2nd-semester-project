@@ -16,19 +16,19 @@ public class UpdateCustomer extends ManipulateCustomer {
 	private void setCustomer(Customer customer) {
 		customerId = customer.getId();
 		
-		txtFirstName.setText(customer.getFirstName());
-		txtLastName.setText(customer.getLastName());
-		txtPhoneNumber.setText(customer.getPhoneNumber());
-		txtEmail.setText(customer.getEmail());
-		txtCity.setText(customer.getAddress().getCity());
-		txtStreetName.setText(customer.getAddress().getStreetName());
-		txtStreetNumber.setText(String.valueOf(customer.getAddress().getStreetNumber()));
-		txtZipCode.setText(String.valueOf(customer.getAddress().getZipCode()));
+		firstName.setContentText(customer.getFirstName());
+		lastName.setContentText(customer.getLastName());
+		phoneNumber.setContentText(customer.getPhoneNumber());
+		email.setContentText(customer.getEmail());
+		city.setContentText(customer.getAddress().getCity());
+		address.setContentText(customer.getAddress().getStreetName());
+		addressNumber.setContentText(String.valueOf(customer.getAddress().getStreetNumber()));
+		zipCode.setContentText(String.valueOf(customer.getAddress().getZipCode()));
 	}
 	
 	public void onSave() {
-		int parseStreet = Integer.parseInt(txtStreetNumber.getText());
-		int parseZip = Integer.parseInt(txtZipCode.getText());	
+		int parseStreet = Integer.parseInt(addressNumber.getContentText());
+		int parseZip = Integer.parseInt(zipCode.getContentText());	
 		
 		// TODO: Add code to update
 		/*

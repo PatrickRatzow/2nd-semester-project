@@ -14,6 +14,7 @@ import java.util.function.Consumer;
 public class CustomerController {
     private Customer customer;
     private List<Consumer<List<Customer>>> onFindListeners = new LinkedList<>();
+    private List<Consumer<Customer>> onSaveListeners = new LinkedList<>();
     
     public void addFindListener(Consumer<List<Customer>> consumer) {
     	onFindListeners.add(consumer);

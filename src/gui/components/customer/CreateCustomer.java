@@ -11,13 +11,17 @@ public class CreateCustomer extends ManipulateCustomer {
 	}
 	
 	public void onSave() {
-		int parseStreet = Integer.parseInt(txtStreetNumber.getText());
-		int parseZip = Integer.parseInt(txtZipCode.getText());	
+		String firstName = this.firstName.getContentText();
+		String lastName = this.lastName.getContentText();
+		String email = this.email.getContentText();
+		String phoneNumber = this.phoneNumber.getContentText();
+		String city = this.city.getContentText();
+		String address = this.address.getContentText();
+		int streetNumber = Integer.parseInt(this.addressNumber.getContentText());
+		int zipCode = Integer.parseInt(this.zipCode.getContentText());
 		
-		customerController.setCustomerInformation(txtFirstName.getText(),
-			txtLastName.getText(), txtEmail.getText(), 
-			txtPhoneNumber.getText(), txtCity.getText(), txtStreetName.getText(), 
-			parseStreet, parseZip); 
+		customerController.setCustomerInformation(firstName, lastName, email, phoneNumber, city, address, 
+				streetNumber, zipCode); 
 		
 		try {
 			customerController.create();
