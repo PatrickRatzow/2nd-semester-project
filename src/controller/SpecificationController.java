@@ -28,7 +28,6 @@ public class SpecificationController {
 		onSaveListeners.add(listener);
 	}
     
-    
     public void load() throws DataAccessException {
         final DBConnection connection = DBManager.getPool().getConnection();
         final SpecificationToProductCategoryDao dao =

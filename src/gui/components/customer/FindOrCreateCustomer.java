@@ -119,5 +119,4 @@ public class FindOrCreateCustomer extends JPanel {
 		resultComponent.setForeground(Color.RED);
 		panel.add(resultComponent, "cell 0 2");
 	}
-
 }
