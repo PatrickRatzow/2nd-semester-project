@@ -21,6 +21,7 @@ public class FindOrCreateCustomer extends JPanel {
 	private String previousId;
 	private ProjectController projectController;
 	private JPanel panel;
+	private JButton btnAddCustomer;
 
 	public FindOrCreateCustomer(PanelManager panelManager, ProjectController projectController) {
 		this.projectController = projectController;
@@ -34,19 +35,15 @@ public class FindOrCreateCustomer extends JPanel {
 		titleBar.setButtonName("Gaa tilbage");
 		titleBar.addActionListener(l -> {
 			String currentId = panelManager.getCurrentId();
-			
+
 			panelManager.setActive(previousId);
 			panelManager.removePanel(currentId);
 		});
 		add(titleBar, BorderLayout.NORTH);
-		
+
 		panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
-		panel.setLayout(new MigLayout("", "[439.00px]", "[23px][][][grow]"));
-
-		JLabel lblNewLabel = new JLabel("Find Kunde");
-		panel.add(lblNewLabel, "cell 0 0,alignx left,aligny top");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panel.setLayout(new MigLayout("", "[439.00px]", "[23px][][][grow][]"));
 
 		searchTextField = new JTextField();
 		panel.add(searchTextField, "flowx,cell 0 1");
@@ -90,6 +87,9 @@ public class FindOrCreateCustomer extends JPanel {
 		));
 		btnSearch.addActionListener(e -> customerController.getSearch(searchTextField.getText()));
 
+
+		add(btnCreate, "cell 0 1");
+
 		customerController.addFindListener(customers -> {
 			if (resultComponent != null) {
 				panel.remove(resultComponent);
@@ -110,6 +110,8 @@ public class FindOrCreateCustomer extends JPanel {
 		resultComponent.setLayout(new BorderLayout());
 		CustomerInformationBox customerInformationBox = new CustomerInformationBox(customer);
 		resultComponent.add(customerInformationBox, BorderLayout.WEST);
+
+		btnAddCustomer.setVisible(true);
 	}
 	
 	private void createNoResultDisplay() {
@@ -117,6 +119,8 @@ public class FindOrCreateCustomer extends JPanel {
 		resultComponent.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		resultComponent.setForeground(Color.RED);
 		panel.add(resultComponent, "cell 0 2");
+
+		btnAddCustomer.setVisible(false);
 	}
 
 }
