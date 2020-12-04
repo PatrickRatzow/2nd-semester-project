@@ -27,7 +27,7 @@ public class SpecificationController {
     public void setRequirements(List<Requirement> requirements) {
     	specification.setRequirements(requirements);
     }
-    
+
     public void addSaveListener(Consumer<Specification> listener) {
 		onSaveListeners.add(listener);
 	}
@@ -35,8 +35,8 @@ public class SpecificationController {
     public void save() {
     	onSaveListeners.forEach(l -> l.accept(specification));
     }
-    
-    
+
+
     public void load() throws DataAccessException {
         final DBConnection connection = DBManager.getPool().getConnection();
         final SpecificationToProductCategoryDao dao =
@@ -45,23 +45,23 @@ public class SpecificationController {
 
         connection.release();
     }
-    
+
     public void setDisplayName(String name) {
     	specification.setDisplayName(name);
     }
-    
+
     public String getDislayName() {
     	return specification.getName();
     }
-    
+
     public void setResultAmount(int amount) {
     	specification.setResultAmount(amount);
     }
-    
+
     public int getResultAmount() {
     	return specification.getResultAmount();
     }
-    
+
     public Specification getSpecification() {
     	return specification;
     }
