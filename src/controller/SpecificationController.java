@@ -8,11 +8,14 @@ import entity.Requirement;
 import entity.Specification;
 import exception.DataAccessException;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class SpecificationController {
     private Specification specification;
-
+    private List<Consumer<Specification>> onSaveListeners = new LinkedList<>();
+    
     public SpecificationController(Specification specification) {
         this.specification = specification;
     }
@@ -20,7 +23,12 @@ public class SpecificationController {
     public List<Requirement> getRequirements() {
         return specification.getRequirements();
     }
-
+    
+    public void addSaveListener(Consumer<Specification> listener) {
+		onSaveListeners.add(listener);
+	}
+    
+    
     public void load() throws DataAccessException {
         final DBConnection connection = DBManager.getPool().getConnection();
         final SpecificationToProductCategoryDao dao =
