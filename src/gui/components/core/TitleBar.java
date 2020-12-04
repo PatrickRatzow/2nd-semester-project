@@ -2,9 +2,7 @@ package gui.components.core;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -17,13 +15,11 @@ public class TitleBar extends JPanel {
 	private JPanel searchContainer;
 	
 	public TitleBar() {
-		setBorder(new LineBorder(new Color(0, 0, 0)));
-		setBackground(Color.LIGHT_GRAY);
+		setBackground(new Color(220, 220, 220));
 		setLayout(new CardLayout(0, 0));
 		
 		container = new JPanel();
-		container.setBackground(Color.LIGHT_GRAY);
-		container.setOpaque(true);
+		container.setOpaque(false);
 		container.setBorder(new EmptyBorder(5, 5, 5, 5));
 		container.setLayout(new BorderLayout(0, 0));
 		add(container, "name_1155987637736200");

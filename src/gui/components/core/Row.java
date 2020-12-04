@@ -2,7 +2,6 @@ package gui.components.core;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -13,15 +12,21 @@ public class Row extends JPanel {
 	protected JPanel leftContainer;
 	
 	public Row() {
-		this("Unnamed Row", "Button");
+		this("Unnamed Row", "Button", false);
 	}
-	public Row(String titleText, String buttonText) {
-		setBorder(new LineBorder(new Color(0, 0, 0)));
+	public Row(boolean even) {
+		this("Unnamed Row", "Button", even);
+	}
+	public Row(String titleText, String buttonText, boolean even) {
 		setLayout(new BorderLayout(0, 0));
 		setMaximumSize(new Dimension(32746, 50));
+		if (even) {
+			setBackground(new Color(225, 225, 225));
+		}
 		
 		rightContainer = new JPanel();
 		rightContainer.setBorder(new EmptyBorder(5, 5, 5, 5));
+		rightContainer.setOpaque(false);
 		add(rightContainer, BorderLayout.EAST);
 		rightContainer.setLayout(new BorderLayout(0, 0));
 		
@@ -30,6 +35,7 @@ public class Row extends JPanel {
 		rightContainer.add(mainButton);
 		
 		leftContainer = new JPanel();
+		leftContainer.setOpaque(false);
 		add(leftContainer, BorderLayout.WEST);
 		leftContainer.setLayout(new BorderLayout(0, 0));
 		

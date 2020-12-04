@@ -47,8 +47,8 @@ public class ProjectsOverview extends JPanel {
 		loadProjects();
 	}
 
-	private ProjectRow createRow(Project project) {
-		ProjectRow row = new ProjectRow();
+	private ProjectRow createRow(Project project, boolean even) {
+		ProjectRow row = new ProjectRow(even);
 		row.setTitleText(project.getName());
 		row.setButtonText("Aaben");
 		row.setCompleted(project.getStatus().equals(ProjectStatus.FINISHED));
@@ -71,8 +71,10 @@ public class ProjectsOverview extends JPanel {
 				projects = projectController.findAll();
 				if (panel != null) {
 					panel.removeAll();
-					for (Project project : projects) {
-						panel.add(createRow(project));
+					int size = projects.size();
+					for (int i = 0; i < size; i++) {
+						Project project = projects.get(i);
+						panel.add(createRow(project, (i + 1) % 2 == 0));
 					}
 					panel.repaint();
 				}
@@ -95,8 +97,10 @@ public class ProjectsOverview extends JPanel {
 				projects = projectController.findByName(name, false);
 				if (panel != null) {
 					panel.removeAll();
-					for (Project project : projects) {
-						panel.add(createRow(project));
+					int size = projects.size();
+					for (int i = 0; i < size; i++) {
+						Project project = projects.get(i);
+						panel.add(createRow(project, (i + 1) % 2 == 0));
 					}
 					panel.repaint();
 				}

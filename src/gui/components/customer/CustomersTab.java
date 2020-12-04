@@ -45,8 +45,10 @@ public class CustomersTab extends JPanel {
 		
 		customerController.addFindListener(customers -> {
 			container.removeAll();
-			for (Customer customer : customers) {
-				container.add(createRow(customer));
+			int size = customers.size();
+			for (int i = 0; i < size; i++) {
+				Customer customer = customers.get(i);
+				container.add(createRow(customer, (i + 1) % 2 == 0));
 			}
 			container.repaint();
 		});
@@ -54,8 +56,8 @@ public class CustomersTab extends JPanel {
 		customerController.getAll();
 	}
 	
-	private Row createRow(Customer customer) {
-		Row row = new Row();
+	private Row createRow(Customer customer, boolean even) {
+		Row row = new Row(even);
 		row.setTitleText(customer.getFirstName() + " " + customer.getLastName() + " (tlf. " + customer.getPhoneNumber() + ")");
 		row.setButtonText("Aaben");
 		row.addActionListener(e -> panelManager.setActive("update_customer", 
