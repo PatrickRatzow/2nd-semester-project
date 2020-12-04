@@ -9,6 +9,7 @@ import java.util.concurrent.Callable;
 public class PanelManager extends JPanel {
     private Map<String, JComponent> components = new HashMap<>();
     private String currentId;
+    private String previousId;
     
     public PanelManager() {
         setLayout(new CardLayout(0, 0));
@@ -41,6 +42,10 @@ public class PanelManager extends JPanel {
     public String getCurrentId() {
     	return currentId;
     }
+    
+    public String getPreviousId() {
+    	return previousId;
+    }
 
     public void setActive(String id) {
         if (components.get(id) == null) {
@@ -49,6 +54,7 @@ public class PanelManager extends JPanel {
 
         CardLayout cl = (CardLayout)getLayout();
         cl.show(this, id);
+        previousId = currentId;
         currentId = id;
     }
     

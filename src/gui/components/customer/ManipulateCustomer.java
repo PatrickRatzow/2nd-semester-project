@@ -5,17 +5,19 @@ import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public abstract class ManipulateCustomer extends JPanel {
-	protected JTextField txtFirstName;
-	protected JTextField txtLastName;
-	protected JTextField txtStreetName;
-	protected JTextField txtCity;
-	protected JTextField txtPhoneNumber;
-	protected JTextField txtStreetNumber;
-	protected JTextField txtZipCode;
-	protected JTextField txtEmail;
+	protected ManipulateCustomerColumn firstName;
+	protected ManipulateCustomerColumn address;
+	protected ManipulateCustomerColumn city;
+	protected ManipulateCustomerColumn phoneNumber;
+	protected ManipulateCustomerColumn lastName;
+	protected ManipulateCustomerColumn addressNumber;
+	protected ManipulateCustomerColumn zipCode;
+	protected ManipulateCustomerColumn email;
+	
 	protected CustomerController customerController; 
 	protected PanelManager panelManager;
 	protected String previousId;
@@ -39,95 +41,68 @@ public abstract class ManipulateCustomer extends JPanel {
 		});
 		add(titleBar, BorderLayout.NORTH);
 		
-		JPanel panel = new JPanel();
-		add(panel, BorderLayout.SOUTH);
+		JPanel buttonContainer = new JPanel();
+		add(buttonContainer, BorderLayout.SOUTH);
 		
 		btnAdd = new JButton();
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel.add(btnAdd);
+		buttonContainer.add(btnAdd);
 		
-		JPanel panel_1 = new JPanel();
-		add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel container = new JPanel();
+		container.setBorder(new EmptyBorder(10, 10, 50, 10));
+		add(container, BorderLayout.CENTER);
+		container.setLayout(new GridLayout(0, 2, 30, 0));
 		
-		JPanel panel_2 = new JPanel();
-		panel_1.add(panel_2);
-		panel_2.setLayout(new GridLayout(0, 1, 0, 5));
+		JPanel leftColumn = new JPanel();
+		container.add(leftColumn);
+		leftColumn.setLayout(new BoxLayout(leftColumn, BoxLayout.Y_AXIS));
 		
-		JLabel lblFirstName = new JLabel("Fornavn");
-		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_2.add(lblFirstName);
+		Dimension spacing = new Dimension(0, 5);
+		firstName = new ManipulateCustomerColumn("Fornavn");
+		leftColumn.add(firstName);
 		
-		txtFirstName = new JTextField();
-		txtFirstName.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panel_2.add(txtFirstName);
-		txtFirstName.setColumns(10);
+		Component firstNameSpacer = Box.createRigidArea(spacing);
+		leftColumn.add(firstNameSpacer);
 		
-		JLabel lblAddress = new JLabel("Adresse");
-		lblAddress.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_2.add(lblAddress);
+		address = new ManipulateCustomerColumn("Adresse");
+		leftColumn.add(address);
 		
-		txtStreetName = new JTextField();
-		panel_2.add(txtStreetName);
-		txtStreetName.setColumns(10);
+		Component addressSpacer = Box.createRigidArea(spacing);
+		leftColumn.add(addressSpacer);
 		
-		JLabel lblCity = new JLabel("By");
-		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_2.add(lblCity);
+		city = new ManipulateCustomerColumn("By");
+		leftColumn.add(city);
 		
-		txtCity = new JTextField();
-		panel_2.add(txtCity);
-		txtCity.setColumns(10);
+		Component citySpacer = Box.createRigidArea(spacing);
+		leftColumn.add(citySpacer);
 		
-		JLabel lblPhoneNumber = new JLabel("Telefonnummer");
-		lblPhoneNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_2.add(lblPhoneNumber);
+		phoneNumber = new ManipulateCustomerColumn("Telefonnummer");
+		leftColumn.add(phoneNumber);
 		
-		txtPhoneNumber = new JTextField();
-		panel_2.add(txtPhoneNumber);
-		txtPhoneNumber.setColumns(10);
+		JPanel rightColumn = new JPanel();
+		container.add(rightColumn);
+		rightColumn.setLayout(new BoxLayout(rightColumn, BoxLayout.Y_AXIS));
 		
-		JPanel panel_4 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel_4.getLayout();
-		flowLayout.setHgap(40);
-		panel_1.add(panel_4);
+		lastName = new ManipulateCustomerColumn("Efternavn");
+		rightColumn.add(lastName);
 		
-		JPanel panel_3 = new JPanel();
-		panel_1.add(panel_3);
-		panel_3.setLayout(new GridLayout(0, 1, 0, 5));
+		Component lastNameSpacer = Box.createRigidArea(spacing);
+		rightColumn.add(lastNameSpacer);
 		
-		JLabel lblLastName = new JLabel("Efternavn");
-		lblLastName.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_3.add(lblLastName);
+		addressNumber = new ManipulateCustomerColumn("Adresse nummer");
+		rightColumn.add(addressNumber);
 		
-		txtLastName = new JTextField();
-		txtLastName.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panel_3.add(txtLastName);
-		txtLastName.setColumns(10);
+		Component addressNumberSpacer = Box.createRigidArea(spacing);
+		rightColumn.add(addressNumberSpacer);
 		
-		JLabel lblStreetNumber = new JLabel("Adresse Nummer");
-		lblStreetNumber.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_3.add(lblStreetNumber);
+		zipCode = new ManipulateCustomerColumn("Postnummer");
+		rightColumn.add(zipCode);
 		
-		txtStreetNumber = new JTextField();
-		panel_3.add(txtStreetNumber);
-		txtStreetNumber.setColumns(10);
+		Component zipCodeSpacer = Box.createRigidArea(spacing);
+		rightColumn.add(zipCodeSpacer);
 		
-		JLabel lblZipCode = new JLabel("Postnummer");
-		lblZipCode.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_3.add(lblZipCode);
-		
-		txtZipCode = new JTextField();
-		panel_3.add(txtZipCode);
-		txtZipCode.setColumns(10);
-		
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_3.add(lblEmail);
-		
-		txtEmail = new JTextField();
-		panel_3.add(txtEmail);
-		txtEmail.setColumns(10);
+		email = new ManipulateCustomerColumn("Email");
+		rightColumn.add(email);
 		
 		btnAdd.addActionListener(e -> onSave());
 	}
