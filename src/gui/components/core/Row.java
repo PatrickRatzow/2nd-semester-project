@@ -30,7 +30,7 @@ public class Row extends JPanel {
 		add(rightContainer, BorderLayout.EAST);
 		rightContainer.setLayout(new BorderLayout(0, 0));
 		
-		mainButton = new JButton(titleText);
+		mainButton = new JButton(buttonText);
 		mainButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		rightContainer.add(mainButton);
 		
@@ -39,7 +39,7 @@ public class Row extends JPanel {
 		add(leftContainer, BorderLayout.WEST);
 		leftContainer.setLayout(new BorderLayout(0, 0));
 		
-		title = new JLabel(buttonText);
+		title = new JLabel(titleText);
 		title.setInheritsPopupMenu(false);
 		title.setBorder(new EmptyBorder(5, 5, 5, 5));
 		title.setFont(new Font("Segoe UI", Font.PLAIN, 16));
