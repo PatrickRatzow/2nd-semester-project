@@ -17,7 +17,8 @@ public class TitleBar extends JPanel {
 	public TitleBar() {
 		setBackground(new Color(220, 220, 220));
 		setLayout(new CardLayout(0, 0));
-		
+		setPreferredSize(new Dimension(10000, 47));
+
 		container = new JPanel();
 		container.setOpaque(false);
 		container.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,6 +46,10 @@ public class TitleBar extends JPanel {
 		actionButton.addActionListener(listener);
 	}
 
+	public void hideButton() {
+		actionButton.setVisible(false);
+	}
+	
 	public JTextField createSearchBar(String placeholderText) {
 		if (searchContainer != null) return searchField;
 		
