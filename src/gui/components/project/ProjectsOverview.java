@@ -54,6 +54,7 @@ public class ProjectsOverview extends JPanel {
 		row.setCompleted(project.getStatus().equals(ProjectStatus.FINISHED));
 		row.addActionListener(e -> {
 			panelManager.setActive("project_overview", () -> {
+				//Change this -- was just for testing;
 				Specification xd = new Window();
 				JComponent component = new SpecificationTab(panelManager, xd);
 				
