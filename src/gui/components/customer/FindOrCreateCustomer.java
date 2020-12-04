@@ -21,7 +21,6 @@ public class FindOrCreateCustomer extends JPanel {
 	private String previousId;
 	private ProjectController projectController;
 	private JPanel panel;
-	private JButton btnAddCustomer;
 
 	public FindOrCreateCustomer(PanelManager panelManager, ProjectController projectController) {
 		this.projectController = projectController;
@@ -74,13 +73,12 @@ public class FindOrCreateCustomer extends JPanel {
 
 		JButton btnCreate = new JButton("Opret kunde");
 		panel.add(btnCreate, "cell 0 1,alignx left,aligny top");
-		add(btnCreate, "cell 0 1");
 		btnCreate.addActionListener(l -> panelManager.setActive("create_customer",
 				() -> {
 					CreateCustomer createCustomer = new CreateCustomer(panelManager);
 					createCustomer.addSaveListener(customer ->
 							panelManager.setActive("specifications",
-									() -> new SpecificationsProjectTab(panelManager)));
+									() -> new SpecificationsProjectTab(panelManager, projectController)));
 
 					return createCustomer;
 				}
@@ -100,7 +98,10 @@ public class FindOrCreateCustomer extends JPanel {
 			repaint();
 		});
 		customerController.addSaveListener(customer -> {
+			projectController.setCustomer(customer);
 
+			panelManager.setActive("specifications",
+					() -> new SpecificationsProjectTab(panelManager, projectController));
 		});
 	}
 	
@@ -110,8 +111,6 @@ public class FindOrCreateCustomer extends JPanel {
 		resultComponent.setLayout(new BorderLayout());
 		CustomerInformationBox customerInformationBox = new CustomerInformationBox(customer);
 		resultComponent.add(customerInformationBox, BorderLayout.WEST);
-
-		btnAddCustomer.setVisible(true);
 	}
 	
 	private void createNoResultDisplay() {
@@ -119,8 +118,6 @@ public class FindOrCreateCustomer extends JPanel {
 		resultComponent.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		resultComponent.setForeground(Color.RED);
 		panel.add(resultComponent, "cell 0 2");
-
-		btnAddCustomer.setVisible(false);
 	}
 
 }

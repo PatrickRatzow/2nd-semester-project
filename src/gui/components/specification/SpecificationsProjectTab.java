@@ -1,5 +1,6 @@
 package gui.components.specification;
 
+import controller.ProjectController;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 
@@ -9,9 +10,11 @@ import java.awt.*;
 public class SpecificationsProjectTab extends JPanel {
 	private PanelManager panelManager;
 	private String previousId;
+	private ProjectController projectController;
 	
-	public SpecificationsProjectTab(PanelManager panelManager) {
+	public SpecificationsProjectTab(PanelManager panelManager, ProjectController projectController) {
 		this.panelManager = panelManager;
+		this.projectController = projectController;
 		previousId = panelManager.getCurrentId();
 		setLayout(new BorderLayout(0, 0));
 		
@@ -39,6 +42,5 @@ public class SpecificationsProjectTab extends JPanel {
 		
 		JComponent specificationsTab = new SpecificationsTab(panelManager);
 		container.add(specificationsTab, BorderLayout.CENTER);
-		
 	}
 }
