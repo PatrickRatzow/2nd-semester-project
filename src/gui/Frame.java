@@ -1,5 +1,7 @@
 package gui;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,6 +13,7 @@ public class Frame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel(new FlatLightLaf());
 					Frame frame = new Frame();
 					frame.setVisible(true);
 				} catch (Exception e) {

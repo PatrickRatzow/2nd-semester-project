@@ -12,12 +12,13 @@ public class ProjectRow extends Row {
 	private JLabel iconLbl;
 	private ImageIcon icon;
 
-	public ProjectRow() {
-		super();
+	public ProjectRow(boolean even) {
+		super(even);
 		
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
+		panel.setOpaque(false);
 		
 		iconLbl = new JLabel("");
 		panel.add(iconLbl, BorderLayout.WEST);
