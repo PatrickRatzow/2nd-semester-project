@@ -30,7 +30,7 @@ public class FindOrCreateCustomer extends JPanel {
 		String placeholderText = "Telefonnummer";
 
 		TitleBar titleBar = new TitleBar();
-		titleBar.setTitle("Projekt");
+		titleBar.setTitle("Find Kunde");
 		titleBar.setButtonName("Gaa tilbage");
 		titleBar.addActionListener(l -> {
 			String currentId = panelManager.getCurrentId();
@@ -42,11 +42,7 @@ public class FindOrCreateCustomer extends JPanel {
 		
 		panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
-		panel.setLayout(new MigLayout("", "[439.00px]", "[23px][][][grow]"));
-
-		JLabel lblNewLabel = new JLabel("Find Kunde");
-		panel.add(lblNewLabel, "cell 0 0,alignx left,aligny top");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panel.setLayout(new MigLayout("", "[439.00px]", "[23px][][][grow][]"));
 
 		searchTextField = new JTextField();
 		panel.add(searchTextField, "flowx,cell 0 1");
@@ -71,7 +67,6 @@ public class FindOrCreateCustomer extends JPanel {
 			}
 		});
 
-
 		JButton btnSearch = new JButton("Anmod");
 		btnSearch.addActionListener(e -> customerController.getSearch(searchTextField.getText()));
 		panel.add(btnSearch, "cell 0 1,alignx left,aligny top");
@@ -83,7 +78,7 @@ public class FindOrCreateCustomer extends JPanel {
 					CreateCustomer createCustomer = new CreateCustomer(panelManager);
 					createCustomer.addSaveListener(customer ->
 							panelManager.setActive("specifications",
-									() -> new SpecificationsProjectTab(panelManager)));
+									() -> new SpecificationsProjectTab(panelManager, projectController)));
 
 					return createCustomer;
 				}
@@ -101,6 +96,12 @@ public class FindOrCreateCustomer extends JPanel {
 			}
 			revalidate();
 			repaint();
+		});
+		customerController.addSaveListener(customer -> {
+			projectController.setCustomer(customer);
+
+			panelManager.setActive("specifications",
+					() -> new SpecificationsProjectTab(panelManager, projectController));
 		});
 	}
 	

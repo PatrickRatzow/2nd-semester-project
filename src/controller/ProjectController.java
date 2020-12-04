@@ -3,6 +3,7 @@ package controller;
 import dao.ProjectDao;
 import datasource.DBConnection;
 import datasource.DBManager;
+import entity.Customer;
 import entity.Project;
 import exception.DataAccessException;
 
@@ -11,8 +12,13 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class ProjectController {
+	private Customer customer;
 	private List<Consumer<List<Project>>> onFindListeners = new LinkedList<>();
-	
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	public void addFindListener(Consumer<List<Project>> listener) {
 		onFindListeners.add(listener);
 	}
