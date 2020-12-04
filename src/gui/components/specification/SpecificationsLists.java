@@ -13,6 +13,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("serial")
 public class SpecificationsLists extends JPanel {
 	private JPanel specificationsList;
 	private JPanel chosenSpecifications;
