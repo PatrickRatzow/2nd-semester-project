@@ -28,7 +28,6 @@ public class SpecificationRow extends JPanel {
 		textField = new JTextField();
 		panel_1.add(textField);
 		textField.setColumns(10);
-
 	} 
 	
 	public SpecificationRow(String labelName) {
