@@ -21,6 +21,8 @@ public class FindOrCreateCustomer extends JPanel {
 	private String previousId;
 	private ProjectController projectController;
 	private JPanel panel;
+	private JButton btnAddCustomer;
+	private Customer customer;
 
 	public FindOrCreateCustomer(PanelManager panelManager, ProjectController projectController) {
 		this.projectController = projectController;
@@ -73,6 +75,13 @@ public class FindOrCreateCustomer extends JPanel {
 
 		JButton btnCreate = new JButton("Opret kunde");
 		panel.add(btnCreate, "cell 0 1,alignx left,aligny top");
+		
+		btnAddCustomer = new JButton("Tilknyt kunde");
+		btnAddCustomer.setBackground(new Color(	150, 255, 167));
+		btnAddCustomer.setVisible(false);
+		panel.add(btnAddCustomer, "cell 0 4");
+		
+		
 		btnCreate.addActionListener(l -> panelManager.setActive("create_customer",
 				() -> {
 					CreateCustomer createCustomer = new CreateCustomer(panelManager);
@@ -103,7 +112,13 @@ public class FindOrCreateCustomer extends JPanel {
 			panelManager.setActive("specifications",
 					() -> new SpecificationsProjectTab(panelManager, projectController));
 		});
-	}
+		
+		btnAddCustomer.addActionListener(e -> {
+			projectController.setCustomer(customer);
+
+			panelManager.setActive("specifications",
+					() -> new SpecificationsProjectTab(panelManager, projectController));
+	});}
 	
 	private void createCustomerDisplay(Customer customer) {
 		resultComponent = new JPanel();
@@ -111,6 +126,9 @@ public class FindOrCreateCustomer extends JPanel {
 		resultComponent.setLayout(new BorderLayout());
 		CustomerInformationBox customerInformationBox = new CustomerInformationBox(customer);
 		resultComponent.add(customerInformationBox, BorderLayout.WEST);
+		this.customer = customer;
+		
+		btnAddCustomer.setVisible(true);
 	}
 	
 	private void createNoResultDisplay() {
@@ -118,5 +136,9 @@ public class FindOrCreateCustomer extends JPanel {
 		resultComponent.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		resultComponent.setForeground(Color.RED);
 		panel.add(resultComponent, "cell 0 2");
+		this.customer = null;
+		
+		btnAddCustomer.setVisible(false);
 	}
+
 }
