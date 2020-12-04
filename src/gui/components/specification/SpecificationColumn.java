@@ -2,6 +2,9 @@ package gui.components.specification;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.font.TextAttribute;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SpecificationColumn extends JPanel {
 	
@@ -11,41 +14,31 @@ public class SpecificationColumn extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SpecificationColumn() {
-		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JPanel panel = new JPanel();
-		add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 1, 0, 10));
-		
-		titleName = new JLabel("New label", SwingConstants.CENTER);
-		panel_1.add(titleName);
-		
-		textField = new JTextField();
-		panel_1.add(textField);
-		textField.setColumns(10);
-	} 
 	
-	public SpecificationColumn(String labelName) {
-		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JPanel panel = new JPanel();
-		add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 1, 0, 10));
-		
-		titleName = new JLabel("New label", SwingConstants.CENTER);
-		panel_1.add(titleName);
-		setTitleName(labelName);
+	public SpecificationColumn() {
+		this("unnamed");
 	}
 	
+	public SpecificationColumn(String labelName) {
+		setMaximumSize(new Dimension(400, 50));
+		setPreferredSize(new Dimension(400, 50));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+				
+		JPanel panel = new JPanel();
+		add(panel);
+		panel.setOpaque(true);
+		panel.setLayout(new BorderLayout(0, 0));
+		panel.setMaximumSize(new Dimension(10000, 25));
+		
+		titleName = new JLabel("New label", SwingConstants.CENTER);
+		panel.add(titleName, BorderLayout.CENTER);
+		setTitleName(labelName);
+		
+		textField = new JTextField();
+		add(textField);
+		textField.setColumns(10);
+
+	} 
 	
 	public void setTitleName(String name) {
 		titleName.setText(name);

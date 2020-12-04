@@ -83,7 +83,7 @@ public class CustomerController {
     	setCustomerInformation(firstName, lastName, email, phoneNumber, city, streetName, streetNumber, zipCode);
     	customer.setId(id);
     }
-    
+
     public void setCustomerInformation(String firstName, String lastName, String email, String phoneNumber, String city,
                                        String streetName, int streetNumber, int zipCode) {
         if (customer == null) {
@@ -107,7 +107,7 @@ public class CustomerController {
     		update();
     	}
     }
-    
+
     private void create() {
         if (customer == null) throw new IllegalArgumentException("No customer set");
         // TODO: Could improve this?
@@ -125,7 +125,7 @@ public class CustomerController {
         		onSaveListeners.forEach(l -> l.accept(customer));
         	} catch (SQLException | DataAccessException e) {
         		e.printStackTrace();
-        		
+
         		try {
         			conn.rollbackTransaction();
         		} catch (SQLException e2) {
@@ -134,22 +134,22 @@ public class CustomerController {
         	}
         }).start();
     }
-    
+
     private void update() {
         if (customer == null) throw new IllegalArgumentException("No customer set");
         // TODO: Could improve this?
         if (!isCustomerValid(customer)) throw new IllegalArgumentException("Customer isn't valid");
-        
+
         final Customer customerTemp = this.customer;
-        
+
         new ConnectionThread(conn -> {
         	CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(conn);
-        	
+
         	try {
         		conn.startTransaction();
         		dao.update(customerTemp);
         		conn.commitTransaction();
-        		
+
         		onSaveListeners.forEach(l -> l.accept(customerTemp));
         	} catch (SQLException | DataAccessException e) {
         		e.printStackTrace();
