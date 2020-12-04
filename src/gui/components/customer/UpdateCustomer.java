@@ -25,21 +25,19 @@ public class UpdateCustomer extends ManipulateCustomer {
 		addressNumber.setContentText(String.valueOf(customer.getAddress().getStreetNumber()));
 		zipCode.setContentText(String.valueOf(customer.getAddress().getZipCode()));
 	}
-	
+
 	public void onSave() {
-		int parseStreet = Integer.parseInt(addressNumber.getContentText());
-		int parseZip = Integer.parseInt(zipCode.getContentText());	
+		String firstName = this.firstName.getContentText();
+		String lastName = this.lastName.getContentText();
+		String email = this.email.getContentText();
+		String phoneNumber = this.phoneNumber.getContentText();
+		String city = this.city.getContentText();
+		String address = this.address.getContentText();
+		int streetNumber = Integer.parseInt(this.addressNumber.getContentText());
+		int zipCode = Integer.parseInt(this.zipCode.getContentText());
 		
-		// TODO: Add code to update
-		/*
-		customerController.setCustomerInformation(txtFirstName.getText(),
-			txtLastName.getText(), txtEmail.getText(), 
-			txtPhoneNumber.getText(), txtCity.getText(), txtStreetName.getText(), 
-			parseStreet, parseZip); 
-		try {
-			customerController.create();
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-		}*/
+		customerController.setCustomerInformation(customerId, firstName, lastName, email, phoneNumber, city, 
+				address, streetNumber, zipCode);
+		customerController.save();
 	}
 }

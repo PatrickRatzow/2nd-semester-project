@@ -1,8 +1,10 @@
 package gui.components.customer;
 
 import controller.CustomerController;
+import controller.ProjectController;
 import entity.Customer;
 import gui.components.core.PanelManager;
+import gui.components.specification.SpecificationsProjectTab;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -16,8 +18,10 @@ public class FindOrCreateCustomer extends JPanel {
 	private JComponent resultComponent;
 	private PanelManager panelManager;
 	private String previousId;
+	private ProjectController projectController;
 
-	public FindOrCreateCustomer(PanelManager panelManager) {
+	public FindOrCreateCustomer(PanelManager panelManager, ProjectController projectController) {
+		this.projectController = projectController;
 		customerController = new CustomerController();
 		previousId = panelManager.getCurrentId();
 
@@ -56,7 +60,15 @@ public class FindOrCreateCustomer extends JPanel {
 
 		JButton btnCreate = new JButton("Opret kunde");
 		btnCreate.addActionListener(l -> panelManager.setActive("create_customer", 
-				() -> new CreateCustomer(panelManager)));
+				() -> {
+					CreateCustomer createCustomer = new CreateCustomer(panelManager);
+					createCustomer.addSaveListener(customer ->
+						panelManager.setActive("specifications", 
+								() -> new SpecificationsProjectTab(panelManager)));
+					
+					return createCustomer;
+				}
+		));
 		add(btnCreate, "cell 0 1");
 
 		customerController.addFindListener(customers -> {

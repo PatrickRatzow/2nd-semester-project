@@ -49,7 +49,6 @@ public class CustomerInformationBox extends JPanel {
 		panel.setMaximumSize(new Dimension(10000, 60));
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		
 		JLabel title = new JLabel(titleText);
 		title.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		panel.add(title);

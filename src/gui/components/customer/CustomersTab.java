@@ -8,13 +8,17 @@ import gui.components.core.TitleBar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomersTab extends JPanel {
 	private PanelManager panelManager;
 	private CustomerController customerController;
 	private JPanel container;
+	private Map<Customer, Row> rows;
 	
 	public CustomersTab(PanelManager panelManager) {
+		rows = new HashMap<>();
 		customerController = new CustomerController();
 		
 		this.panelManager = panelManager;
@@ -23,8 +27,22 @@ public class CustomersTab extends JPanel {
 		TitleBar titleBar = new TitleBar();
 		titleBar.setTitle("Kunder");
 		titleBar.setButtonName("Opret Kunde");
-		titleBar.addActionListener(e -> 
-			panelManager.setActive("create_customer", () -> new CreateCustomer(panelManager)));
+		titleBar.addActionListener(e -> {
+			String currentId = panelManager.getCurrentId();
+			
+			panelManager.setActive("create_customer", () -> {
+				CreateCustomer createCustomer = new CreateCustomer(panelManager);
+				createCustomer.addSaveListener(customer -> {
+					createRow(customer);
+					
+					panelManager.setActive(currentId);
+					panelManager.removePanel("create_customer");
+				});
+				
+				return createCustomer;
+			});
+		});
+			
 		JTextField searchBar = titleBar.createSearchBar("Kunde telefon/email");
 		searchBar.addActionListener(e -> {
 			String text = searchBar.getText();
@@ -45,10 +63,9 @@ public class CustomersTab extends JPanel {
 		
 		customerController.addFindListener(customers -> {
 			container.removeAll();
-			int size = customers.size();
-			for (int i = 0; i < size; i++) {
-				Customer customer = customers.get(i);
-				container.add(createRow(customer, (i + 1) % 2 == 0));
+			rows.clear();
+			for (Customer customer : customers) {
+				createRow(customer);
 			}
 			container.repaint();
 		});
@@ -56,13 +73,17 @@ public class CustomersTab extends JPanel {
 		customerController.getAll();
 	}
 	
-	private Row createRow(Customer customer, boolean even) {
+	private void createRow(Customer customer) {
+		if (rows.get(customer) != null) return;
+		
+		boolean even = (rows.size() + 1) % 2 == 0;
 		Row row = new Row(even);
 		row.setTitleText(customer.getFirstName() + " " + customer.getLastName() + " (tlf. " + customer.getPhoneNumber() + ")");
 		row.setButtonText("Aaben");
 		row.addActionListener(e -> panelManager.setActive("update_customer", 
 				() -> new UpdateCustomer(panelManager, customer)));
-		
-		return row;
+
+		rows.put(customer, row);
+		container.add(row);
 	}
 }

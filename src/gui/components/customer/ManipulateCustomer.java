@@ -1,12 +1,14 @@
 package gui.components.customer;
 
 import controller.CustomerController;
+import entity.Customer;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.function.Consumer;
 
 public abstract class ManipulateCustomer extends JPanel {
 	protected ManipulateCustomerColumn firstName;
@@ -104,8 +106,12 @@ public abstract class ManipulateCustomer extends JPanel {
 		email = new ManipulateCustomerColumn("Email");
 		rightColumn.add(email);
 		
-		btnAdd.addActionListener(e -> onSave());
+		btnAdd.addActionListener(l -> onSave());
 	}
 	
+	public void addSaveListener(Consumer<Customer> listener) {
+		customerController.addSaveListener(listener);
+	}
+
 	public abstract void onSave();
 }
