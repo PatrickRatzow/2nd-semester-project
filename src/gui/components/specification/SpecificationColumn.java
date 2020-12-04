@@ -40,15 +40,6 @@ public class SpecificationColumn extends JPanel {
 
 	} 
 	
-	public SpecificationColumn(String labelName) {
-		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		
-		titleName.setFont(new Font(titleName.getFont().toString(), 1, 14));
-		
-	}
-	
-	
 	public void setTitleName(String name) {
 		titleName.setText(name);
 	}
