@@ -51,7 +51,7 @@ public class SpecificationTab extends JPanel {
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
-		panel.add(new SpecificationRow(specification.getDisplayName()));
+		panel.add(new SpecificationColumn(specification.getName()));
 		panel.add(createSpecificationRow("Navn"));
 		panel.add(createSpecificationRow("Antal"));
 		
@@ -60,14 +60,14 @@ public class SpecificationTab extends JPanel {
 		}
 	}
 	
-	private SpecificationRow createRequirementRow(Requirement requirement) {
-		SpecificationRow rows = new SpecificationRow();
+	private SpecificationColumn createRequirementRow(Requirement requirement) {
+		SpecificationColumn rows = new SpecificationColumn();
 		rows.setTitleName(requirement.getName());
 		
 		return rows;
 	}
-	private SpecificationRow createSpecificationRow(String displayValue) {
-		SpecificationRow rows = new SpecificationRow();
+	private SpecificationColumn createSpecificationRow(String displayValue) {
+		SpecificationColumn rows = new SpecificationColumn();
 		rows.setTitleName(displayValue);
 		
 		return rows;

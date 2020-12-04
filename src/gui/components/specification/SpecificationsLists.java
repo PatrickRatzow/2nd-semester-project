@@ -15,15 +15,17 @@ public class SpecificationsLists extends JPanel {
 	private JPanel chosenSpecifications;
 	private PanelManager panelManager;
 	private SpecificationsController specificationsController;
-
+	private Color bColor;
+	
 	public SpecificationsLists(PanelManager panelManager) {
 		this.panelManager = panelManager;
 		specificationsController = new SpecificationsController();
+		bColor = new Color(220, 220, 220);
 		
 		setLayout(new MigLayout("", "[::250px,grow][grow]", "[][grow]"));
 		
 		JPanel listContainer = new JPanel();
-		listContainer.setBackground(Color.GRAY);
+		listContainer.setBackground(bColor);
 		listContainer.setFont(new Font("Tahoma", Font.BOLD, 15));
 		add(listContainer, "cell 0 0,grow");
 		
@@ -32,7 +34,7 @@ public class SpecificationsLists extends JPanel {
 		listContainer.add(titleList);
 
 		JPanel chosenContainer = new JPanel();
-		chosenContainer.setBackground(Color.GRAY);
+		chosenContainer.setBackground(bColor);
 		chosenContainer.setFont(new Font("Tohoma", Font.BOLD, 15));
 		add(chosenContainer, "cell 1 0,grow");
 		
@@ -45,7 +47,7 @@ public class SpecificationsLists extends JPanel {
 
 		specificationsList = new JPanel();
 		listScrollPane.setViewportView(specificationsList);
-		specificationsList.setBackground(Color.GRAY);
+		specificationsList.setBackground(bColor);
 		specificationsList.setLayout(new BoxLayout(specificationsList, BoxLayout.Y_AXIS));
 
 		JScrollPane chosenScrollPane = new JScrollPane();
@@ -53,7 +55,7 @@ public class SpecificationsLists extends JPanel {
 
 		chosenSpecifications = new JPanel();
 		chosenScrollPane.setViewportView(chosenSpecifications);
-		chosenSpecifications.setBackground(Color.GRAY);
+		chosenSpecifications.setBackground(bColor);
 		chosenSpecifications.setLayout(new BoxLayout(chosenSpecifications, BoxLayout.Y_AXIS));
 		
 		loadSpecifications();

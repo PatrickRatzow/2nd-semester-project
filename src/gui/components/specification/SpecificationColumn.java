@@ -3,7 +3,7 @@ package gui.components.specification;
 import javax.swing.*;
 import java.awt.*;
 
-public class SpecificationRow extends JPanel {
+public class SpecificationColumn extends JPanel {
 	
 	private JTextField textField;
 	private JLabel titleName;
@@ -11,7 +11,7 @@ public class SpecificationRow extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SpecificationRow() {
+	public SpecificationColumn() {
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JPanel panel = new JPanel();
@@ -30,7 +30,7 @@ public class SpecificationRow extends JPanel {
 		textField.setColumns(10);
 	} 
 	
-	public SpecificationRow(String labelName) {
+	public SpecificationColumn(String labelName) {
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JPanel panel = new JPanel();
