@@ -63,7 +63,6 @@ public class SpecificationsLists extends JPanel {
 		chosenSpecifications.setOpaque(true);
 		chosenSpecifications.setLayout(new BoxLayout(chosenSpecifications, BoxLayout.Y_AXIS));
 		
-		
 		specificationsController.addFindListener(specifications -> {
 			int size = specifications.size();
 			for (int i = 0; i < size; i++) {
@@ -71,15 +70,8 @@ public class SpecificationsLists extends JPanel {
 				specificationsList.add(createListRow(specification, (i + 1) % 2 == 0));
 			}
 		});
-		
-		specificationsController.addSaveListener(specification -> {
-			ChosenSpecificationRow existingRow = chosenMap.get(specification);
-			if(existingRow == null) {
-				existingRow.setName(specification.getDisplayName());
-			} else {
-				ChosenSpecificationRow row = createSelectedRow(specification, (chosenMap.size() + 1) % 2 == 0);
-				chosenMap.put(specification, row);
-			}
+		specificationsController.addSaveListener(products -> {
+			// Code for when we have calculated our products
 		});
 		
 		specificationsController.getSpecifications();
@@ -104,20 +96,16 @@ public class SpecificationsLists extends JPanel {
 	
 	private void createChosenRow(Specification spec) {
 		ChosenSpecificationRow existingRow = chosenMap.get(spec);
-		if(existingRow == null) {
+		if (existingRow == null) {
 			existingRow.setName(spec.getDisplayName());
 		} else {
-			ChosenSpecificationRow row = createSelectedRow(spec, (chosenMap.size() + 1) % 2 == 0);
+			boolean even = (chosenMap.size() + 1) % 2 == 0;
+			ChosenSpecificationRow row = new ChosenSpecificationRow(spec.getDisplayName(), even);
+			row.addActionListener(System.out::println);
+			row.setMaximumSize(new Dimension(10000, 50));
+			chosenSpecifications.add(row);
+
 			chosenMap.put(spec, row);
 		}
 	}
-	
-	private ChosenSpecificationRow createSelectedRow(Specification specification, boolean even) {
-		ChosenSpecificationRow specificationRow = new ChosenSpecificationRow(specification.getDisplayName(), even);
-		specificationRow.addActionListener(System.out::println);
-		specificationRow.setMaximumSize(new Dimension(10000, 50));
-		
-		return specificationRow;
-	}
-	
 }
