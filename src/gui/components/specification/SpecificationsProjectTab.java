@@ -39,5 +39,6 @@ public class SpecificationsProjectTab extends JPanel {
 		
 		JComponent specificationsTab = new SpecificationsTab(panelManager);
 		container.add(specificationsTab, BorderLayout.CENTER);
+		
 	}
 }

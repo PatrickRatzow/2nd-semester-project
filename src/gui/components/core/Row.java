@@ -54,6 +54,12 @@ public class Row extends JPanel {
 		mainButton.setText(text);
 	}
 	
+	public void removeAllActionListeners() {
+		for (ActionListener al : mainButton.getActionListeners()) {
+			mainButton.removeActionListener(al);
+		}
+	}
+	
 	public void addActionListener(ActionListener listener) {
 		mainButton.addActionListener(listener);
 	}

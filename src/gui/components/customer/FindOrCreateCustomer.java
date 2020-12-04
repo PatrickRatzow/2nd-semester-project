@@ -83,7 +83,6 @@ public class FindOrCreateCustomer extends JPanel {
 		titleBar.setTitle("Projekt");
 		titleBar.setButtonName("Gaa tilbage");
 		add(titleBar, BorderLayout.NORTH);
-		add(btnCreate, "cell 0 1");
 
 		customerController.addFindListener(customers -> {
 			if (resultComponent != null) {

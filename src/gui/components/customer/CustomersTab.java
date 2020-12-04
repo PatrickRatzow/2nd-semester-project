@@ -73,6 +73,25 @@ public class CustomersTab extends JPanel {
 		customerController.getAll();
 	}
 	
+	private void addRowListener(Customer customer, Row row) {
+		row.addActionListener(e -> {
+			String currentId = panelManager.getCurrentId();
+			
+			panelManager.setActive("update_customer", () -> {
+				UpdateCustomer updateCustomer = new UpdateCustomer(panelManager, customer);
+				updateCustomer.addSaveListener(c -> {
+					row.setTitleText(c.getFirstName() + " " + c.getLastName() + " (tlf. " + c.getPhoneNumber() + ")");
+					row.removeAllActionListeners();
+					addRowListener(c, row);
+					
+					panelManager.setActive(currentId);
+					panelManager.removePanel("update_customer");
+				});
+				
+				return updateCustomer;
+			});
+		});
+	}
 	private void createRow(Customer customer) {
 		if (rows.get(customer) != null) return;
 		
@@ -80,8 +99,7 @@ public class CustomersTab extends JPanel {
 		Row row = new Row(even);
 		row.setTitleText(customer.getFirstName() + " " + customer.getLastName() + " (tlf. " + customer.getPhoneNumber() + ")");
 		row.setButtonText("Aaben");
-		row.addActionListener(e -> panelManager.setActive("update_customer", 
-				() -> new UpdateCustomer(panelManager, customer)));
+		addRowListener(customer, row);
 
 		rows.put(customer, row);
 		container.add(row);
