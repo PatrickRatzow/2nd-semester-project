@@ -89,8 +89,8 @@ public class SpecificationsLists extends JPanel {
 				specificationController.addSaveListener(this::createChosenRow);
 				
 				return new SpecificationTab(panelManager, specificationController);
-			}));
-		specificationRow.setMaximumSize(new Dimension(10000, 50));
+			})
+		);
 		
 		return specificationRow;
 	}
@@ -105,7 +105,13 @@ public class SpecificationsLists extends JPanel {
 		} else {
 			boolean even = (chosenMap.size() + 1) % 2 == 0;
 			ChosenSpecificationRow row = new ChosenSpecificationRow(spec.getDisplayName(), even);
-			row.addActionListener(System.out::println);
+			row.addActionListener(e -> {
+				panelManager.setActive("specification_tab", () -> {
+					specificationController.addSaveListener(this::createChosenRow);
+					
+					return new SpecificationTab(panelManager, specificationController);
+				});
+			});
 			row.setMaximumSize(new Dimension(10000, 50));
 			row.setSpecification(spec);
 			chosenSpecifications.add(row);

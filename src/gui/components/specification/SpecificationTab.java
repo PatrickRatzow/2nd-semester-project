@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 @SuppressWarnings("serial")
 public class SpecificationTab extends JPanel {
@@ -26,12 +27,9 @@ public class SpecificationTab extends JPanel {
 		this.specificationController = specificationController;
 		previousId = panelManager.getCurrentId();
 		List<Requirement> requirements = specificationController.getRequirements();
+		Map<SpecificationColumn, Requirement> columns = new HashMap<>();
 		String name = specificationController.getDislayName();
-		
-		
-		List<Requirement> saveRequirements = new LinkedList<Requirement>();
-		
-		
+
 		setLayout(new BorderLayout(0, 0));
 		
 		TitleBar title = new TitleBar();
@@ -55,18 +53,26 @@ public class SpecificationTab extends JPanel {
 		save.setForeground(Color.BLACK);
 		save.setHorizontalAlignment(SwingConstants.RIGHT);
 		buttomBar.add(save);
-		//Send reuqirements have been saved, and back to Specifications window.
 		
+		//Send reuqirements have been saved, and back to Specifications window.
 		save.addActionListener(e -> {
-			
-			String resultNameInTextField = nameColumn.getTextField().getText();
-			String resultAmountInTextField = amountColumn.getTextField().getText();	
+			String resultNameInTextField = nameColumn.getStringValue();
+			String resultAmountInTextField = amountColumn.getStringValue();	
 				
 			int parseAmount = Integer.parseInt(resultAmountInTextField);
 			System.out.println("Krav er gemt");
 			specificationController.setDisplayName(resultNameInTextField);
 			specificationController.setResultAmount(parseAmount);
-			specificationController.setRequirements(saveRequirements);
+
+			List<Requirement> savedRequirements = new LinkedList<>();
+			for (Entry<SpecificationColumn, Requirement> column : columns.entrySet()) {
+				String value = column.getKey().getStringValue();
+				column.getValue().setValueFromSQLValue(value);
+				
+				savedRequirements.add(column.getValue());
+			}
+			specificationController.setRequirements(savedRequirements);
+			
 			System.out.println(specificationController.getDislayName());
 			System.out.println(specificationController.getResultAmount());
 			System.out.println(specificationController.getRequirements());
@@ -98,13 +104,12 @@ public class SpecificationTab extends JPanel {
 		JLabel titleLabel = new JLabel(name);
 		titleContainer.add(titleLabel);
 		
-			titleLabel.setFont(new Font(titleLabel.getFont().toString(), Font.PLAIN, 20));
-			
-			
-			Font font = titleLabel.getFont();
-			Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
-			attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-			titleLabel.setFont(font.deriveFont(attributes));
+		titleLabel.setFont(new Font(titleLabel.getFont().toString(), Font.PLAIN, 20));
+		
+		Font font = titleLabel.getFont();
+		Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		titleLabel.setFont(font.deriveFont(attributes));
 
 		createSpecificationColumns(widthContainer);			
 		
@@ -113,10 +118,10 @@ public class SpecificationTab extends JPanel {
 
 			widthContainer.add(specificationColumn);
 			widthContainer.add(createSpacer());
-			saveRequirements.add(requirement);
+			columns.put(specificationColumn, requirement);
 		}
 		
-		System.out.println("Added requirements: " + saveRequirements);
+		System.out.println("Added requirements: " + requirements);
 	}
 	
 	private Component createSpacer() {
@@ -134,15 +139,16 @@ public class SpecificationTab extends JPanel {
 	}
 	
 	private SpecificationColumn createRequirementColumn(Requirement requirement) {
-		SpecificationColumn rows = new SpecificationColumn();
-		rows.setTitleName(requirement.getName());
+		SpecificationColumnValueField field = SpecificationColumnValueFieldFactory.create(requirement);
+		SpecificationColumn rows = new SpecificationColumn(requirement.getName(), field);
 
 		return rows;
 	}
-	private SpecificationColumn createSpecificationColumn(String displayValue) {	
-		SpecificationColumn rows = new SpecificationColumn();
-		rows.setTitleName(displayValue);
-		
+	
+	private SpecificationColumn createSpecificationColumn(String displayValue) {
+		SpecificationColumnValueField field = new SpecificationColumnTextField();
+		SpecificationColumn rows = new SpecificationColumn(displayValue, field);
+
 		return rows;
 	}
 	
