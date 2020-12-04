@@ -24,9 +24,17 @@ public class SpecificationController {
         return specification.getRequirements();
     }
     
+    public void setRequirements(List<Requirement> requirements) {
+    	specification.setRequirements(requirements);
+    }
+    
     public void addSaveListener(Consumer<Specification> listener) {
 		onSaveListeners.add(listener);
 	}
+    
+    public void save() {
+    	onSaveListeners.forEach(l -> l.accept(specification));
+    }
     
     
     public void load() throws DataAccessException {
@@ -36,6 +44,26 @@ public class SpecificationController {
         final List<Product> products = dao.findBySpecificationId(specification);
 
         connection.release();
+    }
+    
+    public void setDisplayName(String name) {
+    	specification.setDisplayName(name);
+    }
+    
+    public String getDislayName() {
+    	return specification.getName();
+    }
+    
+    public void setResultAmount(int amount) {
+    	specification.setResultAmount(amount);
+    }
+    
+    public int getResultAmount() {
+    	return specification.getResultAmount();
+    }
+    
+    public Specification getSpecification() {
+    	return specification;
     }
 
     /*
