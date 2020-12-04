@@ -1,16 +1,16 @@
 package gui.components.specification;
 
-import gui.components.core.TabPanel;
+import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SpecificationsProjectTab extends JPanel {
-	private TabPanel panelManager;
+	private PanelManager panelManager;
 	private String previousId;
 	
-	public SpecificationsProjectTab(TabPanel panelManager) {
+	public SpecificationsProjectTab(PanelManager panelManager) {
 		this.panelManager = panelManager;
 		previousId = panelManager.getCurrentId();
 		setLayout(new BorderLayout(0, 0));

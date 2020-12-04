@@ -2,6 +2,7 @@ package gui.components.customer;
 
 import controller.CustomerController;
 import entity.Customer;
+import gui.components.core.PanelManager;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -13,9 +14,12 @@ public class FindOrCreateCustomer extends JPanel {
 	private JTextField searchTextField;
 	private CustomerController customerController;
 	private JComponent resultComponent;
+	private PanelManager panelManager;
+	private String previousId;
 
-	public FindOrCreateCustomer() {
+	public FindOrCreateCustomer(PanelManager panelManager) {
 		customerController = new CustomerController();
+		previousId = panelManager.getCurrentId();
 
 		JLabel lblNewLabel = new JLabel("Kunde");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -51,6 +55,8 @@ public class FindOrCreateCustomer extends JPanel {
 		add(btnSearch, "cell 0 1");
 
 		JButton btnCreate = new JButton("Opret kunde");
+		btnCreate.addActionListener(l -> panelManager.setActive("create_customer", 
+				() -> new CreateCustomer(panelManager)));
 		add(btnCreate, "cell 0 1");
 
 		customerController.addFindListener(customers -> {

@@ -16,7 +16,7 @@ import java.util.List;
 public class DBConnectionPoolMsSql implements DBConnectionPool {
     private final List<DBConnection> pool = Collections.synchronizedList(new LinkedList<>());
     private final List<DBConnection> usedConnections = Collections.synchronizedList(new LinkedList<>());
-    private static final int POOL_SIZE = 15;
+    private static final int POOL_SIZE = 15; 
     private final String user;
     private final String database;
     private static final String host = "hildur.ucn.dk";

@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-public class TabPanel extends JPanel {
+public class PanelManager extends JPanel {
     private Map<String, JComponent> components = new HashMap<>();
     private String currentId;
     
-    public TabPanel() {
+    public PanelManager() {
         setLayout(new CardLayout(0, 0));
     }
     

@@ -2,19 +2,19 @@ package gui.components.customer;
 
 import controller.CustomerController;
 import entity.Customer;
+import gui.components.core.PanelManager;
 import gui.components.core.Row;
-import gui.components.core.TabPanel;
 import gui.components.core.TitleBar;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class CustomersTab extends JPanel {
-	private TabPanel panelManager;
+	private PanelManager panelManager;
 	private CustomerController customerController;
 	private JPanel container;
 	
-	public CustomersTab(TabPanel panelManager) {
+	public CustomersTab(PanelManager panelManager) {
 		customerController = new CustomerController();
 		
 		this.panelManager = panelManager;

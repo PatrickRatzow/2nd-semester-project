@@ -2,8 +2,8 @@ package gui.components.specification;
 
 import controller.SpecificationsController;
 import entity.Specification;
+import gui.components.core.PanelManager;
 import gui.components.core.Row;
-import gui.components.core.TabPanel;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -13,10 +13,10 @@ import java.util.List;
 public class SpecificationsLists extends JPanel {
 	private JPanel specificationsList;
 	private JPanel chosenSpecifications;
-	private TabPanel panelManager;
+	private PanelManager panelManager;
 	private SpecificationsController specificationsController;
 
-	public SpecificationsLists(TabPanel panelManager) {
+	public SpecificationsLists(PanelManager panelManager) {
 		this.panelManager = panelManager;
 		specificationsController = new SpecificationsController();
 		

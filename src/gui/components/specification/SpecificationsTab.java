@@ -1,14 +1,14 @@
 package gui.components.specification;
 
-import gui.components.core.TabPanel;
+import gui.components.core.PanelManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SpecificationsTab extends JPanel {
-	private TabPanel panelManager;
+	private PanelManager panelManager;
 	
-	public SpecificationsTab(TabPanel panelManager) {
+	public SpecificationsTab(PanelManager panelManager) {
 		setOpaque(false);
 		this.panelManager = panelManager;
 		setLayout(new BorderLayout(0, 0));

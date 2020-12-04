@@ -1,10 +1,10 @@
 package gui.components.customer;
 
 import exception.DataAccessException;
-import gui.components.core.TabPanel;
+import gui.components.core.PanelManager;
 
 public class CreateCustomer extends ManipulateCustomer {
-	public CreateCustomer(TabPanel panelManager) {
+	public CreateCustomer(PanelManager panelManager) {
 		super(panelManager, "Opret kunde", "Gaa tilbage");
 		
 		btnAdd.setText("Opret kunde");

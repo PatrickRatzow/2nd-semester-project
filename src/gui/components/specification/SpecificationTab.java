@@ -3,7 +3,7 @@ package gui.components.specification;
 import controller.SpecificationController;
 import entity.Requirement;
 import entity.Specification;
-import gui.components.core.TabPanel;
+import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 
 import javax.swing.*;
@@ -11,11 +11,11 @@ import java.awt.*;
 import java.util.List;
 
 public class SpecificationTab extends JPanel {
-	private TabPanel panelManager;
+	private PanelManager panelManager;
 	private String previousId;
 	private SpecificationController specificationController;
 
-	public SpecificationTab(TabPanel panelManager, Specification specification) {
+	public SpecificationTab(PanelManager panelManager, Specification specification) {
 		this.panelManager = panelManager;
 		previousId = panelManager.getCurrentId();
 		specificationController = new SpecificationController(specification);

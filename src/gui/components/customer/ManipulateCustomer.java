@@ -1,7 +1,7 @@
 package gui.components.customer;
 
 import controller.CustomerController;
-import gui.components.core.TabPanel;
+import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 
 import javax.swing.*;
@@ -17,11 +17,11 @@ public abstract class ManipulateCustomer extends JPanel {
 	protected JTextField txtZipCode;
 	protected JTextField txtEmail;
 	protected CustomerController customerController; 
-	protected TabPanel panelManager;
+	protected PanelManager panelManager;
 	protected String previousId;
 	protected JButton btnAdd;
 	
-	public ManipulateCustomer(TabPanel panelManager, String title, String buttonName) {
+	public ManipulateCustomer(PanelManager panelManager, String title, String buttonName) {
 		this.panelManager = panelManager;
 		previousId = panelManager.getCurrentId();
 		customerController = new CustomerController();

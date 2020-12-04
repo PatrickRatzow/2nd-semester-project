@@ -1,12 +1,12 @@
 package gui.components.customer;
 
 import entity.Customer;
-import gui.components.core.TabPanel;
+import gui.components.core.PanelManager;
 
 public class UpdateCustomer extends ManipulateCustomer {
 	private int customerId;
 	
-	public UpdateCustomer(TabPanel panelManager, Customer customer) {
+	public UpdateCustomer(PanelManager panelManager, Customer customer) {
 		super(panelManager, "Opdater kunde", "Gaa tilbage");
 		
 		btnAdd.setText("Opdater kunde");
