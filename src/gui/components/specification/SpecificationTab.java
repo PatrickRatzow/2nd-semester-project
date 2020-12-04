@@ -43,6 +43,8 @@ public class SpecificationTab extends JPanel {
 		
 		
 		JButton save = new JButton("Gem krav");
+		save.setBackground(Color.WHITE);
+		save.setForeground(Color.BLACK);
 		save.setHorizontalAlignment(SwingConstants.RIGHT);
 		buttomBar.add(save);
 		//Send reuqirements have been saved, and back to Specifications window.
@@ -56,7 +58,7 @@ public class SpecificationTab extends JPanel {
 		panel.setLayout(new CardLayout());
 		
 		JPanel widthContainer = new JPanel();
-		widthContainer.setMaximumSize(new Dimension(400, 100000));
+		widthContainer.setMaximumSize(new Dimension(400, 10000));
 		panel.add(widthContainer);
 		widthContainer.setLayout(new BoxLayout(widthContainer, BoxLayout.Y_AXIS));
 
@@ -70,12 +72,12 @@ public class SpecificationTab extends JPanel {
 		
 			titleLabel.setFont(new Font(titleLabel.getFont().toString(), Font.PLAIN, 20));
 			
+			
 			Font font = titleLabel.getFont();
 			Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
 			attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 			titleLabel.setFont(font.deriveFont(attributes));
 
-		
 		widthContainer.add(createSpacer());
 
 		widthContainer.add(createSpecificationRow("Navn"));
@@ -85,8 +87,11 @@ public class SpecificationTab extends JPanel {
 		
 		
 		for (Requirement requirement : requirements) {
-			widthContainer.add(createRequirementRow(requirement));
+			SpecificationColumn specificationColumn = createRequirementColumn(requirement);
+
+			widthContainer.add(specificationColumn);
 			widthContainer.add(createSpacer());
+
 		}
 	}
 	
@@ -94,14 +99,15 @@ public class SpecificationTab extends JPanel {
 		return Box.createRigidArea(new Dimension(0, 20));
 	}
 	
-	private SpecificationColumn createRequirementRow(Requirement requirement) {
+	private SpecificationColumn createRequirementColumn(Requirement requirement) {
 		SpecificationColumn rows = new SpecificationColumn();
 		rows.setTitleName(requirement.getName());
-		
+
 		return rows;
 	}
 	private SpecificationColumn createSpecificationRow(String displayValue) {	
 		SpecificationColumn rows = new SpecificationColumn();
+		rows.getTitleName().setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		rows.setTitleName(displayValue);
 		
 		return rows;

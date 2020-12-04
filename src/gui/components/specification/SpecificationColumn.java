@@ -21,7 +21,7 @@ public class SpecificationColumn extends JPanel {
 	
 	public SpecificationColumn(String labelName) {
 		setMaximumSize(new Dimension(400, 50));
-		setPreferredSize(new Dimension(400, 50));
+		setPreferredSize(new Dimension(457, 65));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 				
 		JPanel panel = new JPanel();
@@ -31,17 +31,24 @@ public class SpecificationColumn extends JPanel {
 		panel.setMaximumSize(new Dimension(10000, 25));
 		
 		titleName = new JLabel("New label", SwingConstants.CENTER);
-		panel.add(titleName, BorderLayout.CENTER);
-		setTitleName(labelName);
+		titleName.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		panel.add(titleName, BorderLayout.NORTH);
 		
 		textField = new JTextField();
 		add(textField);
 		textField.setColumns(10);
+		setTitleName(labelName);
 
 	} 
 	
+	
 	public void setTitleName(String name) {
 		titleName.setText(name);
+
+	}
+	
+	public JLabel getTitleName() {
+		return titleName;
 	}
 	
 	public JTextField getTextField() {
