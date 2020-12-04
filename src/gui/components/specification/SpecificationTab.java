@@ -8,7 +8,10 @@ import gui.components.core.TitleBar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.font.TextAttribute;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SpecificationTab extends JPanel {
 	private PanelManager panelManager;
@@ -50,14 +53,45 @@ public class SpecificationTab extends JPanel {
 		
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
-		panel.add(new SpecificationColumn(specification.getName()));
-		panel.add(createSpecificationRow("Navn"));
-		panel.add(createSpecificationRow("Antal"));
+		panel.setLayout(new CardLayout());
+		
+		JPanel widthContainer = new JPanel();
+		widthContainer.setMaximumSize(new Dimension(400, 100000));
+		panel.add(widthContainer);
+		widthContainer.setLayout(new BoxLayout(widthContainer, BoxLayout.Y_AXIS));
+
+		JPanel titleContainer = new JPanel();
+		titleContainer.setMaximumSize(new Dimension(10000, 50));
+		
+		widthContainer.add(titleContainer);
+		titleContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JLabel titleLabel = new JLabel(specification.getName());
+		titleContainer.add(titleLabel);
+		
+			titleLabel.setFont(new Font(titleLabel.getFont().toString(), Font.PLAIN, 20));
+			
+			Font font = titleLabel.getFont();
+			Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
+			attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+			titleLabel.setFont(font.deriveFont(attributes));
+
+		
+		widthContainer.add(createSpacer());
+
+		widthContainer.add(createSpecificationRow("Navn"));
+		widthContainer.add(createSpacer());
+		widthContainer.add(createSpecificationRow("Antal"));
+		widthContainer.add(createSpacer());
+		
 		
 		for (Requirement requirement : requirements) {
-			panel.add(createRequirementRow(requirement));
+			widthContainer.add(createRequirementRow(requirement));
+			widthContainer.add(createSpacer());
 		}
+	}
+	
+	private Component createSpacer() {
+		return Box.createRigidArea(new Dimension(0, 20));
 	}
 	
 	private SpecificationColumn createRequirementRow(Requirement requirement) {
@@ -66,7 +100,7 @@ public class SpecificationTab extends JPanel {
 		
 		return rows;
 	}
-	private SpecificationColumn createSpecificationRow(String displayValue) {
+	private SpecificationColumn createSpecificationRow(String displayValue) {	
 		SpecificationColumn rows = new SpecificationColumn();
 		rows.setTitleName(displayValue);
 		
