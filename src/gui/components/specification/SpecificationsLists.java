@@ -1,5 +1,7 @@
 package gui.components.specification;
 
+import controller.ProjectController;
+import controller.SpecificationController;
 import controller.SpecificationsController;
 import entity.Specification;
 import gui.components.core.PanelManager;
@@ -8,7 +10,9 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SpecificationsLists extends JPanel {
 	private JPanel specificationsList;
@@ -16,13 +20,15 @@ public class SpecificationsLists extends JPanel {
 	private PanelManager panelManager;
 	private SpecificationsController specificationsController;
 	private Color bColor;
+	private Map<Specification, ChosenSpecificationRow> chosenMap;
 	
-	public SpecificationsLists(PanelManager panelManager) {
+	public SpecificationsLists(PanelManager panelManager, ProjectController projectController) {
 		this.panelManager = panelManager;
-		specificationsController = new SpecificationsController();
+		chosenMap = new HashMap<>();
+		specificationsController = new SpecificationsController(projectController);
 		bColor = new Color(220, 220, 220);
 		
-		setLayout(new MigLayout("", "[::250px,grow][grow]", "[][grow]"));
+		setLayout(new MigLayout("insets 0", "[::250px,grow][grow]", "[][grow]"));
 		
 		JPanel listContainer = new JPanel();
 		listContainer.setBackground(bColor);
@@ -47,7 +53,7 @@ public class SpecificationsLists extends JPanel {
 
 		specificationsList = new JPanel();
 		listScrollPane.setViewportView(specificationsList);
-		specificationsList.setBackground(bColor);
+		specificationsList.setOpaque(true);
 		specificationsList.setLayout(new BoxLayout(specificationsList, BoxLayout.Y_AXIS));
 
 		JScrollPane chosenScrollPane = new JScrollPane();
@@ -55,40 +61,63 @@ public class SpecificationsLists extends JPanel {
 
 		chosenSpecifications = new JPanel();
 		chosenScrollPane.setViewportView(chosenSpecifications);
-		chosenSpecifications.setBackground(bColor);
+		chosenSpecifications.setOpaque(true);
 		chosenSpecifications.setLayout(new BoxLayout(chosenSpecifications, BoxLayout.Y_AXIS));
 		
-		loadSpecifications();
+		
+		specificationsController.addFindListener(specifications -> {
+			int size = specifications.size();
+			for (int i = 0; i < size; i++) {
+				Specification specification = specifications.get(i);
+				specificationsList.add(createListRow(specification, (i + 1) % 2 == 0));
+			}
+		});
+		
+		specificationsController.addSaveListener(specification -> {
+			ChosenSpecificationRow existingRow = chosenMap.get(specification);
+			if(existingRow == null) {
+				existingRow.setName(specification.getDisplayName());
+			} else {
+				ChosenSpecificationRow row = createSelectedRow(specification, (chosenMap.size() + 1) % 2 == 0);
+				chosenMap.put(specification, row);
+			}
+		});
+		
+		specificationsController.getSpecifications();
 	}
-
-	private Row createListRow(Specification specification) {
-		Row specificationRow = new Row();
+	
+	private Row createListRow(Specification specification, boolean even) {
+		Row specificationRow = new Row(even);
 		specificationRow.setTitleText(specification.getName());
 		specificationRow.setButtonText("Tilf\u00F8j");
 		specificationRow.addActionListener(e ->
-			panelManager.setActive("specification_tab", () -> new SpecificationTab(panelManager, specification)));
+			panelManager.setActive("specification_tab", () -> {
+				SpecificationController specificationController = new SpecificationController(specification);
+				specificationController.addSaveListener(this::createChosenRow);
+				return new SpecificationTab(panelManager, specificationController);
+			}));
 		specificationRow.setMaximumSize(new Dimension(10000, 50));
 		
 		return specificationRow;
 	}
 	
-	private Row createSelectedRow(Specification specification) {
-		Row specificationRow = new Row();
-		specificationRow.setTitleText(specification.getName());
-		specificationRow.setButtonText("Rediger");
+	
+	private void createChosenRow(Specification spec) {
+		ChosenSpecificationRow existingRow = chosenMap.get(spec);
+		if(existingRow == null) {
+			existingRow.setName(spec.getDisplayName());
+		} else {
+			ChosenSpecificationRow row = createSelectedRow(spec, (chosenMap.size() + 1) % 2 == 0);
+			chosenMap.put(spec, row);
+		}
+	}
+	
+	private ChosenSpecificationRow createSelectedRow(Specification specification, boolean even) {
+		ChosenSpecificationRow specificationRow = new ChosenSpecificationRow(specification.getDisplayName(), even);
 		specificationRow.addActionListener(System.out::println);
 		specificationRow.setMaximumSize(new Dimension(10000, 50));
 		
 		return specificationRow;
 	}
 	
-	private void loadSpecifications() {
-		List<Specification> specifications;
-		
-		specifications = specificationsController.getSpecifications();
-		for (Specification specification : specifications) {
-			specificationsList.add(createListRow(specification));
-			chosenSpecifications.add(createSelectedRow(specification));
-		}
-	}
 }
