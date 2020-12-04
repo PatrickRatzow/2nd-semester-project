@@ -11,7 +11,6 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SpecificationsLists extends JPanel {
@@ -94,6 +93,7 @@ public class SpecificationsLists extends JPanel {
 			panelManager.setActive("specification_tab", () -> {
 				SpecificationController specificationController = new SpecificationController(specification);
 				specificationController.addSaveListener(this::createChosenRow);
+				
 				return new SpecificationTab(panelManager, specificationController);
 			}));
 		specificationRow.setMaximumSize(new Dimension(10000, 50));

@@ -6,10 +6,40 @@ import datasource.DBManager;
 import entity.Project;
 import exception.DataAccessException;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ProjectController {
-	public List<Project> findAll() throws DataAccessException {
+	private List<Consumer<List<Project>>> onFindListeners = new LinkedList<>();
+	
+	public void addFindListener(Consumer<List<Project>> listener) {
+		onFindListeners.add(listener);
+	}
+	
+	public void getAll() {
+		new Thread(() -> {
+			try {
+				List<Project> projects = findAll();
+				onFindListeners.forEach(l -> l.accept(projects));
+			} catch (DataAccessException e) {
+				e.printStackTrace();
+			}
+		}).start();
+	}
+	
+	public void getSearchByName(String name) {
+		new Thread(() -> {
+			try {
+				List<Project> projects = findByName(name, false);
+				onFindListeners.forEach(l -> l.accept(projects));
+			} catch (DataAccessException e) {
+				e.printStackTrace();
+			}
+		}).start();
+	}
+	
+	private List<Project> findAll() throws DataAccessException {
         DBConnection connection = DBManager.getPool().getConnection();
         ProjectDao projectDao = DBManager.getDaoFactory().createProjectDao(connection);
         List<Project> projects = projectDao.findAll(false);
@@ -19,7 +49,7 @@ public class ProjectController {
         return projects;
 	}
 	
-    public List<Project> findByName(String name, boolean fullAssociation) throws DataAccessException {
+    private List<Project> findByName(String name, boolean fullAssociation) throws DataAccessException {
         DBConnection connection = DBManager.getPool().getConnection();
         ProjectDao projectDao = DBManager.getDaoFactory().createProjectDao(connection);
         List<Project> projects = projectDao.findByName(name, fullAssociation);

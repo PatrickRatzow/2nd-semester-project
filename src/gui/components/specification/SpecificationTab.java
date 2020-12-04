@@ -2,7 +2,6 @@ package gui.components.specification;
 
 import controller.SpecificationController;
 import entity.Requirement;
-import entity.Specification;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 
@@ -18,10 +17,10 @@ public class SpecificationTab extends JPanel {
 	private String previousId;
 	private SpecificationController specificationController;
 
-	public SpecificationTab(PanelManager panelManager, Specification specification) {
+	public SpecificationTab(PanelManager panelManager, SpecificationController specificationController) {
 		this.panelManager = panelManager;
+		this.specificationController = specificationController;
 		previousId = panelManager.getCurrentId();
-		specificationController = new SpecificationController(specification);
 		List<Requirement> requirements = specificationController.getRequirements();
 		
 		setLayout(new BorderLayout(0, 0));
@@ -67,7 +66,7 @@ public class SpecificationTab extends JPanel {
 		
 		widthContainer.add(titleContainer);
 		titleContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		JLabel titleLabel = new JLabel(specification.getName());
+		JLabel titleLabel = new JLabel("change me to var"); // specification.getName());
 		titleContainer.add(titleLabel);
 		
 			titleLabel.setFont(new Font(titleLabel.getFont().toString(), Font.PLAIN, 20));
