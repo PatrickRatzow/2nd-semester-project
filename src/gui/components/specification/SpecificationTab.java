@@ -31,16 +31,9 @@ public class SpecificationTab extends JPanel {
 		String name = specificationController.getDislayName();
 
 		setLayout(new BorderLayout(0, 0));
-		
 		TitleBar title = new TitleBar();
 		title.setTitle("Specification");
 		title.setButtonName("Gaa Tilbage");
-		title.addActionListener(e -> {
-			String currentId = panelManager.getCurrentId();
-			
-			panelManager.setActive(previousId);
-			panelManager.removePanel(currentId);
-		});
 		add(title, BorderLayout.NORTH);
 		
 		JPanel buttomBar = new JPanel();
@@ -54,35 +47,6 @@ public class SpecificationTab extends JPanel {
 		save.setHorizontalAlignment(SwingConstants.RIGHT);
 		buttomBar.add(save);
 		
-		//Send reuqirements have been saved, and back to Specifications window.
-		save.addActionListener(e -> {
-			String resultNameInTextField = nameColumn.getStringValue();
-			String resultAmountInTextField = amountColumn.getStringValue();	
-				
-			int parseAmount = Integer.parseInt(resultAmountInTextField);
-			System.out.println("Krav er gemt");
-			specificationController.setDisplayName(resultNameInTextField);
-			specificationController.setResultAmount(parseAmount);
-
-			List<Requirement> savedRequirements = new LinkedList<>();
-			for (Entry<SpecificationColumn, Requirement> column : columns.entrySet()) {
-				String value = column.getKey().getStringValue();
-				column.getValue().setValueFromSQLValue(value);
-				
-				savedRequirements.add(column.getValue());
-			}
-			specificationController.setRequirements(savedRequirements);
-			
-			System.out.println(specificationController.getDislayName());
-			System.out.println(specificationController.getResultAmount());
-			System.out.println(specificationController.getRequirements());
-			
-			specificationController.save();
-			String currentId = panelManager.getCurrentId();
-			
-			panelManager.setActive(previousId);
-			panelManager.removePanel(currentId);
-		});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
@@ -121,7 +85,45 @@ public class SpecificationTab extends JPanel {
 			columns.put(specificationColumn, requirement);
 		}
 		
-		System.out.println("Added requirements: " + requirements);
+		System.out.println("Added requirements: " + requirements); // delete later
+		//Send reuqirements have been saved, and back to Specifications window.
+		
+		
+		title.addActionListener(e -> {
+			String currentId = panelManager.getCurrentId();
+			
+			panelManager.setActive(previousId);
+			panelManager.removePanel(currentId);
+		});
+		
+		save.addActionListener(e -> {
+			String resultNameInTextField = nameColumn.getStringValue();
+			String resultAmountInTextField = amountColumn.getStringValue();	
+				
+			int parseAmount = Integer.parseInt(resultAmountInTextField);
+			System.out.println("Krav er gemt");
+			specificationController.setDisplayName(resultNameInTextField);
+			specificationController.setResultAmount(parseAmount);
+
+			List<Requirement> savedRequirements = new LinkedList<>();
+			for (Entry<SpecificationColumn, Requirement> column : columns.entrySet()) {
+				String value = column.getKey().getStringValue();
+				column.getValue().setValueFromSQLValue(value);
+				
+				savedRequirements.add(column.getValue());
+			}
+			specificationController.setRequirements(savedRequirements);
+			
+			System.out.println(specificationController.getDislayName());
+			System.out.println(specificationController.getResultAmount());
+			System.out.println(specificationController.getRequirements());
+			
+			specificationController.save();
+			String currentId = panelManager.getCurrentId();
+			
+			panelManager.setActive(previousId);
+			panelManager.removePanel(currentId);
+		});
 	}
 	
 	private Component createSpacer() {
@@ -151,5 +153,4 @@ public class SpecificationTab extends JPanel {
 
 		return rows;
 	}
-	
 }
