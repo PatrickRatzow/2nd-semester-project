@@ -9,9 +9,9 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("serial")
 public class SpecificationsLists extends JPanel {
@@ -19,7 +19,8 @@ public class SpecificationsLists extends JPanel {
 	private JPanel chosenSpecifications;
 	private PanelManager panelManager;
 	private Color bColor;
-	private Map<Specification, ChosenSpecificationRow> chosenMap;
+	private Map<Integer, ChosenSpecificationRow> chosenMap;
+	private int displayId = 0;
 
 	public SpecificationsLists(PanelManager panelManager) {
 		this.panelManager = panelManager;
@@ -64,7 +65,9 @@ public class SpecificationsLists extends JPanel {
 	}
 
 	public List<Specification> getSpecifications() {
-		return new LinkedList<>(chosenMap.keySet());
+		return chosenMap.values().stream()
+				.map(ChosenSpecificationRow::getSpecification)
+				.collect(Collectors.toList());
 	}
 
 	public void setSpecifications(List<Specification> specifications) {
@@ -82,6 +85,7 @@ public class SpecificationsLists extends JPanel {
 		specificationRow.addActionListener(e ->
 			panelManager.setActive("specification_tab", () -> {
 				SpecificationController specificationController = new SpecificationController(specification);
+				specificationController.setDisplayId(displayId++);
 				specificationController.addSaveListener(this::createChosenRow);
 				
 				return new SpecificationTab(panelManager, specificationController);
@@ -91,18 +95,22 @@ public class SpecificationsLists extends JPanel {
 		return specificationRow;
 	}
 
-	private void createChosenRow(Specification spec) {
-		ChosenSpecificationRow existingRow = chosenMap.get(spec);
+	private void createChosenRow(SpecificationController specificationController) {
+		Specification spec = specificationController.getSpecification();
+		int displayId = specificationController.getDisplayId();
+		ChosenSpecificationRow existingRow = chosenMap.get(displayId);
 		if (existingRow != null) {
 			existingRow.setName(spec.getDisplayName());
+			existingRow.setSpecification(spec);
 		} else {
 			boolean even = (chosenMap.size() + 1) % 2 == 0;
 			ChosenSpecificationRow row = new ChosenSpecificationRow(spec.getDisplayName(), even);
 			row.addActionListener(System.out::println);
 			row.setMaximumSize(new Dimension(10000, 50));
+			row.setSpecification(spec);
 			chosenSpecifications.add(row);
 
-			chosenMap.put(spec, row);
+			chosenMap.put(displayId, row);
 		}
 	}
 }

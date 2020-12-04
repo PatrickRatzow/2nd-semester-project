@@ -13,8 +13,9 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class SpecificationController {
+    private int displayId;
     private Specification specification;
-    private List<Consumer<Specification>> onSaveListeners = new LinkedList<>();
+    private List<Consumer<SpecificationController>> onSaveListeners = new LinkedList<>();
     
     public SpecificationController(Specification specification) {
         this.specification = specification;
@@ -28,12 +29,12 @@ public class SpecificationController {
     	specification.setRequirements(requirements);
     }
 
-    public void addSaveListener(Consumer<Specification> listener) {
+    public void addSaveListener(Consumer<SpecificationController> listener) {
 		onSaveListeners.add(listener);
 	}
     
     public void save() {
-    	onSaveListeners.forEach(l -> l.accept(specification));
+    	onSaveListeners.forEach(l -> l.accept(this));
     }
 
     public void load() throws DataAccessException {
@@ -64,6 +65,15 @@ public class SpecificationController {
     public Specification getSpecification() {
     	return specification;
     }
+
+    public int getDisplayId() {
+        return displayId;
+    }
+
+    public void setDisplayId(int displayId) {
+        this.displayId = displayId;
+    }
+
 
     /*
     public static void main(String[] args) {
