@@ -2,6 +2,8 @@ package gui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
+import entity.Specification;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -33,6 +35,7 @@ public class Frame extends JFrame {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
+		
 	    
 	    tabbedPane.addTab("Projekter", new Projects());
 	    tabbedPane.addTab("Kunder", new Customers());
