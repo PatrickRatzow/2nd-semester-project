@@ -2,8 +2,6 @@ package gui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
-import entity.Specification;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -42,5 +40,4 @@ public class Frame extends JFrame {
 	    tabbedPane.addTab("Billigste produkter", new ProductFinder());
 	    tabbedPane.setSelectedIndex(1);
 	}
-
 }

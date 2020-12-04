@@ -1,8 +1,6 @@
 package gui.components.specification;
 
-import controller.ProjectController;
 import controller.SpecificationController;
-import controller.SpecificationsController;
 import entity.Specification;
 import gui.components.core.PanelManager;
 import gui.components.core.Row;
@@ -11,6 +9,8 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("serial")
@@ -18,14 +18,12 @@ public class SpecificationsLists extends JPanel {
 	private JPanel specificationsList;
 	private JPanel chosenSpecifications;
 	private PanelManager panelManager;
-	private SpecificationsController specificationsController;
 	private Color bColor;
 	private Map<Specification, ChosenSpecificationRow> chosenMap;
-	
-	public SpecificationsLists(PanelManager panelManager, ProjectController projectController) {
+
+	public SpecificationsLists(PanelManager panelManager) {
 		this.panelManager = panelManager;
 		chosenMap = new HashMap<>();
-		specificationsController = new SpecificationsController(projectController);
 		bColor = new Color(220, 220, 220);
 		
 		setLayout(new MigLayout("insets 0", "[::250px,grow][grow]", "[][grow]"));
@@ -63,19 +61,18 @@ public class SpecificationsLists extends JPanel {
 		chosenScrollPane.setViewportView(chosenSpecifications);
 		chosenSpecifications.setOpaque(true);
 		chosenSpecifications.setLayout(new BoxLayout(chosenSpecifications, BoxLayout.Y_AXIS));
-		
-		specificationsController.addFindListener(specifications -> {
-			int size = specifications.size();
-			for (int i = 0; i < size; i++) {
-				Specification specification = specifications.get(i);
-				specificationsList.add(createListRow(specification, (i + 1) % 2 == 0));
-			}
-		});
-		specificationsController.addSaveListener(products -> {
-			// Code for when we have calculated our products
-		});
-		
-		specificationsController.getSpecifications();
+	}
+
+	public List<Specification> getSpecifications() {
+		return new LinkedList<>(chosenMap.keySet());
+	}
+
+	public void setSpecifications(List<Specification> specifications) {
+		int size = specifications.size();
+		for (int i = 0; i < size; i++) {
+			Specification specification = specifications.get(i);
+			specificationsList.add(createListRow(specification, (i + 1) % 2 == 0));
+		}
 	}
 	
 	private Row createListRow(Specification specification, boolean even) {
@@ -93,11 +90,10 @@ public class SpecificationsLists extends JPanel {
 		
 		return specificationRow;
 	}
-	
-	
+
 	private void createChosenRow(Specification spec) {
 		ChosenSpecificationRow existingRow = chosenMap.get(spec);
-		if (existingRow == null) {
+		if (existingRow != null) {
 			existingRow.setName(spec.getDisplayName());
 		} else {
 			boolean even = (chosenMap.size() + 1) % 2 == 0;

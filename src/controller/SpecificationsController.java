@@ -1,5 +1,7 @@
 package controller;
 
+import dao.SpecificationToProductCategoryDao;
+import datasource.DBManager;
 import entity.Product;
 import entity.Specification;
 import entity.specifications.Roof;
@@ -11,24 +13,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
-
-import dao.SpecificationToProductCategoryDao;
-import datasource.DBConnection;
-import datasource.DBManager;
 
 public class SpecificationsController {
 	private List<Consumer<List<Specification>>> onFindListeners = new LinkedList<>();
 	private List<Consumer<Map<Specification, List<Product>>>> onSaveListeners = new LinkedList<>();
-	private ProjectController projectController;
-	private Map<Specification, Void> specMap;
-	
-	public SpecificationsController(ProjectController projectController) {
-		this.projectController = projectController;
-		specMap = new HashMap<>();
-	}
-    
+	private List<Specification> specifications = new LinkedList<>();
+
 	public void addFindListener(Consumer<List<Specification>> listener) {
 		onFindListeners.add(listener);
 	}
@@ -45,8 +36,8 @@ public class SpecificationsController {
         onFindListeners.forEach(l -> l.accept(specifications));
     }
     
-    public void addSpecification(Specification spec) {
-    	specMap.put(spec, null);
+    public void setSpecifications(List<Specification> specifications) {
+    	this.specifications = specifications;
     }
     
     private Thread findProductsBySpecification(Specification spec, Consumer<List<Product>> productsConsumer) {
@@ -65,11 +56,11 @@ public class SpecificationsController {
 
     public void getProductsFromSpecifications() {
     	new Thread(() -> {
-    		Set<Specification> specifications = specMap.keySet();
+    	    List<Specification> specificationsCopy = specifications;
             Map<Specification, List<Product>> specProductsMap = new HashMap<>();
 
             List<Thread> threads = new LinkedList<>();
-            for (Specification specification : specifications) {
+            for (Specification specification : specificationsCopy) {
                 final Specification specTemp = specification;
                 threads.add(findProductsBySpecification(specTemp, ps -> specProductsMap.put(specTemp, ps)));
             }

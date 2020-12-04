@@ -36,7 +36,6 @@ public class SpecificationController {
     	onSaveListeners.forEach(l -> l.accept(specification));
     }
 
-
     public void load() throws DataAccessException {
         final DBConnection connection = DBManager.getPool().getConnection();
         final SpecificationToProductCategoryDao dao =
