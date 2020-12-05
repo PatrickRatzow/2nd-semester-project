@@ -2,6 +2,7 @@ package gui.components.specification;
 
 import controller.SpecificationController;
 import entity.Requirement;
+import entity.Specification;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 
@@ -21,13 +22,14 @@ public class SpecificationTab extends JPanel {
 	private SpecificationController specificationController;
 	private SpecificationColumn nameColumn;
 	private SpecificationColumn amountColumn;
+	private Map<SpecificationColumn, Requirement> columns;
 
 	public SpecificationTab(PanelManager panelManager, SpecificationController specificationController) {
 		this.panelManager = panelManager;
 		this.specificationController = specificationController;
 		previousId = panelManager.getCurrentId();
 		List<Requirement> requirements = specificationController.getRequirements();
-		Map<SpecificationColumn, Requirement> columns = new HashMap<>();
+		columns = new HashMap<>();
 		String name = specificationController.getDislayName();
 
 		setLayout(new BorderLayout(0, 0));
@@ -40,13 +42,11 @@ public class SpecificationTab extends JPanel {
 		add(buttomBar, BorderLayout.SOUTH);
 		buttomBar.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
-		
 		JButton save = new JButton("Gem krav");
 		save.setBackground(Color.GREEN);
 		save.setForeground(Color.BLACK);
 		save.setHorizontalAlignment(SwingConstants.RIGHT);
 		buttomBar.add(save);
-		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
@@ -67,28 +67,16 @@ public class SpecificationTab extends JPanel {
 		titleContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		JLabel titleLabel = new JLabel(name);
 		titleContainer.add(titleLabel);
-		
 		titleLabel.setFont(new Font(titleLabel.getFont().toString(), Font.PLAIN, 20));
-		
-		Font font = titleLabel.getFont();
-		Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
-		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		titleLabel.setFont(font.deriveFont(attributes));
 
-		createSpecificationColumns(widthContainer);			
 		
-		for (Requirement requirement : requirements) {
-			SpecificationColumn specificationColumn = createRequirementColumn(requirement);
-
-			widthContainer.add(specificationColumn);
-			widthContainer.add(createSpacer());
-			columns.put(specificationColumn, requirement);
-		}
+		setUnderlineToFont(titleLabel);
+		createSpecificationColumns(widthContainer);		
+		loadSpecification(widthContainer, specificationController);
+		
+		something(requirements, widthContainer); //Needs an other name, just havent thought of that name yet
 		
 		System.out.println("Added requirements: " + requirements); // delete later
-		
-		
-
 		
 		title.addActionListener(e -> {
 			String currentId = panelManager.getCurrentId();
@@ -97,7 +85,7 @@ public class SpecificationTab extends JPanel {
 			panelManager.removePanel(currentId);
 		});
 		
-		//Send reuqirements have been saved, and back to Specifications window.
+		//Send reuqirements have been saved, and back to Specifications window. // fulfilled;
 		save.addActionListener(e -> {
 			String resultNameInTextField = nameColumn.getStringValue();
 			String resultAmountInTextField = amountColumn.getStringValue();	
@@ -128,9 +116,20 @@ public class SpecificationTab extends JPanel {
 		});
 	}
 	
-	public void loadSpecification(SpecificationController specController) {
+	//Check if the fields we are trying to load are not empty, then we will load them all;
+	//Else we assume that it has not been created and we cannot set anything;
+	public void loadSpecification(JPanel widthContainer, SpecificationController specController) {
 		Specification spec = specController.getSpecification();
-		System.out.println();
+		System.out.println("WE ARE TRYING TO EDIT " + spec.getDisplayName());
+		
+		
+		for (Entry<SpecificationColumn, Requirement> column : columns.entrySet()) {
+			String value = column.getKey().getStringValue();
+			Requirement requirement = column.getValue();
+			column.getValue().setValueFromSQLValue(value);
+			column.setValue(requirement);
+		}
+		System.out.println(spec.getDisplayName());
 	}
 	
 	private void createSpecificationColumns(JPanel widthContainer) {
@@ -141,6 +140,16 @@ public class SpecificationTab extends JPanel {
 		amountColumn = createSpecificationColumn("Antal");
 		widthContainer.add(amountColumn);
 		widthContainer.add(createSpacer());
+	}
+	
+	private void something(List<Requirement> requirements, JPanel widthContainer) {
+		for (Requirement requirement : requirements) {
+			SpecificationColumn specificationColumn = createRequirementColumn(requirement);
+
+			widthContainer.add(specificationColumn);
+			widthContainer.add(createSpacer());
+			columns.put(specificationColumn, requirement);
+		}
 	}
 	
 	private SpecificationColumn createRequirementColumn(Requirement requirement) {
@@ -155,6 +164,13 @@ public class SpecificationTab extends JPanel {
 		SpecificationColumn rows = new SpecificationColumn(displayValue, field);
 
 		return rows;
+	}
+	
+	private void setUnderlineToFont(JLabel titleLabel) {
+		Font font = titleLabel.getFont();
+		Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		titleLabel.setFont(font.deriveFont(attributes));
 	}
 	
 	
