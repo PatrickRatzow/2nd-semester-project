@@ -5,6 +5,7 @@ import entity.Requirement;
 import java.util.LinkedList;
 import java.util.List;
 
+//Can also make drop down menus for other requirements here:
 public class SpecificationColumnValueFieldFactory {
 	static SpecificationColumnValueField<?, ?, ?> create(Requirement requirement) {
 		switch (requirement.getClass().getName()) {
