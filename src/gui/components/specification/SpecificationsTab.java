@@ -30,14 +30,15 @@ public class SpecificationsTab extends JPanel {
 		add(specificationsLists, BorderLayout.CENTER);
 
 		JPanel panel = new JPanel();
-		add(panel, BorderLayout.SOUTH);
+		panel.setOpaque(false);
 		panel.setLayout(new BorderLayout(0, 0));
+		add(panel, BorderLayout.SOUTH);
 		
-		Component rigidArea = Box.createRigidArea(new Dimension(0, 10));
+		Component rigidArea = Box.createRigidArea(new Dimension(0, 5));
 		panel.add(rigidArea, BorderLayout.NORTH);
 		
 		JButton continueBtn = new JButton("G\u00E5 videre");
-		continueBtn.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		continueBtn.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		continueBtn.setBackground(Colors.GREEN.getColor());
 		continueBtn.addActionListener(l -> {
 			List<Specification> specifications = specificationsLists.getSpecifications();

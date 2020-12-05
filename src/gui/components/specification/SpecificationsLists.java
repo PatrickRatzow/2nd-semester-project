@@ -4,6 +4,7 @@ import controller.SpecificationController;
 import entity.Specification;
 import gui.components.core.PanelManager;
 import gui.components.core.Row;
+import gui.util.Colors;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -20,19 +21,17 @@ public class SpecificationsLists extends JPanel {
 	private JPanel specificationsList;
 	private JPanel chosenSpecifications;
 	private PanelManager panelManager;
-	private Color bColor;
 	private Map<Integer, Entry<Specification, ChosenSpecificationRow>> chosenMap;
 	private int displayId = 0;
 
 	public SpecificationsLists(PanelManager panelManager) {
+		setOpaque(false);
 		this.panelManager = panelManager;
 		chosenMap = new HashMap<>();
-		bColor = new Color(220, 220, 220);
-
 		setLayout(new MigLayout("insets 0", "[::250px,grow][grow]", "[][grow]"));
 
 		JPanel listContainer = new JPanel();
-		listContainer.setBackground(bColor);
+		listContainer.setBackground(Colors.PRIMARY.getColor());
 		listContainer.setFont(new Font("Tahoma", Font.BOLD, 15));
 		add(listContainer, "cell 0 0,grow");
 
@@ -41,7 +40,7 @@ public class SpecificationsLists extends JPanel {
 		listContainer.add(titleList);
 
 		JPanel chosenContainer = new JPanel();
-		chosenContainer.setBackground(bColor);
+		chosenContainer.setBackground(Colors.PRIMARY.getColor());
 		chosenContainer.setFont(new Font("Tohoma", Font.BOLD, 15));
 		add(chosenContainer, "cell 1 0,grow");
 
@@ -50,11 +49,12 @@ public class SpecificationsLists extends JPanel {
 		chosenContainer.add(titleChosen);
 
 		JScrollPane listScrollPane = new JScrollPane();
+		listScrollPane.setOpaque(false);
 		add(listScrollPane, "cell 0 1,grow");
 
 		specificationsList = new JPanel();
 		listScrollPane.setViewportView(specificationsList);
-		specificationsList.setOpaque(true);
+		specificationsList.setBackground(Colors.SECONDARY.getColor());
 		specificationsList.setLayout(new BoxLayout(specificationsList, BoxLayout.Y_AXIS));
 
 		JScrollPane chosenScrollPane = new JScrollPane();
@@ -62,7 +62,7 @@ public class SpecificationsLists extends JPanel {
 
 		chosenSpecifications = new JPanel();
 		chosenScrollPane.setViewportView(chosenSpecifications);
-		chosenSpecifications.setOpaque(true);
+		chosenSpecifications.setBackground(Colors.SECONDARY.getColor());
 		chosenSpecifications.setLayout(new BoxLayout(chosenSpecifications, BoxLayout.Y_AXIS));
 	}
 

@@ -23,7 +23,7 @@ public class Row extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		setMaximumSize(new Dimension(32746, 50));
 		if (even) {
-			setBackground(Colors.SECONDARY.getColor());
+			setBackground(Colors.PRIMARY.getColor());
 		}
 		
 		rightContainer = new JPanel();

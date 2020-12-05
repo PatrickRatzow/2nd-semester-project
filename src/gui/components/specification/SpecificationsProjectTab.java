@@ -1,6 +1,7 @@
 package gui.components.specification;
 
 import controller.ProjectController;
+import gui.components.core.BackgroundTitle;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 
@@ -28,14 +29,11 @@ public class SpecificationsProjectTab extends JPanel {
 		add(container, BorderLayout.CENTER);
 		container.setLayout(new BorderLayout(0, 0));
 		
-		JPanel titleContainer = new JPanel();
-		container.add(titleContainer, BorderLayout.NORTH);
-		
-		JLabel title = new JLabel("Specifikationer (2/3)");
-		title.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-		titleContainer.add(title);
+		BackgroundTitle backgroundContainer = new BackgroundTitle();
+		backgroundContainer.setTitle("Specifikationer 2/3");
+		container.add(backgroundContainer);
 		
 		JComponent specificationsTab = new SpecificationsTab(panelManager);
-		container.add(specificationsTab, BorderLayout.CENTER);
+		backgroundContainer.add(specificationsTab);
 	}
 }

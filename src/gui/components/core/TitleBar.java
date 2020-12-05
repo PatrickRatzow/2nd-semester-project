@@ -6,14 +6,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 public class TitleBar extends JPanel {
 	private JLabel title;
 	private JButton actionButton;
 	protected JPanel container;
-	private JTextField searchField;
+	private SearchField searchField;
 	private JPanel searchContainer;
 	
 	public TitleBar() {
@@ -60,30 +58,11 @@ public class TitleBar extends JPanel {
 		container.add(searchContainer, BorderLayout.CENTER);
 		searchContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
-		searchField = new JTextField();
+		searchField = new SearchField();
+		searchField.setPlaceholder(placeholderText);
 		searchField.setPreferredSize(new Dimension(6, 37));
-		searchField.setBorder(new EmptyBorder(0, 0, 0, 0));
 		searchContainer.add(searchField);
 		searchField.setColumns(20);
-		searchField.setForeground(Color.GRAY);
-		searchField.setText(placeholderText);
-		searchField.addFocusListener(new FocusListener() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				if (searchField.getText().equals(placeholderText)) {
-					searchField.setText("");
-					searchField.setForeground(Color.BLACK);
-				}
-			}
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				if (searchField.getText().isEmpty()) {
-					searchField.setForeground(Color.GRAY);
-					searchField.setText(placeholderText);
-				}
-			}
-		});
 		
 		return searchField;
 	}
