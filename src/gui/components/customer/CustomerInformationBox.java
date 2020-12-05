@@ -15,22 +15,27 @@ public class CustomerInformationBox extends JPanel {
 	public CustomerInformationBox(Customer customer) {
 		setBackground(Color.GRAY);
 		setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblNewLabel = new JLabel("Kunde");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		add(lblNewLabel, BorderLayout.NORTH);
+		setBackground(Color.RED);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		
 		panel = new JPanel();
+		panel.setMinimumSize(new Dimension(400, 10));
 		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		scrollPane.setViewportView(panel);
+		
+		JLabel titleLbl = new JLabel("Kunde");
+		titleLbl.setBorder(new EmptyBorder(5, 5, 5, 5));
+		titleLbl.setFont(new Font("Tahoma", Font.BOLD, 18));
+		add(titleLbl, BorderLayout.NORTH);
 		
 		List<String[]> rows = new LinkedList<>();
 		rows.add(new String[]{ "Fornavn", customer.getFirstName() });
 		rows.add(new String[]{ "Efternavn", customer.getLastName() });
-		rows.add(new String[]{ "Addresse", customer.getAddress().getStreetName() + " " + customer.getAddress().getStreetNumber() });
+		rows.add(new String[]{ "Addresse", customer.getAddress().getStreetName() + " " +
+				customer.getAddress().getStreetNumber() });
 		rows.add(new String[]{ "By", customer.getAddress().getCity() });
 		rows.add(new String[]{ "Postnummer", String.valueOf(customer.getAddress().getZipCode()) });
 		rows.add(new String[]{ "Email", customer.getEmail() });
@@ -38,8 +43,6 @@ public class CustomerInformationBox extends JPanel {
 		for (String[] strings : rows) {
 			panel.add(createRow(strings[0], strings[1]));
 		}
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		
 	}
 
 	private JPanel createRow(String titleText, String bodyText) {

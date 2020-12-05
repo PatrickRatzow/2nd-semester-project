@@ -7,10 +7,8 @@ import java.util.List;
 
 public class SpecificationColumnValueFieldFactory {
 	static SpecificationColumnValueField<?, ?, ?> create(Requirement requirement) {
-		System.out.println(requirement.getClass().getName());
 		switch (requirement.getClass().getName()) {
 			case "entity.requirements.RequirementColor":
-				System.out.println("I'M IN");
 				SpecificationColumnColor field = new SpecificationColumnColor();
 				List<String> options = new LinkedList<String>();
 				options.add("Roed");

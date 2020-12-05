@@ -1,5 +1,7 @@
 package gui.components.core;
 
+import gui.util.Colors;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -15,7 +17,7 @@ public class TitleBar extends JPanel {
 	private JPanel searchContainer;
 	
 	public TitleBar() {
-		setBackground(new Color(220, 220, 220));
+		setBackground(Colors.PRIMARY.getColor());
 		setLayout(new CardLayout(0, 0));
 		setPreferredSize(new Dimension(10000, 47));
 

@@ -4,14 +4,13 @@ import controller.SpecificationController;
 import entity.Requirement;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
+import gui.util.Colors;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.TextAttribute;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 @SuppressWarnings("serial")
@@ -21,6 +20,7 @@ public class SpecificationTab extends JPanel {
 	private SpecificationController specificationController;
 	private SpecificationColumn nameColumn;
 	private SpecificationColumn amountColumn;
+	private JPanel widthContainer;
 
 	public SpecificationTab(PanelManager panelManager, SpecificationController specificationController) {
 		this.panelManager = panelManager;
@@ -34,19 +34,42 @@ public class SpecificationTab extends JPanel {
 		TitleBar title = new TitleBar();
 		title.setTitle("Specification");
 		title.setButtonName("Gaa Tilbage");
+		title.addActionListener(e -> {
+			String currentId = panelManager.getCurrentId();
+			
+			panelManager.setActive(previousId);
+			panelManager.removePanel(currentId);
+		});
 		add(title, BorderLayout.NORTH);
 		
 		JPanel buttomBar = new JPanel();
 		add(buttomBar, BorderLayout.SOUTH);
 		buttomBar.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
-		
 		JButton save = new JButton("Gem krav");
-		save.setBackground(Color.GREEN);
-		save.setForeground(Color.BLACK);
+		save.setBackground(Colors.GREEN.getColor());
 		save.setHorizontalAlignment(SwingConstants.RIGHT);
+		save.addActionListener(e -> {
+			// Get the values of the fields that we know are there
+			String resultNameInTextField = nameColumn.getStringValue();
+			String resultAmountInTextField = amountColumn.getStringValue();	
+			int parseAmount = Integer.parseInt(resultAmountInTextField);
+			// Set the values on our controller
+			specificationController.setDisplayName(resultNameInTextField);
+			specificationController.setResultAmount(parseAmount);
+			// Set the value of our requirement from their respective field
+			for (Entry<SpecificationColumn, Requirement> column : columns.entrySet()) {
+				String value = column.getKey().getStringValue();
+				column.getValue().setValueFromSQLValue(value);
+			}
+			// Set the requirements and save
+			specificationController.setRequirements(new LinkedList<>(columns.values()));
+			specificationController.save();
+			
+			// Go back to the previous panel
+			panelManager.setActiveAndRemoveCurrent(previousId);
+		});
 		buttomBar.add(save);
-		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
@@ -55,7 +78,7 @@ public class SpecificationTab extends JPanel {
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new CardLayout());
 		
-		JPanel widthContainer = new JPanel();
+		widthContainer = new JPanel();
 		widthContainer.setMaximumSize(new Dimension(400, 10000));
 		panel.add(widthContainer);
 		widthContainer.setLayout(new BoxLayout(widthContainer, BoxLayout.Y_AXIS));
@@ -75,62 +98,28 @@ public class SpecificationTab extends JPanel {
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		titleLabel.setFont(font.deriveFont(attributes));
 
-		createSpecificationColumns(widthContainer);			
+		// Creates name + amount fields
+		createSpecificationColumns();	
 		
-		for (Requirement requirement : requirements) {
+		// Creates the dynamic fields from the requirement
+		Iterator<Requirement> iterator = requirements.iterator();
+		while (iterator.hasNext()) {
+			Requirement requirement = iterator.next();
 			SpecificationColumn specificationColumn = createRequirementColumn(requirement);
-
 			widthContainer.add(specificationColumn);
-			widthContainer.add(createSpacer());
 			columns.put(specificationColumn, requirement);
-		}
-		
-		System.out.println("Added requirements: " + requirements); // delete later
-		//Send reuqirements have been saved, and back to Specifications window.
-		
-		
-		title.addActionListener(e -> {
-			String currentId = panelManager.getCurrentId();
-			
-			panelManager.setActive(previousId);
-			panelManager.removePanel(currentId);
-		});
-		
-		save.addActionListener(e -> {
-			String resultNameInTextField = nameColumn.getStringValue();
-			String resultAmountInTextField = amountColumn.getStringValue();	
-				
-			int parseAmount = Integer.parseInt(resultAmountInTextField);
-			System.out.println("Krav er gemt");
-			specificationController.setDisplayName(resultNameInTextField);
-			specificationController.setResultAmount(parseAmount);
-
-			List<Requirement> savedRequirements = new LinkedList<>();
-			for (Entry<SpecificationColumn, Requirement> column : columns.entrySet()) {
-				String value = column.getKey().getStringValue();
-				column.getValue().setValueFromSQLValue(value);
-				
-				savedRequirements.add(column.getValue());
+			// Add a spacer if this isn't the last iteration
+			if (iterator.hasNext()) {
+				widthContainer.add(createSpacer());
 			}
-			specificationController.setRequirements(savedRequirements);
-			
-			System.out.println(specificationController.getDislayName());
-			System.out.println(specificationController.getResultAmount());
-			System.out.println(specificationController.getRequirements());
-			
-			specificationController.save();
-			String currentId = panelManager.getCurrentId();
-			
-			panelManager.setActive(previousId);
-			panelManager.removePanel(currentId);
-		});
+		}
 	}
 	
 	private Component createSpacer() {
 		return Box.createRigidArea(new Dimension(0, 20));
 	}
 	
-	private void createSpecificationColumns(JPanel widthContainer) {
+	private void createSpecificationColumns() {
 		widthContainer.add(createSpacer());
 		nameColumn = createSpecificationColumn("Navn");
 		widthContainer.add(nameColumn);
@@ -140,17 +129,15 @@ public class SpecificationTab extends JPanel {
 		widthContainer.add(createSpacer());
 	}
 	
-	private SpecificationColumn createRequirementColumn(Requirement requirement) {
-		SpecificationColumnValueField field = SpecificationColumnValueFieldFactory.create(requirement);
-		SpecificationColumn rows = new SpecificationColumn(requirement.getName(), field);
+	private SpecificationColumn createRequirementColumn(Requirement<?> requirement) {
+		SpecificationColumnValueField<?, ?, ?> field = SpecificationColumnValueFieldFactory.create(requirement);
 
-		return rows;
+		return new SpecificationColumn(requirement.getName(), field);
 	}
 	
 	private SpecificationColumn createSpecificationColumn(String displayValue) {
-		SpecificationColumnValueField field = new SpecificationColumnTextField();
-		SpecificationColumn rows = new SpecificationColumn(displayValue, field);
+		SpecificationColumnValueField<?, ?, ?> field = new SpecificationColumnTextField();
 
-		return rows;
+		return new SpecificationColumn(displayValue, field);
 	}
 }

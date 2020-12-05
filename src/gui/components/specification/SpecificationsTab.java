@@ -5,6 +5,7 @@ import controller.SpecificationsController;
 import entity.Product;
 import entity.Specification;
 import gui.components.core.PanelManager;
+import gui.util.Colors;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,8 +38,7 @@ public class SpecificationsTab extends JPanel {
 		
 		JButton continueBtn = new JButton("G\u00E5 videre");
 		continueBtn.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		continueBtn.setForeground(new Color(0, 0, 0));
-		continueBtn.setBackground(new Color(152, 251, 152));
+		continueBtn.setBackground(Colors.GREEN.getColor());
 		continueBtn.addActionListener(l -> {
 			List<Specification> specifications = specificationsLists.getSpecifications();
 

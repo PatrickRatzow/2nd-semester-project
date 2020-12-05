@@ -6,7 +6,7 @@ import entity.Customer;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 import gui.components.specification.SpecificationsProjectTab;
-import net.miginfocom.swing.MigLayout;
+import gui.util.Colors;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +20,9 @@ public class FindOrCreateCustomer extends JPanel {
 	private PanelManager panelManager;
 	private String previousId;
 	private ProjectController projectController;
-	private JPanel panel;
+	private JPanel container;
 	private JButton btnAddCustomer;
+	private JPanel resultContainer;
 	private Customer customer;
 
 	public FindOrCreateCustomer(PanelManager panelManager, ProjectController projectController) {
@@ -34,20 +35,24 @@ public class FindOrCreateCustomer extends JPanel {
 		TitleBar titleBar = new TitleBar();
 		titleBar.setTitle("Find Kunde");
 		titleBar.setButtonName("Gaa tilbage");
-		titleBar.addActionListener(l -> {
-			String currentId = panelManager.getCurrentId();
-			
-			panelManager.setActive(previousId);
-			panelManager.removePanel(currentId);
-		});
+		titleBar.addActionListener(l -> panelManager.setActiveAndRemoveCurrent(previousId));
 		add(titleBar, BorderLayout.NORTH);
-		
-		panel = new JPanel();
-		add(panel, BorderLayout.CENTER);
-		panel.setLayout(new MigLayout("", "[439.00px]", "[23px][][][grow][]"));
+
+		container = new JPanel();
+		container.setLayout(new BorderLayout(0, 0));
+		add(container, BorderLayout.CENTER);
+
+		JPanel topContainer = new JPanel();
+		container.add(topContainer, BorderLayout.NORTH);
+
+		JPanel bottomContainer = new JPanel();
+		container.add(bottomContainer, BorderLayout.SOUTH);
+
+		resultContainer = new JPanel();
+		container.add(resultContainer, BorderLayout.CENTER);
 
 		searchTextField = new JTextField();
-		panel.add(searchTextField, "flowx,cell 0 1");
+		topContainer.add(searchTextField);
 		searchTextField.setColumns(10);
 		searchTextField.setForeground(Color.GRAY);
 		searchTextField.setText(placeholderText);
@@ -62,41 +67,37 @@ public class FindOrCreateCustomer extends JPanel {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-			if (searchTextField.getText().isEmpty()) {
-				searchTextField.setForeground(Color.GRAY);
-				searchTextField.setText(placeholderText);
+				if (searchTextField.getText().isEmpty()) {
+					searchTextField.setForeground(Color.GRAY);
+					searchTextField.setText(placeholderText);
 				}
 			}
 		});
 
+		btnAddCustomer = new JButton("Tilknyt kunde");
+		btnAddCustomer.setBackground(Colors.GREEN.getColor());
+		btnAddCustomer.setVisible(false);
+		bottomContainer.add(btnAddCustomer);
+
 		JButton btnSearch = new JButton("Anmod");
 		btnSearch.addActionListener(e -> customerController.getSearch(searchTextField.getText()));
-		panel.add(btnSearch, "cell 0 1,alignx left,aligny top");
+		topContainer.add(btnSearch);
 
 		JButton btnCreate = new JButton("Opret kunde");
-		panel.add(btnCreate, "cell 0 1,alignx left,aligny top");
-		
-		btnAddCustomer = new JButton("Tilknyt kunde");
-		btnAddCustomer.setBackground(new Color(	150, 255, 167));
-		btnAddCustomer.setVisible(false);
-		panel.add(btnAddCustomer, "cell 0 4");
-		
-		
-		btnCreate.addActionListener(l -> panelManager.setActive("create_customer",
-				() -> {
-					CreateCustomer createCustomer = new CreateCustomer(panelManager);
-					createCustomer.addSaveListener(customer ->
-							panelManager.setActive("specifications",
-									() -> new SpecificationsProjectTab(panelManager, projectController)));
+		topContainer.add(btnCreate);
 
-					return createCustomer;
-				}
-		));
+		btnCreate.addActionListener(l -> panelManager.setActive("create_customer", () -> {
+			CreateCustomer createCustomer = new CreateCustomer(panelManager);
+			createCustomer.addSaveListener(customer -> panelManager.setActive("specifications",
+					() -> new SpecificationsProjectTab(panelManager, projectController)));
+
+			return createCustomer;
+		}));
 		btnSearch.addActionListener(e -> customerController.getSearch(searchTextField.getText()));
 
 		customerController.addFindListener(customers -> {
 			if (resultComponent != null) {
-				panel.remove(resultComponent);
+				resultContainer.remove(resultComponent);
 			}
 			if (!customers.isEmpty()) {
 				createCustomerDisplay(customers.get(0));
@@ -112,33 +113,32 @@ public class FindOrCreateCustomer extends JPanel {
 			panelManager.setActive("specifications",
 					() -> new SpecificationsProjectTab(panelManager, projectController));
 		});
-		
+
 		btnAddCustomer.addActionListener(e -> {
 			projectController.setCustomer(customer);
 
 			panelManager.setActive("specifications",
 					() -> new SpecificationsProjectTab(panelManager, projectController));
-	});}
-	
+		});
+	}
+
 	private void createCustomerDisplay(Customer customer) {
-		resultComponent = new JPanel();
-		panel.add(resultComponent, "cell 0 3,grow");
-		resultComponent.setLayout(new BorderLayout());
-		CustomerInformationBox customerInformationBox = new CustomerInformationBox(customer);
-		resultComponent.add(customerInformationBox, BorderLayout.WEST);
-		this.customer = customer;
+		resultComponent = new CustomerInformationBox(customer);
+		resultContainer.add(resultComponent);
 		
+		this.customer = customer;
+
 		btnAddCustomer.setVisible(true);
 	}
-	
+
 	private void createNoResultDisplay() {
 		resultComponent = new JLabel(searchTextField.getText() + " eksistere ikke.");
 		resultComponent.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		resultComponent.setForeground(Color.RED);
-		panel.add(resultComponent, "cell 0 2");
-		this.customer = null;
+		resultComponent.setForeground(Colors.RED.getColor());
+		resultContainer.add(resultComponent);
 		
+		this.customer = null;
+
 		btnAddCustomer.setVisible(false);
 	}
-
 }

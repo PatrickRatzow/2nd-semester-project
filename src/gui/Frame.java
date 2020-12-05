@@ -33,7 +33,6 @@ public class Frame extends JFrame {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane);
-		
 	    
 	    tabbedPane.addTab("Projekter", new Projects());
 	    tabbedPane.addTab("Kunder", new Customers());

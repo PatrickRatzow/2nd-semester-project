@@ -1,15 +1,15 @@
 package gui.components.specification;
 
-import entity.Specification;
 import gui.components.core.Row;
+import gui.util.Colors;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class ChosenSpecificationRow extends Row {
 	private JButton removeBtn;
-	private Specification specification;
 	
 	public ChosenSpecificationRow(String displayName, boolean even) {
 		super(displayName, "Rediger", even);
@@ -21,16 +21,12 @@ public class ChosenSpecificationRow extends Row {
 		panel.setBorder(new EmptyBorder(5, 5, 5, 0));
 		
 		removeBtn = new JButton("Fjern");
-		removeBtn.setBackground(new Color(252, 92, 101));
+		removeBtn.setBackground(Colors.RED.getColor());
 		removeBtn.setOpaque(true);
 		panel.add(removeBtn, BorderLayout.EAST);
 	}
 
-	public void setSpecification(Specification specification) {
-		this.specification = specification;
-	}
-
-	public Specification getSpecification() {
-		return specification;
+	public void addRemoveButtonActionListener(ActionListener listener) {
+		removeBtn.addActionListener(listener);
 	}
 }

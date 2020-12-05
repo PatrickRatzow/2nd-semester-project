@@ -1,5 +1,7 @@
 package gui.components.core;
 
+import gui.util.Colors;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -21,7 +23,7 @@ public class Row extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		setMaximumSize(new Dimension(32746, 50));
 		if (even) {
-			setBackground(new Color(225, 225, 225));
+			setBackground(Colors.SECONDARY.getColor());
 		}
 		
 		rightContainer = new JPanel();
