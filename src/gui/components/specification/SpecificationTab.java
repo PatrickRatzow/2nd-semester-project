@@ -86,8 +86,9 @@ public class SpecificationTab extends JPanel {
 		}
 		
 		System.out.println("Added requirements: " + requirements); // delete later
-		//Send reuqirements have been saved, and back to Specifications window.
 		
+		
+
 		
 		title.addActionListener(e -> {
 			String currentId = panelManager.getCurrentId();
@@ -96,6 +97,7 @@ public class SpecificationTab extends JPanel {
 			panelManager.removePanel(currentId);
 		});
 		
+		//Send reuqirements have been saved, and back to Specifications window.
 		save.addActionListener(e -> {
 			String resultNameInTextField = nameColumn.getStringValue();
 			String resultAmountInTextField = amountColumn.getStringValue();	
@@ -126,8 +128,9 @@ public class SpecificationTab extends JPanel {
 		});
 	}
 	
-	private Component createSpacer() {
-		return Box.createRigidArea(new Dimension(0, 20));
+	public void loadSpecification(SpecificationController specController) {
+		Specification spec = specController.getSpecification();
+		System.out.println();
 	}
 	
 	private void createSpecificationColumns(JPanel widthContainer) {
@@ -152,5 +155,10 @@ public class SpecificationTab extends JPanel {
 		SpecificationColumn rows = new SpecificationColumn(displayValue, field);
 
 		return rows;
+	}
+	
+	
+	private Component createSpacer() {
+		return Box.createRigidArea(new Dimension(0, 20));
 	}
 }
