@@ -26,6 +26,11 @@ public class SpecificationColumnTextField implements SpecificationColumnValueFie
 	}
 
 	@Override
+	public void setValueAsString(String value) {
+		component.setText(value);
+	}
+
+	@Override
 	public String getValueAsString() {
 		return getValue();
 	}

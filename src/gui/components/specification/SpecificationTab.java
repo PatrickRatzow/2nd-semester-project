@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.*;
 import java.util.Map.Entry;
 
-@SuppressWarnings("serial")
 public class SpecificationTab extends JPanel {
 	private PanelManager panelManager;
 	private String previousId;
@@ -29,7 +28,7 @@ public class SpecificationTab extends JPanel {
 		previousId = panelManager.getCurrentId();
 		List<Requirement> requirements = specificationController.getRequirements();
 		columns = new HashMap<>();
-		String name = specificationController.getDislayName();
+		String name = specificationController.getDisplayName();
 
 		setLayout(new BorderLayout(0, 0));
 		TitleBar title = new TitleBar();
@@ -97,8 +96,6 @@ public class SpecificationTab extends JPanel {
 		setUnderlineToFont(titleLabel);
 		// Creates name + amount fields
 		createSpecificationColumns();
-		// Creates name + amount fields
-		createSpecificationColumns();
 
 		// Creates the dynamic fields from the requirement
 		Iterator<Requirement> iterator = requirements.iterator();
@@ -115,11 +112,18 @@ public class SpecificationTab extends JPanel {
 	}
 
 	public void fillColumnsWithRequirementValues() {
+		nameColumn.setStringValue(specificationController.getDisplayName());
+		amountColumn.setStringValue(String.valueOf(specificationController.getResultAmount()));
+	
+		Map<Requirement, Requirement> requirementsMap = new HashMap<>();
 		List<Requirement> requirements = specificationController.getRequirements();
+		for (Requirement requirement : requirements) {
+			requirementsMap.put(requirement, requirement);
+		}
 
 		for (Entry<Requirement, SpecificationColumn> column : columns.entrySet()) {
-			String value = column.getValue().getStringValue();
-			// TODO: Set
+			String value = requirementsMap.get(column.getKey()).getSQLValue();
+			column.getValue().setStringValue(value);
 		}
 	}
 	

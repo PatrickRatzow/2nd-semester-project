@@ -50,8 +50,8 @@ public class SpecificationController {
     	specification.setDisplayName(name);
     }
 
-    public String getDislayName() {
-    	return specification.getName();
+    public String getDisplayName() {
+    	return specification.getDisplayName();
     }
 
     public void setResultAmount(int amount) {

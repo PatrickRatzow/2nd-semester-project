@@ -21,12 +21,7 @@ public class SpecificationsProjectTab extends JPanel {
 		TitleBar titleBar = new TitleBar();
 		titleBar.setTitle("Opret projekt");
 		titleBar.setButtonName("Gaa tilbage");
-		titleBar.addActionListener(e -> {
-			String currentId = panelManager.getCurrentId();
-			
-			panelManager.setActive(previousId);
-			panelManager.removePanel(currentId);
-		});
+		titleBar.addActionListener(e -> panelManager.setActiveAndRemoveCurrent(previousId));
 		add(titleBar, BorderLayout.NORTH);
 		
 		JPanel container = new JPanel();

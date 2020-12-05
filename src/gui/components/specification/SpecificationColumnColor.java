@@ -26,7 +26,24 @@ public class SpecificationColumnColor implements SpecificationColumnValueField<S
 			component.addItem(option);
 		}
 	}
-	
+
+	@Override
+	public void setValueAsString(String value) {
+		int found = -1;
+
+		int size = component.getItemCount();
+		for (int i = 0; i < size && found == -1; i++) {
+			String option = component.getItemAt(i);
+			if (option.equals(value)) {
+				found = i;
+			}
+		}
+
+		if (found != -1) {
+			component.setSelectedIndex(found);
+		}
+	}
+
 	@Override
 	public String getValueAsString() {
 		return getValue();

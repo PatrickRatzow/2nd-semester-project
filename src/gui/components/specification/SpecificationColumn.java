@@ -34,7 +34,11 @@ public class SpecificationColumn extends JPanel {
 	public JLabel getTitleName() {
 		return titleName;
 	}
-	
+
+	public void setStringValue(String value) {
+		valueField.setValueAsString(value);
+	}
+
 	public String getStringValue() {
 		return valueField.getValueAsString();
 	}

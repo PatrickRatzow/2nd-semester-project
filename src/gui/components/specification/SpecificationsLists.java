@@ -105,8 +105,10 @@ public class SpecificationsLists extends JPanel {
 			row.addActionListener(e -> {
 				panelManager.setActive("specification_tab", () -> {
 					specificationController.addSaveListener(this::createChosenRow);
+					SpecificationTab tab = new SpecificationTab(panelManager, specificationController);
+					tab.fillColumnsWithRequirementValues();
 
-					return new SpecificationTab(panelManager, specificationController);
+					return tab;
 				});
 			});
 			row.addRemoveButtonActionListener(e -> {
