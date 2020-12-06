@@ -33,6 +33,10 @@ public class SpecificationController {
 		onSaveListeners.add(listener);
 	}
     
+    public void removeAllSaveListeners() {
+    	onSaveListeners = new LinkedList<>();
+    }
+    
     public void save() {
     	onSaveListeners.forEach(l -> l.accept(this));
     }
@@ -52,6 +56,10 @@ public class SpecificationController {
 
     public String getDisplayName() {
     	return specification.getDisplayName();
+    }
+    
+    public String getName() {
+    	return specification.getName();
     }
 
     public void setResultAmount(int amount) {

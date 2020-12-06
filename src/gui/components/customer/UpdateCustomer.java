@@ -1,13 +1,13 @@
 package gui.components.customer;
 
+import controller.CustomerController;
 import entity.Customer;
-import gui.components.core.PanelManager;
 
 public class UpdateCustomer extends ManipulateCustomer {
 	private int customerId;
 	
-	public UpdateCustomer(PanelManager panelManager, Customer customer) {
-		super(panelManager, "Opdater kunde", "Gaa tilbage");
+	public UpdateCustomer(CustomerController customerController, Customer customer) {
+		super(customerController);
 		
 		btnAdd.setText("Opdater kunde");
 		setCustomer(customer);
@@ -33,11 +33,13 @@ public class UpdateCustomer extends ManipulateCustomer {
 		String phoneNumber = this.phoneNumber.getContentText();
 		String city = this.city.getContentText();
 		String address = this.address.getContentText();
-		int streetNumber = Integer.parseInt(this.addressNumber.getContentText());
-		int zipCode = Integer.parseInt(this.zipCode.getContentText());
+		String streetNumber = this.addressNumber.getContentText();
+		String zipCode = this.zipCode.getContentText();
 		
-		customerController.setCustomerInformation(customerId, firstName, lastName, email, phoneNumber, city, 
-				address, streetNumber, zipCode);
-		customerController.save();
+		boolean isValid = customerController.setCustomerInformation(customerId, firstName, lastName, email, phoneNumber, 
+				city, address, streetNumber, zipCode);
+		if (isValid) {
+			customerController.save();
+		}
 	}
 }

@@ -1,4 +1,4 @@
-package gui.components.project;
+package gui.tabs.project;
 
 import controller.ProjectController;
 import controller.SpecificationController;
@@ -8,23 +8,24 @@ import entity.Specification;
 import entity.specifications.Window;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
-import gui.components.customer.FindOrCreateCustomer;
-import gui.components.specification.SpecificationTab;
+import gui.components.project.ProjectRow;
+import gui.components.specifications.specification.SpecificationTab;
+import gui.tabs.Tab;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProjectsOverview extends JPanel {
+public class Projects extends Tab {
 	private ProjectController projectController;
 	private JPanel panel;
-	private PanelManager panelManager;
 	private Map<Project, ProjectRow> rows;
 
-	public ProjectsOverview(PanelManager panelManager) {
+	public Projects(PanelManager panelManager) {
+		super(panelManager);
+
 		rows = new HashMap<>();
-		this.panelManager = panelManager;
 		projectController = new ProjectController();
 
 		setLayout(new BorderLayout(0, 0));
@@ -44,7 +45,7 @@ public class ProjectsOverview extends JPanel {
 		titleBar.setMinimumSize(new Dimension(184, 50));
 		add(titleBar, BorderLayout.NORTH);
 		titleBar.addActionListener(e -> {
-			panelManager.setActive("find_project_customer", () -> new FindOrCreateCustomer(panelManager, projectController));
+			panelManager.setActive("find_project_customer", () -> new ProjectFindOrCreateCustomer(panelManager, projectController));
 		});
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -85,9 +86,8 @@ public class ProjectsOverview extends JPanel {
 		row.addActionListener(e -> {
 			panelManager.setActive("project_overview", () -> {
 				Specification xd = new Window();
-				JComponent component = new SpecificationTab(panelManager, new SpecificationController(xd));
-				
-				return component;
+
+				return new SpecificationTab(panelManager, new SpecificationController(xd));
 			});
 		});
 		panel.add(row);

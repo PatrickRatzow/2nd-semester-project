@@ -1,6 +1,6 @@
 package entity;
 
-abstract public class Person {
+public abstract class Person {
     private int id;
     private String firstName;
     private String lastName;
@@ -39,5 +39,21 @@ abstract public class Person {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+    	if (object instanceof Person) {
+    		Person person = (Person) object;
+    		
+    		return person.getId() == id;
+    	}
+    	
+    	return false;
+    }
+    
+    @Override
+    public int hashCode() {
+    	return id;
     }
 }

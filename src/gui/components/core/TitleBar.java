@@ -11,7 +11,7 @@ public class TitleBar extends JPanel {
 	private JLabel title;
 	private JButton actionButton;
 	protected JPanel container;
-	private SearchField searchField;
+	private PlaceholderTextField searchTextField;
 	private JPanel searchContainer;
 	
 	public TitleBar() {
@@ -51,19 +51,19 @@ public class TitleBar extends JPanel {
 	}
 	
 	public JTextField createSearchBar(String placeholderText) {
-		if (searchContainer != null) return searchField;
+		if (searchContainer != null) return searchTextField;
 		
 		searchContainer = new JPanel();
 		searchContainer.setOpaque(false);
 		container.add(searchContainer, BorderLayout.CENTER);
 		searchContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
-		searchField = new SearchField();
-		searchField.setPlaceholder(placeholderText);
-		searchField.setPreferredSize(new Dimension(6, 37));
-		searchContainer.add(searchField);
-		searchField.setColumns(20);
+		searchTextField = new PlaceholderTextField();
+		searchTextField.setPlaceholder(placeholderText);
+		searchTextField.setPreferredSize(new Dimension(6, 37));
+		searchContainer.add(searchTextField);
+		searchTextField.setColumns(20);
 		
-		return searchField;
+		return searchTextField;
 	}
 }

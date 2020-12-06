@@ -1,4 +1,4 @@
-package gui.components.specification;
+package gui.components.specifications;
 
 import controller.ProjectController;
 import gui.components.core.BackgroundTitle;
@@ -30,7 +30,7 @@ public class SpecificationsProjectTab extends JPanel {
 		container.setLayout(new BorderLayout(0, 0));
 		
 		BackgroundTitle backgroundContainer = new BackgroundTitle();
-		backgroundContainer.setTitle("Specifikationer 2/3");
+		backgroundContainer.setTitle("Specifikationer (2/3)");
 		container.add(backgroundContainer);
 		
 		JComponent specificationsTab = new SpecificationsTab(panelManager);

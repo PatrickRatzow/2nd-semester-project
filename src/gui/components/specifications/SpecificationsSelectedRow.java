@@ -1,4 +1,4 @@
-package gui.components.specification;
+package gui.components.specifications;
 
 import gui.components.core.Row;
 import gui.util.Colors;
@@ -8,10 +8,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class ChosenSpecificationRow extends Row {
+public class SpecificationsSelectedRow extends Row {
 	private JButton removeBtn;
 	
-	public ChosenSpecificationRow(String displayName, boolean even) {
+	public SpecificationsSelectedRow(String displayName, boolean even) {
 		super(displayName, "Rediger", even);
 		
 		JPanel panel = new JPanel();

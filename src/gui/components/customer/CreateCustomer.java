@@ -1,10 +1,10 @@
 package gui.components.customer;
 
-import gui.components.core.PanelManager;
+import controller.CustomerController;
 
 public class CreateCustomer extends ManipulateCustomer {
-	public CreateCustomer(PanelManager panelManager) {
-		super(panelManager, "Opret kunde", "Gaa tilbage");
+	public CreateCustomer(CustomerController customController) {
+		super(customController);
 		
 		btnAdd.setText("Opret kunde");
 	}
@@ -16,11 +16,13 @@ public class CreateCustomer extends ManipulateCustomer {
 		String phoneNumber = this.phoneNumber.getContentText();
 		String city = this.city.getContentText();
 		String address = this.address.getContentText();
-		int streetNumber = Integer.parseInt(this.addressNumber.getContentText());
-		int zipCode = Integer.parseInt(this.zipCode.getContentText());
+		String streetNumber = this.addressNumber.getContentText();
+		String zipCode = this.zipCode.getContentText();
 		
-		customerController.setCustomerInformation(firstName, lastName, email, phoneNumber, city, address, 
-				streetNumber, zipCode);
-		customerController.save();
+		boolean isValid = customerController.setCustomerInformation(firstName, lastName, email, phoneNumber, city, 
+				address, streetNumber, zipCode);
+		if (isValid) {
+			customerController.save();
+		}
 	}
 }

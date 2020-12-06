@@ -1,34 +1,30 @@
-package gui.components.customer;
+package gui.tabs.project;
 
 import controller.CustomerController;
 import controller.ProjectController;
 import entity.Customer;
 import gui.components.core.BackgroundTitle;
 import gui.components.core.PanelManager;
-import gui.components.core.SearchField;
+import gui.components.core.PlaceholderTextField;
 import gui.components.core.TitleBar;
-import gui.components.specification.SpecificationsProjectTab;
+import gui.components.customer.CustomerInformationBox;
+import gui.components.specifications.SpecificationsProjectTab;
 import gui.util.Colors;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class FindOrCreateCustomer extends JPanel {
-	private SearchField searchTextField;
-	private CustomerController customerController;
+public class ProjectFindOrCreateCustomer extends JPanel {
+	private PlaceholderTextField searchTextField;
 	private JComponent resultComponent;
-	private PanelManager panelManager;
-	private String previousId;
-	private ProjectController projectController;
 	private JPanel container;
 	private JButton btnAddCustomer;
 	private JPanel resultContainer;
 	private Customer customer;
 
-	public FindOrCreateCustomer(PanelManager panelManager, ProjectController projectController) {
-		this.projectController = projectController;
-		customerController = new CustomerController();
-		previousId = panelManager.getCurrentId();
+	public ProjectFindOrCreateCustomer(PanelManager panelManager, ProjectController projectController) {
+		CustomerController customerController = new CustomerController();
+		String previousId = panelManager.getCurrentId();
 		setLayout(new BorderLayout(0, 0));
 
 		TitleBar titleBar = new TitleBar();
@@ -56,10 +52,10 @@ public class FindOrCreateCustomer extends JPanel {
 		resultContainer = new JPanel();
 		resultContainer.setOpaque(false);
 		container.add(resultContainer, BorderLayout.CENTER);
+		topContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		searchTextField = new SearchField();
-		searchTextField.setColumns(11);
-		searchTextField.setForeground(Color.GRAY);
+		searchTextField = new PlaceholderTextField();
+		searchTextField.setColumns(12);
 		searchTextField.setPlaceholder("Telefonnummer");
 		topContainer.add(searchTextField);
 
@@ -79,14 +75,10 @@ public class FindOrCreateCustomer extends JPanel {
 		topContainer.add(btnSearch);
 
 		JButton btnCreate = new JButton("Opret kunde");
-		btnCreate.addActionListener(l -> panelManager.setActive("create_customer", () -> {
-			CreateCustomer createCustomer = new CreateCustomer(panelManager);
-			createCustomer.addSaveListener(customer -> 
-				panelManager.setActive("specifications",
-					() -> new SpecificationsProjectTab(panelManager, projectController)));
-
-			return createCustomer;
-		}));
+		btnCreate.addActionListener(l -> {
+			panelManager.setActive("create_customer", () -> 
+				new ProjectCreateCustomerTab(panelManager, customerController));
+		});
 		topContainer.add(btnCreate);
 
 		customerController.addFindListener(customers -> {
@@ -106,6 +98,7 @@ public class FindOrCreateCustomer extends JPanel {
 
 			panelManager.setActive("specifications",
 					() -> new SpecificationsProjectTab(panelManager, projectController));
+			panelManager.removePanel("create_customer");
 		});
 	}
 

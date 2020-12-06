@@ -3,10 +3,10 @@ package gui.components.core;
 import javax.swing.*;
 import java.awt.*;
 
-public class SearchField extends JTextField {
+public class PlaceholderTextField extends JTextField {
 	private String placeholder;
 	
-	public SearchField() {
+	public PlaceholderTextField() {
 		setForeground(Color.BLACK);
 	}
 	
@@ -32,7 +32,11 @@ public class SearchField extends JTextField {
             RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(getDisabledTextColor());
-        g.drawString(placeholder, getInsets().left, getSize().height / 2 + 
-        		pG.getFontMetrics().getMaxAscent() / 2);
+        int y = (int) (getSize().getHeight() / 2 + pG.getFontMetrics().getMaxAscent() / 2) - 1;
+        // Hack to fix a bug where if y is even it's 1 px off
+        if (y % 2 == 0) {
+        	y--;
+        }
+        g.drawString(placeholder, getInsets().left, y);
     }
 }

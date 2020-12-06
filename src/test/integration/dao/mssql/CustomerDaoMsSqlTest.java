@@ -109,7 +109,6 @@ public class CustomerDaoMsSqlTest {
         assertEquals(returnCustomer.getEmail(), customer.getEmail());
     }
 
-
     @AfterAll
     static void teardown() {
         connection.release();

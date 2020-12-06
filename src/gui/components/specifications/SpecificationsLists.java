@@ -1,15 +1,16 @@
-package gui.components.specification;
+package gui.components.specifications;
 
 import controller.SpecificationController;
 import entity.Specification;
 import gui.components.core.PanelManager;
 import gui.components.core.Row;
+import gui.components.specifications.specification.SpecificationTab;
 import gui.util.Colors;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,14 +22,14 @@ public class SpecificationsLists extends JPanel {
 	private JPanel specificationsList;
 	private JPanel chosenSpecifications;
 	private PanelManager panelManager;
-	private Map<Integer, Entry<Specification, ChosenSpecificationRow>> chosenMap;
+	private Map<Integer, Entry<Specification, SpecificationsSelectedRow>> chosenMap;
 	private int displayId = 0;
 
 	public SpecificationsLists(PanelManager panelManager) {
 		setOpaque(false);
 		this.panelManager = panelManager;
 		chosenMap = new HashMap<>();
-		setLayout(new MigLayout("insets 0", "[::250px,grow][grow]", "[][grow]"));
+		setLayout(new MigLayout("insets 0, gap rel 0", "[::250px,grow][grow]", "[][grow]"));
 
 		JPanel listContainer = new JPanel();
 		listContainer.setBackground(Colors.PRIMARY.getColor());
@@ -92,18 +93,25 @@ public class SpecificationsLists extends JPanel {
 
 		return specificationRow;
 	}
+	
+	private String getDisplayName(Specification spec) {
+		return spec.getDisplayName() + " (x" + spec.getResultAmount() + ")";
+	}
 
 	private void createChosenRow(SpecificationController specificationController) {
 		Specification spec = specificationController.getSpecification();
 		int displayId = specificationController.getDisplayId();
-		Entry<Specification, ChosenSpecificationRow> entry = chosenMap.get(displayId);
+		Entry<Specification, SpecificationsSelectedRow> entry = chosenMap.get(displayId);
 		if (entry != null) {
-			entry.getValue().setName(entry.getKey().getName());
+			entry.getValue().setTitleText(getDisplayName(spec));
+			
+			chosenMap.replace(displayId, new SimpleEntry<>(spec, entry.getValue()));
 		} else {
 			boolean even = (chosenMap.size() + 1) % 2 == 0;
-			ChosenSpecificationRow row = new ChosenSpecificationRow(spec.getDisplayName(), even);
+			SpecificationsSelectedRow row = new SpecificationsSelectedRow(getDisplayName(spec), even);
 			row.addActionListener(e -> {
 				panelManager.setActive("specification_tab", () -> {
+					specificationController.removeAllSaveListeners();
 					specificationController.addSaveListener(this::createChosenRow);
 					SpecificationTab tab = new SpecificationTab(panelManager, specificationController);
 					tab.fillColumnsWithRequirementValues();
@@ -118,10 +126,9 @@ public class SpecificationsLists extends JPanel {
 				chosenSpecifications.repaint();
 			});
 			row.setMaximumSize(new Dimension(10000, 50));
-
 			chosenSpecifications.add(row);
 
-			chosenMap.put(displayId, new AbstractMap.SimpleEntry<>(spec, row));
+			chosenMap.put(displayId, new SimpleEntry<>(spec, row));
 		}
 	}
 }

@@ -30,8 +30,8 @@ public abstract class Specification {
         this.categories = categories;
     }
     
-    public void setDisplayName(String newDisplayName) {
-    	this.displayName = newDisplayName;
+    public void setDisplayName(String displayName) {
+    	this.displayName = displayName;
     }
     
     public String getDisplayName() {

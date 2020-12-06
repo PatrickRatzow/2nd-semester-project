@@ -1,14 +1,11 @@
 package gui.components.customer;
 
 import controller.CustomerController;
-import entity.Customer;
-import gui.components.core.PanelManager;
-import gui.components.core.TitleBar;
+import gui.util.Colors;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.function.Consumer;
 
 public abstract class ManipulateCustomer extends JPanel {
 	protected ManipulateCustomerColumn firstName;
@@ -21,43 +18,34 @@ public abstract class ManipulateCustomer extends JPanel {
 	protected ManipulateCustomerColumn email;
 	
 	protected CustomerController customerController; 
-	protected PanelManager panelManager;
-	protected String previousId;
 	protected JButton btnAdd;
 	
-	public ManipulateCustomer(PanelManager panelManager, String title, String buttonName) {
-		this.panelManager = panelManager;
-		previousId = panelManager.getCurrentId();
-		customerController = new CustomerController();
-		
+	public ManipulateCustomer(CustomerController customerController) {
+		setOpaque(false);
 		setLayout(new BorderLayout(0, 0));
 		
-		TitleBar titleBar = new TitleBar();
-		titleBar.setTitle(title);
-		titleBar.setButtonName(buttonName);
-		titleBar.addActionListener(e -> {
-			String currentId = panelManager.getCurrentId();
-			
-			panelManager.setActive(previousId);
-			panelManager.removePanel(currentId);
-		});
-		add(titleBar, BorderLayout.NORTH);
+		this.customerController = customerController;
 		
 		JPanel buttonContainer = new JPanel();
+		buttonContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		buttonContainer.setOpaque(false);
 		add(buttonContainer, BorderLayout.SOUTH);
 		
 		btnAdd = new JButton();
-		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnAdd.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 15));
+		btnAdd.setBackground(Colors.GREEN.getColor());
 		buttonContainer.add(btnAdd);
 		
 		JPanel container = new JPanel();
-		container.setBorder(new EmptyBorder(10, 10, 50, 10));
-		add(container, BorderLayout.CENTER);
+		container.setOpaque(false);
+		container.setBorder(new EmptyBorder(0, 0, 20, 0));
 		container.setLayout(new GridLayout(0, 2, 30, 0));
+		add(container, BorderLayout.CENTER);
 		
 		JPanel leftColumn = new JPanel();
-		container.add(leftColumn);
+		leftColumn.setOpaque(false);
 		leftColumn.setLayout(new BoxLayout(leftColumn, BoxLayout.Y_AXIS));
+		container.add(leftColumn);
 		
 		Dimension spacing = new Dimension(0, 5);
 		firstName = new ManipulateCustomerColumn("Fornavn");
@@ -82,8 +70,9 @@ public abstract class ManipulateCustomer extends JPanel {
 		leftColumn.add(phoneNumber);
 		
 		JPanel rightColumn = new JPanel();
-		container.add(rightColumn);
+		rightColumn.setOpaque(false);
 		rightColumn.setLayout(new BoxLayout(rightColumn, BoxLayout.Y_AXIS));
+		container.add(rightColumn);
 		
 		lastName = new ManipulateCustomerColumn("Efternavn");
 		rightColumn.add(lastName);
@@ -107,10 +96,6 @@ public abstract class ManipulateCustomer extends JPanel {
 		rightColumn.add(email);
 		
 		btnAdd.addActionListener(l -> onSave());
-	}
-	
-	public void addSaveListener(Consumer<Customer> listener) {
-		customerController.addSaveListener(listener);
 	}
 
 	public abstract void onSave();

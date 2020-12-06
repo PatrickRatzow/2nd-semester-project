@@ -1,23 +1,28 @@
-package gui.components.customer;
+package gui.tabs.customer;
 
 import controller.CustomerController;
 import entity.Customer;
+import gui.Frame;
 import gui.components.core.PanelManager;
 import gui.components.core.Row;
 import gui.components.core.TitleBar;
+import gui.tabs.Tab;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomersTab extends JPanel {
+public class Customers extends Tab {
 	private PanelManager panelManager;
 	private CustomerController customerController;
 	private JPanel container;
+	private String currentId;
 	private Map<Customer, Row> rows;
 	
-	public CustomersTab(PanelManager panelManager) {
+	public Customers(PanelManager panelManager) {
+		super(panelManager);
+
 		rows = new HashMap<>();
 		customerController = new CustomerController();
 		
@@ -28,19 +33,10 @@ public class CustomersTab extends JPanel {
 		titleBar.setTitle("Kunder");
 		titleBar.setButtonName("Opret Kunde");
 		titleBar.addActionListener(e -> {
-			String currentId = panelManager.getCurrentId();
+			currentId = panelManager.getCurrentId();
 			
-			panelManager.setActive("create_customer", () -> {
-				CreateCustomer createCustomer = new CreateCustomer(panelManager);
-				createCustomer.addSaveListener(customer -> {
-					createRow(customer);
-					
-					panelManager.setActive(currentId);
-					panelManager.removePanel("create_customer");
-				});
-				
-				return createCustomer;
-			});
+			panelManager.setActive("create_customer", () -> 
+						new CreateCustomerTab(panelManager,  customerController, "Opret Kunde", "G� Tilbage"));
 		});
 			
 		JTextField searchBar = titleBar.createSearchBar("Kunde telefon/email");
@@ -69,29 +65,36 @@ public class CustomersTab extends JPanel {
 			}
 			container.repaint();
 		});
+		customerController.addSaveListener(customer -> {
+			Row row = rows.get(customer);
+			if (row != null) {
+				row.setTitleText(customer.getFirstName() + " " + customer.getLastName() + 
+						" (tlf. " + customer.getPhoneNumber() + ")");
+			} else {
+				createRow(customer);
+			}
+			
+			panelManager.setActiveAndRemoveCurrent(currentId);
+		});
+		customerController.addErrorListener(error ->
+				JOptionPane.showMessageDialog(Frame.getInstance(), error, "Fejl!", JOptionPane.ERROR_MESSAGE));
 	
 		customerController.getAll();
 	}
 	
 	private void addRowListener(Customer customer, Row row) {
 		row.addActionListener(e -> {
-			String currentId = panelManager.getCurrentId();
+			currentId = panelManager.getCurrentId();
 			
 			panelManager.setActive("update_customer", () -> {
-				UpdateCustomer updateCustomer = new UpdateCustomer(panelManager, customer);
-				updateCustomer.addSaveListener(c -> {
-					row.setTitleText(c.getFirstName() + " " + c.getLastName() + " (tlf. " + c.getPhoneNumber() + ")");
-					row.removeAllActionListeners();
-					addRowListener(c, row);
-					
-					panelManager.setActive(currentId);
-					panelManager.removePanel("update_customer");
-				});
-				
-				return updateCustomer;
+				customerController.setCustomer(customer);
+			
+				return new UpdateCustomerTab(panelManager, customerController,
+						"Opdater Kunde", "G� Tilbage", customer);
 			});
 		});
 	}
+	
 	private void createRow(Customer customer) {
 		if (rows.get(customer) != null) return;
 		

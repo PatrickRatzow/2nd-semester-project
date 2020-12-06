@@ -9,14 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class DBConnectionPoolMsSql implements DBConnectionPool {
-    private final List<DBConnection> pool = Collections.synchronizedList(new LinkedList<>());
-    private final List<DBConnection> usedConnections = Collections.synchronizedList(new LinkedList<>());
     private static final int POOL_SIZE = 15; 
+    private final BlockingQueue<DBConnection> pool = new ArrayBlockingQueue<>(POOL_SIZE);
     private final String user;
     private final String database;
     private static final String host = "hildur.ucn.dk";
@@ -30,7 +30,10 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
 
         List<Thread> threads = new LinkedList<>();
         for (int i = 0; i < POOL_SIZE; i++) {
-            threads.add(new Thread(() -> pool.add(new DBConnectionMsSql(host, port, user, password, database))));
+            threads.add(new Thread(() -> {
+            	DBConnectionMsSql conn = new DBConnectionMsSql(host, port, user, password, database);
+            	pool.add(conn);
+            }));
         }
         for (Thread t : threads) {
         	t.start();
@@ -84,17 +87,25 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
     }
 
     @Override
-    public synchronized DBConnection getConnection() {
-        DBConnection conn = pool.remove(pool.size() - 1);
-        usedConnections.add(conn);
+    public DBConnection getConnection() {
+        DBConnection conn = null;
 
-        conn.setOnRelease(() -> releaseConnection(conn));
+        try {
+            conn = pool.take();
+            final DBConnection finalConn = conn;
+            conn.setOnRelease(() -> releaseConnection(finalConn));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return conn;
     }
 
-    private synchronized void releaseConnection(DBConnection connection) {
-        pool.add(connection);
-        usedConnections.remove(connection);
+    private void releaseConnection(DBConnection connection) {
+        try {
+            pool.put(connection);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

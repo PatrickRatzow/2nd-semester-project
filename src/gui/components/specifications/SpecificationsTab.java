@@ -1,4 +1,4 @@
-package gui.components.specification;
+package gui.components.specifications;
 
 import controller.ProjectController;
 import controller.SpecificationsController;

@@ -1,4 +1,4 @@
-package gui.components.specification;
+package gui.components.specifications.specification;
 
 import entity.Requirement;
 
