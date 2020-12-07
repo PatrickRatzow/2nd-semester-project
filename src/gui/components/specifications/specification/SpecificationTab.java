@@ -109,7 +109,7 @@ public class SpecificationTab extends JPanel {
             // Go back to the previous panel
             panelManager.setActiveAndRemoveCurrent(previousId);
         });
-        save.setEnabled(false);
+        //save.setEnabled(false);
 
         bottomContainer.setLayout(new BorderLayout(0, 0));
         bottomContainer.add(save, BorderLayout.EAST);

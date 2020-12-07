@@ -1,5 +1,5 @@
-INSERT INTO order_line(order_id, product_id, quantity)
-VALUES (1, 2, 1),
-       (1, 1, 8),
-       (2, 2, 5),
-       (1, 4, 2)
+INSERT INTO order_line(order_id, product_id, quantity, display_name)
+VALUES (1, 2, 1, 'Sten'),
+       (1, 1, 8, 'Sten'),
+       (2, 2, 5, 'Sten'),
+       (1, 4, 2, 'Sten')

@@ -3,13 +3,15 @@ package gui.components.core;
 import gui.util.Colors;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class BackgroundTitle extends JPanel {
     private final JLabel titleLabel;
     private final JPanel container;
-
+    private final JPanel titleContainer;
+    
     public BackgroundTitle() {
         this("Text");
     }
@@ -18,7 +20,7 @@ public class BackgroundTitle extends JPanel {
         setLayout(new BorderLayout(0, 0));
         setBackground(Colors.SECONDARY.getColor());
 
-        JPanel titleContainer = new JPanel();
+        titleContainer = new JPanel();
         titleContainer.setOpaque(false);
         titleContainer.setBorder(new EmptyBorder(5, 5, 0, 5));
         add(titleContainer, BorderLayout.NORTH);
@@ -43,6 +45,14 @@ public class BackgroundTitle extends JPanel {
         add(container, BorderLayout.CENTER);
     }
 
+    public void setTitleBorder(Border border) {
+    	titleContainer.setBorder(border);
+    }
+    
+    public void setContainerBorder(Border border) {
+    	container.setBorder(border);
+    }
+    
     public void setTitle(String text) {
         titleLabel.setText(text);
     }

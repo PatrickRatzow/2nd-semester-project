@@ -1,5 +1,6 @@
 package controller;
 
+import model.Product;
 import model.Requirement;
 import model.Specification;
 
@@ -10,6 +11,7 @@ import java.util.function.Consumer;
 public class SpecificationController {
     private int displayId;
     private final Specification specification;
+    private List<Product> products;
     private final List<Consumer<SpecificationController>> onSaveListeners = new LinkedList<>();
     
     public SpecificationController(Specification specification) {
@@ -66,6 +68,14 @@ public class SpecificationController {
 
     public void setDisplayId(int displayId) {
         this.displayId = displayId;
+    }
+    
+    public void setProducts(List<Product> products) {
+    	this.products = products;
+    }
+    
+    public List<Product> getProducts() {
+    	return products;
     }
     
     /*

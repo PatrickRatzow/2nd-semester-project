@@ -21,8 +21,13 @@ public class ProductFinder extends Tab {
 
         JScrollPane scrollPane = new JScrollPane();
         add(scrollPane, BorderLayout.CENTER);
-
-        SpecificationsTab panel = new SpecificationsTab(panelManager);
-        scrollPane.setViewportView(panel);
+        
+        SpecificationsTab specifications = new SpecificationsTab(panelManager);
+        specifications.addSaveListener(orderController -> 
+        	panelManager.setActive("products", () -> 
+        		new ProductFinderProducts(panelManager, orderController)
+        	)
+    	);
+        scrollPane.setViewportView(specifications);
     }
 }

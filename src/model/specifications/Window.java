@@ -43,7 +43,5 @@ public class Window extends Specification {
 		Validator validator = new Validator();
 		String parser = Integer.toString(getResultAmount());
 		validator.addRule(new EmptyValidationRule(parser, "Antal skal vaere over 0!"));
-
-		
 	}
 }

@@ -70,6 +70,5 @@ public class PanelManager extends JPanel {
 
         add(component, id);
     }
-
 }
 

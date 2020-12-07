@@ -14,9 +14,11 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class OrderLineDaoMsSql implements OrderLineDao {
-    private static final String FIND_ALL_BY_ORDER_ID_Q = "SELECT quantity, product_id FROM order_line WHERE order_id = ?";
+    private static final String FIND_ALL_BY_ORDER_ID_Q = "SELECT quantity, product_id, display_name " +
+            "FROM order_line WHERE order_id = ?";
     private PreparedStatement findAllByOrderIdPS;
-    private static final String INSERT_Q = "INSERT INTO order_line(order_id, product_id, quantity) VALUES (?,?,?)";
+    private static final String INSERT_Q = "INSERT INTO order_line(order_id, product_id, quantity, display_name) " +
+            "VALUES (?, ?, ?, ?)";
     private PreparedStatement insertPS;
     private DBConnection connection;
 
@@ -35,11 +37,13 @@ public class OrderLineDaoMsSql implements OrderLineDao {
         }
     }
 
-    private Entry<Integer, OrderLine> buildObject(ResultSet rs) throws SQLException, DataAccessException {
+    private Entry<Integer, OrderLine> buildObject(ResultSet rs) throws SQLException {
         final int productId = rs.getInt("product_id");
         final int quantity = rs.getInt("quantity");
+        final String name = rs.getString("display_name");
 
         final OrderLine orderLine = new OrderLine();
+        orderLine.setDisplayName(name);
         orderLine.setQuantity(quantity);
 
         return new AbstractMap.SimpleEntry<>(productId, orderLine);
@@ -87,6 +91,7 @@ public class OrderLineDaoMsSql implements OrderLineDao {
             insertPS.setInt(1, order.getId());
             insertPS.setInt(2, orderLine.getProduct().getId());
             insertPS.setInt(3, orderLine.getQuantity());
+            insertPS.setString(4, orderLine.getDisplayName());
             insertPS.execute();
         } catch (SQLException e) {
             e.printStackTrace();

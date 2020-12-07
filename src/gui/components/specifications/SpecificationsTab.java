@@ -1,16 +1,15 @@
 package gui.components.specifications;
 
+import controller.OrderController;
 import controller.ProjectController;
 import controller.SpecificationsController;
 import gui.components.core.PanelManager;
 import gui.util.Colors;
-import model.Product;
 import model.Specification;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class SpecificationsTab extends JPanel {
@@ -42,7 +41,8 @@ public class SpecificationsTab extends JPanel {
         continueBtn.setBackground(Colors.GREEN.getColor());
         continueBtn.addActionListener(l -> {
             List<Specification> specifications = specificationsLists.getSpecifications();
-
+            specificationsController.addSaveListener(orderController -> continueBtn.setEnabled(true));
+            
             continueBtn.setEnabled(false);
             specificationsController.setSpecifications(specifications);
             specificationsController.getProductsFromSpecifications();
@@ -50,7 +50,7 @@ public class SpecificationsTab extends JPanel {
         panel.add(continueBtn, BorderLayout.EAST);
     }
 
-    public void addSaveListener(Consumer<Map<Specification, List<Product>>> listener) {
+    public void addSaveListener(Consumer<OrderController> listener) {
         specificationsController.addSaveListener(listener);
     }
 }

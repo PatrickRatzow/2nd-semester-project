@@ -15,5 +15,5 @@ public interface ProductDao {
 
     List<Product> findByName(String name) throws DataAccessException;
     
-    List<Product> findBySpecification(Specification specification) throws DataAccessException;
+    Product findBySpecification(Specification specification) throws DataAccessException;
 }
