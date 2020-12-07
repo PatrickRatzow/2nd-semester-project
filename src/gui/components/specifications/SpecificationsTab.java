@@ -25,10 +25,10 @@ public class SpecificationsTab extends JPanel {
         setOpaque(false);
         this.panelManager = panelManager;
         setLayout(new BorderLayout(0, 0));
-
-        specificationsLists = new SpecificationsLists(panelManager);
-        specificationsController.addFindListener(specificationsLists::setSpecifications);
-        specificationsController.getSpecifications();
+        
+        //Create the SpecificationsLists;
+        createSpecificationsLists();
+        
         add(specificationsLists, BorderLayout.CENTER);
 
         JPanel panel = new JPanel();
@@ -46,6 +46,12 @@ public class SpecificationsTab extends JPanel {
         panel.add(continueBtn, BorderLayout.EAST);
     }
 
+    private void createSpecificationsLists() {
+        specificationsLists = new SpecificationsLists(panelManager);
+        specificationsController.addFindListener(specificationsLists::setSpecifications);
+        specificationsController.getSpecifications();
+    }
+    
     private void continueToNextTab() {
         List<Specification> specifications = specificationsLists.getSpecifications();
 
