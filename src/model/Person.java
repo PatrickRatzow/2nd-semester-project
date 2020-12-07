@@ -1,6 +1,10 @@
 package model;
 
-public abstract class Person {
+import util.validation.Validatable;
+import util.validation.Validator;
+import util.validation.rules.EmptyValidationRule;
+
+public abstract class Person implements Validatable {
     private int id;
     private String firstName;
     private String lastName;
@@ -42,6 +46,17 @@ public abstract class Person {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    @Override
+    public void validate() throws Exception {
+    	Validator validator = new Validator();
+        validator.addRule(new EmptyValidationRule(getFirstName(), "Fornavn er tomt!"));
+        validator.addRule(new EmptyValidationRule(getLastName(), "Efternavn er tomt!"));
+        
+        if (validator.hasErrors()) {
+        	throw validator.getCompositeException();
+        }
     }
 
     @Override
