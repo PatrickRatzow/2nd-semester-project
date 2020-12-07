@@ -1,6 +1,6 @@
-package entity.requirements;
+package model.requirements;
 
-import entity.Requirement;
+import model.Requirement;
 
 public class RequirementHeight extends Requirement<Integer> {
     @Override

@@ -1,4 +1,4 @@
-package entity;
+package model;
 
 public abstract class Requirement<T> {
     private T value;

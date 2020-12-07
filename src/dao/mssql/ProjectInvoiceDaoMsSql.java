@@ -2,9 +2,9 @@ package dao.mssql;
 
 import dao.ProjectInvoiceDao;
 import datasource.DBConnection;
-import entity.Price;
-import entity.ProjectInvoice;
 import exception.DataAccessException;
+import model.Price;
+import model.ProjectInvoice;
 import util.SQLDateConverter;
 
 import java.sql.PreparedStatement;

@@ -1,10 +1,10 @@
 package gui.tabs.customer;
 
 import controller.CustomerController;
-import entity.Customer;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 import gui.components.customer.UpdateCustomer;
+import model.Customer;
 
 import javax.swing.*;
 import java.awt.*;

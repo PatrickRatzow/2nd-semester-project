@@ -2,9 +2,9 @@ package dao.mssql;
 
 import dao.CustomerDao;
 import datasource.DBConnection;
-import entity.Address;
-import entity.Customer;
 import exception.DataAccessException;
+import model.Address;
+import model.Customer;
 
 import java.sql.*;
 import java.util.LinkedList;

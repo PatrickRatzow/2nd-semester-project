@@ -2,11 +2,11 @@ package dao.mssql;
 
 import dao.ProductDao;
 import datasource.DBConnection;
-import entity.Price;
-import entity.Product;
-import entity.Requirement;
-import entity.Specification;
 import exception.DataAccessException;
+import model.Price;
+import model.Product;
+import model.Requirement;
+import model.Specification;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

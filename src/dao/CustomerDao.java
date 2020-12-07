@@ -1,7 +1,7 @@
 package dao;
 
-import entity.Customer;
 import exception.DataAccessException;
+import model.Customer;
 
 import java.util.List;
 

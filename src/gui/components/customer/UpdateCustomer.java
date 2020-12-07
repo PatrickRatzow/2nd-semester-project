@@ -1,7 +1,7 @@
 package gui.components.customer;
 
 import controller.CustomerController;
-import entity.Customer;
+import model.Customer;
 
 public class UpdateCustomer extends ManipulateCustomer {
     private int customerId;

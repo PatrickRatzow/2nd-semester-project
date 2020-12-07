@@ -1,8 +1,8 @@
-package entity.specifications;
+package model.specifications;
 
-import entity.Requirement;
-import entity.Specification;
-import entity.requirements.RequirementColor;
+import model.Requirement;
+import model.Specification;
+import model.requirements.RequirementColor;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,23 +1,21 @@
-package entity.requirements;
+package model.requirements;
 
-import entity.Requirement;
+import model.Requirement;
 
-import java.awt.*;
-
-public class RequirementColor extends Requirement<Color> {
+public class RequirementWidth extends Requirement<Integer> {
     @Override
     public String getName() {
-        return "Color";
+        return "Width";
     }
 
     @Override
     public String getDescription() {
-        return "The color of the window";
+        return "The width of the window";
     }
 
     @Override
     public String getId() {
-        return "color";
+        return "width";
     }
 
     @Override
@@ -27,11 +25,11 @@ public class RequirementColor extends Requirement<Color> {
 
     @Override
     public String getSQLValue() {
-        return "#ffffff";
+        return String.valueOf(getValue());
     }
 
     @Override
     public void setValueFromSQLValue(String sql) {
-        setValue(Color.BLACK);
+        setValue(Integer.parseInt(sql));
     }
 }

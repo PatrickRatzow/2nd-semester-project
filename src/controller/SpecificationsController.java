@@ -2,11 +2,11 @@ package controller;
 
 import dao.ProductDao;
 import datasource.DBManager;
-import entity.Product;
-import entity.Specification;
-import entity.specifications.Roof;
-import entity.specifications.Window;
 import exception.DataAccessException;
+import model.Product;
+import model.Specification;
+import model.specifications.Roof;
+import model.specifications.Window;
 import util.ConnectionThread;
 
 import java.util.HashMap;

@@ -4,11 +4,11 @@ import dao.EmployeeDao;
 import dao.OrderDao;
 import dao.OrderLineDao;
 import datasource.DBConnection;
-import entity.Employee;
-import entity.Order;
-import entity.OrderLine;
-import entity.Project;
 import exception.DataAccessException;
+import model.Employee;
+import model.Order;
+import model.OrderLine;
+import model.Project;
 import util.ConnectionThread;
 import util.SQLDateConverter;
 

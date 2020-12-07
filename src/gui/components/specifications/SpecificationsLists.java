@@ -1,11 +1,11 @@
 package gui.components.specifications;
 
 import controller.SpecificationController;
-import entity.Specification;
 import gui.components.core.PanelManager;
 import gui.components.core.Row;
 import gui.components.specifications.specification.SpecificationTab;
 import gui.util.Colors;
+import model.Specification;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

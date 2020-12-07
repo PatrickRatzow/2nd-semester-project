@@ -1,4 +1,4 @@
-package entity;
+package model;
 
 import util.validation.Validatable;
 import util.validation.Validator;

@@ -1,4 +1,4 @@
-package entity;
+package model;
 
 public class Project {
     private int id;

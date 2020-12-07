@@ -1,7 +1,7 @@
 package dao;
 
-import entity.ProjectInvoice;
 import exception.DataAccessException;
+import model.ProjectInvoice;
 
 public interface ProjectInvoiceDao {
     ProjectInvoice findById(int id) throws DataAccessException;

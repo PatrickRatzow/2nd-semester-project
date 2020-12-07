@@ -1,7 +1,7 @@
 package util;
 
-import entity.CheapestProduct;
-import entity.Specification;
+import model.CheapestProduct;
+import model.Specification;
 
 import java.util.function.Consumer;
 

@@ -3,8 +3,8 @@ package controller;
 import dao.ProductDao;
 import datasource.DBConnection;
 import datasource.DBManager;
-import entity.Product;
 import exception.DataAccessException;
+import model.Product;
 
 import java.util.List;
 

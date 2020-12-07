@@ -2,9 +2,9 @@ package test.unit.controller;
 
 import controller.OrderController;
 import controller.ProductController;
-import entity.Order;
-import entity.Price;
-import entity.Product;
+import model.Order;
+import model.Price;
+import model.Product;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

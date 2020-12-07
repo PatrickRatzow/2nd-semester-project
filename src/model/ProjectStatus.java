@@ -1,4 +1,4 @@
-package entity;
+package model;
 
 public enum ProjectStatus {
     ON_HOLD(0),

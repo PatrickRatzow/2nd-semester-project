@@ -3,9 +3,9 @@ package controller;
 import dao.CustomerDao;
 import datasource.DBConnection;
 import datasource.DBManager;
-import entity.Address;
-import entity.Customer;
 import exception.DataAccessException;
+import model.Address;
+import model.Customer;
 import util.ConnectionThread;
 import util.Converter;
 

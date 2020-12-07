@@ -2,8 +2,8 @@ package dao.mssql;
 
 import dao.*;
 import datasource.DBConnection;
-import entity.*;
 import exception.DataAccessException;
+import model.*;
 import util.ConnectionThread;
 
 import java.sql.PreparedStatement;

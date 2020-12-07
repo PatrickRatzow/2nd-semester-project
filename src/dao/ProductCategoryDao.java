@@ -1,7 +1,7 @@
 package dao;
 
-import entity.ProductCategory;
 import exception.DataAccessException;
+import model.ProductCategory;
 
 import java.util.List;
 

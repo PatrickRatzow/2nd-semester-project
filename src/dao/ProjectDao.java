@@ -1,8 +1,8 @@
 package dao;
 
 
-import entity.Project;
 import exception.DataAccessException;
+import model.Project;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
 package gui.components.specifications.specification;
 
 import controller.SpecificationController;
-import entity.Requirement;
 import gui.components.core.BackgroundTitle;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 import gui.util.Colors;
+import model.Requirement;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

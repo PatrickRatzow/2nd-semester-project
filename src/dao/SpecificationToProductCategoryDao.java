@@ -1,8 +1,8 @@
 package dao;
 
-import entity.Product;
-import entity.Specification;
 import exception.DataAccessException;
+import model.Product;
+import model.Specification;
 
 import java.util.List;
 

@@ -2,10 +2,10 @@ package dao.mssql;
 
 import dao.OrderLineDao;
 import datasource.DBConnection;
-import entity.Order;
-import entity.OrderLine;
-import entity.Product;
 import exception.DataAccessException;
+import model.Order;
+import model.OrderLine;
+import model.Product;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

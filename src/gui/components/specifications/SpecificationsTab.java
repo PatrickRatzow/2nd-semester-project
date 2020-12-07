@@ -2,10 +2,10 @@ package gui.components.specifications;
 
 import controller.ProjectController;
 import controller.SpecificationsController;
-import entity.Product;
-import entity.Specification;
 import gui.components.core.PanelManager;
 import gui.util.Colors;
+import model.Product;
+import model.Specification;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,7 @@
 package controller;
 
-import entity.Requirement;
-import entity.Specification;
+import model.Requirement;
+import model.Specification;
 
 import java.util.LinkedList;
 import java.util.List;

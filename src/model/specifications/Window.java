@@ -1,10 +1,10 @@
-package entity.specifications;
+package model.specifications;
 
-import entity.Requirement;
-import entity.Specification;
-import entity.requirements.RequirementColor;
-import entity.requirements.RequirementHeight;
-import entity.requirements.RequirementWidth;
+import model.Requirement;
+import model.Specification;
+import model.requirements.RequirementColor;
+import model.requirements.RequirementHeight;
+import model.requirements.RequirementWidth;
 
 import java.util.LinkedList;
 import java.util.List;

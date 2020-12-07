@@ -1,6 +1,6 @@
 package gui.components.specifications.specification;
 
-import entity.Requirement;
+import model.Requirement;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,8 +1,8 @@
 package dao;
 
-import entity.Order;
-import entity.OrderLine;
 import exception.DataAccessException;
+import model.Order;
+import model.OrderLine;
 
 import java.util.List;
 

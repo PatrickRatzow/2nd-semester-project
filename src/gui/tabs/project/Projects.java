@@ -2,15 +2,15 @@ package gui.tabs.project;
 
 import controller.ProjectController;
 import controller.SpecificationController;
-import entity.Project;
-import entity.ProjectStatus;
-import entity.Specification;
-import entity.specifications.Window;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 import gui.components.project.ProjectRow;
 import gui.components.specifications.specification.SpecificationTab;
 import gui.tabs.Tab;
+import model.Project;
+import model.ProjectStatus;
+import model.Specification;
+import model.specifications.Window;
 
 import javax.swing.*;
 import java.awt.*;

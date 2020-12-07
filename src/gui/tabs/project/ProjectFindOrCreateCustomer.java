@@ -2,7 +2,6 @@ package gui.tabs.project;
 
 import controller.CustomerController;
 import controller.ProjectController;
-import entity.Customer;
 import gui.components.core.BackgroundTitle;
 import gui.components.core.PanelManager;
 import gui.components.core.PlaceholderTextField;
@@ -10,6 +9,7 @@ import gui.components.core.TitleBar;
 import gui.components.customer.CustomerInformationBox;
 import gui.components.specifications.SpecificationsProjectTab;
 import gui.util.Colors;
+import model.Customer;
 
 import javax.swing.*;
 import java.awt.*;

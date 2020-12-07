@@ -1,8 +1,8 @@
 package dao;
 
-import entity.Order;
-import entity.Project;
 import exception.DataAccessException;
+import model.Order;
+import model.Project;
 
 public interface OrderDao {
     Order findById(int id, boolean fullAssociation) throws DataAccessException;

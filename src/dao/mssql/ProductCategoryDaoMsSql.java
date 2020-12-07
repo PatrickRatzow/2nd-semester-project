@@ -2,8 +2,8 @@ package dao.mssql;
 
 import dao.ProductCategoryDao;
 import datasource.DBConnection;
-import entity.ProductCategory;
 import exception.DataAccessException;
+import model.ProductCategory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

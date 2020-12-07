@@ -1,12 +1,12 @@
 package gui.tabs.customer;
 
 import controller.CustomerController;
-import entity.Customer;
 import gui.Frame;
 import gui.components.core.PanelManager;
 import gui.components.core.Row;
 import gui.components.core.TitleBar;
 import gui.tabs.Tab;
+import model.Customer;
 
 import javax.swing.*;
 import java.awt.*;

@@ -3,9 +3,9 @@ package controller;
 import dao.ProjectDao;
 import datasource.DBConnection;
 import datasource.DBManager;
-import entity.Customer;
-import entity.Project;
 import exception.DataAccessException;
+import model.Customer;
+import model.Project;
 
 import java.util.LinkedList;
 import java.util.List;

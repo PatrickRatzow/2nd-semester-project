@@ -3,11 +3,11 @@ package controller;
 import dao.OrderDao;
 import datasource.DBConnection;
 import datasource.DBManager;
-import entity.Order;
-import entity.OrderLine;
-import entity.Product;
-import entity.Project;
 import exception.DataAccessException;
+import model.Order;
+import model.OrderLine;
+import model.Product;
+import model.Project;
 
 import java.sql.SQLException;
 
