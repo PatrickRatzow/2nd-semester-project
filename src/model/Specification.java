@@ -2,10 +2,12 @@ package model;
 
 import java.util.List;
 
+import util.validation.Validatable;
+
 /**
  * The type Product type.
  */
-public abstract class Specification {
+public abstract class Specification implements Validatable{
     private List<Requirement> requirements;
     public abstract Specification clone();
     public abstract String getId();
@@ -36,4 +38,5 @@ public abstract class Specification {
     public int getResultAmount() {
     	return resultAmount;
     }
+    
 }
