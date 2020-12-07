@@ -15,6 +15,18 @@ public class Validator {
 		}
 	}
 	
+	public void addException(Exception exception) {
+		errors.add(exception);
+	}
+	
+	public void addValidatable(Validatable validatable) {
+		try {
+			validatable.validate();
+		} catch (Exception e) {
+			errors.add(e);
+		}
+	}
+	
 	public boolean hasErrors() {
 		return errors.size() > 0;
 	}

@@ -1,13 +1,18 @@
 package model;
 
-public class Address {
+import util.validation.Validatable;
+import util.validation.Validator;
+import util.validation.rules.EmptyValidationRule;
+import util.validation.rules.IntegerRangeValidationRule;
+import util.validation.rules.ZipCodeValidationRule;
+
+public class Address implements Validatable {
     private String streetName;
     private int streetNumber;
     private String city;
     private int zipCode;
 
-    public Address() {
-    }
+    public Address() {}
 
     public Address(String streetName, int streetNumber, String city, int zipCode) {
         this.streetName = streetName;
@@ -16,6 +21,20 @@ public class Address {
         this.zipCode = zipCode;
     }
 
+    @Override
+    public void validate() throws Exception {
+    	Validator validator = new Validator();
+        validator.addRule(new EmptyValidationRule(getCity(), "By er tom!"));
+        validator.addRule(new EmptyValidationRule(getStreetName(), "Adresse er tom!"));
+        validator.addRule(new IntegerRangeValidationRule(getStreetNumber(),
+                "Addresse nummer er ugyldig. Skal v�re mellem 0-100000", 0, 100000));
+        validator.addRule(new ZipCodeValidationRule(getZipCode()));
+        
+        if (validator.hasErrors()) {
+        	throw validator.getCompositeException();
+        }
+    }
+    
     public String getStreetName() {
         return streetName;
     }

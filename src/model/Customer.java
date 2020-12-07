@@ -1,10 +1,10 @@
 package model;
 
-import util.validation.Validatable;
 import util.validation.Validator;
-import util.validation.rules.*;
+import util.validation.rules.EmailValidationRule;
+import util.validation.rules.PhoneValidationRule;
 
-public class Customer extends Person implements Validatable {
+public class Customer extends Person {
     private String email;
     private String phoneNumber;
     private Address address;
@@ -28,20 +28,14 @@ public class Customer extends Person implements Validatable {
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
-
+    
     @Override
     public void validate() throws Exception {
         Validator validator = new Validator();
-        validator.addRule(new EmptyValidationRule(getFirstName(), "Fornavn er tomt!"));
-        validator.addRule(new EmptyValidationRule(getLastName(), "Efternavn er tomt!"));
+        validator.addValidatable(super::validate);
         validator.addRule(new EmailValidationRule(getEmail()));
         validator.addRule(new PhoneValidationRule(getPhoneNumber()));
-        Address address = getAddress();
-        validator.addRule(new EmptyValidationRule(address.getCity(), "By er tom!"));
-        validator.addRule(new EmptyValidationRule(address.getStreetName(), "Adresse er tom!"));
-        validator.addRule(new IntegerRangeValidationRule(address.getStreetNumber(),
-                "Addresse nummer er ugyldig. Skal v�re mellem 0-100000", 0, 100000));
-        validator.addRule(new ZipCodeValidationRule(address.getZipCode()));
+        validator.addValidatable(getAddress()::validate);
 
         if (validator.hasErrors()) {
             throw validator.getCompositeException();
