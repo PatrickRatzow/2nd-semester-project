@@ -4,49 +4,43 @@ import dao.OrderDao;
 import datasource.DBConnection;
 import datasource.DBManager;
 import exception.DataAccessException;
-import model.*;
+import model.Order;
+import model.OrderLine;
+import model.Product;
+import model.Project;
 
 import java.sql.SQLException;
-import java.util.Collection;
 
 public class OrderController {
+    private final ProductController productController;
+    private final Project project;
     private Order order;
 
-    public OrderController() {}
-    public OrderController(Order order) {
-    	//if (order == null) throw IllegalArgumentException("Expected to not be null!");
-    	
-    	this.order = order;
-    }
-    
-    public Collection<OrderLine> getOrderLines() {
-    	return order.getOrderLines().values();
-    }
-    
-    public Price getPrice() {
-		return new Price(getOrderLines().stream()
-				.mapToInt(ol -> ol.getProduct().getPrice().getAmount() * ol.getQuantity())
-				.reduce(0, (accumulator, currentValue) -> accumulator + currentValue));
+    public OrderController(Project project, ProductController productController) {
+        this.project = project;
+        this.productController = new ProductController();
     }
 
-    public void addProduct(Product product, int quantity, String displayName) {
+    public OrderController(Project project) {
+        this(project, new ProductController());
+    }
+
+    public void addProduct(Product product, int quantity) {
         if (product == null) throw new IllegalArgumentException("Product was null");
         if (quantity <= 0) throw new IllegalArgumentException("You need to add at least 1 of this product");
 
-        synchronized (this) {
-	        if (order == null) {
-	            order = new Order();
-	        }
-	
-	        OrderLine orderLine = order.getOrderLines().get(product.getId());
-	        if (orderLine == null) {
-	            orderLine = new OrderLine(product, quantity, displayName);
-	        } else {
-	            orderLine.setQuantity(orderLine.getQuantity() + quantity);
-	        }
-	
-	        order.addOrderLine(orderLine);
+        if (order == null) {
+            order = new Order();
         }
+
+        OrderLine orderLine = order.getOrderLines().get(product.getId());
+        if (orderLine == null) {
+            orderLine = new OrderLine(product, quantity);
+        } else {
+            orderLine.setQuantity(orderLine.getQuantity() + quantity);
+        }
+
+        order.addOrderLine(orderLine);
     }
 
     public Order findById(int id, boolean fullAssociation) throws DataAccessException {
@@ -60,7 +54,7 @@ public class OrderController {
         return order;
     }
 
-    public Order create(Project project) throws DataAccessException {
+    public Order create() throws DataAccessException {
         if (order.getOrderLines().size() == 0) throw new IllegalArgumentException("The order needs at least 1 product");
         if (order.getEmployee() == null) throw new IllegalArgumentException("The order needs an employee");
         if (order.getId() != 0) throw new IllegalArgumentException("Can't create an order that already exists");

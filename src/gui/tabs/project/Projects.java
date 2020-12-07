@@ -1,12 +1,16 @@
 package gui.tabs.project;
 
 import controller.ProjectController;
+import controller.SpecificationController;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
 import gui.components.project.ProjectRow;
+import gui.components.specifications.specification.SpecificationTab;
 import gui.tabs.Tab;
 import model.Project;
 import model.ProjectStatus;
+import model.Specification;
+import model.specifications.Window;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +55,7 @@ public class Projects extends Tab {
         scrollPane.setViewportView(panel);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        projectController.addFindListener(projects -> {   	
+        projectController.addFindListener(projects -> {
             for (Project project : projects) {
                 ProjectRow row = rows.get(project);
                 if (row == null) {
@@ -61,12 +65,7 @@ public class Projects extends Tab {
                 }
             }
         });
-        projectController.addFindProjectListener(project ->
-    		panelManager.setActive("project_overview", () ->
-                new ProjectView(panelManager, project)
-            )
-		);
-  
+
         projectController.getAll();
     }
 
@@ -84,7 +83,13 @@ public class Projects extends Tab {
         row.setTitleText(project.getName());
         row.setButtonText("Aaben");
         row.setCompleted(project.getStatus().equals(ProjectStatus.FINISHED));
-        row.addActionListener(e -> projectController.getFullProject(project));
+        row.addActionListener(e -> {
+            panelManager.setActive("project_overview", () -> {
+                Specification xd = new Window();
+
+                return new SpecificationTab(panelManager, new SpecificationController(xd));
+            });
+        });
         panel.add(row);
 
         rows.put(project, row);

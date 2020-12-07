@@ -11,7 +11,10 @@ import model.Specification;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -69,13 +72,12 @@ public class ProductDaoMsSql implements ProductDao {
             if (product == null) {
                 product = buildObject(rs);
             }
-            /*
             String fieldId = rs.getString("field_id");
             if (fieldId != null) {
                 String fieldValue = rs.getString("field_value");
                 // TODO: Create some kind of factory so we can just inject fields
                 product.setField(fieldId, fieldValue);
-            }*/
+            }
 
             products.put(id, product);
         }
@@ -118,11 +120,12 @@ public class ProductDaoMsSql implements ProductDao {
     }
 
     @Override
-    public Product findBySpecification(Specification specification) throws DataAccessException {
-        Product product = null;
+    public List<Product> findBySpecification(Specification specification) throws DataAccessException {
+        List<Product> products;
         
         try {
             List<String> parameters = new LinkedList<>();
+            int resultAmount = specification.getResultAmount();
             String specificationId = specification.getId();
             List<Requirement> requirements = specification.getRequirements();
             String whereStr = requirements.stream()
@@ -134,34 +137,35 @@ public class ProductDaoMsSql implements ProductDao {
                     })
                     .collect(Collectors.joining(" OR "));
 
-            String query = "SELECT TOP " + requirements.size() +
-                    "    p.id AS id, " +
-                    "    p.description AS description, " +
-                    "    p.name AS name, " +
-                    "    pf.field_id AS field_id, " +
-                    "    pf.value AS field_value, " +
-                    "    pp.price AS price, " +
-                    "    pp.start_time AS price_start_time, " +
-                    "    pp.end_time AS price_end_time " +
-                    "FROM product p " +
-                    "INNER JOIN product_price pp ON p.id = pp.product_id AND GETUTCDATE() BETWEEN pp.start_time AND pp.end_time " +
-                    "INNER JOIN product_category pc ON p.category_id = pc.id " +
-                    "INNER JOIN product_field pf ON p.id = pf.product_id " +
-                    "WHERE p.category_id IN (" +
-                    "    SELECT" +
-                    "        stpc.product_category_id" +
-                    "    FROM specification s" +
-                    "    INNER JOIN specification_to_product_category stpc ON s.id = stpc.specification_id" +
-                    "    WHERE s.id = ?" +
-                    ") AND (" +
-                    "    SELECT COUNT(*)" +
-                    "    FROM product_field pf2" +
-                    "    WHERE pf2.product_id = p.id" +
-                    "      AND (" + whereStr + ")" +
-                    "  ) = ? " +
-                    " ORDER BY pp.price, p.id";
+            String query = "SELECT TOP ?\n" +
+                    "    p.id AS id,\n" +
+                    "    p.description AS description,\n" +
+                    "    p.name AS name,\n" +
+                    "    pf.field_id AS field_id,\n" +
+                    "    pf.value AS field_value,\n" +
+                    "    pp.price AS price,\n" +
+                    "    pp.start_time AS price_start_time,\n" +
+                    "    pp.end_time AS price_end_time\n" +
+                    "FROM product p\n" +
+                    "INNER JOIN product_price pp ON p.id = pp.product_id AND GETUTCDATE() BETWEEN pp.start_time AND pp.end_time\n" +
+                    "INNER JOIN product_category pc ON p.category_id = pc.id\n" +
+                    "INNER JOIN product_field pf ON p.id = pf.product_id\n" +
+                    "WHERE p.category_id IN (\n" +
+                    "    SELECT\n" +
+                    "        stpc.product_category_id\n" +
+                    "    FROM specification s\n" +
+                    "    INNER JOIN specification_to_product_category stpc ON s.id = stpc.specification_id\n" +
+                    "    WHERE s.id = ?\n" +
+                    ") AND (\n" +
+                    "    SELECT COUNT(*)\n" +
+                    "    FROM product_field pf2\n" +
+                    "    WHERE pf2.product_id = p.id\n" +
+                    "      AND (" + whereStr + ")\n" +
+                    "  ) = ?\n" +
+                    "ORDER BY pp.price";
             PreparedStatement ps = connection.prepareStatement(query);
             int i = 0;
+            ps.setInt(++i, resultAmount);
             ps.setString(++i, specificationId);
             for (String value : parameters) {
                 ps.setString(++i, value);
@@ -169,18 +173,14 @@ public class ProductDaoMsSql implements ProductDao {
             ps.setInt(++i, requirements.size());
             ResultSet rs = ps.executeQuery();
 
-            List<Product> products = buildObjects(rs);
-            Iterator<Product> iterator = products.iterator();
-            if (iterator.hasNext()) {
-                product = iterator.next();
-            }
+            products = buildObjects(rs);
         } catch (SQLException e) {
             e.printStackTrace();
 
             throw new DataAccessException("Unable to find any products for specification " + specification);
         }
 
-        return product;
+        return products;
     }
 
     @Override
