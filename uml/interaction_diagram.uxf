@@ -5,7 +5,7 @@
     <id>UMLGeneric</id>
     <coordinates>
       <x>390</x>
-      <y>247</y>
+      <y>377</y>
       <w>260</w>
       <h>39</h>
     </coordinates>
@@ -16,7 +16,7 @@
     <id>Relation</id>
     <coordinates>
       <x>39</x>
-      <y>234</y>
+      <y>364</y>
       <w>377</w>
       <h>117</h>
     </coordinates>
@@ -32,7 +32,7 @@
     <id>UMLGeneric</id>
     <coordinates>
       <x>390</x>
-      <y>351</y>
+      <y>481</y>
       <w>260</w>
       <h>39</h>
     </coordinates>
@@ -43,7 +43,7 @@
     <id>Relation</id>
     <coordinates>
       <x>507</x>
-      <y>273</y>
+      <y>403</y>
       <w>299</w>
       <h>104</h>
     </coordinates>
@@ -58,7 +58,7 @@
     <id>Relation</id>
     <coordinates>
       <x>637</x>
-      <y>234</y>
+      <y>364</y>
       <w>273</w>
       <h>78</h>
     </coordinates>
@@ -72,7 +72,7 @@
     <id>UMLGeneric</id>
     <coordinates>
       <x>884</x>
-      <y>390</y>
+      <y>520</y>
       <w>260</w>
       <h>39</h>
     </coordinates>
@@ -83,7 +83,7 @@
     <id>UMLGeneric</id>
     <coordinates>
       <x>884</x>
-      <y>247</y>
+      <y>377</y>
       <w>260</w>
       <h>39</h>
     </coordinates>
@@ -94,7 +94,7 @@
     <id>Relation</id>
     <coordinates>
       <x>1001</x>
-      <y>273</y>
+      <y>403</y>
       <w>325</w>
       <h>143</h>
     </coordinates>
@@ -111,7 +111,7 @@
     <id>UMLGeneric</id>
     <coordinates>
       <x>390</x>
-      <y>455</y>
+      <y>585</y>
       <w>260</w>
       <h>39</h>
     </coordinates>
@@ -122,7 +122,7 @@
     <id>Relation</id>
     <coordinates>
       <x>507</x>
-      <y>377</y>
+      <y>507</y>
       <w>377</w>
       <h>104</h>
     </coordinates>
@@ -137,7 +137,7 @@
     <id>UMLGeneric</id>
     <coordinates>
       <x>884</x>
-      <y>455</y>
+      <y>585</y>
       <w>260</w>
       <h>39</h>
     </coordinates>
@@ -148,7 +148,7 @@
     <id>Relation</id>
     <coordinates>
       <x>1001</x>
-      <y>416</y>
+      <y>546</y>
       <w>39</w>
       <h>65</h>
     </coordinates>
