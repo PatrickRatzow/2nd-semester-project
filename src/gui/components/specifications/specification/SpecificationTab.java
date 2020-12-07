@@ -81,7 +81,7 @@ public class SpecificationTab extends JPanel {
         save.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         save.setHorizontalAlignment(SwingConstants.RIGHT);
         save.addActionListener(e -> saveSpecification());
-        save.setEnabled(false);
+        //save.setEnabled(false);
 
         bottomContainer.setLayout(new BorderLayout(0, 0));
         bottomContainer.add(save, BorderLayout.EAST);

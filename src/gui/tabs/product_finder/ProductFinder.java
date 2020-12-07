@@ -6,6 +6,7 @@ import gui.components.specifications.SpecificationsTab;
 import gui.tabs.Tab;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class ProductFinder extends Tab {
@@ -20,6 +21,7 @@ public class ProductFinder extends Tab {
         add(titleBar, BorderLayout.NORTH);
 
         JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBorder(new EmptyBorder(5, 0, 0, 0));
         add(scrollPane, BorderLayout.CENTER);
         
         SpecificationsTab specifications = new SpecificationsTab(panelManager);

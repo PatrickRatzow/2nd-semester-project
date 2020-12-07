@@ -1,2 +1,2 @@
 EXEC InsertEmployee 'Cas', 'Sky', 'Direktør';
-EXEC InsertEmployee 'Malte', 'Storm', 'Tømrer';
+EXEC InsertEmployee 'Malte', 'Storm', 'Direktør';

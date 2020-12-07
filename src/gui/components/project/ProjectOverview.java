@@ -21,6 +21,8 @@ public class ProjectOverview extends BackgroundTitle {
 		this.panelManager = panelManager;
 		this.projectController = projectController;
 		
+		setTitle("Oversigt (3/3)");
+		
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setLayout(new BorderLayout(5, 0));
@@ -37,8 +39,7 @@ public class ProjectOverview extends BackgroundTitle {
 		productsBox.setPriceBackground(Colors.PRIMARY.getColor());
 		panel.add(productsBox, BorderLayout.CENTER);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setOpaque(false);
-		panel.add(panel_3, BorderLayout.EAST);
+		ProjectDetails details = new ProjectDetails();
+		panel.add(details, BorderLayout.EAST);
 	}
 }

@@ -59,7 +59,7 @@ public class ProductsBox extends BackgroundTitle {
 			if (quantity > 1) {
 				priceDisplay = quantity + "x " + priceDisplay;
 			}
-			ProductRow row = new ProductRow(product.getName(), priceDisplay, even);
+			ProductRow row = new ProductRow(product.getName(), orderLine.getDisplayName(), priceDisplay, even);
 				
 			container.add(row);
 		}

@@ -44,7 +44,7 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
 			} catch (InterruptedException e) {}
         }
         
-        if (isJUnit) {
+        if (!isJUnit) {
             setupDatabase();
         }
     }

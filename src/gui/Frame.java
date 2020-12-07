@@ -37,7 +37,7 @@ public class Frame extends JFrame {
     public Frame() {
         setTitle("Kølby Tømrer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 700, 600);
+        setBounds(100, 100, 800, 600);
         JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);

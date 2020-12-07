@@ -64,7 +64,7 @@ public class CustomerInformationBox extends BackgroundTitle {
         panel.add(title);
 
         JLabel body = new JLabel(bodyText);
-        body.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        body.setFont(new Font("Segoe UI", Font.BOLD, 14));
         panel.add(body);
 
         return panel;

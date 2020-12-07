@@ -56,7 +56,7 @@ public class ProjectFindOrCreateCustomer extends JPanel {
 
         searchTextField = new PlaceholderTextField();
         searchTextField.setColumns(12);
-        searchTextField.setPlaceholder("Telefonnummer");
+        searchTextField.setPlaceholder("Telefonnummer/email");
         topContainer.add(searchTextField);
 
         btnAddCustomer = new JButton("Tilknyt kunde");

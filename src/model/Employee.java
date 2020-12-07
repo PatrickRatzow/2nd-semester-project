@@ -19,5 +19,9 @@ public class Employee extends Person {
     public String getRole() {
         return role;
     }
+    
+    public String toString() {
+    	return getFirstName() + " " + getLastName();
+    }
 }
 
