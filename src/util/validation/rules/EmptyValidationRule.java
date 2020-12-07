@@ -1,6 +1,5 @@
 package util.validation.rules;
 
-
 import util.validation.ValidationRule;
 
 public class EmptyValidationRule extends ValidationRule<String> {
