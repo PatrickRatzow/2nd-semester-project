@@ -17,6 +17,8 @@ public class SpecificationsTab extends JPanel {
     private final PanelManager panelManager;
     private ProjectController projectController;
     private final SpecificationsController specificationsController;
+    private SpecificationsLists specificationsLists;
+    private JButton continueBtn;
 
     public SpecificationsTab(PanelManager panelManager) {
         specificationsController = new SpecificationsController();
@@ -24,7 +26,7 @@ public class SpecificationsTab extends JPanel {
         this.panelManager = panelManager;
         setLayout(new BorderLayout(0, 0));
 
-        SpecificationsLists specificationsLists = new SpecificationsLists(panelManager);
+        specificationsLists = new SpecificationsLists(panelManager);
         specificationsController.addFindListener(specificationsLists::setSpecifications);
         specificationsController.getSpecifications();
         add(specificationsLists, BorderLayout.CENTER);
@@ -37,19 +39,22 @@ public class SpecificationsTab extends JPanel {
         Component rigidArea = Box.createRigidArea(new Dimension(0, 5));
         panel.add(rigidArea, BorderLayout.NORTH);
 
-        JButton continueBtn = new JButton("G\u00E5 videre");
+        continueBtn = new JButton("G\u00E5 videre");
         continueBtn.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         continueBtn.setBackground(Colors.GREEN.getColor());
-        continueBtn.addActionListener(l -> {
-            List<Specification> specifications = specificationsLists.getSpecifications();
-
-            continueBtn.setEnabled(false);
-            specificationsController.setSpecifications(specifications);
-            specificationsController.getProductsFromSpecifications();
-        });
+        continueBtn.addActionListener(l -> continueToNextTab());
         panel.add(continueBtn, BorderLayout.EAST);
     }
 
+    private void continueToNextTab() {
+        List<Specification> specifications = specificationsLists.getSpecifications();
+
+        continueBtn.setEnabled(false);
+        specificationsController.setSpecifications(specifications);
+        specificationsController.getProductsFromSpecifications();
+    
+    }
+    
     public void addSaveListener(Consumer<Map<Specification, List<Product>>> listener) {
         specificationsController.addSaveListener(listener);
     }
