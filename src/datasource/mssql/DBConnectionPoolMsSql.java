@@ -15,7 +15,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class DBConnectionPoolMsSql implements DBConnectionPool {
-    private static final int POOL_SIZE = 15; 
+    private static final int POOL_SIZE = 15;
     private final BlockingQueue<DBConnection> pool = new ArrayBlockingQueue<>(POOL_SIZE);
     private final String user;
     private final String database;

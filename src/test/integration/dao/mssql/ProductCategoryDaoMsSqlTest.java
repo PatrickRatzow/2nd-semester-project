@@ -50,7 +50,7 @@ public class ProductCategoryDaoMsSqlTest {
 
 
     @Test
-    void canFindByName() throws  DataAccessException {
+    void canFindByName() throws DataAccessException {
         // Arrange
         List<ProductCategory> categories;
 
@@ -61,7 +61,7 @@ public class ProductCategoryDaoMsSqlTest {
         assertEquals(categories.size(), 1);
     }
 
-    
+
     @Test
     void cannotFindByName() throws DataAccessException {
         // Arrange
@@ -73,8 +73,8 @@ public class ProductCategoryDaoMsSqlTest {
         // Assert
         assertEquals(categories.size(), 0);
     }
-    
-    
+
+
     @AfterAll
     static void teardown() {
         connection.release();

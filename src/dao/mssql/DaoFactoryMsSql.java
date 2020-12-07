@@ -43,9 +43,4 @@ public class DaoFactoryMsSql implements DaoFactory {
     public ProjectInvoiceDao createProjectInvoiceDao(DBConnection connection) {
         return new ProjectInvoiceDaoMsSql(connection);
     }
-
-    @Override
-    public SpecificationToProductCategoryDao createSpecificationToProductCategoryDao(DBConnection connection) {
-        return new SpecificationToProductCategoryDaoMsSql(connection);
-    }
 }

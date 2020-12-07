@@ -9,9 +9,11 @@ public enum Colors {
     RED(new Color(252, 92, 101));
 
     private final Color color;
-    private Colors(Color color) {
+
+    Colors(Color color) {
         this.color = color;
     }
+
     public Color getColor() {
         return this.color;
     }

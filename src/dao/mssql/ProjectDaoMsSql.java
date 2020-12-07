@@ -1,8 +1,6 @@
 package dao.mssql;
 
-import dao.CustomerDao;
-import dao.EmployeeDao;
-import dao.ProjectDao;
+import dao.*;
 import datasource.DBConnection;
 import entity.*;
 import exception.DataAccessException;
@@ -17,194 +15,219 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ProjectDaoMsSql implements ProjectDao {
-	private static final String FIND_ALL_Q = "SELECT * FROM project";
-	private PreparedStatement findAllPS;
-	private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE name LIKE CONCAT('%', ?, '%')";
-	private PreparedStatement findByNamePS;
-	private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE id = ?";
-	private PreparedStatement findByIdPS;
-	private static final String INSERT_Q = " INSERT INTO [project](name, status, price, estimated_hours, customer_id," +
-			" employee_id) VALUES (?, ?, ?, ?, ?, ?)";
-	private PreparedStatement insertPS;
-	private static final String UPDATE_Q = " UPDATE project set name = ?, status = ?, price = ?," +
-			" estimated_hours = ?, customer_id = ?, employee_id = ? WHERE id = ? ";
-	private PreparedStatement updatePS;
-	public ProjectDaoMsSql(DBConnection conn) {
-		init(conn);
-	}
-	
-	private void init(DBConnection conn) {
-		try {
-			findAllPS = conn.prepareStatement(FIND_ALL_Q);
-			findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
-			findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
-			insertPS = conn.prepareStatement(INSERT_Q, Statement.RETURN_GENERATED_KEYS);
-			updatePS = conn.prepareStatement(UPDATE_Q);
-		} catch(SQLException e) {
-			e.printStackTrace();
-		}
-	}
+    private static final String FIND_ALL_Q = "SELECT * FROM project";
+    private PreparedStatement findAllPS;
+    private static final String FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE name LIKE CONCAT('%', ?, '%')";
+    private PreparedStatement findByNamePS;
+    private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE id = ?";
+    private PreparedStatement findByIdPS;
+    private static final String INSERT_Q = " INSERT INTO [project](name, status, price, estimated_hours, customer_id," +
+            " employee_id) VALUES (?, ?, ?, ?, ?, ?)";
+    private PreparedStatement insertPS;
+    private static final String UPDATE_Q = " UPDATE project SET name = ?, status = ?, price = ?, " +
+            "estimated_hours = ?, employee_id = ? " +
+            "WHERE id = ?";
+    private PreparedStatement updatePS;
 
-	@Override
-	public List<Project> findAll(boolean fullAssociation) throws DataAccessException {
-		List<Project> projects;
+    public ProjectDaoMsSql(DBConnection conn) {
+        init(conn);
+    }
 
-		try {
-			ResultSet rs = findAllPS.executeQuery();
+    private void init(DBConnection conn) {
+        try {
+            findAllPS = conn.prepareStatement(FIND_ALL_Q);
+            findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
+            findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
+            insertPS = conn.prepareStatement(INSERT_Q, Statement.RETURN_GENERATED_KEYS);
+            updatePS = conn.prepareStatement(UPDATE_Q);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-			projects = buildObjects(rs, fullAssociation);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DataAccessException("Something went wrong while searching for projects");
-		}
+    @Override
+    public List<Project> findAll(boolean fullAssociation) throws DataAccessException {
+        List<Project> projects;
 
-		return projects;
-	}
+        try {
+            ResultSet rs = findAllPS.executeQuery();
 
-	@Override
-	public List<Project> findByName(String name, boolean fullAssociation) throws DataAccessException {
-		List<Project> projects;
+            projects = buildObjects(rs, fullAssociation);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Something went wrong while searching for projects");
+        }
 
-		try {
-			findByNamePS.setString(1, name);
-			ResultSet rs = findByNamePS.executeQuery();
+        return projects;
+    }
 
-			projects = buildObjects(rs, fullAssociation);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DataAccessException("Something went wrong while searching for projects");
-		}
+    @Override
+    public List<Project> findByName(String name, boolean fullAssociation) throws DataAccessException {
+        List<Project> projects;
 
-		return projects;
-	}
+        try {
+            findByNamePS.setString(1, name);
+            ResultSet rs = findByNamePS.executeQuery();
 
-	@Override
-	public Project findById(int id, boolean fullAssociation) throws DataAccessException {
-		Project project = null;
+            projects = buildObjects(rs, fullAssociation);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Something went wrong while searching for projects");
+        }
 
-		try {
-			findByIdPS.setInt(1, id);
-			ResultSet rs = findByIdPS.executeQuery();
+        return projects;
+    }
 
-			if (rs.next()) {
-				project = buildObject(rs, fullAssociation);
-			}
-		} catch(SQLException e) {
-			throw new DataAccessException("Unable to find any project with id " + id);
-		}
+    @Override
+    public Project findById(int id, boolean fullAssociation) throws DataAccessException {
+        Project project = null;
 
-		return project;
-	}
+        try {
+            findByIdPS.setInt(1, id);
+            ResultSet rs = findByIdPS.executeQuery();
 
-	@Override
-	public Project create(Project project, boolean fullAssociation) throws DataAccessException {
-		try{
-			insertPS.setString(1, project.getName());
-			insertPS.setInt(2, project.getStatus().getValue());
-			insertPS.setInt(3, project.getPrice().getAmount());
-			insertPS.setInt(4, project.getEstimatedHours());
-			insertPS.setInt(5, project.getCustomer().getId());
-			insertPS.setInt(6, project.getEmployee().getId());
-			insertPS.executeUpdate();
+            if (rs.next()) {
+                project = buildObject(rs, fullAssociation);
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("Unable to find any project with id " + id);
+        }
 
-			ResultSet rs = insertPS.getGeneratedKeys();
-			if (!rs.next()) {
-				throw new DataAccessException("Unable to get identity for project");
-			}
+        return project;
+    }
 
-			project.setId(rs.getInt(1));
+    @Override
+    public Project create(Project project, boolean fullAssociation) throws DataAccessException {
+        try {
+            insertPS.setString(1, project.getName());
+            insertPS.setInt(2, project.getStatus().getValue());
+            insertPS.setInt(3, project.getPrice().getAmount());
+            insertPS.setInt(4, project.getEstimatedHours());
+            insertPS.setInt(5, project.getCustomer().getId());
+            insertPS.setInt(6, project.getEmployee().getId());
+            insertPS.executeUpdate();
 
-		}
-		catch(SQLException e) {
+            ResultSet rs = insertPS.getGeneratedKeys();
+            if (!rs.next()) {
+                throw new DataAccessException("Unable to get identity for project");
+            }
 
-			throw new DataAccessException("Unable to create project");
-		}
-		return project;
-	}
+            project.setId(rs.getInt(1));
 
-	@Override
-	public void update(Project project, boolean fullAssociation) throws DataAccessException {
-		try {
-			updatePS.setString(1, project.getName());
-			updatePS.setInt(2, project.getStatus().getValue());
-			updatePS.setInt(3, project.getPrice().getAmount());
-			updatePS.setInt(4, project.getEstimatedHours());
-			updatePS.setInt(5, project.getCustomer().getId());
-			updatePS.setInt(6, project.getEmployee().getId());
-			updatePS.executeUpdate();
-		} catch (SQLException e) {
-			throw new DataAccessException("Unable to find project to update");
-		}
-	}
+        } catch (SQLException e) {
 
-	private Project buildObject(ResultSet rs, boolean fullAssociation) throws SQLException, DataAccessException {
-		final int id = rs.getInt("id");
-		final String name = rs.getString("name");
-		final Project project = new Project(id, name);
-		project.setStatus(ProjectStatus.values()[rs.getInt("status")]);
-		project.setPrice(new Price(rs.getInt("price")));
-		project.setEstimatedHours(rs.getInt("estimated_hours"));
+            throw new DataAccessException("Unable to create project");
+        }
+        return project;
+    }
 
-		if (fullAssociation) {
-			// Setup atomic references
-			AtomicReference<DataAccessException> exception = new AtomicReference<>();
-			AtomicReference<Customer> customer = new AtomicReference<>();
-			AtomicReference<Employee> employee = new AtomicReference<>();
-			// Setup ids
-			int customerId = rs.getInt("customer_id");
-			int employeeId = rs.getInt("employee_id");
+    @Override
+    public void update(Project project, boolean fullAssociation) throws DataAccessException {
+        try {
+            updatePS.setString(1, project.getName());
+            updatePS.setInt(2, project.getStatus().getValue());
+            updatePS.setInt(3, project.getPrice().getAmount());
+            updatePS.setInt(4, project.getEstimatedHours());
+            updatePS.setInt(5, project.getCustomer().getId());
+            updatePS.setInt(6, project.getEmployee().getId());
+            updatePS.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("Unable to find project to update");
+        }
+    }
 
-			List<Thread> threads = new LinkedList<>();
-			threads.add(new ConnectionThread(conn -> {
-				CustomerDao dao = new CustomerDaoMsSql(conn);
-				try {
-					customer.set(dao.findById(customerId));
-				} catch (DataAccessException e) {
-					exception.set(e);
-				}
-			}));
-			threads.add(new ConnectionThread(conn -> {
-				EmployeeDao dao = new EmployeeDaoMsSql(conn);
-				try {
-					employee.set(dao.findById(employeeId));
-				} catch (DataAccessException e) {
-					exception.set(e);
-				}
-			}));
+    private Project buildObject(ResultSet rs, boolean fullAssociation) throws SQLException, DataAccessException {
+        final int id = rs.getInt("id");
+        final String name = rs.getString("name");
+        final Project project = new Project(id, name);
+        project.setStatus(ProjectStatus.values()[rs.getInt("status")]);
+        project.setPrice(new Price(rs.getInt("price")));
+        project.setEstimatedHours(rs.getInt("estimated_hours"));
 
-			for (Thread t : threads) {
-				t.start();
-			}
+        if (fullAssociation) {
+            // Setup atomic references
+            AtomicReference<DataAccessException> exception = new AtomicReference<>();
+            AtomicReference<Customer> customer = new AtomicReference<>();
+            AtomicReference<Employee> employee = new AtomicReference<>();
+            AtomicReference<ProjectInvoice> invoice = new AtomicReference<>();
+            AtomicReference<Order> order = new AtomicReference<>();
+            // Setup ids
+            final int customerId = rs.getInt("customer_id");
+            final int employeeId = rs.getInt("employee_id");
 
-			for (Thread t : threads) {
-				try {
-					t.join();
-				} catch (InterruptedException e) {
-					throw new DataAccessException("An error occurred while trying to find an order");
-				}
-			}
+            List<Thread> threads = new LinkedList<>();
+            threads.add(new ConnectionThread(conn -> {
+                CustomerDao dao = new CustomerDaoMsSql(conn);
+                try {
+                    customer.set(dao.findById(customerId));
+                } catch (DataAccessException e) {
+                    exception.set(e);
+                }
+            }));
+            threads.add(new ConnectionThread(conn -> {
+                EmployeeDao dao = new EmployeeDaoMsSql(conn);
+                try {
+                    employee.set(dao.findById(employeeId));
+                } catch (DataAccessException e) {
+                    exception.set(e);
+                }
+            }));
+            threads.add(new ConnectionThread(conn -> {
+                ProjectInvoiceDao dao = new ProjectInvoiceDaoMsSql(conn);
+                try {
+                    invoice.set(dao.findById(id));
+                } catch (DataAccessException e) {
+                    exception.set(e);
+                }
+            }));
+            threads.add(new ConnectionThread(conn -> {
+                OrderDao dao = new OrderDaoMsSql(conn);
+                try {
+                    order.set(dao.findById(id, true));
+                } catch (DataAccessException e) {
+                    exception.set(e);
+                }
+            }));
 
-			if (exception.get() != null) {
-				throw exception.get();
-			}
-		}
+            for (Thread t : threads) {
+                t.start();
+            }
 
-		return project;
-	}
+            for (Thread t : threads) {
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    throw new DataAccessException("An error occurred while trying to find an order");
+                }
+            }
+
+            if (exception.get() != null) {
+                throw exception.get();
+            }
+
+            project.setCustomer(customer.get());
+            project.setEmployee(employee.get());
+            project.setInvoice(invoice.get());
+            project.setOrder(order.get());
+        }
+
+        return project;
+    }
 
 
-	private List<Project> buildObjects(ResultSet rs, boolean fullAssociation) throws DataAccessException {
-		final List<Project> projects = new LinkedList<>();
+    private List<Project> buildObjects(ResultSet rs, boolean fullAssociation) throws DataAccessException {
+        final List<Project> projects = new LinkedList<>();
 
-		try {
-			while (rs.next()) {
-				projects.add(buildObject(rs, fullAssociation));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+        try {
+            while (rs.next()) {
+                projects.add(buildObject(rs, fullAssociation));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
 
-			throw new DataAccessException("Unable to build project");
-		}
+            throw new DataAccessException("Unable to build project");
+        }
 
-		return projects;
-	}}
+        return projects;
+    }
+}

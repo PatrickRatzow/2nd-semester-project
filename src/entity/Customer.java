@@ -12,6 +12,7 @@ public class Customer extends Person implements Validatable {
     public Customer() {
         address = new Address();
     }
+
     public Customer(int id, String firstName, String lastName, String email, String phoneNumber, Address address) {
         super(id, firstName, lastName);
 
@@ -19,6 +20,7 @@ public class Customer extends Person implements Validatable {
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
+
     public Customer(String firstName, String lastName, String email, String phoneNumber, Address address) {
         super(firstName, lastName);
 
@@ -29,17 +31,17 @@ public class Customer extends Person implements Validatable {
 
     @Override
     public void validate() throws Exception {
-    	Validator validator = new Validator();
-    	validator.addRule(new EmptyValidationRule(getFirstName(), "Fornavn er tomt!"));
-    	validator.addRule(new EmptyValidationRule(getLastName(), "Efternavn er tomt!"));
-    	validator.addRule(new EmailValidationRule(getEmail()));
-    	validator.addRule(new PhoneValidationRule(getPhoneNumber()));
-    	Address address = getAddress();
-    	validator.addRule(new EmptyValidationRule(address.getCity(), "By er tom!"));
-    	validator.addRule(new EmptyValidationRule(address.getStreetName(), "Adresse er tom!"));
-    	validator.addRule(new IntegerRangeValidationRule(address.getStreetNumber(),
-                "Addresse nummer er ugyldig. Skal være mellem 0-100000", 0, 100000));
-    	validator.addRule(new ZipCodeValidationRule(address.getZipCode()));
+        Validator validator = new Validator();
+        validator.addRule(new EmptyValidationRule(getFirstName(), "Fornavn er tomt!"));
+        validator.addRule(new EmptyValidationRule(getLastName(), "Efternavn er tomt!"));
+        validator.addRule(new EmailValidationRule(getEmail()));
+        validator.addRule(new PhoneValidationRule(getPhoneNumber()));
+        Address address = getAddress();
+        validator.addRule(new EmptyValidationRule(address.getCity(), "By er tom!"));
+        validator.addRule(new EmptyValidationRule(address.getStreetName(), "Adresse er tom!"));
+        validator.addRule(new IntegerRangeValidationRule(address.getStreetNumber(),
+                "Addresse nummer er ugyldig. Skal vï¿½re mellem 0-100000", 0, 100000));
+        validator.addRule(new ZipCodeValidationRule(address.getZipCode()));
 
         if (validator.hasErrors()) {
             throw validator.getCompositeException();

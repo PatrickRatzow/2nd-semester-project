@@ -11,7 +11,7 @@ public class Product {
     private String name;
     private String desc;
     private Price price;
-    private Map<String, Object> fields = new HashMap<>();
+    private final Map<String, Object> fields = new HashMap<>();
 
     public int getId() {
         return id;
@@ -28,6 +28,7 @@ public class Product {
     public Map<String, Object> getFields() {
         return fields;
     }
+
     /**
      * Gets name.
      *
@@ -85,7 +86,8 @@ public class Product {
     /**
      * Instantiates a new Product.
      */
-    public Product() {}
+    public Product() {
+    }
 
     /**
      * Instantiates a new Product.

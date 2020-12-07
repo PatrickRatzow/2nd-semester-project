@@ -24,7 +24,7 @@ public class Config {
 
     public static Config getInstance() throws IOException {
         if (instance == null) {
-            synchronized(Config.class) {
+            synchronized (Config.class) {
                 if (instance == null) {
                     instance = new Config();
                 }

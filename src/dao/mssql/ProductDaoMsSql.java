@@ -5,6 +5,7 @@ import datasource.DBConnection;
 import entity.Price;
 import entity.Product;
 import entity.Requirement;
+import entity.Specification;
 import exception.DataAccessException;
 
 import java.sql.PreparedStatement;
@@ -46,7 +47,7 @@ public class ProductDaoMsSql implements ProductDao {
             findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
             findAllPS = conn.prepareStatement(FIND_ALL_Q);
             findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -74,7 +75,7 @@ public class ProductDaoMsSql implements ProductDao {
             String fieldId = rs.getString("field_id");
             if (fieldId != null) {
                 String fieldValue = rs.getString("field_value");
-                // TODO: Create some kind of factory so we can just inject Requirements straightfeat
+                // TODO: Create some kind of factory so we can just inject fields
                 product.setField(fieldId, fieldValue);
             }
 
@@ -119,20 +120,22 @@ public class ProductDaoMsSql implements ProductDao {
     }
 
     @Override
-    public List<Product> findByCategoryId(List<Integer> ids, List<Requirement> requirements, int resultAmount) throws DataAccessException {
+    public List<Product> findBySpecification(Specification specification) throws DataAccessException {
         List<Product> products;
-
+        
         try {
             List<String> parameters = new LinkedList<>();
+            int resultAmount = specification.getResultAmount();
+            String specificationId = specification.getId();
+            List<Requirement> requirements = specification.getRequirements();
             String whereStr = requirements.stream()
-                .map(e -> {
-                    parameters.add(e.getSQLKey());
-                    parameters.add(e.getSQLValue());
+                    .map(e -> {
+                        parameters.add(e.getSQLKey());
+                        parameters.add(e.getSQLValue());
 
-                    return "(pf2.field_id = ? AND pf2.value = ?)";
-                })
-                .collect(Collectors.joining(" OR "));
-            String idsStr = ids.stream().map(x -> "?").collect(Collectors.joining(","));
+                        return "(pf2.field_id = ? AND pf2.value = ?)";
+                    })
+                    .collect(Collectors.joining(" OR "));
 
             String query = "SELECT TOP ?\n" +
                     "    p.id AS id,\n" +
@@ -144,24 +147,26 @@ public class ProductDaoMsSql implements ProductDao {
                     "    pp.start_time AS price_start_time,\n" +
                     "    pp.end_time AS price_end_time\n" +
                     "FROM product p\n" +
-                    "INNER JOIN product_price pp ON p.id = pp.product_id " +
-                    "  AND GETUTCDATE() BETWEEN pp.start_time AND pp.end_time\n" +
+                    "INNER JOIN product_price pp ON p.id = pp.product_id AND GETUTCDATE() BETWEEN pp.start_time AND pp.end_time\n" +
                     "INNER JOIN product_category pc ON p.category_id = pc.id\n" +
                     "INNER JOIN product_field pf ON p.id = pf.product_id\n" +
-                    "WHERE p.category_id IN (" + idsStr + ") \n" +
-                    "  AND (\n" +
+                    "WHERE p.category_id IN (\n" +
+                    "    SELECT\n" +
+                    "        stpc.product_category_id\n" +
+                    "    FROM specification s\n" +
+                    "    INNER JOIN specification_to_product_category stpc ON s.id = stpc.specification_id\n" +
+                    "    WHERE s.id = ?\n" +
+                    ") AND (\n" +
                     "    SELECT COUNT(*)\n" +
                     "    FROM product_field pf2\n" +
                     "    WHERE pf2.product_id = p.id\n" +
-                    "      AND (" + whereStr + ")" +
-                    "  ) = ? " + 
+                    "      AND (" + whereStr + ")\n" +
+                    "  ) = ?\n" +
                     "ORDER BY pp.price";
             PreparedStatement ps = connection.prepareStatement(query);
             int i = 0;
             ps.setInt(++i, resultAmount);
-            for (int id : ids) {
-                ps.setInt(++i, id);
-            }
+            ps.setString(++i, specificationId);
             for (String value : parameters) {
                 ps.setString(++i, value);
             }
@@ -172,7 +177,7 @@ public class ProductDaoMsSql implements ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
 
-            throw new DataAccessException("Unable to find any product with category ids " + ids.toString());
+            throw new DataAccessException("Unable to find any products for specification " + specification);
         }
 
         return products;

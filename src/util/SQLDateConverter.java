@@ -15,6 +15,6 @@ public class SQLDateConverter {
     }
 
     public static Date localDateToDate(final LocalDate localDate) {
-       return Date.valueOf(localDate);
+        return Date.valueOf(localDate);
     }
 }

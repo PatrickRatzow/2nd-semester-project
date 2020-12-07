@@ -148,7 +148,7 @@ public class OrderDaoMsSql implements OrderDao {
             for (OrderLine orderLine : order.getOrderLines().values()) {
                 orderLineDao.create(order, orderLine);
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DataAccessException("Unable to create order");
         }
 

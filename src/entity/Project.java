@@ -12,14 +12,16 @@ public class Project {
     private Customer customer;
 
 
-    public Project() {}
+    public Project() {
+    }
 
     public Project(int id, String name) {
         this.id = id;
         this.name = name;
     }
+
     public Project(int id, String name, Order order,
-    		Employee employee, ProjectInvoice invoice, Price price, int estimatedHours,
+                   Employee employee, ProjectInvoice invoice, Price price, int estimatedHours,
                    ProjectStatus status, Customer customer) {
         this.id = id;
         this.name = name;

@@ -8,7 +8,7 @@ public class Order {
     private int id;
     private LocalDateTime date;
     private boolean delivered;
-    private Map<Integer, OrderLine> orderLines;
+    private final Map<Integer, OrderLine> orderLines;
     private Customer customer;
     private Employee employee;
 

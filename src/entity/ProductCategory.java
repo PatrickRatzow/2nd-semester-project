@@ -12,7 +12,7 @@ public class ProductCategory {
     private int id;
     private String name;
     private String desc;
-    private Map<Integer, Product> products = new HashMap<>();
+    private final Map<Integer, Product> products = new HashMap<>();
 
     public ProductCategory() {
 

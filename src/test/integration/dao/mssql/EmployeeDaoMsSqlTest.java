@@ -10,6 +10,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -20,21 +22,25 @@ public class EmployeeDaoMsSqlTest {
     @BeforeAll
     static void setup() {
         connection = DBManager.getPool().getConnection();
+        try {
+            connection.startTransaction();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         dao = new DaoFactoryMsSql().createEmployeeDao(connection);
     }
-
+    
     @Test
     void canFindById() throws DataAccessException {
         // Arrange
         Employee employee = null;
-
+        
         // Act
         employee = dao.findById(1);
-
+        
         // Assert
         assertNotNull(employee);
     }
-
 
     @Test
     void cannotFindById() throws DataAccessException {
@@ -47,9 +53,14 @@ public class EmployeeDaoMsSqlTest {
         // Assert
         assertNull(employee);
     }
-
+    
     @AfterAll
     static void teardown() {
+        try {
+            connection.rollbackTransaction();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         connection.release();
     }
 }

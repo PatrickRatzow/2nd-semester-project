@@ -43,17 +43,17 @@ public class CustomerDaoMsSql implements CustomerDao {
 
         try {
             customer = new Customer(
-                rs.getInt("id"),
-                rs.getString("first_name"),
-                rs.getString("last_name"),
-                rs.getString("email"),
-                rs.getString("phone_number"),
-                new Address(
-                        rs.getString("street_name"),
-                        rs.getInt("street_number"),
-                        rs.getString("city"),
-                        rs.getInt("zip_code")
-                )
+                    rs.getInt("id"),
+                    rs.getString("first_name"),
+                    rs.getString("last_name"),
+                    rs.getString("email"),
+                    rs.getString("phone_number"),
+                    new Address(
+                            rs.getString("street_name"),
+                            rs.getInt("street_number"),
+                            rs.getString("city"),
+                            rs.getInt("zip_code")
+                    )
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,27 +128,27 @@ public class CustomerDaoMsSql implements CustomerDao {
 
     @Override
     public Customer create(Customer customer) throws DataAccessException {
-    	try {
-    		insertPC.setString(1, customer.getFirstName());
-    		insertPC.setString(2, customer.getLastName());
-    		insertPC.setString(3, customer.getEmail());
-    		insertPC.setString(4, customer.getPhoneNumber());
-    		insertPC.setInt(5, customer.getAddress().getZipCode());
-    		insertPC.setString(6, customer.getAddress().getCity());
-    		insertPC.setString(7, customer.getAddress().getStreetName());
-    		insertPC.setInt(8, customer.getAddress().getStreetNumber());
-    		insertPC.registerOutParameter(9, Types.INTEGER);
-    		insertPC.execute();
+        try {
+            insertPC.setString(1, customer.getFirstName());
+            insertPC.setString(2, customer.getLastName());
+            insertPC.setString(3, customer.getEmail());
+            insertPC.setString(4, customer.getPhoneNumber());
+            insertPC.setInt(5, customer.getAddress().getZipCode());
+            insertPC.setString(6, customer.getAddress().getCity());
+            insertPC.setString(7, customer.getAddress().getStreetName());
+            insertPC.setInt(8, customer.getAddress().getStreetNumber());
+            insertPC.registerOutParameter(9, Types.INTEGER);
+            insertPC.execute();
 
-    		// Set identity on the customer object
-    		customer.setId(insertPC.getInt(9));
-    	} catch(SQLException e) {
-    		e.printStackTrace();
+            // Set identity on the customer object
+            customer.setId(insertPC.getInt(9));
+        } catch (SQLException e) {
+            e.printStackTrace();
 
-    		throw new DataAccessException("Unable to create customer");
-    	}
+            throw new DataAccessException("Unable to create customer");
+        }
 
-    	return customer;
+        return customer;
     }
 
     @Override

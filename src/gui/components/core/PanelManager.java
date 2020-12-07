@@ -7,44 +7,44 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 
 public class PanelManager extends JPanel {
-    private Map<String, JComponent> components = new HashMap<>();
+    private final Map<String, JComponent> components = new HashMap<>();
     private String currentId;
     private String previousId;
-    
+
     public PanelManager() {
         setLayout(new CardLayout(0, 0));
     }
-    
+
     public void removePanel(String id) {
-    	JComponent component = components.get(id);
-    	if (component == null) {
-    		return;
-    	}
-    	
-    	remove(component);
-    	components.remove(id);
+        JComponent component = components.get(id);
+        if (component == null) {
+            return;
+        }
+
+        remove(component);
+        components.remove(id);
     }
-    
+
     public void setActive(String id, Callable<? extends JComponent> panelCreation) {
-    	if (components.get(id) != null) {
-    		removePanel(id);
-    	}
-    
+        if (components.get(id) != null) {
+            removePanel(id);
+        }
+
         try {
-			addPanel(id, panelCreation.call());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            addPanel(id, panelCreation.call());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         setActive(id);
     }
-    
+
     public String getCurrentId() {
-    	return currentId;
+        return currentId;
     }
-    
+
     public String getPreviousId() {
-    	return previousId;
+        return previousId;
     }
 
     public void setActive(String id) {
@@ -52,19 +52,19 @@ public class PanelManager extends JPanel {
             return;
         }
 
-        CardLayout cl = (CardLayout)getLayout();
+        CardLayout cl = (CardLayout) getLayout();
         cl.show(this, id);
         previousId = currentId;
         currentId = id;
     }
-    
+
     public void setActiveAndRemoveCurrent(String id) {
-    	String currentId = getCurrentId();
-    	
-    	setActive(id);
-    	removePanel(currentId);
+        String currentId = getCurrentId();
+
+        setActive(id);
+        removePanel(currentId);
     }
-    
+
     private void addPanel(String id, JComponent component) {
         components.putIfAbsent(id, component);
 

@@ -97,7 +97,7 @@ public class CustomerDaoMsSqlTest {
         // Arrange
         int id = 3;
         Address address = new Address("Testing", 1, "Test", 1);
-        Customer customer = new Customer(id,"Test", "Test", "test@ucn.dk",
+        Customer customer = new Customer(id, "Test", "Test", "test@ucn.dk",
                 "11111111", address);
         Customer returnCustomer;
 

@@ -1,6 +1,6 @@
 package controller;
 
-import dao.SpecificationToProductCategoryDao;
+import dao.ProductDao;
 import datasource.DBManager;
 import entity.Product;
 import entity.Specification;
@@ -16,36 +16,35 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class SpecificationsController {
-	private List<Consumer<List<Specification>>> onFindListeners = new LinkedList<>();
-	private List<Consumer<Map<Specification, List<Product>>>> onSaveListeners = new LinkedList<>();
-	private List<Specification> specifications = new LinkedList<>();
+    private final List<Consumer<List<Specification>>> onFindListeners = new LinkedList<>();
+    private final List<Consumer<Map<Specification, List<Product>>>> onSaveListeners = new LinkedList<>();
+    private List<Specification> specifications = new LinkedList<>();
 
-	public void addFindListener(Consumer<List<Specification>> listener) {
-		onFindListeners.add(listener);
-	}
-	
-	public void addSaveListener(Consumer<Map<Specification, List<Product>>> listener) {
-		onSaveListeners.add(listener);
-	}
-	
+    public void addFindListener(Consumer<List<Specification>> listener) {
+        onFindListeners.add(listener);
+    }
+
+    public void addSaveListener(Consumer<Map<Specification, List<Product>>> listener) {
+        onSaveListeners.add(listener);
+    }
+
     public void getSpecifications() {
         final List<Specification> specifications = new LinkedList<>();
         specifications.add(new Window());
         specifications.add(new Roof());
-        
+
         onFindListeners.forEach(l -> l.accept(specifications));
     }
-    
+
     public void setSpecifications(List<Specification> specifications) {
-    	this.specifications = specifications;
+        this.specifications = specifications;
     }
-    
+
     private Thread findProductsBySpecification(Specification spec, Consumer<List<Product>> productsConsumer) {
         return new ConnectionThread(conn -> {
-            SpecificationToProductCategoryDao dao =
-                    DBManager.getDaoFactory().createSpecificationToProductCategoryDao(conn);
+            final ProductDao dao = DBManager.getDaoFactory().createProductDao(conn);
             try {
-                List<Product> products = dao.findBySpecificationId(spec);
+                final List<Product> products = dao.findBySpecification(spec);
 
                 productsConsumer.accept(products);
             } catch (DataAccessException e) {
@@ -55,8 +54,8 @@ public class SpecificationsController {
     }
 
     public void getProductsFromSpecifications() {
-    	new Thread(() -> {
-    	    List<Specification> specificationsCopy = specifications;
+        new Thread(() -> {
+            List<Specification> specificationsCopy = specifications;
             Map<Specification, List<Product>> specProductsMap = new HashMap<>();
 
             List<Thread> threads = new LinkedList<>();
@@ -71,13 +70,13 @@ public class SpecificationsController {
 
             for (Thread t : threads) {
                 try {
-					t.join();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+                    t.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             onSaveListeners.forEach(l -> l.accept(specProductsMap));
-    	}).start();
+        }).start();
     }
 }

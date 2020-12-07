@@ -16,33 +16,33 @@ import java.util.function.Consumer;
 
 public class CustomerController {
     private Customer customer;
-    private List<Consumer<List<Customer>>> onFindListeners = new LinkedList<>();
-    private List<Consumer<Customer>> onSaveListeners = new LinkedList<>();
-    private List<Consumer<String>> onErrorListeners = new LinkedList<>();
-    
+    private final List<Consumer<List<Customer>>> onFindListeners = new LinkedList<>();
+    private final List<Consumer<Customer>> onSaveListeners = new LinkedList<>();
+    private final List<Consumer<String>> onErrorListeners = new LinkedList<>();
+
     public void addFindListener(Consumer<List<Customer>> consumer) {
-    	onFindListeners.add(consumer);
+        onFindListeners.add(consumer);
     }
-    
+
     public void addSaveListener(Consumer<Customer> consumer) {
-    	onSaveListeners.add(consumer);
+        onSaveListeners.add(consumer);
     }
-    
+
     public void addErrorListener(Consumer<String> error) {
-    	onErrorListeners.add(error);
+        onErrorListeners.add(error);
     }
-    
+
     public void getAll() {
-    	new Thread(() -> {
-	    	try {
-	    		List<Customer> customers = findAll();
-	    		onFindListeners.forEach(l -> l.accept(customers));
-	    	} catch (DataAccessException e) {
-	    		onErrorListeners.forEach(l -> l.accept("Noget gik galt, kan ikke finde all kunder"));
-	    	}
-    	}).start();
+        new Thread(() -> {
+            try {
+                List<Customer> customers = findAll();
+                onFindListeners.forEach(l -> l.accept(customers));
+            } catch (DataAccessException e) {
+                onErrorListeners.forEach(l -> l.accept("Noget gik galt, kan ikke finde all kunder"));
+            }
+        }).start();
     }
-    
+
     public void getSearch(String search) {
         new Thread(() -> {
             try {
@@ -75,55 +75,55 @@ public class CustomerController {
     }
 
     public boolean setCustomerInformation(int id, String firstName, String lastName, String email, String phoneNumber,
-									   String city, String streetName, String streetNumber, String zipCode) {
-    	if (setCustomerInformation(firstName, lastName, email, phoneNumber, city, streetName, streetNumber, zipCode)) {
-			customer.setId(id);
-			
-			return true;
-		};
-		
-		return false;
+                                          String city, String streetName, String streetNumber, String zipCode) {
+        if (setCustomerInformation(firstName, lastName, email, phoneNumber, city, streetName, streetNumber, zipCode)) {
+            customer.setId(id);
+
+            return true;
+        }
+
+        return false;
     }
 
     public boolean setCustomerInformation(String firstName, String lastName, String email, String phoneNumber, String city,
-                                       String streetName, String streetNumber, String zipCode) {
-    	if (customer == null) {
-			customer = new Customer();
-		}
-    	
-    	int streetNumberInt = Converter.tryParse(streetNumber);
-    	int zipCodeInt = Converter.tryParse(zipCode);
+                                          String streetName, String streetNumber, String zipCode) {
+        if (customer == null) {
+            customer = new Customer();
+        }
 
-		Address address = new Address(streetName, streetNumberInt, city, zipCodeInt);
-		Customer temp = new Customer(firstName, lastName, email, phoneNumber, address);
-		try {
-			temp.validate();
+        int streetNumberInt = Converter.tryParse(streetNumber);
+        int zipCodeInt = Converter.tryParse(zipCode);
 
-			temp.setId(customer.getId());
-			customer = temp;
-			
-			return true;
-		} catch (Exception e) {
-			onErrorListeners.forEach(l -> l.accept(e.getMessage()));
-			
-			return false;
-		}
+        Address address = new Address(streetName, streetNumberInt, city, zipCodeInt);
+        Customer temp = new Customer(firstName, lastName, email, phoneNumber, address);
+        try {
+            temp.validate();
+
+            temp.setId(customer.getId());
+            customer = temp;
+
+            return true;
+        } catch (Exception e) {
+            onErrorListeners.forEach(l -> l.accept(e.getMessage()));
+
+            return false;
+        }
     }
 
     public void setCustomer(Customer customer) {
-    	this.customer = customer;
+        this.customer = customer;
     }
-    
+
     public void save() {
-    	try {
-	    	if (customer.getId() <= 0) {
-	    		create();
-	    	} else {
-	    		update();
-	    	}
-    	} catch (Exception e) {
-    		onErrorListeners.forEach(l -> l.accept(e.getMessage()));
-    	}
+        try {
+            if (customer.getId() <= 0) {
+                create();
+            } else {
+                update();
+            }
+        } catch (Exception e) {
+            onErrorListeners.forEach(l -> l.accept(e.getMessage()));
+        }
     }
 
     private void create() {
@@ -133,51 +133,51 @@ public class CustomerController {
         final Customer customerTemp = this.customer;
 
         new ConnectionThread(conn -> {
-        	CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(conn);
+            CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(conn);
 
-        	try {
-        		conn.startTransaction();
-        		Customer customer = dao.create(customerTemp);
-        		conn.commitTransaction();
+            try {
+                conn.startTransaction();
+                Customer customer = dao.create(customerTemp);
+                conn.commitTransaction();
 
-        		onSaveListeners.forEach(l -> l.accept(customer));
-        	} catch (SQLException | DataAccessException e) {
-        		e.printStackTrace();
+                onSaveListeners.forEach(l -> l.accept(customer));
+            } catch (SQLException | DataAccessException e) {
+                e.printStackTrace();
 
-        		try {
-        			conn.rollbackTransaction();
-        		} catch (SQLException e2) {
-        			e2.printStackTrace();
-        		}
-        	}
+                try {
+                    conn.rollbackTransaction();
+                } catch (SQLException e2) {
+                    e2.printStackTrace();
+                }
+            }
         }).start();
     }
 
     private void update() {
         if (customer == null) throw new IllegalArgumentException("No customer set");
         // TODO: Could improve this?
-       	//if (!isCustomerValid(customer)) throw new IllegalArgumentException("Customer isn't valid");
+        //if (!isCustomerValid(customer)) throw new IllegalArgumentException("Customer isn't valid");
 
         final Customer customerTemp = this.customer;
 
         new ConnectionThread(conn -> {
-        	CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(conn);
+            CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(conn);
 
-        	try {
-        		conn.startTransaction();
-        		dao.update(customerTemp);
-        		conn.commitTransaction();
+            try {
+                conn.startTransaction();
+                dao.update(customerTemp);
+                conn.commitTransaction();
 
-        		onSaveListeners.forEach(l -> l.accept(customerTemp));
-        	} catch (SQLException | DataAccessException e) {
-        		e.printStackTrace();
-        		
-        		try {
-        			conn.rollbackTransaction();
-        		} catch (SQLException e2) {
-        			e2.printStackTrace();
-        		}
-        	}
+                onSaveListeners.forEach(l -> l.accept(customerTemp));
+            } catch (SQLException | DataAccessException e) {
+                e.printStackTrace();
+
+                try {
+                    conn.rollbackTransaction();
+                } catch (SQLException e2) {
+                    e2.printStackTrace();
+                }
+            }
         }).start();
     }
 }

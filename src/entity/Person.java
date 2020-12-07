@@ -5,11 +5,14 @@ public abstract class Person {
     private String firstName;
     private String lastName;
 
-    public Person() {}
+    public Person() {
+    }
+
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
     public Person(int id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
@@ -43,17 +46,17 @@ public abstract class Person {
 
     @Override
     public boolean equals(Object object) {
-    	if (object instanceof Person) {
-    		Person person = (Person) object;
-    		
-    		return person.getId() == id;
-    	}
-    	
-    	return false;
+        if (object instanceof Person) {
+            Person person = (Person) object;
+
+            return person.getId() == id;
+        }
+
+        return false;
     }
-    
+
     @Override
     public int hashCode() {
-    	return id;
+        return id;
     }
 }

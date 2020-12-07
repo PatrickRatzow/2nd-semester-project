@@ -15,113 +15,113 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ProjectFindOrCreateCustomer extends JPanel {
-	private PlaceholderTextField searchTextField;
-	private JComponent resultComponent;
-	private JPanel container;
-	private JButton btnAddCustomer;
-	private JPanel resultContainer;
-	private Customer customer;
+    private final PlaceholderTextField searchTextField;
+    private JComponent resultComponent;
+    private final JPanel container;
+    private final JButton btnAddCustomer;
+    private final JPanel resultContainer;
+    private Customer customer;
 
-	public ProjectFindOrCreateCustomer(PanelManager panelManager, ProjectController projectController) {
-		CustomerController customerController = new CustomerController();
-		String previousId = panelManager.getCurrentId();
-		setLayout(new BorderLayout(0, 0));
+    public ProjectFindOrCreateCustomer(PanelManager panelManager, ProjectController projectController) {
+        CustomerController customerController = new CustomerController();
+        String previousId = panelManager.getCurrentId();
+        setLayout(new BorderLayout(0, 0));
 
-		TitleBar titleBar = new TitleBar();
-		titleBar.setTitle("Opret Projekt");
-		titleBar.setButtonName("Gaa tilbage");
-		titleBar.addActionListener(l -> panelManager.setActiveAndRemoveCurrent(previousId));
-		add(titleBar, BorderLayout.NORTH);
+        TitleBar titleBar = new TitleBar();
+        titleBar.setTitle("Opret Projekt");
+        titleBar.setButtonName("Gaa tilbage");
+        titleBar.addActionListener(l -> panelManager.setActiveAndRemoveCurrent(previousId));
+        add(titleBar, BorderLayout.NORTH);
 
-		BackgroundTitle backgroundTitle = new BackgroundTitle("Kunde (1/3)");
-		add(backgroundTitle, BorderLayout.CENTER);
-		
-		container = new JPanel();
-		container.setOpaque(false);
-		container.setLayout(new BorderLayout(0, 0));
-		backgroundTitle.add(container);
+        BackgroundTitle backgroundTitle = new BackgroundTitle("Kunde (1/3)");
+        add(backgroundTitle, BorderLayout.CENTER);
 
-		JPanel topContainer = new JPanel();
-		topContainer.setOpaque(false);
-		container.add(topContainer, BorderLayout.NORTH);
+        container = new JPanel();
+        container.setOpaque(false);
+        container.setLayout(new BorderLayout(0, 0));
+        backgroundTitle.add(container);
 
-		JPanel bottomContainer = new JPanel();
-		bottomContainer.setOpaque(false);
-		container.add(bottomContainer, BorderLayout.SOUTH);
+        JPanel topContainer = new JPanel();
+        topContainer.setOpaque(false);
+        container.add(topContainer, BorderLayout.NORTH);
 
-		resultContainer = new JPanel();
-		resultContainer.setOpaque(false);
-		container.add(resultContainer, BorderLayout.CENTER);
-		topContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        JPanel bottomContainer = new JPanel();
+        bottomContainer.setOpaque(false);
+        container.add(bottomContainer, BorderLayout.SOUTH);
 
-		searchTextField = new PlaceholderTextField();
-		searchTextField.setColumns(12);
-		searchTextField.setPlaceholder("Telefonnummer");
-		topContainer.add(searchTextField);
+        resultContainer = new JPanel();
+        resultContainer.setOpaque(false);
+        container.add(resultContainer, BorderLayout.CENTER);
+        topContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		btnAddCustomer = new JButton("Tilknyt kunde");
-		btnAddCustomer.setBackground(Colors.GREEN.getColor());
-		btnAddCustomer.setVisible(false);
-		btnAddCustomer.addActionListener(e -> {
-			projectController.setCustomer(customer);
+        searchTextField = new PlaceholderTextField();
+        searchTextField.setColumns(12);
+        searchTextField.setPlaceholder("Telefonnummer");
+        topContainer.add(searchTextField);
 
-			panelManager.setActive("specifications",
-					() -> new SpecificationsProjectTab(panelManager, projectController));
-		});
-		bottomContainer.add(btnAddCustomer);
+        btnAddCustomer = new JButton("Tilknyt kunde");
+        btnAddCustomer.setBackground(Colors.GREEN.getColor());
+        btnAddCustomer.setVisible(false);
+        btnAddCustomer.addActionListener(e -> {
+            projectController.setCustomer(customer);
 
-		JButton btnSearch = new JButton("Anmod");
-		btnSearch.addActionListener(e -> customerController.getSearch(searchTextField.getText()));
-		topContainer.add(btnSearch);
+            panelManager.setActive("specifications",
+                    () -> new SpecificationsProjectTab(panelManager, projectController));
+        });
+        bottomContainer.add(btnAddCustomer);
 
-		JButton btnCreate = new JButton("Opret kunde");
-		btnCreate.addActionListener(l -> {
-			panelManager.setActive("create_customer", () -> 
-				new ProjectCreateCustomerTab(panelManager, customerController));
-		});
-		topContainer.add(btnCreate);
+        JButton btnSearch = new JButton("Anmod");
+        btnSearch.addActionListener(e -> customerController.getSearch(searchTextField.getText()));
+        topContainer.add(btnSearch);
 
-		customerController.addFindListener(customers -> {
-			if (resultComponent != null) {
-				resultContainer.remove(resultComponent);
-			}
-			if (!customers.isEmpty()) {
-				createCustomerDisplay(customers.get(0));
-			} else {
-				createNoResultDisplay();
-			}
-			revalidate();
-			repaint();
-		});
-		customerController.addSaveListener(customer -> {
-			projectController.setCustomer(customer);
+        JButton btnCreate = new JButton("Opret kunde");
+        btnCreate.addActionListener(l -> {
+            panelManager.setActive("create_customer", () ->
+                    new ProjectCreateCustomerTab(panelManager, customerController));
+        });
+        topContainer.add(btnCreate);
 
-			panelManager.setActive("specifications",
-					() -> new SpecificationsProjectTab(panelManager, projectController));
-			panelManager.removePanel("create_customer");
-		});
-	}
+        customerController.addFindListener(customers -> {
+            if (resultComponent != null) {
+                resultContainer.remove(resultComponent);
+            }
+            if (!customers.isEmpty()) {
+                createCustomerDisplay(customers.get(0));
+            } else {
+                createNoResultDisplay();
+            }
+            revalidate();
+            repaint();
+        });
+        customerController.addSaveListener(customer -> {
+            projectController.setCustomer(customer);
 
-	private void createCustomerDisplay(Customer customer) {
-		resultComponent = new CustomerInformationBox(customer);
-		Dimension dimension = resultComponent.getPreferredSize();
-		dimension.width = 400;
-		resultComponent.setPreferredSize(dimension);
-		resultContainer.add(resultComponent);
-		
-		this.customer = customer;
+            panelManager.setActive("specifications",
+                    () -> new SpecificationsProjectTab(panelManager, projectController));
+            panelManager.removePanel("create_customer");
+        });
+    }
 
-		btnAddCustomer.setVisible(true);
-	}
+    private void createCustomerDisplay(Customer customer) {
+        resultComponent = new CustomerInformationBox(customer);
+        Dimension dimension = resultComponent.getPreferredSize();
+        dimension.width = 400;
+        resultComponent.setPreferredSize(dimension);
+        resultContainer.add(resultComponent);
 
-	private void createNoResultDisplay() {
-		resultComponent = new JLabel(searchTextField.getText() + " eksistere ikke.");
-		resultComponent.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		resultComponent.setForeground(Colors.RED.getColor());
-		resultContainer.add(resultComponent);
-		
-		this.customer = null;
+        this.customer = customer;
 
-		btnAddCustomer.setVisible(false);
-	}
+        btnAddCustomer.setVisible(true);
+    }
+
+    private void createNoResultDisplay() {
+        resultComponent = new JLabel(searchTextField.getText() + " eksistere ikke.");
+        resultComponent.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        resultComponent.setForeground(Colors.RED.getColor());
+        resultContainer.add(resultComponent);
+
+        this.customer = null;
+
+        btnAddCustomer.setVisible(false);
+    }
 }

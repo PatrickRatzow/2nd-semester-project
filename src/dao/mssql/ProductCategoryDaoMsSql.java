@@ -29,7 +29,7 @@ public class ProductCategoryDaoMsSql implements ProductCategoryDao {
             findAllPS = conn.prepareStatement(FIND_ALL_Q);
             findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
             findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

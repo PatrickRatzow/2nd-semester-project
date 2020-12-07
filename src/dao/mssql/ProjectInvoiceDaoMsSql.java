@@ -62,16 +62,15 @@ public class ProjectInvoiceDaoMsSql implements ProjectInvoiceDao {
 
     @Override
     public ProjectInvoice findById(int id) throws DataAccessException {
-        final ProjectInvoice projectInvoice;
+        ProjectInvoice projectInvoice = null;
 
         try {
             findByIdPS.setInt(1, id);
             ResultSet rs = findByIdPS.executeQuery();
-            if (!rs.next()) {
-                throw new DataAccessException("Unable to find project invoice with id - " + id);
-            }
 
-            projectInvoice = buildObject(rs);
+            if (rs.next()) {
+                projectInvoice = buildObject(rs);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
 

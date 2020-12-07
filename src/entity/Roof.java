@@ -5,7 +5,7 @@ package entity;
  */
 // https://www.roofingmegastore.co.uk/blog/how-to-calculate-how-many-tiles-you-need-for-your-roof.html
 // https://roofstores.co.uk/guides/tiles-and-slates/calculating-amount-roof-tiles-slates/
-public class Roof{
+public class Roof {
     private float getTilesNeededPerRow() {
         return 0.0f;
     }

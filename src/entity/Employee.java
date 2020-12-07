@@ -1,22 +1,23 @@
 package entity;
 
 public class Employee extends Person {
-    private EmployeePosition position;
+    private String role;
 
     public Employee() {}
     public Employee(String firstName, String lastName) {
         super(firstName, lastName);
     }
     public Employee(int id, String firstName, String lastName) {
+        this(id, firstName, lastName, null);
+    }
+    public Employee(int id, String firstName, String lastName, String role) {
         super(id, firstName, lastName);
+        
+        this.role = role;
     }
-
-    public EmployeePosition getPosition() {
-        return position;
-    }
-
-    public void setPosition(EmployeePosition position) {
-        this.position = position;
+    
+    public String getRole() {
+        return role;
     }
 }
 

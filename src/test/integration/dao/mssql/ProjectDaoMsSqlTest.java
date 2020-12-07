@@ -44,7 +44,7 @@ public class ProjectDaoMsSqlTest {
         Project project;
 
         //act
-        project = dao.findById(3,true);
+        project = dao.findById(3, true);
 
         //assert
         assertNotNull(project);
@@ -56,7 +56,7 @@ public class ProjectDaoMsSqlTest {
         Project project;
 
         //act
-        project = dao.findById(99999999,false);
+        project = dao.findById(99999999, false);
 
         //assert
         assertNull(project);
@@ -72,7 +72,7 @@ public class ProjectDaoMsSqlTest {
         projects = dao.findByName(name, false);
 
         //assert
-        assertEquals(projects.size(),1);
+        assertEquals(projects.size(), 1);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class ProjectDaoMsSqlTest {
         projects = dao.findByName(name, false);
 
         //assert
-        assertNotEquals(1,0);
+        assertNotEquals(1, 0);
     }
 
     @Test

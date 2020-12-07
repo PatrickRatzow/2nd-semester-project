@@ -16,7 +16,7 @@ public class ProductPriceCalculatorController {
     /**
      * The Product controller.
      */
-    private ProductController productController = new ProductController();
+    private final ProductController productController = new ProductController();
     private CheapestProduct cheapest;
 
     private synchronized void updateCheapest(CheapestProduct cheapestProduct) {

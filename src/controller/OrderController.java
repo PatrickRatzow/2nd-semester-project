@@ -12,14 +12,15 @@ import exception.DataAccessException;
 import java.sql.SQLException;
 
 public class OrderController {
-    private ProductController productController;
-    private Project project;
+    private final ProductController productController;
+    private final Project project;
     private Order order;
 
     public OrderController(Project project, ProductController productController) {
         this.project = project;
         this.productController = new ProductController();
     }
+
     public OrderController(Project project) {
         this(project, new ProductController());
     }

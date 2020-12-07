@@ -7,9 +7,11 @@ public enum ProjectStatus {
     FINISHED(3);
 
     private final int value;
-    private ProjectStatus(int value) {
+
+    ProjectStatus(int value) {
         this.value = value;
     }
+
     public int getValue() {
         return this.value;
     }

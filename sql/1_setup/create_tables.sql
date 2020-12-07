@@ -18,7 +18,7 @@ CREATE TABLE person (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE employee_position (
+CREATE TABLE employee_role (
     id INT IDENTITY(1, 1),
     name NVARCHAR(255),
     PRIMARY KEY(id)
@@ -26,10 +26,10 @@ CREATE TABLE employee_position (
 
 CREATE TABLE employee (
     id INT,
-    position_id INT NOT NULL,
+    role_id INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(id) REFERENCES person(id),
-    FOREIGN KEY(position_id) REFERENCES employee_position
+    FOREIGN KEY(role_id) REFERENCES employee_role
 );
 
 CREATE TABLE customer (
