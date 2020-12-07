@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>13</zoom_level>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>390</x>
+      <y>286</y>
+      <w>260</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>_:SpecificationsTab_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>65</x>
+      <y>273</y>
+      <w>351</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1. openCheapestPriceTab()
+2. addSpecification()
+3. setSpecificationRequirements()
+4. saveSpecification(specification)
+5. calculateCheapestProducts()</panel_attributes>
+    <additional_attributes>250.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>390</x>
+      <y>494</y>
+      <w>260</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>_:SpecificationsController_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>871</x>
+      <y>611</y>
+      <w>260</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>_:Specification_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>507</x>
+      <y>312</y>
+      <w>299</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1.1
+2.1
+3.1 setSpecification()
+4.1
+5.1 calculateCheapestProducts()
+
+</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>390</x>
+      <y>598</y>
+      <w>260</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>_:Product_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>273</y>
+      <w>260</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+2.1 addSpecification()
+
+</panel_attributes>
+    <additional_attributes>180.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>871</x>
+      <y>494</y>
+      <w>260</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>_:SpecificationController_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>871</x>
+      <y>286</y>
+      <w>260</w>
+      <h>39</h>
+    </coordinates>
+    <panel_attributes>_:SpecificationTab_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>507</x>
+      <y>520</y>
+      <w>39</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+
+</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>988</x>
+      <y>312</y>
+      <w>325</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+3.1 setSpecificationRequirements()
+
+4.1 saveSpecification()
+
+</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>988</x>
+      <y>520</y>
+      <w>39</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

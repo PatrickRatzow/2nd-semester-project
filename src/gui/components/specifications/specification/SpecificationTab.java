@@ -22,13 +22,14 @@ public class SpecificationTab extends JPanel {
     private SpecificationColumn amountColumn;
     private final Map<Requirement, SpecificationColumn> columns;
     private final JPanel widthContainer;
+    private List<Requirement> requirements;
 
     public SpecificationTab(PanelManager panelManager, SpecificationController specificationController) {
         setOpaque(false);
         this.panelManager = panelManager;
         this.specificationController = specificationController;
         previousId = panelManager.getCurrentId();
-        List<Requirement> requirements = specificationController.getRequirements();
+        requirements = specificationController.getRequirements();
         columns = new LinkedHashMap<>();
 
         setLayout(new BorderLayout(0, 0));
@@ -69,6 +70,48 @@ public class SpecificationTab extends JPanel {
         createSpecificationColumns();
 
         // Creates the dynamic fields from the requirement
+        createDynamicFieldsFromRequirements();
+
+        JPanel bottomContainer = new JPanel();
+        bottomContainer.setOpaque(false);
+        container.add(bottomContainer, BorderLayout.SOUTH);
+
+        JButton save = new JButton("Gem krav");
+        save.setBackground(Colors.GREEN.getColor());
+        save.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        save.setHorizontalAlignment(SwingConstants.RIGHT);
+        save.addActionListener(e -> saveSpecification());
+        save.setEnabled(false);
+
+        bottomContainer.setLayout(new BorderLayout(0, 0));
+        bottomContainer.add(save, BorderLayout.EAST);
+
+        Component rigidArea = Box.createRigidArea(new Dimension(0, 5));
+        bottomContainer.add(rigidArea, BorderLayout.NORTH);
+    }
+    
+    private void saveSpecification() {
+        // Get the values of the fields that we know are there
+        String resultNameInTextField = nameColumn.getStringValue();
+        String resultAmountInTextField = amountColumn.getStringValue();
+        int parseAmount = Integer.parseInt(resultAmountInTextField);
+        // Set the values on our controller
+        specificationController.setDisplayName(resultNameInTextField);
+        specificationController.setResultAmount(parseAmount);
+        // Set the value of our requirement from their respective field
+        for (Entry<Requirement, SpecificationColumn> column : columns.entrySet()) {
+            String value = column.getValue().getStringValue();
+            column.getKey().setValueFromSQLValue(value);
+        }
+        // Set the requirements and save
+        specificationController.setRequirements(new LinkedList<>(columns.keySet()));
+        specificationController.save();
+
+        // Go back to the previous panel
+        panelManager.setActiveAndRemoveCurrent(previousId);
+    }
+
+    private void createDynamicFieldsFromRequirements() {
         Iterator<Requirement> iterator = requirements.iterator();
         while (iterator.hasNext()) {
             Requirement requirement = iterator.next();
@@ -80,44 +123,8 @@ public class SpecificationTab extends JPanel {
                 widthContainer.add(createSpacer());
             }
         }
-
-        JPanel bottomContainer = new JPanel();
-        bottomContainer.setOpaque(false);
-        container.add(bottomContainer, BorderLayout.SOUTH);
-
-        JButton save = new JButton("Gem krav");
-        save.setBackground(Colors.GREEN.getColor());
-        save.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        save.setHorizontalAlignment(SwingConstants.RIGHT);
-        save.addActionListener(e -> {
-            // Get the values of the fields that we know are there
-            String resultNameInTextField = nameColumn.getStringValue();
-            String resultAmountInTextField = amountColumn.getStringValue();
-            int parseAmount = Integer.parseInt(resultAmountInTextField);
-            // Set the values on our controller
-            specificationController.setDisplayName(resultNameInTextField);
-            specificationController.setResultAmount(parseAmount);
-            // Set the value of our requirement from their respective field
-            for (Entry<Requirement, SpecificationColumn> column : columns.entrySet()) {
-                String value = column.getValue().getStringValue();
-                column.getKey().setValueFromSQLValue(value);
-            }
-            // Set the requirements and save
-            specificationController.setRequirements(new LinkedList<>(columns.keySet()));
-            specificationController.save();
-
-            // Go back to the previous panel
-            panelManager.setActiveAndRemoveCurrent(previousId);
-        });
-        //save.setEnabled(false);
-
-        bottomContainer.setLayout(new BorderLayout(0, 0));
-        bottomContainer.add(save, BorderLayout.EAST);
-
-        Component rigidArea = Box.createRigidArea(new Dimension(0, 5));
-        bottomContainer.add(rigidArea, BorderLayout.NORTH);
     }
-
+    
     public void fillColumnsWithRequirementValues() {
         nameColumn.setStringValue(specificationController.getDisplayName());
         amountColumn.setStringValue(String.valueOf(specificationController.getResultAmount()));
