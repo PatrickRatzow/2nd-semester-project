@@ -2,9 +2,9 @@ package dao.mssql;
 
 import dao.*;
 import datasource.DBConnection;
+import datasource.DBManager;
 import datasource.DataAccessException;
 import model.*;
-import util.ConnectionThread;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -156,7 +156,7 @@ public class ProjectDaoMsSql implements ProjectDao {
             final int employeeId = rs.getInt("employee_id");
 
             List<Thread> threads = new LinkedList<>();
-            threads.add(new ConnectionThread(conn -> {
+            threads.add(DBManager.getInstance().getConnectionThread(conn -> {
                 CustomerDao dao = new CustomerDaoMsSql(conn);
                 try {
                     customer.set(dao.findById(customerId));
@@ -164,7 +164,7 @@ public class ProjectDaoMsSql implements ProjectDao {
                     exception.set(e);
                 }
             }));
-            threads.add(new ConnectionThread(conn -> {
+            threads.add(DBManager.getInstance().getConnectionThread(conn -> {
                 EmployeeDao dao = new EmployeeDaoMsSql(conn);
                 try {
                     employee.set(dao.findById(employeeId));
@@ -172,7 +172,7 @@ public class ProjectDaoMsSql implements ProjectDao {
                     exception.set(e);
                 }
             }));
-            threads.add(new ConnectionThread(conn -> {
+            threads.add(DBManager.getInstance().getConnectionThread(conn -> {
                 ProjectInvoiceDao dao = new ProjectInvoiceDaoMsSql(conn);
                 try {
                     invoice.set(dao.findById(id));
@@ -180,7 +180,7 @@ public class ProjectDaoMsSql implements ProjectDao {
                     exception.set(e);
                 }
             }));
-            threads.add(new ConnectionThread(conn -> {
+            threads.add(DBManager.getInstance().getConnectionThread(conn -> {
                 OrderDao dao = new OrderDaoMsSql(conn);
                 try {
                     order.set(dao.findById(id, true));

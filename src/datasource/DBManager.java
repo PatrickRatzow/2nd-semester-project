@@ -1,17 +1,23 @@
 package datasource;
 
 import dao.DaoFactory;
-import dao.mssql.DaoFactoryMsSql;
 import datasource.mssql.DBConnectionPoolMsSql;
 
-public class DBManager {
-    private static volatile DBConnectionPool pool;
-    private static volatile String dataSource;
-    private static volatile DaoFactory factory;
+import java.util.function.Consumer;
 
-    private static void loadSource() {
+public class DBManager {
+    private static DBManager instance;
+    private volatile DBConnectionPool pool;
+    private volatile String dataSource;
+    private volatile DaoFactory factory;
+
+    private DBManager() {
+        loadSource();
+    }
+    
+    private void loadSource() {
         if (dataSource == null) {
-            synchronized (DBManager.class) {
+            synchronized (this) {
                 if (dataSource == null) {
                     dataSource = "mssql";//Config.getProperty("dataSource");
                 }
@@ -19,9 +25,9 @@ public class DBManager {
         }
     }
 
-    public static DBConnectionPool getPool() {
+    public DBConnectionPool getPool() {
         if (pool == null) {
-            synchronized (DBManager.class) {
+            synchronized (this) {
                 if (pool == null) {
                     loadSource();
 
@@ -34,18 +40,27 @@ public class DBManager {
         return pool;
     }
 
-    public static DaoFactory getDaoFactory() {
-        if (factory == null) {
+    public Thread getConnectionThread(Consumer<DBConnection> callback) {
+        return new Thread(() -> {
+            DBConnection connection = getPool().getConnection();
+            
+            callback.accept(connection);
+            
+            if (connection != null) {
+                connection.release();
+            }
+        });
+    }
+    
+    public static DBManager getInstance() {
+        if (instance == null) {
             synchronized (DBManager.class) {
-                if (factory == null) {
-                    loadSource();
-
-                    if (dataSource.equalsIgnoreCase("mssql"))
-                        factory = new DaoFactoryMsSql();
+                if (instance == null) {
+                    instance = new DBManager();
                 }
             }
         }
-
-        return factory;
+        
+        return instance;
     }
 }

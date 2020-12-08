@@ -22,7 +22,7 @@ public class ProjectDaoMsSqlTest {
 
     @BeforeAll
     static void setup() {
-        connection = DBManager.getPool().getConnection();
+        connection = DBManager.getInstance().getPool().getConnection();
         dao = new ProjectDaoMsSql(connection);
     }
 

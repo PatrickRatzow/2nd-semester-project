@@ -1,30 +1,25 @@
 package test.unit.controller;
 
 import controller.OrderController;
-import controller.ProductController;
 import model.Order;
 import model.Price;
 import model.Product;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.reset;
 
 @Tag("UnitTest")
-@ExtendWith(MockitoExtension.class)
 public class OrderControllerTest {
-    @Mock
-    private ProductController productController;
-    @InjectMocks
     private OrderController orderController;
 
+    @BeforeEach
+    void setup() {
+        orderController = new OrderController();
+    }
+    
     @Test
     void testCanAddOrderLine() {
         // Arrange
@@ -88,10 +83,5 @@ public class OrderControllerTest {
 
         // Assert
         assertEquals(order.getOrderLines().get(id).getQuantity(), 11);
-    }
-
-    @AfterEach
-    void teardown() {
-        reset(productController);
     }
 }

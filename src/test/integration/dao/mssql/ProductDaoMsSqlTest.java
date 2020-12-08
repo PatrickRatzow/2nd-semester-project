@@ -1,7 +1,6 @@
 package test.integration.dao.mssql;
 
 import dao.ProductDao;
-import dao.mssql.DaoFactoryMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
@@ -21,8 +20,8 @@ public class ProductDaoMsSqlTest {
 	
 	@BeforeAll
 	static void setup() {
-		connection = DBManager.getPool().getConnection();
-		dao = new DaoFactoryMsSql().createProductDao(connection);
+		connection = DBManager.getInstance().getPool().getConnection();
+		dao = connection.getDaoFactory().createProductDao();
 	}
 	
 	@Test

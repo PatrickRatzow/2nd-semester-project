@@ -4,38 +4,43 @@ import dao.*;
 import datasource.DBConnection;
 
 public class DaoFactoryMsSql implements DaoFactory {
+    private DBConnection connection;
+    public DaoFactoryMsSql(DBConnection connection) {
+        this.connection = connection;
+    }
+    
     @Override
-    public CustomerDao createCustomerDao(DBConnection connection) {
+    public CustomerDao createCustomerDao() {
         return new CustomerDaoMsSql(connection);
     }
 
     @Override
-    public EmployeeDao createEmployeeDao(DBConnection connection) {
+    public EmployeeDao createEmployeeDao() {
         return new EmployeeDaoMsSql(connection);
     }
 
     @Override
-    public OrderDao createOrderDao(DBConnection connection) {
+    public OrderDao createOrderDao() {
         return new OrderDaoMsSql(connection);
     }
 
     @Override
-    public OrderLineDao createOrderLineDao(DBConnection connection) {
+    public OrderLineDao createOrderLineDao() {
         return new OrderLineDaoMsSql(connection);
     }
     
     @Override
-    public ProductDao createProductDao(DBConnection connection) {
+    public ProductDao createProductDao() {
         return new ProductDaoMsSql(connection);
     }
 
     @Override
-    public ProjectDao createProjectDao(DBConnection connection) {
+    public ProjectDao createProjectDao() {
         return new ProjectDaoMsSql(connection);
     }
 
     @Override
-    public ProjectInvoiceDao createProjectInvoiceDao(DBConnection connection) {
+    public ProjectInvoiceDao createProjectInvoiceDao() {
         return new ProjectInvoiceDaoMsSql(connection);
     }
 }

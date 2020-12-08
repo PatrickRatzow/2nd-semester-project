@@ -51,8 +51,8 @@ public class OrderController {
     }
 
     public Order findById(int id, boolean fullAssociation) throws DataAccessException {
-        final DBConnection connection = DBManager.getPool().getConnection();
-        final OrderDao orderDao = DBManager.getDaoFactory().createOrderDao(connection);
+        final DBConnection connection = DBManager.getInstance().getPool().getConnection();
+        final OrderDao orderDao = connection.getDaoFactory().createOrderDao();
 
         final Order order = orderDao.findById(id, fullAssociation);
 
@@ -67,8 +67,8 @@ public class OrderController {
         if (order.getId() != 0) throw new IllegalArgumentException("Can't create an order that already exists");
 
         final Order newOrder;
-        final DBConnection connection = DBManager.getPool().getConnection();
-        final OrderDao orderDao = DBManager.getDaoFactory().createOrderDao(connection);
+        final DBConnection connection = DBManager.getInstance().getPool().getConnection();
+        final OrderDao orderDao = connection.getDaoFactory().createOrderDao();
 
         try {
             connection.startTransaction();

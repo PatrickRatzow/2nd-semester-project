@@ -5,14 +5,13 @@ import datasource.DBManager;
 import datasource.DataAccessException;
 import model.Product;
 import model.Specification;
-import util.ConnectionThread;
 
 import java.util.function.Consumer;
 
 public class ProductController {
     public void getBySpecification(Specification specification, Consumer<Product> productConsumer) {
-        new ConnectionThread(conn -> {
-            final ProductDao dao = DBManager.getDaoFactory().createProductDao(conn);
+        DBManager.getInstance().getConnectionThread(conn -> {
+            final ProductDao dao = conn.getDaoFactory().createProductDao();
             try {
                 final Product product = dao.findBySpecification(specification);
                 productConsumer.accept(product);

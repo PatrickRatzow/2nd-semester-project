@@ -4,12 +4,12 @@ import dao.EmployeeDao;
 import dao.OrderDao;
 import dao.OrderLineDao;
 import datasource.DBConnection;
+import datasource.DBManager;
 import datasource.DataAccessException;
 import model.Employee;
 import model.Order;
 import model.OrderLine;
 import model.Project;
-import util.ConnectionThread;
 import util.SQLDateConverter;
 
 import java.sql.*;
@@ -57,7 +57,7 @@ public class OrderDaoMsSql implements OrderDao {
             int employeeId = rs.getInt("employee_id");
 
             List<Thread> threads = new LinkedList<>();
-            threads.add(new ConnectionThread(conn -> {
+            threads.add(DBManager.getInstance().getConnectionThread(conn -> {
                 EmployeeDao dao = new EmployeeDaoMsSql(conn);
                 try {
                     employee.set(dao.findById(employeeId));
@@ -65,7 +65,7 @@ public class OrderDaoMsSql implements OrderDao {
                     exception.set(e);
                 }
             }));
-            threads.add(new ConnectionThread(conn -> {
+            threads.add(DBManager.getInstance().getConnectionThread(conn -> {
                 OrderLineDao dao = new OrderLineDaoMsSql(conn);
                 try {
                     orderLines.set(dao.findByOrderId(id));

@@ -6,7 +6,6 @@ import datasource.DBManager;
 import datasource.DataAccessException;
 import model.Address;
 import model.Customer;
-import util.ConnectionThread;
 import util.Converter;
 
 import java.sql.SQLException;
@@ -55,8 +54,8 @@ public class CustomerController {
     }
 
     private List<Customer> findAll() throws DataAccessException {
-        final DBConnection connection = DBManager.getPool().getConnection();
-        final CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(connection);
+        final DBConnection connection = DBManager.getInstance().getPool().getConnection();
+        final CustomerDao dao = connection.getDaoFactory().createCustomerDao();
         final List<Customer> customers = dao.findAll();
 
         connection.release();
@@ -65,8 +64,8 @@ public class CustomerController {
     }
 
     private List<Customer> findByPhoneNumberOrEmail(String search) throws DataAccessException {
-        final DBConnection connection = DBManager.getPool().getConnection();
-        final CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(connection);
+        final DBConnection connection = DBManager.getInstance().getPool().getConnection();
+        final CustomerDao dao = connection.getDaoFactory().createCustomerDao();
         final List<Customer> customers = dao.findByPhoneNumberOrEmail(search, search);
 
         connection.release();
@@ -125,15 +124,15 @@ public class CustomerController {
             onErrorListeners.forEach(l -> l.accept(e));
         }
     }
-
+    
     private void create() {
         if (customer == null) throw new IllegalArgumentException("No customer set");
         // TODO: Could improve this?
         //if (!isCustomerValid(customer)) throw new IllegalArgumentException("Customer isn't valid");
         final Customer customerTemp = this.customer;
 
-        new ConnectionThread(conn -> {
-            CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(conn);
+        DBManager.getInstance().getConnectionThread(conn -> {
+            CustomerDao dao = conn.getDaoFactory().createCustomerDao();
 
             try {
                 conn.startTransaction();
@@ -159,9 +158,9 @@ public class CustomerController {
         //if (!isCustomerValid(customer)) throw new IllegalArgumentException("Customer isn't valid");
 
         final Customer customerTemp = this.customer;
-
-        new ConnectionThread(conn -> {
-            CustomerDao dao = DBManager.getDaoFactory().createCustomerDao(conn);
+    
+        DBManager.getInstance().getConnectionThread(conn -> {
+            CustomerDao dao = conn.getDaoFactory().createCustomerDao();
 
             try {
                 conn.startTransaction();

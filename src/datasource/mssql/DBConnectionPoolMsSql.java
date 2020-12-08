@@ -100,7 +100,7 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
 
         return conn;
     }
-
+    
     private void releaseConnection(DBConnection connection) {
         try {
             pool.put(connection);

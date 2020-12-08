@@ -1,5 +1,7 @@
 package datasource.mssql;
 
+import dao.DaoFactory;
+import dao.mssql.DaoFactoryMsSql;
 import datasource.DBConnection;
 
 import java.sql.*;
@@ -8,6 +10,7 @@ public class DBConnectionMsSql implements DBConnection {
     private static Connection connection;
     private static final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private Runnable onRelease;
+    private DaoFactory factory;
 
     public DBConnectionMsSql(String host, int port, String username, String password, String database) {
         String connectionString = String.format("jdbc:sqlserver://%s:%s;database=%s;user=%s;password=%s",
@@ -126,5 +129,18 @@ public class DBConnectionMsSql implements DBConnection {
     @Override
     public void release() {
         onRelease.run();
+    }
+    
+    @Override
+    public DaoFactory getDaoFactory() {
+        if (factory == null) {
+            synchronized (this) {
+                if (factory == null) {
+                    factory = new DaoFactoryMsSql(this);
+                }
+            }
+        }
+        
+        return factory;
     }
 }
