@@ -23,12 +23,7 @@ public class DaoFactoryMsSql implements DaoFactory {
     public OrderLineDao createOrderLineDao(DBConnection connection) {
         return new OrderLineDaoMsSql(connection);
     }
-
-    @Override
-    public ProductCategoryDao createProductCategoryDao(DBConnection connection) {
-        return new ProductCategoryDaoMsSql(connection);
-    }
-
+    
     @Override
     public ProductDao createProductDao(DBConnection connection) {
         return new ProductDaoMsSql(connection);

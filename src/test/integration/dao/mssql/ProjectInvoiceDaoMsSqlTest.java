@@ -4,7 +4,7 @@ import dao.ProjectInvoiceDao;
 import dao.mssql.ProjectInvoiceDaoMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Price;
 import model.ProjectInvoice;
 import org.junit.jupiter.api.AfterAll;

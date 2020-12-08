@@ -1,5 +1,6 @@
 package gui.components.product;
 
+import controller.OrderController;
 import gui.components.core.BackgroundTitle;
 import model.OrderLine;
 import model.Price;
@@ -14,7 +15,7 @@ public class ProductsBox extends BackgroundTitle {
 	private BackgroundTitle priceContainer;
 	private JPanel container;
 	
-	public ProductsBox(Collection<OrderLine> orderLines, Price price) {
+	public ProductsBox(OrderController orderController) {
 		setTitle("Produkter");
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		
@@ -33,8 +34,15 @@ public class ProductsBox extends BackgroundTitle {
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 		scrollPane.setViewportView(container);
 		
-		setOrderLines(orderLines);
-		setPrice(price);
+		if (orderController.hasOrder()) {
+			Collection<OrderLine> orderLines = orderController.getOrderLines();
+			Price price = orderController.getPrice();
+			
+			setOrderLines(orderLines);
+			setPrice(price);
+		} else {
+			setPrice(new Price(0));
+		}
 	}
 	
 	public void setPriceBackground(Color color) {

@@ -4,7 +4,7 @@ import dao.EmployeeDao;
 import dao.mssql.DaoFactoryMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Employee;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

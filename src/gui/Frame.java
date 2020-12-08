@@ -30,8 +30,8 @@ public class Frame extends JFrame {
         });
     }
 
-    public static Frame getInstance() {
-        return frame;
+    public static void createErrorPopup(Exception error) {
+        JOptionPane.showMessageDialog(frame, error.getMessage(), "Fejl!", JOptionPane.ERROR_MESSAGE);
     }
 
     public Frame() {

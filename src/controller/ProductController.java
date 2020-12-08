@@ -1,21 +1,24 @@
 package controller;
 
 import dao.ProductDao;
-import datasource.DBConnection;
 import datasource.DBManager;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Product;
+import model.Specification;
+import util.ConnectionThread;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class ProductController {
-    public List<Product> findByName(String name) throws DataAccessException {
-        final DBConnection connection = DBManager.getPool().getConnection();
-        final ProductDao productDao = DBManager.getDaoFactory().createProductDao(connection);
-        final List<Product> products = productDao.findByName(name);
-
-        connection.release();
-
-        return products;
+    public void getBySpecification(Specification specification, Consumer<Product> productConsumer) {
+        new ConnectionThread(conn -> {
+            final ProductDao dao = DBManager.getDaoFactory().createProductDao(conn);
+            try {
+                final Product product = dao.findBySpecification(specification);
+                productConsumer.accept(product);
+            } catch (DataAccessException e) {
+                productConsumer.accept(null);
+            }
+        }).start();
     }
 }

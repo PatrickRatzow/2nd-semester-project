@@ -1,13 +1,15 @@
 package model;
 
-import java.util.List;
-
 import util.validation.Validatable;
+import util.validation.Validator;
+import util.validation.rules.EmptyValidationRule;
+
+import java.util.List;
 
 /**
  * The type Product type.
  */
-public abstract class Specification implements Validatable{
+public abstract class Specification implements Validatable {
     private List<Requirement> requirements;
     public abstract Specification clone();
     public abstract String getId();
@@ -15,6 +17,19 @@ public abstract class Specification implements Validatable{
     private String displayName;
     private int resultAmount;
 
+    @Override
+    public void validate() throws Exception {
+        Validator validator = new Validator();
+        validator.addRule(new EmptyValidationRule(displayName, "Navn må ikke være tom!"));
+        for (Requirement requirement : requirements) {
+            validator.addValidatable(requirement);
+        }
+        
+        if (validator.hasErrors()) {
+            throw validator.getCompositeException();
+        }
+    }
+    
     public List<Requirement> getRequirements() {
         return requirements;
     }
@@ -38,5 +53,4 @@ public abstract class Specification implements Validatable{
     public int getResultAmount() {
     	return resultAmount;
     }
-    
 }

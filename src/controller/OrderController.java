@@ -3,7 +3,7 @@ package controller;
 import dao.OrderDao;
 import datasource.DBConnection;
 import datasource.DBManager;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.*;
 
 import java.sql.SQLException;
@@ -20,6 +20,10 @@ public class OrderController {
 
     public Collection<OrderLine> getOrderLines() {
         return order.getOrderLines().values();
+    }
+    
+    public boolean hasOrder() {
+    	return order != null;
     }
     
     public Price getPrice() {
@@ -89,11 +93,7 @@ public class OrderController {
 
         return newOrder;
     }
-
-    public void cancel() {
-        order = null;
-    }
-
+    
     public Order getOrder() {
         return order;
     }

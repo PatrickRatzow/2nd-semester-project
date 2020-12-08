@@ -4,7 +4,7 @@ import dao.ProductDao;
 import dao.mssql.DaoFactoryMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Product;
 import model.Requirement;
 import model.Specification;

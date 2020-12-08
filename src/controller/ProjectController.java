@@ -3,7 +3,7 @@ package controller;
 import dao.ProjectDao;
 import datasource.DBConnection;
 import datasource.DBManager;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Customer;
 import model.OrderLine;
 import model.Price;
@@ -27,6 +27,14 @@ public class ProjectController {
     public ProjectController(Project project) {
     	this.project = project;
     	this.orderController = new OrderController(project.getOrder());
+    }
+    
+    public void setOrderController(OrderController orderController) {
+    	this.orderController = orderController;
+    }
+    
+    public OrderController getOrderController() {
+    	return orderController;
     }
     
     public void setCustomer(Customer customer) {

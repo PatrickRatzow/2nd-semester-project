@@ -1,11 +1,11 @@
 package util.validation;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class Validator {
-	Collection<Exception> errors = new LinkedList<>();
+	Stack<Exception> errors = new Stack<>();
 	
 	public void addRule(ValidationRule<?> rule) {
 		try {

@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class ProjectView extends JPanel {
 	public ProjectView(PanelManager panelManager, ProjectController projectController) {
-		setLayout(new BorderLayout(0, 0));
+		setLayout(new BorderLayout(0, 5));
 
 		TitleBar titleBar = new TitleBar();
 		titleBar.setTitle(projectController.getName());

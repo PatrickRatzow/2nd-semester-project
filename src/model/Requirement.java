@@ -1,6 +1,8 @@
 package model;
 
-public abstract class Requirement<T> {
+import util.validation.Validatable;
+
+public abstract class Requirement<T> implements Validatable {
     private T value;
 
     public abstract String getName();

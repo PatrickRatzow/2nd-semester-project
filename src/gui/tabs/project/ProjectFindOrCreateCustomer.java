@@ -7,12 +7,13 @@ import gui.components.core.PanelManager;
 import gui.components.core.PlaceholderTextField;
 import gui.components.core.TitleBar;
 import gui.components.customer.CustomerInformationBox;
-import gui.components.specifications.SpecificationsProjectTab;
 import gui.util.Colors;
 import model.Customer;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static gui.Frame.createErrorPopup;
 
 public class ProjectFindOrCreateCustomer extends JPanel {
     private final PlaceholderTextField searchTextField;
@@ -66,7 +67,7 @@ public class ProjectFindOrCreateCustomer extends JPanel {
             projectController.setCustomer(customer);
 
             panelManager.setActive("specifications",
-                    () -> new SpecificationsProjectTab(panelManager, projectController));
+                    () -> new ProjectSpecificationsTab(panelManager, projectController));
         });
         bottomContainer.add(btnAddCustomer);
 
@@ -97,7 +98,7 @@ public class ProjectFindOrCreateCustomer extends JPanel {
             projectController.setCustomer(customer);
 
             panelManager.setActive("specifications",
-                    () -> new SpecificationsProjectTab(panelManager, projectController));
+                    () -> new ProjectSpecificationsTab(panelManager, projectController));
             panelManager.removePanel("create_customer");
         });
     }
@@ -115,13 +116,10 @@ public class ProjectFindOrCreateCustomer extends JPanel {
     }
 
     private void createNoResultDisplay() {
-        resultComponent = new JLabel(searchTextField.getText() + " eksistere ikke.");
-        resultComponent.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        resultComponent.setForeground(Colors.RED.getColor());
-        resultContainer.add(resultComponent);
-
+        createErrorPopup(new Exception(searchTextField.getText() + " findes ikke"));
+        
         this.customer = null;
-
+        
         btnAddCustomer.setVisible(false);
     }
 }
