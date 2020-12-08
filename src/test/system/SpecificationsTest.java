@@ -41,6 +41,7 @@ public class SpecificationsTest {
 		AtomicReference<OrderLine> orderLine = new AtomicReference<>();
 		Stack<String> errors = new Stack<>();
 		SpecificationsController specificationsController = new SpecificationsController();
+		List<String> requirementNames = Arrays.asList("Color", "Width", "Height");
 		
 		// Get all specifications
 		specificationsController.addFindListener(specifications -> {
@@ -96,12 +97,18 @@ public class SpecificationsTest {
 		assertTrue(requirements.get().stream()
 				.map(Requirement::getName)
 				.collect(Collectors.toList())
-				.containsAll(Arrays.asList("Color", "Width", "Height")));
+				.containsAll(requirementNames));
+		// Make sure that there are 3 requirements
+		assertEquals(requirements.get().size(), 3);
 		// Make sure that orderLine isn't null
 		assertNotNull(orderLine.get());
 		// Make sure that the orderLine has the right amount
 		assertEquals(orderLine.get().getQuantity(), resultAmount);
 		// Make sure that we have the right fields on the product
-		// assertTrue(orderLine.get().getProduct().getFields().size() >= 3);
+		assertTrue(orderLine.get().getProduct().getFields().size() >= 3);
+		// Make sure these are the fields we think they are
+		orderLine.get().getProduct().getFields().forEach((key, obj) -> {
+			assertTrue(requirementNames.stream().anyMatch(name -> name.equalsIgnoreCase(key)));
+		});
 	}
 }
