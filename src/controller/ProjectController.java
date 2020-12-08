@@ -88,7 +88,7 @@ public class ProjectController {
     public void getSearchByName(String name) {
         new Thread(() -> {
             try {
-                List<Project> projects = findByName(name);
+                List<Project> projects = findByName(name, false);
                 onFindListeners.forEach(l -> l.accept(projects));
             } catch (DataAccessException e) {
                 e.printStackTrace();
@@ -106,10 +106,10 @@ public class ProjectController {
         return projects;
     }
 
-    private List<Project> findByName(String name) throws DataAccessException {
+    private List<Project> findByName(String name, boolean fullAssociation) throws DataAccessException {
         DBConnection connection = DBManager.getPool().getConnection();
         ProjectDao projectDao = DBManager.getDaoFactory().createProjectDao(connection);
-        List<Project> projects = projectDao.findByName(name, false);
+        List<Project> projects = projectDao.findByName(name, fullAssociation);
 
         connection.release();
 

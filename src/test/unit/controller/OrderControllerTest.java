@@ -32,7 +32,7 @@ public class OrderControllerTest {
         Order order;
 
         // Act
-        orderController.addProduct(product, 5, "Test");
+        orderController.addProduct(product, 5);
         order = orderController.getOrder();
 
         // Assert
@@ -43,7 +43,7 @@ public class OrderControllerTest {
     void testCantAddOrderLineIfProductIsNull() {
         // Assert + Act
         assertThrows(IllegalArgumentException.class, () ->
-                orderController.addProduct(null, 1, "Test")
+                orderController.addProduct(null, 1)
         );
     }
 
@@ -54,7 +54,7 @@ public class OrderControllerTest {
 
         // Assert + Act
         assertThrows(IllegalArgumentException.class, () ->
-                orderController.addProduct(product, 0, "Test")
+                orderController.addProduct(product, 0)
         );
     }
 
@@ -65,9 +65,9 @@ public class OrderControllerTest {
         Order order;
 
         // Act
-        orderController.addProduct(product, 5, "Test");
-        orderController.addProduct(product, 2, "Test");
-        orderController.addProduct(product, 55, "Test");
+        orderController.addProduct(product, 5);
+        orderController.addProduct(product, 2);
+        orderController.addProduct(product, 55);
         order = orderController.getOrder();
 
         // Assert
@@ -82,8 +82,8 @@ public class OrderControllerTest {
         Order order;
 
         // Act
-        orderController.addProduct(product, 5, "Test");
-        orderController.addProduct(product, 6, "Test");
+        orderController.addProduct(product, 5);
+        orderController.addProduct(product, 6);
         order = orderController.getOrder();
 
         // Assert
