@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>11</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>803</x>
-      <y>66</y>
-      <w>110</w>
-      <h>33</h>
+      <x>868</x>
+      <y>119</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>:System</panel_attributes>
     <additional_attributes/>
@@ -15,10 +15,10 @@
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>1001</x>
-      <y>0</y>
-      <w>110</w>
-      <h>121</h>
+      <x>994</x>
+      <y>77</y>
+      <w>70</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>Office worker</panel_attributes>
     <additional_attributes/>
@@ -26,142 +26,142 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>341</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>287</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 openCreateCustomerUI()</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>396</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>322</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 createCustomerUI</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>121</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>154</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 openProjectTab()</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>286</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>252</y>
+      <w>427</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 createProjectUI</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;590.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>462</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>364</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-createCustomer(Fname, Lname, address, city, postnr, phoneNo, email)</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+createCustomer(fName, lName, streetName, streetNumber, zipCode, city, phoneNo, email)</panel_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>517</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>399</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 specificationsUI</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>583</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>441</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 addSpecification(specification)</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>638</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>476</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 specificationUI</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>704</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>518</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 setSpecificationRequirements(specification, requirements)</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>770</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>560</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 saveSpecification(specification)</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>825</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>602</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 specificationsUI</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>253</x>
-      <y>572</y>
-      <w>682</w>
-      <h>308</h>
+      <x>448</x>
+      <y>427</y>
+      <w>483</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>loop</panel_attributes>
     <additional_attributes/>
@@ -169,70 +169,70 @@ specificationsUI</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>891</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>651</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 calculateCheaptestProducts()</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>946</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>679</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 cheapestProducts</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>1056</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>749</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 setProjectLead(employee)</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>1111</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>784</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 setProjectDetails(name, estimated work hours, price)</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>1166</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>819</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 saveProject()</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>99</y>
-      <w>33</w>
-      <h>1144</h>
+      <x>483</x>
+      <y>140</y>
+      <w>21</w>
+      <h>728</h>
     </coordinates>
     <panel_attributes>lt=.
 </panel_attributes>
@@ -241,10 +241,10 @@ saveProject()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>847</x>
-      <y>88</y>
-      <w>33</w>
-      <h>1155</h>
+      <x>896</x>
+      <y>133</y>
+      <w>21</w>
+      <h>735</h>
     </coordinates>
     <panel_attributes>lt=.
 </panel_attributes>
@@ -253,10 +253,10 @@ saveProject()</panel_attributes>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>319</x>
-      <y>11</y>
-      <w>88</w>
-      <h>121</h>
+      <x>462</x>
+      <y>84</y>
+      <w>56</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>Manager</panel_attributes>
     <additional_attributes/>
@@ -264,10 +264,10 @@ saveProject()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1045</x>
-      <y>99</y>
-      <w>33</w>
-      <h>1144</h>
+      <x>1022</x>
+      <y>140</y>
+      <w>21</w>
+      <h>728</h>
     </coordinates>
     <panel_attributes>lt=.
 </panel_attributes>
@@ -276,10 +276,10 @@ saveProject()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>847</x>
-      <y>1199</y>
-      <w>231</w>
-      <h>44</h>
+      <x>896</x>
+      <y>840</y>
+      <w>147</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 item list</panel_attributes>
@@ -288,37 +288,37 @@ item list</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>1001</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>714</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 newProjectOverviewUI</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>176</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>182</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 projectsUI</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>231</y>
-      <w>528</w>
-      <h>44</h>
+      <x>483</x>
+      <y>217</y>
+      <w>434</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 openCreateProjectUI()</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
 </diagram>

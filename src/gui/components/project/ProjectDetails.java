@@ -18,6 +18,7 @@ public class ProjectDetails extends BackgroundTitle {
 	private PlaceholderTextField estimatedHours;
 	private JComboBox<Employee> employeeBox;
 	private EmployeeController employeeController;
+	private JPanel bottomContainer;
 	
 	public ProjectDetails() {
 		employeeController = new EmployeeController();
@@ -25,7 +26,7 @@ public class ProjectDetails extends BackgroundTitle {
 		setTitle("Projekt detajler");
 		Dimension dimension = getPreferredSize();
 		dimension.width = 250;
-		setPreferredSize(dimension);
+		setPreferredSize(new Dimension(120, 358));
 		setBackground(Colors.PRIMARY.getColor());
 		
 		JPanel panel = new JPanel();
@@ -48,6 +49,9 @@ public class ProjectDetails extends BackgroundTitle {
 		name.setPlaceholder("Projekt navn");
 		name.setColumns(10);
 		createRow("Navn", name);
+		
+		bottomContainer = new JPanel();
+		panel.add(bottomContainer, BorderLayout.SOUTH);
 		createSpacer();
 		
 		price = new PlaceholderTextField();
@@ -68,6 +72,7 @@ public class ProjectDetails extends BackgroundTitle {
 		
 		employeeController.addFindListener(employees -> {
 			for (Employee employee : employees) {
+				System.out.println(employee);
 				employeeBox.addItem(employee);
 			}
 		});

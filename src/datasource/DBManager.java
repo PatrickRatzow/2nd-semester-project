@@ -11,7 +11,7 @@ public class DBManager {
 
     private static void loadSource() {
         if (dataSource == null) {
-            synchronized(DBManager.class) {
+            synchronized (DBManager.class) {
                 if (dataSource == null) {
                     dataSource = "mssql";//Config.getProperty("dataSource");
                 }
@@ -21,7 +21,7 @@ public class DBManager {
 
     public static DBConnectionPool getPool() {
         if (pool == null) {
-            synchronized(DBManager.class) {
+            synchronized (DBManager.class) {
                 if (pool == null) {
                     loadSource();
 
@@ -36,7 +36,7 @@ public class DBManager {
 
     public static DaoFactory getDaoFactory() {
         if (factory == null) {
-            synchronized(DBManager.class) {
+            synchronized (DBManager.class) {
                 if (factory == null) {
                     loadSource();
 

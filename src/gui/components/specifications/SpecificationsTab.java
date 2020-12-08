@@ -2,6 +2,7 @@ package gui.components.specifications;
 
 import controller.OrderController;
 import controller.SpecificationsController;
+import gui.Frame;
 import gui.components.core.PanelManager;
 import gui.util.Colors;
 import model.Specification;
@@ -19,8 +20,8 @@ public class SpecificationsTab extends JPanel {
 
     public SpecificationsTab(PanelManager panelManager) {
         specificationsController = new SpecificationsController();
-        setOpaque(false);
         this.panelManager = panelManager;
+        setOpaque(false);
         setLayout(new BorderLayout(0, 0));
         
         createSpecificationsLists();
@@ -40,6 +41,13 @@ public class SpecificationsTab extends JPanel {
         continueBtn.setBackground(Colors.GREEN.getColor());
         continueBtn.addActionListener(l -> continueToNextTab());
         panel.add(continueBtn, BorderLayout.EAST);
+    
+        specificationsController.addSaveListener(ol -> continueBtn.setEnabled(true));
+        specificationsController.addErrorListener(this::createError);
+    }
+    
+    private void createError(Exception error) {
+        Frame.createErrorPopup(error);
     }
 
     private void createSpecificationsLists() {
@@ -50,7 +58,12 @@ public class SpecificationsTab extends JPanel {
     
     private void continueToNextTab() {
         List<Specification> specifications = specificationsLists.getSpecifications();
-
+        if (specifications.isEmpty()) {
+            createError(new Exception("Tilføj mindst en specifikation!"));
+            
+            return;
+        }
+        
         continueBtn.setEnabled(false);
         specificationsController.setSpecifications(specifications);
         specificationsController.getProductsFromSpecifications();

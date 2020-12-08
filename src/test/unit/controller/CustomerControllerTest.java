@@ -1,7 +1,7 @@
 package test.unit.controller;
 
 import controller.CustomerController;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

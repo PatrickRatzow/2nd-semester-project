@@ -1,6 +1,6 @@
 package dao;
 
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Customer;
 
 import java.util.List;

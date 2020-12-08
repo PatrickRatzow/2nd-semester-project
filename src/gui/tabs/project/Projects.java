@@ -48,9 +48,9 @@ public class Projects extends Tab {
         add(scrollPane, BorderLayout.CENTER);
 
         panel = new JPanel();
-        scrollPane.setViewportView(panel);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
+        scrollPane.setViewportView(panel);
+        
         projectController.addFindListener(projects -> {
             for (Project project : projects) {
                 ProjectRow row = rows.get(project);
@@ -66,7 +66,6 @@ public class Projects extends Tab {
                     new ProjectView(panelManager, new ProjectController(project))
             )
         );
-        
         projectController.getAll();
     }
 

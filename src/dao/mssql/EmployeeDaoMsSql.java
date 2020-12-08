@@ -2,7 +2,7 @@ package dao.mssql;
 
 import dao.EmployeeDao;
 import datasource.DBConnection;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Employee;
 
 import java.sql.PreparedStatement;

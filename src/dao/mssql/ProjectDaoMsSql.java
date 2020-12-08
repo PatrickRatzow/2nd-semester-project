@@ -2,7 +2,7 @@ package dao.mssql;
 
 import dao.*;
 import datasource.DBConnection;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.*;
 import util.ConnectionThread;
 

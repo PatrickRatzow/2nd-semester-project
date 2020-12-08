@@ -11,6 +11,7 @@ public class SpecificationController {
     private int displayId;
     private final Specification specification;
     private final List<Consumer<SpecificationController>> onSaveListeners = new LinkedList<>();
+    private final List<Consumer<Exception>> onErrorListeners = new LinkedList<>();
     
     public SpecificationController(Specification specification) {
         this.specification = specification;
@@ -32,7 +33,13 @@ public class SpecificationController {
         onSaveListeners.clear();
     }
     
-    public void save() {
+    public void addErrorListener(Consumer<Exception> listener) {
+        onErrorListeners.add(listener);
+    }
+    
+    public void save() throws Exception {
+        specification.validate();
+        
         onSaveListeners.forEach(l -> l.accept(this));
     }
     
@@ -67,34 +74,4 @@ public class SpecificationController {
     public void setDisplayId(int displayId) {
         this.displayId = displayId;
     }
-    
-    /*
-    public static void main(String[] args) {
-        SpecificationController ctr = new SpecificationController(new Window());
-
-        for (Requirement reg : ctr.getRequirements()) {
-            switch (reg.getId()) {
-                case "color":
-                    reg.setValue(Color.BLUE);
-                    break;
-
-                case "width":
-                    reg.setValue(150);
-                    break;
-
-                case "height":
-                    reg.setValue(100);
-                    break;
-            }
-        }
-
-        try {
-            ctr.load();
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
-
-        ctr.getRequirements().forEach(r -> System.out.println(r.getName() + " - " + r.getValue()));
-    }
-    */
 }

@@ -1,6 +1,7 @@
 package gui.components.specifications.specification;
 
 import controller.SpecificationController;
+import gui.Frame;
 import gui.components.core.BackgroundTitle;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
@@ -90,25 +91,35 @@ public class SpecificationTab extends JPanel {
         bottomContainer.add(rigidArea, BorderLayout.NORTH);
     }
     
+    private void createError(Exception error) {
+        Frame.createErrorPopup(error);
+    }
+    
     private void saveSpecification() {
-        // Get the values of the fields that we know are there
-        String resultNameInTextField = nameColumn.getStringValue();
-        String resultAmountInTextField = amountColumn.getStringValue();
-        int parseAmount = Integer.parseInt(resultAmountInTextField);
-        // Set the values on our controller
-        specificationController.setDisplayName(resultNameInTextField);
-        specificationController.setResultAmount(parseAmount);
-        // Set the value of our requirement from their respective field
-        for (Entry<Requirement, SpecificationColumn> column : columns.entrySet()) {
-            String value = column.getValue().getStringValue();
-            column.getKey().setValueFromSQLValue(value);
+        try {
+            // Get the values of the fields that we know are there
+            String resultNameInTextField = nameColumn.getStringValue();
+            String resultAmountInTextField = amountColumn.getStringValue();
+            int parseAmount = Integer.parseInt(resultAmountInTextField);
+            // Set the values on our controller
+            specificationController.setDisplayName(resultNameInTextField);
+            specificationController.setResultAmount(parseAmount);
+            // Set the value of our requirement from their respective field
+            for (Entry<Requirement, SpecificationColumn> column : columns.entrySet()) {
+                String value = column.getValue().getStringValue();
+                column.getKey().setValueFromSQLValue(value);
+            }
+            // Set the requirements and save
+            specificationController.setRequirements(new LinkedList<>(columns.keySet()));
+            specificationController.save();
+    
+            // Go back to the previous panel
+            panelManager.setActiveAndRemoveCurrent(previousId);
+        } catch (NumberFormatException e) {
+            createError(new Exception("Udfyld antal med et nummer!"));
+        } catch (Exception e) {
+            createError(e);
         }
-        // Set the requirements and save
-        specificationController.setRequirements(new LinkedList<>(columns.keySet()));
-        specificationController.save();
-
-        // Go back to the previous panel
-        panelManager.setActiveAndRemoveCurrent(previousId);
     }
 
     private void createDynamicFieldsFromRequirements() {

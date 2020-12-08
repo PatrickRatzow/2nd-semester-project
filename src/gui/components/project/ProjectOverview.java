@@ -1,33 +1,27 @@
 package gui.components.project;
 
 import controller.ProjectController;
-import gui.components.core.BackgroundTitle;
 import gui.components.customer.CustomerInformationBox;
 import gui.components.product.ProductsBox;
 import gui.util.Colors;
-import model.OrderLine;
-import model.Price;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Collection;
 
-public class ProjectOverview extends BackgroundTitle {
+public class ProjectOverview extends JPanel {
 	public ProjectOverview(ProjectController projectController) {
-		setTitle("Oversigt (3/3)");
+		setOpaque(false);
+		setLayout(new CardLayout(0, 0));
 		
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setLayout(new BorderLayout(5, 0));
-		add(panel);
+		add(panel, "name_1596068453270700");
 		
 		CustomerInformationBox customerBox = new CustomerInformationBox(projectController.getCustomer());
 		panel.add(customerBox, BorderLayout.WEST);
-		
-		Collection<OrderLine> orderLines = projectController.getOrderLines();
-		Price price = projectController.getOrderPrice();
 	
-		ProductsBox productsBox = new ProductsBox(orderLines, price);
+		ProductsBox productsBox = new ProductsBox(projectController.getOrderController());
 		productsBox.setBackground(Colors.PRIMARY.getColor());
 		productsBox.setPriceBackground(Colors.PRIMARY.getColor());
 		panel.add(productsBox, BorderLayout.CENTER);

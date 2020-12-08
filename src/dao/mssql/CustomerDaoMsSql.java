@@ -2,7 +2,7 @@ package dao.mssql;
 
 import dao.CustomerDao;
 import datasource.DBConnection;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Address;
 import model.Customer;
 

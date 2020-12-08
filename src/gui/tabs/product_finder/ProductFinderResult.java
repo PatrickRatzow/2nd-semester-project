@@ -19,7 +19,7 @@ public class ProductFinderResult extends JPanel {
 		titleBar.addActionListener(l -> panelManager.setActiveAndRemoveCurrent(previousId));
 		add(titleBar, BorderLayout.NORTH);
 
-		ProductsBox box = new ProductsBox(orderController.getOrderLines(), orderController.getPrice());
+		ProductsBox box = new ProductsBox(orderController);
 		add(box, BorderLayout.CENTER);
 	}
 }

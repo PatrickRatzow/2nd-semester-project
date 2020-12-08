@@ -2,7 +2,7 @@ package dao.mssql;
 
 import dao.ProjectInvoiceDao;
 import datasource.DBConnection;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Price;
 import model.ProjectInvoice;
 import util.SQLDateConverter;

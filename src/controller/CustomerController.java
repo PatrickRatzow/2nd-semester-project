@@ -3,7 +3,7 @@ package controller;
 import dao.CustomerDao;
 import datasource.DBConnection;
 import datasource.DBManager;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Address;
 import model.Customer;
 import util.ConnectionThread;
@@ -18,7 +18,7 @@ public class CustomerController {
     private Customer customer;
     private final List<Consumer<List<Customer>>> onFindListeners = new LinkedList<>();
     private final List<Consumer<Customer>> onSaveListeners = new LinkedList<>();
-    private final List<Consumer<String>> onErrorListeners = new LinkedList<>();
+    private final List<Consumer<Exception>> onErrorListeners = new LinkedList<>();
 
     public void addFindListener(Consumer<List<Customer>> consumer) {
         onFindListeners.add(consumer);
@@ -28,7 +28,7 @@ public class CustomerController {
         onSaveListeners.add(consumer);
     }
 
-    public void addErrorListener(Consumer<String> error) {
+    public void addErrorListener(Consumer<Exception> error) {
         onErrorListeners.add(error);
     }
 
@@ -38,7 +38,7 @@ public class CustomerController {
                 List<Customer> customers = findAll();
                 onFindListeners.forEach(l -> l.accept(customers));
             } catch (DataAccessException e) {
-                onErrorListeners.forEach(l -> l.accept("Noget gik galt, kan ikke finde all kunder"));
+                onErrorListeners.forEach(l -> l.accept(new Exception("Noget gik galt, kan ikke finde all kunder")));
             }
         }).start();
     }
@@ -49,7 +49,7 @@ public class CustomerController {
                 List<Customer> customers = findByPhoneNumberOrEmail(search);
                 onFindListeners.forEach(l -> l.accept(customers));
             } catch (DataAccessException e) {
-                onErrorListeners.forEach(l -> l.accept("Noget gik galt, kan ikke s�ge i kunder"));
+                onErrorListeners.forEach(l -> l.accept(new Exception("Noget gik galt, kan ikke s�ge i kunder")));
             }
         }).start();
     }
@@ -104,7 +104,7 @@ public class CustomerController {
 
             return true;
         } catch (Exception e) {
-            onErrorListeners.forEach(l -> l.accept(e.getMessage()));
+            onErrorListeners.forEach(l -> l.accept(e));
 
             return false;
         }
@@ -122,7 +122,7 @@ public class CustomerController {
                 update();
             }
         } catch (Exception e) {
-            onErrorListeners.forEach(l -> l.accept(e.getMessage()));
+            onErrorListeners.forEach(l -> l.accept(e));
         }
     }
 

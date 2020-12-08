@@ -1,22 +1,17 @@
-package gui.components.specifications;
+package gui.tabs.project;
 
 import controller.ProjectController;
 import gui.components.core.BackgroundTitle;
 import gui.components.core.PanelManager;
 import gui.components.core.TitleBar;
+import gui.components.specifications.SpecificationsTab;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SpecificationsProjectTab extends JPanel {
-    private final PanelManager panelManager;
-    private final String previousId;
-    private final ProjectController projectController;
-
-    public SpecificationsProjectTab(PanelManager panelManager, ProjectController projectController) {
-        this.panelManager = panelManager;
-        this.projectController = projectController;
-        previousId = panelManager.getCurrentId();
+public class ProjectSpecificationsTab extends JPanel {
+    public ProjectSpecificationsTab(PanelManager panelManager, ProjectController projectController) {
+        String previousId = panelManager.getCurrentId();
         setLayout(new BorderLayout(0, 0));
 
         TitleBar titleBar = new TitleBar();
@@ -33,7 +28,12 @@ public class SpecificationsProjectTab extends JPanel {
         backgroundContainer.setTitle("Specifikationer (2/3)");
         container.add(backgroundContainer);
 
-        JComponent specificationsTab = new SpecificationsTab(panelManager);
+        SpecificationsTab specificationsTab = new SpecificationsTab(panelManager);
+        specificationsTab.addSaveListener(orderController -> {
+        	projectController.setOrderController(orderController);
+        	
+        	panelManager.setActive("project_overview", () -> new ProjectOverviewTab(panelManager, projectController));
+        });
         backgroundContainer.add(specificationsTab);
     }
 }

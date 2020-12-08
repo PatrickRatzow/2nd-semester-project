@@ -4,7 +4,7 @@ import dao.CustomerDao;
 import dao.mssql.CustomerDaoMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Address;
 import model.Customer;
 import org.junit.jupiter.api.AfterAll;

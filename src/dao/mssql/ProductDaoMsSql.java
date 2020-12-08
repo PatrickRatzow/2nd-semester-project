@@ -2,7 +2,7 @@ package dao.mssql;
 
 import dao.ProductDao;
 import datasource.DBConnection;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Price;
 import model.Product;
 import model.Requirement;
@@ -17,41 +17,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * The type Product db.
- */
 public class ProductDaoMsSql implements ProductDao {
-    private static final String FIND_ALL_Q = "SELECT * FROM GetProducts";
-    private PreparedStatement findAllPS;
-    private static final String FIND_BY_ID_Q = "SELECT * FROM GetProducts WHERE id = ? " +
-            "AND GETUTCDATE() BETWEEN price_start_time AND price_end_time " +
-            "ORDER BY price_end_time DESC";
-    private PreparedStatement findByIdPS;
-    private static final String FIND_BY_NAME_Q = "SELECT * FROM GetProducts WHERE name LIKE CONCAT('%', ?, '%') " +
-            "GETUTCDATE() BETWEEN price_start_time AND price_end_time" +
-            "ORDER BY price_end_time DESC";
-    private PreparedStatement findByNamePS;
     private DBConnection connection;
 
-    /**
-     * Instantiates a new Product db.
-     */
     public ProductDaoMsSql(DBConnection conn) {
-        init(conn);
+    	connection = conn;
     }
-
-    private void init(DBConnection conn) {
-        connection = conn;
-
-        try {
-            findByIdPS = conn.prepareStatement(FIND_BY_ID_Q);
-            findAllPS = conn.prepareStatement(FIND_ALL_Q);
-            findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
+    
     private Product buildObject(ResultSet rs) throws SQLException {
         final Product product = new Product();
 
@@ -84,40 +56,6 @@ public class ProductDaoMsSql implements ProductDao {
         }
 
         return new LinkedList<>(products.values());
-    }
-
-    @Override
-    public List<Product> findAll() throws DataAccessException {
-        List<Product> products;
-
-        try {
-            ResultSet rs = findAllPS.executeQuery();
-            products = buildObjects(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-            throw new DataAccessException("Unable to find all products");
-        }
-
-        return products;
-    }
-
-    @Override
-    public Product findById(int id) throws DataAccessException {
-        Product product = null;
-
-        try {
-            findByIdPS.setInt(1, id);
-            ResultSet rs = findByIdPS.executeQuery();
-
-            if (rs.next()) {
-                product = buildObjects(rs).get(0);
-            }
-        } catch (SQLException e) {
-            throw new DataAccessException("Unable to find any product with id " + id);
-        }
-
-        return product;
     }
 
     @Override
@@ -209,21 +147,6 @@ public class ProductDaoMsSql implements ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Unable to find any product with ids " + ids.toString());
-        }
-
-        return products;
-    }
-
-    @Override
-    public List<Product> findByName(String name) throws DataAccessException {
-        List<Product> products;
-
-        try {
-            findByNamePS.setString(1, name);
-            ResultSet rs = findByNamePS.executeQuery();
-            products = buildObjects(rs);
-        } catch (SQLException e) {
-            throw new DataAccessException("Unable to find any product with this name");
         }
 
         return products;

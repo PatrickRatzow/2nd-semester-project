@@ -76,8 +76,7 @@ public class Customers extends Tab {
 
             panelManager.setActiveAndRemoveCurrent(currentId);
         });
-        customerController.addErrorListener(error ->
-                JOptionPane.showMessageDialog(Frame.getInstance(), error, "Fejl!", JOptionPane.ERROR_MESSAGE));
+        customerController.addErrorListener(Frame::createErrorPopup);
 
         customerController.getAll();
     }

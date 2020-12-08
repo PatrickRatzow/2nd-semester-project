@@ -2,7 +2,7 @@ package controller;
 
 import dao.EmployeeDao;
 import datasource.DBManager;
-import exception.DataAccessException;
+import datasource.DataAccessException;
 import model.Employee;
 import util.ConnectionThread;
 
@@ -21,7 +21,7 @@ public class EmployeeController {
         new ConnectionThread(conn -> {
             EmployeeDao dao = DBManager.getDaoFactory().createEmployeeDao(conn);
             try {
-                List<Employee> employees = dao.findByRole("Direkt√∏r");
+                List<Employee> employees = dao.findByRole("Direkt¯r");
 
                 onFindListeners.forEach(l -> l.accept(employees));
             } catch (DataAccessException e) {

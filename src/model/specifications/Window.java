@@ -5,8 +5,6 @@ import model.Specification;
 import model.requirements.RequirementColor;
 import model.requirements.RequirementHeight;
 import model.requirements.RequirementWidth;
-import util.validation.Validator;
-import util.validation.rules.EmptyValidationRule;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,13 +35,4 @@ public class Window extends Specification {
     public String getName() {
         return "Window";
     }
-
-	@Override
-	public void validate() throws Exception {
-		Validator validator = new Validator();
-		String parser = Integer.toString(getResultAmount());
-		validator.addRule(new EmptyValidationRule(parser, "Antal skal vaere over 0!"));
-
-		
-	}
 }

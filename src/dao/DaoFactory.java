@@ -10,9 +10,7 @@ public interface DaoFactory {
     OrderDao createOrderDao(DBConnection connection);
 
     OrderLineDao createOrderLineDao(DBConnection connection);
-
-    ProductCategoryDao createProductCategoryDao(DBConnection connection);
-
+    
     ProductDao createProductDao(DBConnection connection);
 
     ProjectDao createProjectDao(DBConnection connection);
