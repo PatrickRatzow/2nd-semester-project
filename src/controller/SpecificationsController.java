@@ -13,18 +13,19 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Consumer;
 
 public class SpecificationsController {
     private final List<Consumer<List<Specification>>> onFindListeners = new LinkedList<>();
-    private final List<Consumer<Map<Specification, Product>>> onSaveListeners = new LinkedList<>();
+    private final List<Consumer<OrderController>> onSaveListeners = new LinkedList<>();
     private List<Specification> specifications = new LinkedList<>();
 
     public void addFindListener(Consumer<List<Specification>> listener) {
         onFindListeners.add(listener);
     }
 
-    public void addSaveListener(Consumer<Map<Specification, Product>> listener) {
+    public void addSaveListener(Consumer<OrderController> listener) {
         onSaveListeners.add(listener);
     }
 
@@ -57,11 +58,11 @@ public class SpecificationsController {
         new Thread(() -> {
             List<Specification> specificationsCopy = specifications;
             Map<Specification, Product> specProductsMap = new HashMap<>();
-
+ 
             List<Thread> threads = new LinkedList<>();
             for (Specification specification : specificationsCopy) {
                 final Specification specTemp = specification;
-                threads.add(findProductsBySpecification(specTemp, ps -> specProductsMap.put(specTemp, ps)));
+                threads.add(findProductsBySpecification(specTemp, p -> specProductsMap.put(specTemp, p)));
             }
 
             for (Thread t : threads) {
@@ -75,8 +76,16 @@ public class SpecificationsController {
                     e.printStackTrace();
                 }
             }
+            
+            OrderController orderController = new OrderController();
+            for (Entry<Specification, Product> entry : specProductsMap.entrySet()) {
+                Specification spec = entry.getKey();
+                Product product = entry.getValue();
+                
+                orderController.addProduct(product, spec.getResultAmount(), spec.getDisplayName());
+            }
 
-            onSaveListeners.forEach(l -> l.accept(specProductsMap));
+            onSaveListeners.forEach(l -> l.accept(orderController));
         }).start();
     }
 }

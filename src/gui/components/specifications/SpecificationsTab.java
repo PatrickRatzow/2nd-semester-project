@@ -1,15 +1,14 @@
 package gui.components.specifications;
 
+import controller.OrderController;
 import controller.SpecificationsController;
 import gui.components.core.PanelManager;
 import gui.util.Colors;
-import model.Product;
 import model.Specification;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class SpecificationsTab extends JPanel {
@@ -57,7 +56,7 @@ public class SpecificationsTab extends JPanel {
         specificationsController.getProductsFromSpecifications();
     }
     
-    public void addSaveListener(Consumer<Map<Specification, Product>> listener) {
+    public void addSaveListener(Consumer<OrderController> listener) {
         specificationsController.addSaveListener(listener);
     }
 }

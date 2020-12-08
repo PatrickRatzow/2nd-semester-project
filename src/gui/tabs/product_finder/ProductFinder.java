@@ -25,6 +25,8 @@ public class ProductFinder extends Tab {
         add(scrollPane, BorderLayout.CENTER);
 
         SpecificationsTab panel = new SpecificationsTab(panelManager);
+        panel.addSaveListener(orderController ->
+        	panelManager.setActive("results", () -> new ProductFinderResult(panelManager, orderController)));
         scrollPane.setViewportView(panel);
     }
 }

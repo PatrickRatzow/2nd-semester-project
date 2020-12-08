@@ -2,7 +2,6 @@ package gui.components.project;
 
 import controller.ProjectController;
 import gui.components.core.BackgroundTitle;
-import gui.components.core.PanelManager;
 import gui.components.customer.CustomerInformationBox;
 import gui.components.product.ProductsBox;
 import gui.util.Colors;
@@ -14,13 +13,7 @@ import java.awt.*;
 import java.util.Collection;
 
 public class ProjectOverview extends BackgroundTitle {
-	private PanelManager panelManager;
-	private ProjectController projectController;
-	
-	public ProjectOverview(PanelManager panelManager, ProjectController projectController) {
-		this.panelManager = panelManager;
-		this.projectController = projectController;
-		
+	public ProjectOverview(ProjectController projectController) {
 		setTitle("Oversigt (3/3)");
 		
 		JPanel panel = new JPanel();
