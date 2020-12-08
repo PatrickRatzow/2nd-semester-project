@@ -72,12 +72,13 @@ public class ProductDaoMsSql implements ProductDao {
             if (product == null) {
                 product = buildObject(rs);
             }
+            /*
             String fieldId = rs.getString("field_id");
             if (fieldId != null) {
                 String fieldValue = rs.getString("field_value");
                 // TODO: Create some kind of factory so we can just inject fields
                 product.setField(fieldId, fieldValue);
-            }
+            }*/
 
             products.put(id, product);
         }
@@ -120,12 +121,11 @@ public class ProductDaoMsSql implements ProductDao {
     }
 
     @Override
-    public List<Product> findBySpecification(Specification specification) throws DataAccessException {
-        List<Product> products;
+    public Product findBySpecification(Specification specification) throws DataAccessException {
+        Product product = null;
         
         try {
             List<String> parameters = new LinkedList<>();
-            int resultAmount = specification.getResultAmount();
             String specificationId = specification.getId();
             List<Requirement> requirements = specification.getRequirements();
             String whereStr = requirements.stream()
@@ -137,7 +137,7 @@ public class ProductDaoMsSql implements ProductDao {
                     })
                     .collect(Collectors.joining(" OR "));
 
-            String query = "SELECT TOP ?\n" +
+            String query = "SELECT TOP " + requirements.size() + "\n" +
                     "    p.id AS id,\n" +
                     "    p.description AS description,\n" +
                     "    p.name AS name,\n" +
@@ -165,7 +165,6 @@ public class ProductDaoMsSql implements ProductDao {
                     "ORDER BY pp.price";
             PreparedStatement ps = connection.prepareStatement(query);
             int i = 0;
-            ps.setInt(++i, resultAmount);
             ps.setString(++i, specificationId);
             for (String value : parameters) {
                 ps.setString(++i, value);
@@ -173,14 +172,17 @@ public class ProductDaoMsSql implements ProductDao {
             ps.setInt(++i, requirements.size());
             ResultSet rs = ps.executeQuery();
 
-            products = buildObjects(rs);
+            List<Product> products = buildObjects(rs);
+            if (!products.isEmpty()) {
+                product = products.get(0);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
 
             throw new DataAccessException("Unable to find any products for specification " + specification);
         }
 
-        return products;
+        return product;
     }
 
     @Override

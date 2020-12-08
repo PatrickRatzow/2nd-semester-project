@@ -17,14 +17,14 @@ import java.util.function.Consumer;
 
 public class SpecificationsController {
     private final List<Consumer<List<Specification>>> onFindListeners = new LinkedList<>();
-    private final List<Consumer<Map<Specification, List<Product>>>> onSaveListeners = new LinkedList<>();
+    private final List<Consumer<Map<Specification, Product>>> onSaveListeners = new LinkedList<>();
     private List<Specification> specifications = new LinkedList<>();
 
     public void addFindListener(Consumer<List<Specification>> listener) {
         onFindListeners.add(listener);
     }
 
-    public void addSaveListener(Consumer<Map<Specification, List<Product>>> listener) {
+    public void addSaveListener(Consumer<Map<Specification, Product>> listener) {
         onSaveListeners.add(listener);
     }
 
@@ -40,13 +40,13 @@ public class SpecificationsController {
         this.specifications = specifications;
     }
 
-    private Thread findProductsBySpecification(Specification spec, Consumer<List<Product>> productsConsumer) {
+    private Thread findProductsBySpecification(Specification spec, Consumer<Product> productConsumer) {
         return new ConnectionThread(conn -> {
             final ProductDao dao = DBManager.getDaoFactory().createProductDao(conn);
             try {
-                final List<Product> products = dao.findBySpecification(spec);
+                final Product product = dao.findBySpecification(spec);
 
-                productsConsumer.accept(products);
+                productConsumer.accept(product);
             } catch (DataAccessException e) {
                 e.printStackTrace();
             }
@@ -56,7 +56,7 @@ public class SpecificationsController {
     public void getProductsFromSpecifications() {
         new Thread(() -> {
             List<Specification> specificationsCopy = specifications;
-            Map<Specification, List<Product>> specProductsMap = new HashMap<>();
+            Map<Specification, Product> specProductsMap = new HashMap<>();
 
             List<Thread> threads = new LinkedList<>();
             for (Specification specification : specificationsCopy) {

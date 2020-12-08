@@ -4,28 +4,31 @@ import dao.OrderDao;
 import datasource.DBConnection;
 import datasource.DBManager;
 import exception.DataAccessException;
-import model.Order;
-import model.OrderLine;
-import model.Product;
-import model.Project;
+import model.*;
 
 import java.sql.SQLException;
+import java.util.Collection;
 
 public class OrderController {
-    private final ProductController productController;
-    private final Project project;
     private Order order;
 
-    public OrderController(Project project, ProductController productController) {
-        this.project = project;
-        this.productController = new ProductController();
+    public OrderController() {}
+
+    public OrderController(Order order) {
+        this.order = order;
     }
 
-    public OrderController(Project project) {
-        this(project, new ProductController());
+    public Collection<OrderLine> getOrderLines() {
+        return order.getOrderLines().values();
     }
-
-    public void addProduct(Product product, int quantity) {
+    
+    public Price getPrice() {
+        return new Price(getOrderLines().stream()
+                .mapToInt(ol -> ol.getProduct().getPrice().getAmount() * ol.getQuantity())
+                .reduce(0, Integer::sum));
+    }
+    
+    public void addProduct(Product product, int quantity, String displayName) {
         if (product == null) throw new IllegalArgumentException("Product was null");
         if (quantity <= 0) throw new IllegalArgumentException("You need to add at least 1 of this product");
 
@@ -35,7 +38,7 @@ public class OrderController {
 
         OrderLine orderLine = order.getOrderLines().get(product.getId());
         if (orderLine == null) {
-            orderLine = new OrderLine(product, quantity);
+            orderLine = new OrderLine(product, quantity, displayName);
         } else {
             orderLine.setQuantity(orderLine.getQuantity() + quantity);
         }
@@ -54,7 +57,7 @@ public class OrderController {
         return order;
     }
 
-    public Order create() throws DataAccessException {
+    public Order create(Project project) throws DataAccessException {
         if (order.getOrderLines().size() == 0) throw new IllegalArgumentException("The order needs at least 1 product");
         if (order.getEmployee() == null) throw new IllegalArgumentException("The order needs an employee");
         if (order.getId() != 0) throw new IllegalArgumentException("Can't create an order that already exists");
