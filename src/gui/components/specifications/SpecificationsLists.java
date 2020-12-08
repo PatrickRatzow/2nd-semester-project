@@ -83,15 +83,18 @@ public class SpecificationsLists extends JPanel {
         Row specificationRow = new Row(even);
         specificationRow.setTitleText(specification.getName());
         specificationRow.setButtonText("Tilf\u00F8j");
-        specificationRow.addActionListener(e -> panelManager.setActive("specification_tab", () -> {
-            SpecificationController specificationController = new SpecificationController(specification);
-            specificationController.setDisplayId(displayId++);
-            specificationController.addSaveListener(this::createChosenRow);
-
-            return new SpecificationTab(panelManager, specificationController);
-        }));
+        specificationRow.addActionListener(e -> panelManager.setActive("specification_tab", () -> addSpecification(specification)));
 
         return specificationRow;
+    }
+    
+    private SpecificationTab addSpecification(Specification specification) {
+        SpecificationController specificationController = new SpecificationController(specification);
+        specificationController.setDisplayId(displayId++);
+        specificationController.addSaveListener(this::createChosenRow);
+
+        return new SpecificationTab(panelManager, specificationController);
+    
     }
 
     private String getDisplayName(Specification spec) {
