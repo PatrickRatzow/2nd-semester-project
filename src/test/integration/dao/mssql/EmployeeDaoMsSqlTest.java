@@ -1,7 +1,6 @@
 package test.integration.dao.mssql;
 
 import dao.EmployeeDao;
-import dao.mssql.DaoFactoryMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
@@ -21,13 +20,13 @@ public class EmployeeDaoMsSqlTest {
 
     @BeforeAll
     static void setup() {
-        connection = DBManager.getPool().getConnection();
+        connection = DBManager.getInstance().getPool().getConnection();
         try {
             connection.startTransaction();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        dao = new DaoFactoryMsSql().createEmployeeDao(connection);
+        dao = connection.getDaoFactory().createEmployeeDao();
     }
     
     @Test

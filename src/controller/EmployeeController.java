@@ -4,7 +4,6 @@ import dao.EmployeeDao;
 import datasource.DBManager;
 import datasource.DataAccessException;
 import model.Employee;
-import util.ConnectionThread;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,10 +17,10 @@ public class EmployeeController {
     }
 
     public void getDirectors() {
-        new ConnectionThread(conn -> {
-            EmployeeDao dao = DBManager.getDaoFactory().createEmployeeDao(conn);
+        DBManager.getInstance().getConnectionThread(conn -> {
+            EmployeeDao dao = conn.getDaoFactory().createEmployeeDao();
             try {
-                List<Employee> employees = dao.findByRole("Direktør");
+                List<Employee> employees = dao.findByRole("Direktï¿½r");
 
                 onFindListeners.forEach(l -> l.accept(employees));
             } catch (DataAccessException e) {

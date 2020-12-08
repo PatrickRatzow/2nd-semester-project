@@ -26,7 +26,7 @@ public class SpecificationsTest {
 	@BeforeAll
 	static void setup() {
 		// Make sure that the DB is ready before we can start
-		DBConnection connection = DBManager.getPool().getConnection();
+		DBConnection connection = DBManager.getInstance().getPool().getConnection();
 		connection.release();
 	}
 	

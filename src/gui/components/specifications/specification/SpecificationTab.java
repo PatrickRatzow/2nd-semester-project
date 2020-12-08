@@ -23,7 +23,7 @@ public class SpecificationTab extends JPanel {
     private SpecificationColumn amountColumn;
     private final Map<Requirement, SpecificationColumn> columns;
     private final JPanel widthContainer;
-    private List<Requirement> requirements;
+    private final List<Requirement> requirements;
 
     public SpecificationTab(PanelManager panelManager, SpecificationController specificationController) {
         setOpaque(false);

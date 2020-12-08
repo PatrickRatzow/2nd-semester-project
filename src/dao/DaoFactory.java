@@ -1,19 +1,17 @@
 package dao;
 
-import datasource.DBConnection;
-
 public interface DaoFactory {
-    CustomerDao createCustomerDao(DBConnection connection);
+    CustomerDao createCustomerDao();
 
-    EmployeeDao createEmployeeDao(DBConnection connection);
+    EmployeeDao createEmployeeDao();
 
-    OrderDao createOrderDao(DBConnection connection);
+    OrderDao createOrderDao();
 
-    OrderLineDao createOrderLineDao(DBConnection connection);
+    OrderLineDao createOrderLineDao();
     
-    ProductDao createProductDao(DBConnection connection);
+    ProductDao createProductDao();
 
-    ProjectDao createProjectDao(DBConnection connection);
+    ProjectDao createProjectDao();
 
-    ProjectInvoiceDao createProjectInvoiceDao(DBConnection connection);
+    ProjectInvoiceDao createProjectInvoiceDao();
 }

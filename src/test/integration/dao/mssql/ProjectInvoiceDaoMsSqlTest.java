@@ -23,7 +23,7 @@ public class ProjectInvoiceDaoMsSqlTest {
 
     @BeforeAll
     static void setup() {
-        connection = DBManager.getPool().getConnection();
+        connection = DBManager.getInstance().getPool().getConnection();
         dao = new ProjectInvoiceDaoMsSql(connection);
     }
 

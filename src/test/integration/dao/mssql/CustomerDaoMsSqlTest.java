@@ -21,7 +21,7 @@ public class CustomerDaoMsSqlTest {
 
     @BeforeAll
     static void setup() {
-        connection = DBManager.getPool().getConnection();
+        connection = DBManager.getInstance().getPool().getConnection();
         dao = new CustomerDaoMsSql(connection);
     }
 

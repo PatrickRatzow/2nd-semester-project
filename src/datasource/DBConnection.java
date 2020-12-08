@@ -1,5 +1,7 @@
 package datasource;
 
+import dao.DaoFactory;
+
 import java.sql.*;
 
 public interface DBConnection {
@@ -15,4 +17,5 @@ public interface DBConnection {
     void disconnect() throws SQLException;
     void setOnRelease(Runnable runnable);
     void release();
+    DaoFactory getDaoFactory();
 }

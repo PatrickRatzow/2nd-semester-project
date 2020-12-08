@@ -66,8 +66,8 @@ public class ProjectController {
     }
     
     private Project findById(int id) throws DataAccessException {
-        DBConnection connection = DBManager.getPool().getConnection();
-        ProjectDao projectDao = DBManager.getDaoFactory().createProjectDao(connection);
+        DBConnection connection = DBManager.getInstance().getPool().getConnection();
+        ProjectDao projectDao = connection.getDaoFactory().createProjectDao();
         Project project = projectDao.findById(id, true);
 
         connection.release();
@@ -109,8 +109,8 @@ public class ProjectController {
     }
 
     private List<Project> findAll() throws DataAccessException {
-        DBConnection connection = DBManager.getPool().getConnection();
-        ProjectDao projectDao = DBManager.getDaoFactory().createProjectDao(connection);
+        DBConnection connection = DBManager.getInstance().getPool().getConnection();
+        ProjectDao projectDao = connection.getDaoFactory().createProjectDao();
         List<Project> projects = projectDao.findAll(false);
 
         connection.release();
@@ -119,8 +119,8 @@ public class ProjectController {
     }
 
     private List<Project> findByName(String name, boolean fullAssociation) throws DataAccessException {
-        DBConnection connection = DBManager.getPool().getConnection();
-        ProjectDao projectDao = DBManager.getDaoFactory().createProjectDao(connection);
+        DBConnection connection = DBManager.getInstance().getPool().getConnection();
+        ProjectDao projectDao = connection.getDaoFactory().createProjectDao();
         List<Project> projects = projectDao.findByName(name, fullAssociation);
 
         connection.release();
