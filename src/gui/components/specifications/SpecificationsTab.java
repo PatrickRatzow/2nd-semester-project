@@ -47,6 +47,8 @@ public class SpecificationsTab extends JPanel {
     }
     
     private void createError(Exception error) {
+        continueBtn.setEnabled(true);
+
         Frame.createErrorPopup(error);
     }
 
