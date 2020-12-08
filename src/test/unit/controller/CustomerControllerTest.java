@@ -21,8 +21,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @Tag("UnitTest")
@@ -92,6 +91,27 @@ public class CustomerControllerTest {
             // Assert
             assertNotNull(returnCustomer.get());
         }
+    }
+    
+    @Test
+    void testFailsValidationCheckIfEmailIsInvalid() {
+        // Arrange
+        String firstName = "Allan";
+        String lastName = "Jensen";
+        String email = "email";
+        String phoneNumber = "45454545";
+        String city = "Aalborg SV";
+        String streetName = "Sofiendalsvej";
+        String streetNumber = "60";
+        String zipCode = "9200";
+        boolean success; 
+        
+        // Act
+        success = customerController.setCustomerInformation(firstName, lastName, email, phoneNumber, city, streetName,
+                streetNumber, zipCode);
+
+        // Assert
+        assertFalse(success);
     }
     
     @AfterEach
