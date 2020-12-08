@@ -1,22 +1,21 @@
 package gui.components.specifications;
 
 import controller.OrderController;
+import controller.SpecificationController;
 import controller.SpecificationsController;
 import gui.Frame;
 import gui.components.core.PanelManager;
 import gui.util.Colors;
-import model.Specification;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
+import java.util.Collection;
 import java.util.function.Consumer;
 
 public class SpecificationsTab extends JPanel {
     private final PanelManager panelManager;
     private final SpecificationsController specificationsController;
     private final JButton continueBtn;
-    private SpecificationsLists specificationsLists;
 
     public SpecificationsTab(PanelManager panelManager) {
         specificationsController = new SpecificationsController();
@@ -25,8 +24,6 @@ public class SpecificationsTab extends JPanel {
         setLayout(new BorderLayout(0, 0));
         
         createSpecificationsLists();
-        
-        add(specificationsLists, BorderLayout.CENTER);
 
         JPanel panel = new JPanel();
         panel.setOpaque(false);
@@ -53,13 +50,14 @@ public class SpecificationsTab extends JPanel {
     }
 
     private void createSpecificationsLists() {
-        specificationsLists = new SpecificationsLists(panelManager);
+        SpecificationsLists specificationsLists = new SpecificationsLists(panelManager, specificationsController);
+        add(specificationsLists, BorderLayout.CENTER);
         specificationsController.addFindListener(specificationsLists::setSpecifications);
         specificationsController.getSpecifications();
     }
     
     private void continueToNextTab() {
-        List<Specification> specifications = specificationsLists.getSpecifications();
+        Collection<SpecificationController> specifications = specificationsController.getSpecificationControllers();
         if (specifications.isEmpty()) {
             createError(new Exception("Tilføj mindst en specifikation!"));
             
@@ -67,7 +65,6 @@ public class SpecificationsTab extends JPanel {
         }
         
         continueBtn.setEnabled(false);
-        specificationsController.setSpecifications(specifications);
         specificationsController.getProductsFromSpecifications();
     }
     

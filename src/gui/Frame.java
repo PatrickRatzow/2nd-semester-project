@@ -16,16 +16,14 @@ public class Frame extends JFrame {
     private final JTabbedPane tabbedPane;
     private static Frame frame;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(new FlatLightLaf());
-                    frame = new Frame();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    public static void createFrame() {
+        EventQueue.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(new FlatLightLaf());
+                frame = new Frame();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -34,7 +32,7 @@ public class Frame extends JFrame {
         JOptionPane.showMessageDialog(frame, error.getMessage(), "Fejl!", JOptionPane.ERROR_MESSAGE);
     }
 
-    public Frame() {
+    private Frame() {
         setTitle("Kølby Tømrer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 600);

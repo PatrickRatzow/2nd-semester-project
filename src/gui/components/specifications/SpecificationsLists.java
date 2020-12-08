@@ -1,6 +1,7 @@
 package gui.components.specifications;
 
 import controller.SpecificationController;
+import controller.SpecificationsController;
 import gui.components.core.PanelManager;
 import gui.components.core.Row;
 import gui.components.specifications.specification.SpecificationTab;
@@ -15,18 +16,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("serial")
 public class SpecificationsLists extends JPanel {
     private final JPanel specificationsList;
     private final JPanel chosenSpecifications;
     private final PanelManager panelManager;
-    private final Map<Integer, Entry<Specification, SpecificationsSelectedRow>> chosenMap;
-    private int displayId = 0;
+    private final Map<Integer, Entry<SpecificationController, SpecificationsSelectedRow>> chosenMap;
+    private final SpecificationsController specificationsController;
 
-    public SpecificationsLists(PanelManager panelManager) {
+    public SpecificationsLists(PanelManager panelManager, SpecificationsController specificationsController) {
         setOpaque(false);
+        this.specificationsController = specificationsController;
         this.panelManager = panelManager;
         chosenMap = new HashMap<>();
         setLayout(new MigLayout("insets 0, gap rel 0", "[::250px,grow][grow]", "[][grow]"));
@@ -66,11 +67,7 @@ public class SpecificationsLists extends JPanel {
         chosenSpecifications.setBackground(Colors.SECONDARY.getColor());
         chosenSpecifications.setLayout(new BoxLayout(chosenSpecifications, BoxLayout.Y_AXIS));
     }
-
-    public List<Specification> getSpecifications() {
-        return chosenMap.values().stream().map(Entry::getKey).collect(Collectors.toList());
-    }
-
+    
     public void setSpecifications(List<Specification> specifications) {
         int size = specifications.size();
         for (int i = 0; i < size; i++) {
@@ -85,8 +82,8 @@ public class SpecificationsLists extends JPanel {
         specificationRow.setButtonText("Tilf\u00F8j");
         specificationRow.addActionListener(e -> panelManager.setActive("specification_tab", () -> {
             SpecificationController specificationController = new SpecificationController(specification);
-            specificationController.setDisplayId(displayId++);
             specificationController.addSaveListener(this::createChosenRow);
+            specificationsController.addSpecificationController(specificationController);
 
             return new SpecificationTab(panelManager, specificationController);
         }));
@@ -94,25 +91,25 @@ public class SpecificationsLists extends JPanel {
         return specificationRow;
     }
 
-    private String getDisplayName(Specification spec) {
-        return spec.getDisplayName() + " (x" + spec.getResultAmount() + ")";
+    private String getDisplayName(SpecificationController specController) {
+        return specController.getDisplayName() + " (x" + specController.getResultAmount() + ")";
     }
-
+    
     private void createChosenRow(SpecificationController specificationController) {
-        Specification spec = specificationController.getSpecification();
         int displayId = specificationController.getDisplayId();
-        Entry<Specification, SpecificationsSelectedRow> entry = chosenMap.get(displayId);
+        Entry<SpecificationController, SpecificationsSelectedRow> entry = chosenMap.get(displayId);
         if (entry != null) {
-            entry.getValue().setTitleText(getDisplayName(spec));
+            entry.getValue().setTitleText(getDisplayName(specificationController));
 
-            chosenMap.replace(displayId, new SimpleEntry<>(spec, entry.getValue()));
+            chosenMap.replace(displayId, new SimpleEntry<>(specificationController, entry.getValue()));
         } else {
             boolean even = (chosenMap.size() + 1) % 2 == 0;
-            SpecificationsSelectedRow row = new SpecificationsSelectedRow(getDisplayName(spec), even);
+            SpecificationsSelectedRow row = new SpecificationsSelectedRow(getDisplayName(specificationController), even);
             row.addActionListener(e -> {
                 panelManager.setActive("specification_tab", () -> {
                     specificationController.removeAllSaveListeners();
                     specificationController.addSaveListener(this::createChosenRow);
+                    specificationsController.addSpecificationController(specificationController);
                     SpecificationTab tab = new SpecificationTab(panelManager, specificationController);
                     tab.fillColumnsWithRequirementValues();
 
@@ -128,7 +125,7 @@ public class SpecificationsLists extends JPanel {
             row.setMaximumSize(new Dimension(10000, 50));
             chosenSpecifications.add(row);
 
-            chosenMap.put(displayId, new SimpleEntry<>(spec, row));
+            chosenMap.put(displayId, new SimpleEntry<>(specificationController, row));
         }
     }
 }

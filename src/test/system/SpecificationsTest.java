@@ -46,7 +46,6 @@ public class SpecificationsTest {
 		// Get all specifications
 		specificationsController.addFindListener(specifications -> {
 			SpecificationController specificationController = new SpecificationController(specification);
-			specificationController.setDisplayId(1);
 			specificationController.setDisplayName(displayName);
 			specificationController.setResultAmount(resultAmount);
 			List<Requirement> requirementsTemp = specificationController.getRequirements();
@@ -68,16 +67,16 @@ public class SpecificationsTest {
 			}
 			requirements.set(requirementsTemp);
 			specificationController.addSaveListener(specController -> {
-				List<Specification> specs = new LinkedList<>();
-				specs.add(specController.getSpecification());
-				
-				specificationsController.setSpecifications(specs);
+				specificationsController.addSpecificationController(specController);
 				specificationsController.getProductsFromSpecifications();
 			});
+			specificationsController.addSpecificationController(specificationController);
 			specificationsController.addErrorListener(e -> errors.add(e.getMessage()));
 			try {
 				specificationController.save();
-			} catch (Exception ignored) {}
+			} catch (Exception e) {
+				errors.add(e.getMessage());
+			}
 		});
 		specificationsController.addSaveListener(orderController -> {
 			orderLine.set(orderController.getOrderLines().iterator().next());
@@ -86,7 +85,7 @@ public class SpecificationsTest {
 		});
 		specificationsController.getSpecifications();
 		
-		lock.await(2000, TimeUnit.MILLISECONDS);
+		lock.await(1000, TimeUnit.MILLISECONDS);
 		
 		// If this isn't empty some kind of error happened
 		if (!errors.isEmpty()) {

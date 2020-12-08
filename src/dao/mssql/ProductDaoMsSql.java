@@ -98,7 +98,7 @@ public class ProductDaoMsSql implements ProductDao {
                     "    WHERE pf2.product_id = p.id\n" +
                     "      AND (" + whereStr + ")\n" +
                     "  ) = ?\n" +
-                    "ORDER BY pp.price";
+                    "ORDER BY pp.price, p.id";
             PreparedStatement ps = connection.prepareStatement(query);
             int i = 0;
             ps.setString(++i, specificationId);

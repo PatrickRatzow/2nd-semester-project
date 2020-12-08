@@ -2,6 +2,8 @@ package controller;
 
 import model.Requirement;
 import model.Specification;
+import util.validation.Validator;
+import util.validation.rules.EmptyValidationRule;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,6 +11,8 @@ import java.util.function.Consumer;
 
 public class SpecificationController {
     private int displayId;
+    private String displayName;
+    private int resultAmount;
     private final Specification specification;
     private final List<Consumer<SpecificationController>> onSaveListeners = new LinkedList<>();
     private final List<Consumer<Exception>> onErrorListeners = new LinkedList<>();
@@ -38,29 +42,35 @@ public class SpecificationController {
     }
     
     public void save() throws Exception {
-        specification.validate();
+        Validator validator = new Validator();
+        validator.addRule(new EmptyValidationRule(displayName, "Navn må ikke være tom!"));
+        validator.addValidatable(specification);
+        
+        if (validator.hasErrors()) {
+            throw validator.getCompositeException();
+        }
         
         onSaveListeners.forEach(l -> l.accept(this));
     }
     
     public void setDisplayName(String name) {
-        specification.setDisplayName(name);
+        displayName = name;
     }
 
     public String getDisplayName() {
-        return specification.getDisplayName();
+        return displayName;
     }
-
+    
     public String getName() {
         return specification.getName();
     }
 
     public void setResultAmount(int amount) {
-        specification.setResultAmount(amount);
+        resultAmount = amount;
     }
 
     public int getResultAmount() {
-        return specification.getResultAmount();
+        return resultAmount;
     }
 
     public Specification getSpecification() {

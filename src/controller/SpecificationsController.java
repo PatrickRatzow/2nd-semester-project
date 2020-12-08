@@ -6,10 +6,7 @@ import model.specifications.Roof;
 import model.specifications.Window;
 import util.validation.Validator;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
@@ -19,7 +16,7 @@ public class SpecificationsController {
     private final List<Consumer<List<Specification>>> onFindListeners = new LinkedList<>();
     private final List<Consumer<OrderController>> onSaveListeners = new LinkedList<>();
     private final List<Consumer<Exception>> onErrorListeners = new LinkedList<>();
-    private List<Specification> specifications = new LinkedList<>();
+    private final Map<Integer, SpecificationController> specificationControllers = new HashMap<>();
 
     public SpecificationsController() {
         this(new ProductController());
@@ -40,33 +37,41 @@ public class SpecificationsController {
         onErrorListeners.add(listener);
     }
     
+    public void addSpecificationController(SpecificationController specificationController) {
+        int id = specificationController.getDisplayId();
+        if (id == 0) {
+            specificationController.setDisplayId(specificationControllers.size() + 1);
+        }
+        specificationControllers.put(specificationController.getDisplayId(), specificationController);
+    }
+    
+    public Collection<SpecificationController> getSpecificationControllers() {
+        return specificationControllers.values();
+    }
+    
     public void getSpecifications() {
         final List<Specification> specifications = new LinkedList<>();
         specifications.add(new Window());
         specifications.add(new Roof());
-
+    
         onFindListeners.forEach(l -> l.accept(specifications));
     }
-
-    public void setSpecifications(List<Specification> specifications) {
-        this.specifications = specifications;
-    }
-
+    
     public void getProductsFromSpecifications() {
         new Thread(() -> {
-            List<Specification> specificationsCopy = specifications;
-            int size = specifications.size();
-            Map<Specification, Product> specProductsMap = new HashMap<>();
+            Collection<SpecificationController> specificationControllersCopy = specificationControllers.values();
+            int size = specificationControllersCopy.size();
+            Map<SpecificationController, Product> specProductsMap = new HashMap<>();
             
             AtomicInteger atomicInteger = new AtomicInteger();
             Validator validator = new Validator();
-            for (Specification specification : specificationsCopy) {
-                final Specification specTemp = specification;
-                productController.getBySpecification(specTemp, p -> {
+            for (SpecificationController specificationController : specificationControllersCopy) {
+                final Specification spec = specificationController.getSpecification();
+                productController.getBySpecification(spec, p -> {
                     if (p == null) {
-                        validator.addError("Unable to find product for " + specification.getDisplayName());
+                        validator.addError("Unable to find product for " + specificationController.getDisplayName());
                     } else {
-                        specProductsMap.put(specTemp, p);
+                        specProductsMap.put(specificationController, p);
                     }
     
                     int responseAmount = atomicInteger.incrementAndGet();
@@ -75,11 +80,12 @@ public class SpecificationsController {
                             onErrorListeners.forEach(l -> l.accept(validator.getCompositeException()));
                         } else {
                             OrderController orderController = new OrderController();
-                            for (Entry<Specification, Product> entry : specProductsMap.entrySet()) {
-                                Specification spec = entry.getKey();
+                            for (Entry<SpecificationController, Product> entry : specProductsMap.entrySet()) {
+                                SpecificationController specController = entry.getKey();
                                 Product product = entry.getValue();
     
-                                orderController.addProduct(product, spec.getResultAmount(), spec.getDisplayName());
+                                orderController.addProduct(product, specController.getResultAmount(),
+                                        specController.getDisplayName());
                             }
     
                             onSaveListeners.forEach(l -> l.accept(orderController));

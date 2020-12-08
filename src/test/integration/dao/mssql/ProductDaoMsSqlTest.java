@@ -30,8 +30,6 @@ public class ProductDaoMsSqlTest {
 		// Arrange
 		Product product;
 		Specification spec = new Window();
-		spec.setDisplayName("Test");
-		spec.setResultAmount(5);
 		for (Requirement requirement : spec.getRequirements()) {
 			String name = requirement.getName();
 			switch(name) {
