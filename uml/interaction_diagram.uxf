@@ -28,7 +28,7 @@ fontsize=10
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>720</x>
+      <x>580</x>
       <y>10</y>
       <w>200</w>
       <h>30</h>
@@ -39,7 +39,7 @@ fontsize=10
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>450</x>
+      <x>310</x>
       <y>0</y>
       <w>290</w>
       <h>70</h>
@@ -54,7 +54,7 @@ fontsize=10
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>720</x>
+      <x>580</x>
       <y>90</y>
       <w>200</w>
       <h>30</h>
@@ -65,7 +65,7 @@ fontsize=10
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>810</x>
+      <x>670</x>
       <y>30</y>
       <w>140</w>
       <h>80</h>
@@ -80,7 +80,7 @@ fontsize=10
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>910</x>
+      <x>770</x>
       <y>0</y>
       <w>520</w>
       <h>50</h>
@@ -94,7 +94,7 @@ fontsize=10
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1410</x>
+      <x>1270</x>
       <y>120</y>
       <w>200</w>
       <h>30</h>
@@ -105,7 +105,7 @@ fontsize=10
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1410</x>
+      <x>1270</x>
       <y>10</y>
       <w>200</w>
       <h>30</h>
@@ -116,7 +116,7 @@ fontsize=10
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1500</x>
+      <x>1360</x>
       <y>30</y>
       <w>180</w>
       <h>110</h>
@@ -133,7 +133,7 @@ fontsize=10
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>320</x>
+      <x>180</x>
       <y>230</y>
       <w>200</w>
       <h>30</h>
@@ -144,7 +144,7 @@ fontsize=10
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>410</x>
+      <x>270</x>
       <y>110</y>
       <w>430</w>
       <h>70</h>
@@ -159,7 +159,7 @@ fontsize=10
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1410</x>
+      <x>1270</x>
       <y>210</y>
       <w>200</w>
       <h>30</h>
@@ -170,7 +170,7 @@ fontsize=10
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1500</x>
+      <x>1360</x>
       <y>140</y>
       <w>30</w>
       <h>90</h>
@@ -183,7 +183,7 @@ fontsize=10
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>730</x>
+      <x>300</x>
       <y>650</y>
       <w>20</w>
       <h>90</h>
@@ -195,7 +195,7 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>680</x>
+      <x>250</x>
       <y>590</y>
       <w>120</w>
       <h>30</h>
@@ -207,7 +207,7 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>730</x>
+      <x>300</x>
       <y>610</y>
       <w>30</w>
       <h>60</h>
@@ -218,32 +218,7 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
-      <y>640</y>
-      <w>190</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
- openCheapestPriceTab()
-</panel_attributes>
-    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>910</x>
-      <y>590</y>
-      <w>120</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>_:SpecificationsController_
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>960</x>
+      <x>440</x>
       <y>610</y>
       <w>30</w>
       <h>180</h>
@@ -254,7 +229,7 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>960</x>
+      <x>440</x>
       <y>770</y>
       <w>20</w>
       <h>70</h>
@@ -264,130 +239,9 @@ bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>740</x>
-      <y>760</y>
-      <w>240</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-addSpecification()
-</panel_attributes>
-    <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>730</x>
-      <y>770</y>
-      <w>20</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>
-bg=yellow</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>730</x>
-      <y>890</y>
-      <w>20</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>
-bg=yellow</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>730</x>
-      <y>1010</y>
-      <w>20</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>
-bg=yellow</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>560</x>
-      <y>760</y>
-      <w>190</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-addSpecification()
-</panel_attributes>
-    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>560</x>
-      <y>880</y>
-      <w>190</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-saveSpecification(specification)
-</panel_attributes>
-    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>560</x>
-      <y>1000</y>
-      <w>190</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-calculateCheapestProducts()
-</panel_attributes>
-    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>730</x>
-      <y>730</y>
-      <w>30</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>730</x>
-      <y>850</y>
-      <w>30</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>730</x>
-      <y>970</y>
-      <w>30</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>320</x>
+      <x>180</x>
       <y>160</y>
       <w>200</w>
       <h>30</h>
@@ -398,7 +252,7 @@ calculateCheapestProducts()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>410</x>
+      <x>270</x>
       <y>180</y>
       <w>170</w>
       <h>70</h>
@@ -413,7 +267,7 @@ calculateCheapestProducts()
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1400</x>
+      <x>1260</x>
       <y>290</y>
       <w>70</w>
       <h>30</h>
@@ -424,7 +278,7 @@ calculateCheapestProducts()
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1560</x>
+      <x>1420</x>
       <y>290</y>
       <w>70</w>
       <h>30</h>
@@ -435,7 +289,7 @@ calculateCheapestProducts()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1430</x>
+      <x>1290</x>
       <y>230</y>
       <w>100</w>
       <h>80</h>
@@ -448,7 +302,7 @@ calculateCheapestProducts()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1500</x>
+      <x>1360</x>
       <y>230</y>
       <w>110</w>
       <h>80</h>
@@ -461,7 +315,7 @@ calculateCheapestProducts()
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>320</x>
+      <x>180</x>
       <y>90</y>
       <w>200</w>
       <h>30</h>
@@ -472,7 +326,7 @@ calculateCheapestProducts()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
+      <x>370</x>
       <y>80</y>
       <w>230</w>
       <h>70</h>
@@ -487,7 +341,7 @@ calculateCheapestProducts()
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1000</x>
+      <x>860</x>
       <y>90</y>
       <w>200</w>
       <h>30</h>
@@ -498,7 +352,7 @@ calculateCheapestProducts()
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1000</x>
+      <x>860</x>
       <y>230</y>
       <w>200</w>
       <h>30</h>
@@ -509,8 +363,8 @@ calculateCheapestProducts()
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>480</x>
-      <y>1210</y>
+      <x>890</x>
+      <y>590</y>
       <w>120</w>
       <h>30</h>
     </coordinates>
@@ -521,19 +375,19 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>530</x>
-      <y>1230</y>
+      <x>940</x>
+      <y>610</y>
       <w>30</w>
-      <h>100</h>
+      <h>380</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;360.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>530</x>
-      <y>1310</y>
+      <x>940</x>
+      <y>970</y>
       <w>20</w>
       <h>70</h>
     </coordinates>
@@ -544,8 +398,8 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1290</x>
-      <y>1210</y>
+      <x>1480</x>
+      <y>580</y>
       <w>120</w>
       <h>30</h>
     </coordinates>
@@ -556,128 +410,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1340</x>
-      <y>1260</y>
-      <w>20</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>
-bg=yellow</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1340</x>
-      <y>1230</y>
-      <w>30</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>730</x>
-      <y>1210</y>
-      <w>120</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>_:ProductDao_
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>1730</x>
-      <y>1090</y>
-      <w>120</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>_:SpecificationController_
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>890</x>
-      <y>1210</y>
-      <w>120</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>_:Product_
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>1490</x>
-      <y>1210</y>
-      <w>120</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>_:Order_
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>1210</x>
-      <y>590</y>
-      <w>120</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>_:SpecificationTabUI_
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>960</x>
-      <y>830</y>
-      <w>30</w>
-      <h>200</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;180.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>740</x>
-      <y>1000</y>
-      <w>210</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-getProductsFromSpecifications()
-</panel_attributes>
-    <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>400</x>
-      <y>1300</y>
-      <w>150</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-getBySpecification()
-</panel_attributes>
-    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>780</x>
-      <y>1310</y>
+      <x>1530</x>
+      <y>680</y>
       <w>20</w>
       <h>60</h>
     </coordinates>
@@ -688,8 +422,8 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>780</x>
-      <y>1230</y>
+      <x>1530</x>
+      <y>600</y>
       <w>30</w>
       <h>100</h>
     </coordinates>
@@ -697,25 +431,60 @@ bg=yellow</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
+    <id>UMLGeneric</id>
     <coordinates>
-      <x>540</x>
-      <y>1300</y>
-      <w>260</w>
-      <h>40</h>
+      <x>1140</x>
+      <y>580</y>
+      <w>120</w>
+      <h>30</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
-getBySpecification(spec, productConsumer)
-</panel_attributes>
-    <additional_attributes>240.0;20.0;10.0;20.0</additional_attributes>
+    <panel_attributes>_:ProductDao_
+bg=orange</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>940</x>
-      <y>1310</y>
+      <x>390</x>
+      <y>590</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_:SpecificationController_
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1300</x>
+      <y>580</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_:Product_
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>540</x>
+      <y>590</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>_:SpecificationTabUI_
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1190</x>
+      <y>970</y>
       <w>20</w>
-      <h>70</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -724,41 +493,55 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>940</x>
-      <y>1230</y>
+      <x>1190</x>
+      <y>600</y>
       <w>30</w>
-      <h>100</h>
+      <h>390</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;370.0</additional_attributes>
   </element>
   <element>
-    <id>UMLFrame</id>
+    <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>1200</y>
-      <w>840</w>
-      <h>210</h>
+      <x>950</x>
+      <y>960</y>
+      <w>260</w>
+      <h>40</h>
     </coordinates>
-    <panel_attributes>calculateChepaest</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+getBySpecification(spec, productConsumer)
+</panel_attributes>
+    <additional_attributes>240.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
-    <id>UMLFrame</id>
+    <id>UMLGeneric</id>
     <coordinates>
-      <x>930</x>
-      <y>1010</y>
-      <w>180</w>
-      <h>70</h>
+      <x>1350</x>
+      <y>970</y>
+      <w>20</w>
+      <h>60</h>
     </coordinates>
-    <panel_attributes>calculateCheapest</panel_attributes>
+    <panel_attributes>
+bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>790</x>
-      <y>1300</y>
+      <x>1350</x>
+      <y>600</y>
+      <w>30</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;370.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1200</x>
+      <y>960</y>
       <w>170</w>
       <h>50</h>
     </coordinates>
@@ -771,8 +554,8 @@ findBySpecification(spec)
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>340</x>
-      <y>1210</y>
+      <x>690</x>
+      <y>590</y>
       <w>120</w>
       <h>30</h>
     </coordinates>
@@ -783,12 +566,12 @@ bg=orange</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>1300</y>
+      <x>750</x>
+      <y>960</y>
       <w>210</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
+    <panel_attributes>lt=&lt;&lt;&lt;-
 getProductsFromSpecifications()
 </panel_attributes>
     <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
@@ -796,19 +579,19 @@ getProductsFromSpecifications()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>390</x>
-      <y>1230</y>
+      <x>740</x>
+      <y>610</y>
       <w>30</w>
-      <h>100</h>
+      <h>370</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;350.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>390</x>
-      <y>1310</y>
+      <x>740</x>
+      <y>960</y>
       <w>20</w>
       <h>70</h>
     </coordinates>
@@ -819,14 +602,122 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>740</x>
-      <y>1050</y>
-      <w>210</w>
+      <x>590</x>
+      <y>610</y>
+      <w>30</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>590</x>
+      <y>770</y>
+      <w>20</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>760</y>
+      <w>160</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+addSpecification()
+</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>730</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>900</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>300</x>
+      <y>970</y>
+      <w>20</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>300</x>
+      <y>770</y>
+      <w>20</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>960</y>
+      <w>450</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+continueToNextTab()
+</panel_attributes>
+    <additional_attributes>430.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>760</y>
+      <w>150</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+addSpecification()
+</panel_attributes>
+    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>870</y>
+      <w>300</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-getProductsFromSpecifications()
+saveSpecification(specification)
 </panel_attributes>
-    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;280.0;20.0</additional_attributes>
   </element>
 </diagram>
