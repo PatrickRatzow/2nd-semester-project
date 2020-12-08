@@ -44,13 +44,11 @@ public class ProductDaoMsSql implements ProductDao {
             if (product == null) {
                 product = buildObject(rs);
             }
-            /*
             String fieldId = rs.getString("field_id");
             if (fieldId != null) {
                 String fieldValue = rs.getString("field_value");
-                // TODO: Create some kind of factory so we can just inject fields
                 product.setField(fieldId, fieldValue);
-            }*/
+            }
 
             products.put(id, product);
         }
