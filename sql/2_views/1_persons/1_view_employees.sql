@@ -1,4 +1,4 @@
-CREATE VIEW GetEmployees AS
+CREATE VIEW view_employees AS
 SELECT
     p.id AS id,
     p.first_name AS first_name,
