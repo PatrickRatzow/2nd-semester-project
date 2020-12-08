@@ -44,8 +44,7 @@ public class ProjectController {
     public Price getOrderPrice() {
     	return orderController.getPrice();
     }
-
-
+    
     public void addFindListener(Consumer<List<Project>> listener) {
         onFindListeners.add(listener);
     }
