@@ -11,10 +11,7 @@ import model.Specification;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ProductDaoMsSql implements ProductDao {
@@ -128,14 +125,15 @@ public class ProductDaoMsSql implements ProductDao {
         List<Product> products = new LinkedList<>();
 
         try {
-            String idParameters = ids.stream().map(x -> "?").collect(Collectors.joining(","));
+            String idParameters = ids.stream().map(x -> "?").collect(Collectors.joining(","));       
             String query = "SELECT * FROM GetProducts WHERE id IN (" + idParameters + ") " +
                     "AND GETUTCDATE() BETWEEN price_start_time AND price_end_time " +
                     "ORDER BY price_end_time DESC";
             PreparedStatement stmt = connection.prepareStatement(query);
             int size = ids.size();
-            for (int i = 0; i < size; i++) {
-                stmt.setInt(i + 1, ids.get(i));
+            int i = 0;
+            for (Iterator<Integer> iterator = ids.iterator(); iterator.hasNext();) {
+            	stmt.setInt(++i, iterator.next());
             }
             ResultSet rs = stmt.executeQuery();
 
