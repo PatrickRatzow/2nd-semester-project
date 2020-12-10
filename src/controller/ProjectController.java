@@ -9,6 +9,7 @@ import model.OrderLine;
 import model.Price;
 import model.Project;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -75,6 +76,34 @@ public class ProjectController {
         return project;
     }
     
+    public void save() {
+    	if (project == null) throw new IllegalArgumentException("Project is null!");
+    	
+    	if (project.getId() == 0) {
+    		create();
+		} else {
+  			update();
+		}
+	}
+	
+	private void create() {
+ 		DBManager.getInstance().getConnectionThread(conn -> {
+			try {
+				ProjectDao dao = conn.getDaoFactory().createProjectDao();
+				
+				conn.startTransaction();
+				Project project = dao.create(this.project, true);
+ 				conn.commitTransaction();
+			} catch (SQLException | DataAccessException e) {
+				e.printStackTrace();
+			}
+		}).start();
+	}
+	
+	private void update() {
+ 
+	}
+	
     public void getFullProject(Project project) {
     	new Thread(() -> {
     		try {

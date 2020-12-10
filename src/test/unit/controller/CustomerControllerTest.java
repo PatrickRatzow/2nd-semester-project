@@ -54,7 +54,7 @@ public class CustomerControllerTest {
             String streetName = "Sofiendalsvej";
             String streetNumber = "60";
             String zipCode = "9200";
-            Customer customer = new Customer(firstName, lastName, email, phoneNumber,
+            Customer customer = new Customer(   firstName, lastName, email, phoneNumber,
                     new Address(streetName, Integer.parseInt(streetNumber), city, Integer.parseInt(zipCode)));
             AtomicReference<Customer> returnCustomer = new AtomicReference<>();
             

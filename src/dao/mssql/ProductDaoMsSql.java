@@ -62,7 +62,7 @@ public class ProductDaoMsSql implements ProductDao {
             String specificationId = specification.getId();
             List<Requirement> requirements = specification.getRequirements();
             String whereStr = requirements.stream()
-                    .map(e -> {
+            		.map(e -> {
                         parameters.add(e.getSQLKey());
                         parameters.add(e.getSQLValue());
 

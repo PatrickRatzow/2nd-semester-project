@@ -19,6 +19,9 @@ public class ProjectDetails extends BackgroundTitle {
 	private JComboBox<Employee> employeeBox;
 	private EmployeeController employeeController;
 	private JPanel bottomContainer;
+	private JPanel rightAlign;
+	private JButton createBtn;
+	private JButton cancelBtn;
 	
 	public ProjectDetails() {
 		employeeController = new EmployeeController();
@@ -26,7 +29,7 @@ public class ProjectDetails extends BackgroundTitle {
 		setTitle("Projekt detajler");
 		Dimension dimension = getPreferredSize();
 		dimension.width = 250;
-		setPreferredSize(new Dimension(120, 358));
+		setPreferredSize(dimension);
 		setBackground(Colors.PRIMARY.getColor());
 		
 		JPanel panel = new JPanel();
@@ -51,7 +54,24 @@ public class ProjectDetails extends BackgroundTitle {
 		createRow("Navn", name);
 		
 		bottomContainer = new JPanel();
+		bottomContainer.setOpaque(false);
 		panel.add(bottomContainer, BorderLayout.SOUTH);
+		bottomContainer.setLayout(new BorderLayout(0, 0));
+		
+		rightAlign = new JPanel();
+		rightAlign.setOpaque(false);
+		bottomContainer.add(rightAlign, BorderLayout.EAST);
+		
+		cancelBtn = new JButton("Annuller");
+		cancelBtn.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		cancelBtn.setBackground(Colors.RED.getColor());
+		rightAlign.add(cancelBtn);
+		
+		createBtn = new JButton("Opret & Gem");
+		createBtn.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		createBtn.setBackground(Colors.GREEN.getColor());
+		rightAlign.add(createBtn);
+		
 		createSpacer();
 		
 		price = new PlaceholderTextField();
@@ -72,7 +92,6 @@ public class ProjectDetails extends BackgroundTitle {
 		
 		employeeController.addFindListener(employees -> {
 			for (Employee employee : employees) {
-				System.out.println(employee);
 				employeeBox.addItem(employee);
 			}
 		});

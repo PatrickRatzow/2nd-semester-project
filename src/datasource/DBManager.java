@@ -39,7 +39,7 @@ public class DBManager {
 
         return pool;
     }
-
+    
     public Thread getConnectionThread(Consumer<DBConnection> callback) {
         return new Thread(() -> {
             DBConnection connection = getPool().getConnection();
