@@ -12,9 +12,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EmployeeDaoMsSql implements EmployeeDao {
-    private static final String FIND_BY_ID_Q = "SELECT * FROM GetEmployees WHERE id = ?";
+    private static final String FIND_BY_ID_Q = "SELECT * FROM view_employees WHERE id = ?";
     private PreparedStatement findByIdPS;
-    private static final String FIND_BY_ROLE_Q = "SELECT * FROM GetEmployees WHERE role_name = ?";
+    private static final String FIND_BY_ROLE_Q = "SELECT * FROM view_employees WHERE role_name = ?";
     private PreparedStatement findByRolePS;
     private DBConnection connection;
 
