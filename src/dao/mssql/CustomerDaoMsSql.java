@@ -11,11 +11,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CustomerDaoMsSql implements CustomerDao {
-    private static final String FIND_ALL_Q = "SELECT * FROM GetCustomers";
+    private static final String FIND_ALL_Q = "SELECT * FROM view_customer";
     private PreparedStatement findAllPS;
     private static final String FIND_BY_PHONE_NUMBER_OR_EMAIL_Q = FIND_ALL_Q + " WHERE phone_number = ? OR email = ?";
     private PreparedStatement findByPhoneNumberOrEmailPS;
-    private static final String FIND_ID_Q = "SELECT * FROM GetCustomers WHERE id = ?";
+    private static final String FIND_ID_Q = "SELECT * FROM view_customer WHERE id = ?";
     private PreparedStatement findIdPS;
     private static final String INSERT_Q = "{CALL InsertCustomer(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
     private CallableStatement insertPC;

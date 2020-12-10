@@ -1,4 +1,4 @@
-CREATE VIEW GetAddress AS
+CREATE VIEW view_address AS
 SELECT
     s.street AS street_name,
     s.zip_code AS zip_code,

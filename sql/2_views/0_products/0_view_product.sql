@@ -1,4 +1,4 @@
-CREATE VIEW GetProducts AS
+CREATE VIEW view_product AS
 SELECT
     p.id AS id,
     p.description AS description,

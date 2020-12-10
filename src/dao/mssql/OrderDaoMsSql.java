@@ -1,12 +1,10 @@
 package dao.mssql;
 
-import dao.EmployeeDao;
 import dao.OrderDao;
 import dao.OrderLineDao;
 import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
-import model.Employee;
 import model.Order;
 import model.OrderLine;
 import model.Project;
@@ -19,10 +17,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class OrderDaoMsSql implements OrderDao {
-    private static final String FIND_BY_ID_Q = "SELECT * From GetOrders WHERE id = ?";
+    private static final String FIND_BY_ID_Q = "SELECT id, delivered, created_at FROM [order] WHERE id = ?";
     private PreparedStatement findByIdPS;
-    private static final String INSERT_Q = "INSERT INTO [order](delivered, created_at, project_id, employee_id) " +
-            "VALUES (?, ?, ?, ?)";
+    private static final String INSERT_Q = "INSERT INTO [order](delivered, created_at, project_id) " +
+            "VALUES (?, ?, ?)";
     private PreparedStatement insertPS;
     private DBConnection connection;
 
@@ -51,46 +49,27 @@ public class OrderDaoMsSql implements OrderDao {
         if (fullAssociation) {
             AtomicReference<DataAccessException> exception = new AtomicReference<>();
             // Setup objects
-            AtomicReference<Employee> employee = new AtomicReference<>();
             AtomicReference<List<OrderLine>> orderLines = new AtomicReference<>();
-            // Setup ids
-            int employeeId = rs.getInt("employee_id");
 
-            List<Thread> threads = new LinkedList<>();
-            threads.add(DBManager.getInstance().getConnectionThread(conn -> {
-                EmployeeDao dao = new EmployeeDaoMsSql(conn);
-                try {
-                    employee.set(dao.findById(employeeId));
-                } catch (DataAccessException e) {
-                    exception.set(e);
-                }
-            }));
-            threads.add(DBManager.getInstance().getConnectionThread(conn -> {
+            Thread thread = DBManager.getInstance().getConnectionThread(conn -> {
                 OrderLineDao dao = new OrderLineDaoMsSql(conn);
                 try {
                     orderLines.set(dao.findByOrderId(id));
                 } catch (DataAccessException e) {
                     exception.set(e);
                 }
-            }));
-
-            for (Thread t : threads) {
-                t.start();
-            }
-
-            for (Thread t : threads) {
-                try {
-                    t.join();
-                } catch (InterruptedException e) {
-                    throw new DataAccessException("An error occurred while trying to find an order");
-                }
+            });
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new DataAccessException("An error occurred while trying to find an order");
             }
 
             if (exception.get() != null) {
                 throw exception.get();
             }
 
-            order.setEmployee(employee.get());
             orderLines.get().forEach(order::addOrderLine);
         }
 
@@ -135,7 +114,6 @@ public class OrderDaoMsSql implements OrderDao {
             insertPS.setBoolean(1, order.isDelivered());
             insertPS.setTimestamp(2, Timestamp.valueOf(order.getDate()));
             insertPS.setInt(3, project.getId());
-            insertPS.setInt(4, order.getEmployee().getId());
             insertPS.executeUpdate();
 
             ResultSet rs = insertPS.getGeneratedKeys();
@@ -145,7 +123,7 @@ public class OrderDaoMsSql implements OrderDao {
 
             order.setId(rs.getInt(1));
 
-            OrderLineDao orderLineDao = new OrderLineDaoMsSql(connection);
+            OrderLineDao orderLineDao = connection.getDaoFactory().createOrderLineDao();
             for (OrderLine orderLine : order.getOrderLines().values()) {
                 orderLineDao.create(order, orderLine);
             }

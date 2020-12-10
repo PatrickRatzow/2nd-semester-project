@@ -39,6 +39,10 @@ public class Price implements Comparable<Price> {
         this.amount = amount;
     }
 
+    public String getNumberString() {
+        return String.valueOf(getAmount() / 100);
+    }
+    
     @Override
     public String toString() {
         return (getAmount() / 100) + " kr.";

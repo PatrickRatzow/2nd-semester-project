@@ -12,7 +12,7 @@ public interface ProjectDao {
 
     Project findById(int id, boolean fullAssociation) throws DataAccessException;
 
-    Project create(Project project, boolean fullAssociation) throws DataAccessException;
+    Project create(Project project) throws DataAccessException;
 
-    void update(Project project, boolean fullAssociation) throws DataAccessException;
+    void update(Project project) throws DataAccessException;
 }

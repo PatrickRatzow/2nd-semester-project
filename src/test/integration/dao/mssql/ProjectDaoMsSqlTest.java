@@ -10,8 +10,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -94,12 +92,6 @@ public class ProjectDaoMsSqlTest {
         Project project = new Project();
         project.setEmployee(new Employee(1, "", ""));
         project.setEstimatedHours(63);
-        ProjectInvoice invoice = new ProjectInvoice();
-        invoice.setCreatedAt(LocalDateTime.now());
-        invoice.setDueDate(LocalDate.now());
-        invoice.setHasPaid(new Price(98000));
-        invoice.setToPay(new Price(98000));
-        project.setInvoice(invoice);
         project.setStatus(ProjectStatus.ON_HOLD);
         project.setName("bacon pancakes");
         project.setPrice(new Price(98000));
@@ -108,25 +100,19 @@ public class ProjectDaoMsSqlTest {
         Project returnProject;
 
         //Act
-        returnProject = dao.create(project, false);
+        returnProject = dao.create(project);
 
         //Assert
         assertNotNull(returnProject);
     }
 
     @Test
-    void testCantUpdateProjectIfItDoesntExistInDatabase() throws DataAccessException {
+    void testCantUpdateProjectIfItDoesntExistInDatabase() {
         //Arrange
         int id = 7000;
         Project project = new Project();
         project.setEmployee(new Employee(1, "", ""));
         project.setEstimatedHours(63);
-        ProjectInvoice invoice = new ProjectInvoice();
-        invoice.setCreatedAt(LocalDateTime.now());
-        invoice.setDueDate(LocalDate.now());
-        invoice.setHasPaid(new Price(98000));
-        invoice.setToPay(new Price(98000));
-        project.setInvoice(invoice);
         project.setId(id);
         project.setStatus(ProjectStatus.ON_HOLD);
         project.setName("Jørgens Loftsvinduer");
@@ -134,30 +120,22 @@ public class ProjectDaoMsSqlTest {
         project.setCustomer(new Customer(3, "", "", "", "",
                 new Address("", 4, "", 5)));
 
-        assertThrows(DataAccessException.class, () -> dao.update(project, false));
-
+        assertThrows(DataAccessException.class, () -> dao.update(project));
     }
 
     @Test
     void testCanUpdateProject() {
-        //Arrange
+        // Arrange
         int id = 3;
         Project project = new Project();
         project.setEmployee(new Employee(1, "", ""));
         project.setEstimatedHours(63);
-        ProjectInvoice invoice = new ProjectInvoice();
-        invoice.setCreatedAt(LocalDateTime.now());
-        invoice.setDueDate(LocalDate.now());
-        invoice.setHasPaid(new Price(98000));
-        invoice.setToPay(new Price(98000));
-        project.setInvoice(invoice);
         project.setId(id);
         project.setStatus(ProjectStatus.ON_HOLD);
         project.setName("Jørgens Loftsvinduer");
         project.setPrice(new Price(98000));
         project.setCustomer(new Customer(3, "", "", "", "",
                 new Address("", 4, "", 5)));
-
     }
 
     @AfterAll

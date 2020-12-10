@@ -9,10 +9,9 @@ public class Order {
     private LocalDateTime date;
     private boolean delivered;
     private final Map<Integer, OrderLine> orderLines;
-    private Customer customer;
-    private Employee employee;
 
     public Order() {
+        date = LocalDateTime.now();
         orderLines = new HashMap<>();
     }
 
@@ -24,13 +23,11 @@ public class Order {
         orderLines = new HashMap<>();
     }
 
-    public Order(int id, LocalDateTime date, boolean delivered, Map<Integer, OrderLine> orderLines, Customer customer, Employee employee) {
+    public Order(int id, LocalDateTime date, boolean delivered, Map<Integer, OrderLine> orderLines) {
         this.id = id;
         this.date = date;
         this.delivered = delivered;
         this.orderLines = orderLines;
-        this.customer = customer;
-        this.employee = employee;
     }
 
     public Map<Integer, OrderLine> getOrderLines() {
@@ -63,21 +60,5 @@ public class Order {
 
     public void setDelivered(boolean delivered) {
         this.delivered = delivered;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 }

@@ -4,9 +4,11 @@ import dao.OrderDao;
 import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
-import model.*;
+import model.Order;
+import model.OrderLine;
+import model.Price;
+import model.Product;
 
-import java.sql.SQLException;
 import java.util.Collection;
 
 public class OrderController {
@@ -59,39 +61,6 @@ public class OrderController {
         connection.release();
 
         return order;
-    }
-
-    public Order create(Project project) throws DataAccessException {
-        if (order.getOrderLines().size() == 0) throw new IllegalArgumentException("The order needs at least 1 product");
-        if (order.getEmployee() == null) throw new IllegalArgumentException("The order needs an employee");
-        if (order.getId() != 0) throw new IllegalArgumentException("Can't create an order that already exists");
-
-        final Order newOrder;
-        final DBConnection connection = DBManager.getInstance().getPool().getConnection();
-        final OrderDao orderDao = connection.getDaoFactory().createOrderDao();
-
-        try {
-            connection.startTransaction();
-
-            newOrder = orderDao.create(order, project);
-
-            connection.commitTransaction();
-            connection.release();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-            try {
-                connection.rollbackTransaction();
-            } catch (SQLException re) {
-                re.printStackTrace();
-
-                throw new DataAccessException("Unable to create Order: " + e.getMessage());
-            }
-
-            throw new DataAccessException("Unable to create Order: " + e.getMessage());
-        }
-
-        return newOrder;
     }
     
     public Order getOrder() {

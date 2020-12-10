@@ -4,7 +4,8 @@ import dao.*;
 import datasource.DBConnection;
 
 public class DaoFactoryMsSql implements DaoFactory {
-    private DBConnection connection;
+    private final DBConnection connection;
+    
     public DaoFactoryMsSql(DBConnection connection) {
         this.connection = connection;
     }
@@ -37,10 +38,5 @@ public class DaoFactoryMsSql implements DaoFactory {
     @Override
     public ProjectDao createProjectDao() {
         return new ProjectDaoMsSql(connection);
-    }
-
-    @Override
-    public ProjectInvoiceDao createProjectInvoiceDao() {
-        return new ProjectInvoiceDaoMsSql(connection);
     }
 }

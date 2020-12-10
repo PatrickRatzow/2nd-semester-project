@@ -12,6 +12,4 @@ public interface DaoFactory {
     ProductDao createProductDao();
 
     ProjectDao createProjectDao();
-
-    ProjectInvoiceDao createProjectInvoiceDao();
 }

@@ -20,7 +20,7 @@ public class EmployeeController {
         DBManager.getInstance().getConnectionThread(conn -> {
             EmployeeDao dao = conn.getDaoFactory().createEmployeeDao();
             try {
-                List<Employee> employees = dao.findByRole("Direkt�r");
+                List<Employee> employees = dao.findByRole("Direktør");
 
                 onFindListeners.forEach(l -> l.accept(employees));
             } catch (DataAccessException e) {

@@ -64,12 +64,26 @@ public class PanelManager extends JPanel {
         setActive(id);
         removePanel(currentId);
     }
+    
+    public void setActiveAndRemoveEverythingElse(String id) {
+        components.entrySet().removeIf(entry -> {
+           boolean toRemove = !entry.getKey().equals(id);
+           
+           if (toRemove) {
+               this.remove(entry.getValue());
+           }
+           
+           return toRemove;
+        });
+        
+        setActive(id);
+        previousId = "";
+    }
 
     private void addPanel(String id, JComponent component) {
         components.putIfAbsent(id, component);
 
         add(component, id);
     }
-
 }
 

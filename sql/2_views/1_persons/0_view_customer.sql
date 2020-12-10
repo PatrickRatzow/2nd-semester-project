@@ -1,4 +1,4 @@
-CREATE VIEW GetCustomers AS
+CREATE VIEW view_customer AS
 SELECT
     p.id AS id,
     p.first_name AS first_name,

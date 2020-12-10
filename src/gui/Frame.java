@@ -28,6 +28,10 @@ public class Frame extends JFrame {
         });
     }
 
+    public static void createSuccessPopup(String message) {
+        JOptionPane.showMessageDialog(frame, message, "Fejl!", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
     public static void createErrorPopup(Exception error) {
         JOptionPane.showMessageDialog(frame, error.getMessage(), "Fejl!", JOptionPane.ERROR_MESSAGE);
     }

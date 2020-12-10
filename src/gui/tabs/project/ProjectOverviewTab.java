@@ -21,7 +21,7 @@ public class ProjectOverviewTab extends BackgroundTitle {
 		titleBar.addActionListener(l -> panelManager.setActiveAndRemoveCurrent(previousId));
 		add(titleBar, BorderLayout.NORTH);
 
-		ProjectOverview overview = new ProjectOverview(projectController);
+		ProjectOverview overview = new ProjectOverview(panelManager, projectController);
 		add(overview, BorderLayout.CENTER);
 	}
 }

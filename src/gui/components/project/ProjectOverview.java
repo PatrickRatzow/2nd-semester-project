@@ -1,6 +1,7 @@
 package gui.components.project;
 
 import controller.ProjectController;
+import gui.components.core.PanelManager;
 import gui.components.customer.CustomerInformationBox;
 import gui.components.product.ProductsBox;
 import gui.util.Colors;
@@ -9,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ProjectOverview extends JPanel {
-	public ProjectOverview(ProjectController projectController) {
+	public ProjectOverview(PanelManager panelManager, ProjectController projectController) {
 		setOpaque(false);
 		setLayout(new CardLayout(0, 0));
 		
@@ -26,7 +27,7 @@ public class ProjectOverview extends JPanel {
 		productsBox.setPriceBackground(Colors.PRIMARY.getColor());
 		panel.add(productsBox, BorderLayout.CENTER);
 		
-		ProjectDetails details = new ProjectDetails();
+		ProjectDetails details = new ProjectDetails(panelManager, projectController);
 		panel.add(details, BorderLayout.EAST);
 	}
 }

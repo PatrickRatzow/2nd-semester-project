@@ -10,18 +10,14 @@ import model.ProjectStatus;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Projects extends Tab {
     private final ProjectController projectController;
     private final JPanel panel;
-    private final Map<Project, ProjectRow> rows;
 
     public Projects(PanelManager panelManager) {
         super(panelManager);
-
-        rows = new HashMap<>();
+        
         projectController = new ProjectController();
 
         setLayout(new BorderLayout(0, 0));
@@ -52,14 +48,12 @@ public class Projects extends Tab {
         scrollPane.setViewportView(panel);
         
         projectController.addFindListener(projects -> {
+            panel.removeAll();
             for (Project project : projects) {
-                ProjectRow row = rows.get(project);
-                if (row == null) {
-                    createRow(project);
-                } else {
-                    updateRow(row, project);
-                }
+                createRow(project);
             }
+            revalidate();
+            repaint();
         });
         projectController.addFindProjectListener(project ->
             panelManager.setActive("project_overview", () ->
@@ -68,16 +62,8 @@ public class Projects extends Tab {
         );
         projectController.getAll();
     }
-
-    private void updateRow(ProjectRow row, Project project) {
-        row.setTitleText(project.getName());
-        row.setCompleted(project.getStatus().equals(ProjectStatus.FINISHED));
-
-        rows.put(project, row);
-    }
-
     private void createRow(Project project) {
-        boolean even = (rows.size() + 1) % 2 == 0;
+        boolean even = (panel.getComponents().length + 1) % 2 == 0;
 
         ProjectRow row = new ProjectRow(even);
         row.setTitleText(project.getName());
@@ -85,7 +71,5 @@ public class Projects extends Tab {
         row.setCompleted(project.getStatus().equals(ProjectStatus.FINISHED));
         row.addActionListener(e -> projectController.getFullProject(project));
         panel.add(row);
-
-        rows.put(project, row);
     }
 }

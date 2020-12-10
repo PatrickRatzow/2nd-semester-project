@@ -53,10 +53,6 @@ public class OrderDaoMsSqlTest {
     void testCreateOrderWithValidInformation() throws DataAccessException {
         // Arrange
         Order order = new Order();
-        order.setEmployee(new Employee(1, "Allan", "Jensen"));
-        order.setCustomer(new Customer(3, "First", "Last", "email@email.xd",
-                "4545454545", new Address("Sofiendalsvej", 60,
-                "Aalborg SV", 9200)));
         order.setDate(LocalDateTime.now());
         order.setDelivered(false);
         Product product = new Product(1, "Lille tagsten", "", new Price(250000));
@@ -73,22 +69,18 @@ public class OrderDaoMsSqlTest {
     }
 
     @Test
-    void testFailsToCreateOrderWithInvalidInformation() throws DataAccessException {
+    void testFailsToCreateOrderWithInvalidInformation() {
         // Arrange
         Order order = new Order();
-        order.setEmployee(new Employee(5000, "Allan", "Jensen"));
-        order.setCustomer(new Customer(1, "", "", "", "",
-                new Address("", 54, "", 9000)));
         order.setDate(LocalDateTime.now());
         order.setDelivered(false);
         Product product = new Product(1, "PP", "", new Price(2242));
         order.addOrderLine(new OrderLine(product, 3, "Test"));
         Project project = new Project();
-        project.setId(1);
+        project.setId(50000);
 
         // Assert + Act
         assertThrows(DataAccessException.class, () -> dao.create(order, project));
-
     }
 
     @AfterAll

@@ -18,7 +18,7 @@ public class ProjectView extends JPanel {
 		titleBar.addActionListener(l -> panelManager.setActiveAndRemoveCurrent(panelManager.getPreviousId()));
 		add(titleBar, BorderLayout.NORTH);
 		
-		ProjectOverview overview = new ProjectOverview(projectController);
+		ProjectOverview overview = new ProjectOverview(panelManager, projectController);
 		add(overview, BorderLayout.CENTER);
 	}
 }

@@ -103,19 +103,7 @@ CREATE TABLE [order] (
     delivered BIT NOT NULL,
     created_at DATETIME2 NOT NULL,
     project_id INT NOT NULL,
-    employee_id INT NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(project_id) REFERENCES project(id),
-    FOREIGN KEY(employee_id) REFERENCES employee(id),
-);
-
-CREATE TABLE project_invoice (
-    project_id INT NOT NULL,
-    created_at DATETIME2 NOT NULL,
-    due_date DATE NOT NULL,
-    to_pay INT NOT NULL,
-    has_paid INT NOT NULL,
-    PRIMARY KEY(project_id),
     FOREIGN KEY(project_id) REFERENCES project(id)
 );
 

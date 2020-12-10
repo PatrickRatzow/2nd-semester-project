@@ -126,7 +126,7 @@ public class ProductDaoMsSql implements ProductDao {
 
         try {
             String idParameters = ids.stream().map(x -> "?").collect(Collectors.joining(","));       
-            String query = "SELECT * FROM GetProducts WHERE id IN (" + idParameters + ") " +
+            String query = "SELECT * FROM view_product WHERE id IN (" + idParameters + ") " +
                     "AND GETUTCDATE() BETWEEN price_start_time AND price_end_time " +
                     "ORDER BY price_end_time DESC";
             PreparedStatement stmt = connection.prepareStatement(query);

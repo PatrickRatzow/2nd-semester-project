@@ -1,6 +1,9 @@
 package dao.mssql;
 
-import dao.*;
+import dao.CustomerDao;
+import dao.EmployeeDao;
+import dao.OrderDao;
+import dao.ProjectDao;
 import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
@@ -21,19 +24,21 @@ public class ProjectDaoMsSql implements ProjectDao {
     private PreparedStatement findByNamePS;
     private static final String FIND_BY_ID_Q = FIND_ALL_Q + " WHERE id = ?";
     private PreparedStatement findByIdPS;
-    private static final String INSERT_Q = " INSERT INTO [project](name, status, price, estimated_hours, customer_id," +
+    private static final String INSERT_Q = " INSERT INTO project(name, status, price, estimated_hours, customer_id," +
             " employee_id) VALUES (?, ?, ?, ?, ?, ?)";
     private PreparedStatement insertPS;
     private static final String UPDATE_Q = " UPDATE project SET name = ?, status = ?, price = ?, " +
             "estimated_hours = ?, employee_id = ? " +
             "WHERE id = ?";
     private PreparedStatement updatePS;
-
+    private DBConnection connection;
     public ProjectDaoMsSql(DBConnection conn) {
         init(conn);
     }
 
     private void init(DBConnection conn) {
+        connection = conn;
+        
         try {
             findAllPS = conn.prepareStatement(FIND_ALL_Q);
             findByNamePS = conn.prepareStatement(FIND_BY_NAME_Q);
@@ -97,7 +102,7 @@ public class ProjectDaoMsSql implements ProjectDao {
     }
 
     @Override
-    public Project create(Project project, boolean fullAssociation) throws DataAccessException {
+    public Project create(Project project) throws DataAccessException {
         try {
             insertPS.setString(1, project.getName());
             insertPS.setInt(2, project.getStatus().getValue());
@@ -113,25 +118,32 @@ public class ProjectDaoMsSql implements ProjectDao {
             }
 
             project.setId(rs.getInt(1));
-
+            
+            OrderDao dao = connection.getDaoFactory().createOrderDao();
+            Order order = dao.create(project.getOrder(), project);
+            project.setOrder(order);
         } catch (SQLException e) {
-
             throw new DataAccessException("Unable to create project");
         }
+        
         return project;
     }
 
     @Override
-    public void update(Project project, boolean fullAssociation) throws DataAccessException {
+    public void update(Project project) throws DataAccessException {
         try {
             updatePS.setString(1, project.getName());
             updatePS.setInt(2, project.getStatus().getValue());
             updatePS.setInt(3, project.getPrice().getAmount());
             updatePS.setInt(4, project.getEstimatedHours());
-            updatePS.setInt(5, project.getCustomer().getId());
-            updatePS.setInt(6, project.getEmployee().getId());
-            updatePS.executeUpdate();
+            updatePS.setInt(5, project.getEmployee().getId());
+            updatePS.setInt(6, project.getId());
+            int affected = updatePS.executeUpdate();
+            if (affected == 0) {
+                throw new DataAccessException("Unable to find project to update");
+            }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DataAccessException("Unable to find project to update");
         }
     }
@@ -149,7 +161,6 @@ public class ProjectDaoMsSql implements ProjectDao {
             AtomicReference<DataAccessException> exception = new AtomicReference<>();
             AtomicReference<Customer> customer = new AtomicReference<>();
             AtomicReference<Employee> employee = new AtomicReference<>();
-            AtomicReference<ProjectInvoice> invoice = new AtomicReference<>();
             AtomicReference<Order> order = new AtomicReference<>();
             // Setup ids
             final int customerId = rs.getInt("customer_id");
@@ -157,7 +168,7 @@ public class ProjectDaoMsSql implements ProjectDao {
 
             List<Thread> threads = new LinkedList<>();
             threads.add(DBManager.getInstance().getConnectionThread(conn -> {
-                CustomerDao dao = new CustomerDaoMsSql(conn);
+                CustomerDao dao = conn.getDaoFactory().createCustomerDao();
                 try {
                     customer.set(dao.findById(customerId));
                 } catch (DataAccessException e) {
@@ -165,7 +176,7 @@ public class ProjectDaoMsSql implements ProjectDao {
                 }
             }));
             threads.add(DBManager.getInstance().getConnectionThread(conn -> {
-                EmployeeDao dao = new EmployeeDaoMsSql(conn);
+                EmployeeDao dao = conn.getDaoFactory().createEmployeeDao();
                 try {
                     employee.set(dao.findById(employeeId));
                 } catch (DataAccessException e) {
@@ -173,15 +184,7 @@ public class ProjectDaoMsSql implements ProjectDao {
                 }
             }));
             threads.add(DBManager.getInstance().getConnectionThread(conn -> {
-                ProjectInvoiceDao dao = new ProjectInvoiceDaoMsSql(conn);
-                try {
-                    invoice.set(dao.findById(id));
-                } catch (DataAccessException e) {
-                    exception.set(e);
-                }
-            }));
-            threads.add(DBManager.getInstance().getConnectionThread(conn -> {
-                OrderDao dao = new OrderDaoMsSql(conn);
+                OrderDao dao = conn.getDaoFactory().createOrderDao();
                 try {
                     order.set(dao.findById(id, true));
                 } catch (DataAccessException e) {
@@ -207,7 +210,6 @@ public class ProjectDaoMsSql implements ProjectDao {
 
             project.setCustomer(customer.get());
             project.setEmployee(employee.get());
-            project.setInvoice(invoice.get());
             project.setOrder(order.get());
         }
 
