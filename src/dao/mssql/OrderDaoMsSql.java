@@ -74,8 +74,9 @@ public class OrderDaoMsSql implements OrderDao {
                 }
             }));
 
-            for (Thread t : threads)
+            for (Thread t : threads) {
                 t.start();
+            }
 
             for (Thread t : threads) {
                 try {
