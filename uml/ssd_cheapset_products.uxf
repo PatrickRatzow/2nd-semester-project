@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>9</zoom_level>
+  <zoom_level>12</zoom_level>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>270</x>
-      <y>18</y>
-      <w>72</w>
-      <h>99</h>
+      <x>396</x>
+      <y>240</y>
+      <w>96</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>Employee</panel_attributes>
     <additional_attributes/>
@@ -15,32 +15,32 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>297</x>
-      <y>99</y>
-      <w>27</w>
-      <h>486</h>
+      <x>432</x>
+      <y>348</y>
+      <w>36</w>
+      <h>432</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;520.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;340.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>702</x>
-      <y>99</y>
-      <w>27</w>
-      <h>486</h>
+      <x>972</x>
+      <y>348</y>
+      <w>36</w>
+      <h>432</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;520.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;340.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>666</x>
-      <y>81</y>
-      <w>90</w>
-      <h>27</h>
+      <x>924</x>
+      <y>324</y>
+      <w>120</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>:System</panel_attributes>
     <additional_attributes/>
@@ -48,34 +48,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>297</x>
-      <y>153</y>
-      <w>432</w>
-      <h>36</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-openCheapestPriceTab()</panel_attributes>
-    <additional_attributes>460.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>297</x>
-      <y>198</y>
-      <w>432</w>
-      <h>36</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-specificationsUI</panel_attributes>
-    <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>297</x>
-      <y>261</y>
-      <w>432</w>
-      <h>36</h>
+      <x>432</x>
+      <y>432</y>
+      <w>576</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 addSpecification(specification)</panel_attributes>
@@ -84,34 +60,22 @@ addSpecification(specification)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>297</x>
-      <y>306</y>
-      <w>432</w>
-      <h>36</h>
+      <x>432</x>
+      <y>492</y>
+      <w>576</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 specificationUI</panel_attributes>
     <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>297</x>
-      <y>351</y>
-      <w>432</w>
-      <h>36</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-setSpecificationRequirements(specification, requirements)</panel_attributes>
-    <additional_attributes>460.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>234</x>
-      <y>243</y>
-      <w>540</w>
-      <h>243</h>
+      <x>348</x>
+      <y>408</y>
+      <w>720</w>
+      <h>264</h>
     </coordinates>
     <panel_attributes>loop</panel_attributes>
     <additional_attributes/>
@@ -119,10 +83,10 @@ setSpecificationRequirements(specification, requirements)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>297</x>
-      <y>396</y>
-      <w>432</w>
-      <h>36</h>
+      <x>432</x>
+      <y>552</y>
+      <w>576</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 saveSpecification(specification)</panel_attributes>
@@ -131,10 +95,10 @@ saveSpecification(specification)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>297</x>
-      <y>441</y>
-      <w>432</w>
-      <h>36</h>
+      <x>432</x>
+      <y>612</y>
+      <w>576</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 specificationsUI</panel_attributes>
@@ -143,10 +107,10 @@ specificationsUI</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>297</x>
-      <y>504</y>
-      <w>432</w>
-      <h>36</h>
+      <x>432</x>
+      <y>684</y>
+      <w>576</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 calculateCheapestProducts()</panel_attributes>
@@ -155,10 +119,10 @@ calculateCheapestProducts()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>297</x>
-      <y>549</y>
-      <w>432</w>
-      <h>36</h>
+      <x>432</x>
+      <y>732</y>
+      <w>576</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 cheapestProducts</panel_attributes>
