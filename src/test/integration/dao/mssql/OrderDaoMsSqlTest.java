@@ -57,7 +57,7 @@ public class OrderDaoMsSqlTest {
         Product product = new Product(1, "Lille tagsten", "", new Price(250000));
         order.addOrderLine(new OrderLine(product, 15, "Test"));
         Project project = new Project();
-        project.setId(1);
+        project.setId(3);
         Order returnOrder;
 
         // Act
@@ -73,7 +73,7 @@ public class OrderDaoMsSqlTest {
         Order order = new Order();
         order.setDate(LocalDateTime.now());
         order.setDelivered(false);
-        Product product = new Product(1, "PP", "", new Price(2242));
+        Product product = new Product(4, "PP", "", new Price(2242));
         order.addOrderLine(new OrderLine(product, 3, "Test"));
         Project project = new Project();
         project.setId(50000);

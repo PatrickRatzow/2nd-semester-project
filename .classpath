@@ -23,6 +23,5 @@
 	<classpathentry kind="lib" path="lib/slf4j-jdk14-1.7.9.jar"/>
 	<classpathentry kind="lib" path="lib/sqljdbc4.jar"/>
 	<classpathentry kind="lib" path="lib/swingx-all-1.6.5-1.jar"/>
-	<classpathentry kind="lib" path="out/artifacts/build/build.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
