@@ -1,7 +1,6 @@
 package test.integration.dao.mssql;
 
 import dao.CustomerDao;
-import dao.mssql.CustomerDaoMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
@@ -25,7 +24,7 @@ public class CustomerDaoMsSqlTest {
         try {
             connection = DBManager.getInstance().getPool().getConnection();
             connection.startTransaction();
-            dao = new CustomerDaoMsSql(connection);
+            dao = connection.getDaoFactory().createCustomerDao();
         } catch (SQLException e) {
             e.printStackTrace();
         }

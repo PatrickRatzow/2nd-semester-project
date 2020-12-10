@@ -82,9 +82,7 @@ public class ProjectDetails extends BackgroundTitle {
 			Frame.createSuccessPopup(text);
 			
 			panelManager.setActiveAndRemoveEverythingElse("main");
-			if (isCreatingProject) {
-				projectController.getAll();
-			}
+			projectController.getAll();
 		});
 		rightAlign.add(createBtn);
 		

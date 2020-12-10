@@ -1,7 +1,6 @@
 package test.integration.dao.mssql;
 
 import dao.OrderDao;
-import dao.mssql.OrderDaoMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
@@ -21,7 +20,7 @@ public class OrderDaoMsSqlTest {
     @BeforeAll
     static void setup() {
         connection = DBManager.getInstance().getPool().getConnection();
-        dao = new OrderDaoMsSql(connection);
+        dao = connection.getDaoFactory().createOrderDao();
     }
 
     @Test

@@ -17,9 +17,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class OrderDaoMsSql implements OrderDao {
-    private static final String FIND_BY_ID_Q = "SELECT id, delivered, created_at FROM [order] WHERE id = ?";
+    private static final String FIND_BY_ID_Q = "SELECT project_id, delivered, created_at FROM [order] " +
+            "WHERE project_id = ?";
     private PreparedStatement findByIdPS;
-    private static final String INSERT_Q = "INSERT INTO [order](delivered, created_at, project_id) " +
+    private static final String INSERT_Q = "INSERT INTO [order](project_id, delivered, created_at) " +
             "VALUES (?, ?, ?)";
     private PreparedStatement insertPS;
     private DBConnection connection;
@@ -40,7 +41,7 @@ public class OrderDaoMsSql implements OrderDao {
     }
 
     private Order buildObject(final ResultSet rs, boolean fullAssociation) throws SQLException, DataAccessException {
-        final int id = rs.getInt("id");
+        final int id = rs.getInt("project_id");
         final boolean delivered = rs.getBoolean("delivered");
         final LocalDateTime createdAt = SQLDateConverter.timestampToLocalDateTime(
                 rs.getTimestamp("created_at"));
@@ -52,7 +53,7 @@ public class OrderDaoMsSql implements OrderDao {
             AtomicReference<List<OrderLine>> orderLines = new AtomicReference<>();
 
             Thread thread = DBManager.getInstance().getConnectionThread(conn -> {
-                OrderLineDao dao = new OrderLineDaoMsSql(conn);
+                OrderLineDao dao = conn.getDaoFactory().createOrderLineDao();
                 try {
                     orderLines.set(dao.findByOrderId(id));
                 } catch (DataAccessException e) {
@@ -111,17 +112,12 @@ public class OrderDaoMsSql implements OrderDao {
     @Override
     public Order create(Order order, Project project) throws DataAccessException {
         try {
-            insertPS.setBoolean(1, order.isDelivered());
-            insertPS.setTimestamp(2, Timestamp.valueOf(order.getDate()));
-            insertPS.setInt(3, project.getId());
-            insertPS.executeUpdate();
-
-            ResultSet rs = insertPS.getGeneratedKeys();
-            if (!rs.next()) {
-                throw new DataAccessException("Not able to get identity for order");
-            }
-
-            order.setId(rs.getInt(1));
+            insertPS.setInt(1, project.getId());
+            insertPS.setBoolean(2, order.isDelivered());
+            insertPS.setTimestamp(3, Timestamp.valueOf(order.getDate()));
+            insertPS.execute();
+            
+            order.setId(project.getId());
 
             OrderLineDao orderLineDao = connection.getDaoFactory().createOrderLineDao();
             for (OrderLine orderLine : order.getOrderLines().values()) {

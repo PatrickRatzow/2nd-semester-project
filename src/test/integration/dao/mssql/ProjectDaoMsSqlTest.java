@@ -1,7 +1,6 @@
 package test.integration.dao.mssql;
 
 import dao.ProjectDao;
-import dao.mssql.ProjectDaoMsSql;
 import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
@@ -21,7 +20,7 @@ public class ProjectDaoMsSqlTest {
     @BeforeAll
     static void setup() {
         connection = DBManager.getInstance().getPool().getConnection();
-        dao = new ProjectDaoMsSql(connection);
+        dao = connection.getDaoFactory().createProjectDao();
     }
 
     @Test

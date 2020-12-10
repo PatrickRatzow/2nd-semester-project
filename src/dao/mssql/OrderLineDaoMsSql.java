@@ -1,6 +1,7 @@
 package dao.mssql;
 
 import dao.OrderLineDao;
+import dao.ProductDao;
 import datasource.DBConnection;
 import datasource.DataAccessException;
 import model.Order;
@@ -69,7 +70,9 @@ public class OrderLineDaoMsSql implements OrderLineDao {
             ResultSet rs = findAllByOrderIdPS.executeQuery();
 
             final Map<Integer, OrderLine> map = buildObjects(rs);
-            List<Product> products = new ProductDaoMsSql(connection).findByIds(new LinkedList<>(map.keySet()));
+
+            ProductDao dao = connection.getDaoFactory().createProductDao();
+            List<Product> products = dao.findByIds(new LinkedList<>(map.keySet()));
             for (Product product : products) {
                 OrderLine orderLine = map.get(product.getId());
                 orderLine.setProduct(product);

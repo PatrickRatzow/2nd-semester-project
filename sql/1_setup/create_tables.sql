@@ -99,11 +99,10 @@ CREATE TABLE product_price (
 );
 
 CREATE TABLE [order] (
-    id INT IDENTITY(1, 1),
+    project_id INT,
     delivered BIT NOT NULL,
     created_at DATETIME2 NOT NULL,
-    project_id INT NOT NULL,
-    PRIMARY KEY(id),
+    PRIMARY KEY(project_id),
     FOREIGN KEY(project_id) REFERENCES project(id)
 );
 
@@ -113,7 +112,7 @@ CREATE TABLE order_line (
     quantity INT NOT NULL,
     display_name NVARCHAR(255) NOT NULL,
     PRIMARY KEY(order_id, product_id),
-    FOREIGN KEY(order_id) REFERENCES [order](id),
+    FOREIGN KEY(order_id) REFERENCES [order](project_id),
     FOREIGN KEY(product_id) REFERENCES product(id)
 );
 
