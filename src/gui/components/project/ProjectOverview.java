@@ -4,7 +4,7 @@ import controller.ProjectController;
 import gui.components.core.PanelManager;
 import gui.components.customer.CustomerInformationBox;
 import gui.components.product.ProductsBox;
-import gui.util.Colors;
+import util.Colors;
 
 import javax.swing.*;
 import java.awt.*;

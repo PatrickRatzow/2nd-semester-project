@@ -6,9 +6,9 @@ import gui.Frame;
 import gui.components.core.BackgroundTitle;
 import gui.components.core.PanelManager;
 import gui.components.core.PlaceholderTextField;
-import gui.util.Colors;
 import model.Employee;
 import model.ProjectStatus;
+import util.Colors;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

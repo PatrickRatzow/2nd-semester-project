@@ -5,9 +5,9 @@ import controller.SpecificationsController;
 import gui.components.core.PanelManager;
 import gui.components.core.Row;
 import gui.components.specifications.specification.SpecificationTab;
-import gui.util.Colors;
 import model.Specification;
 import net.miginfocom.swing.MigLayout;
+import util.Colors;
 
 import javax.swing.*;
 import java.awt.*;

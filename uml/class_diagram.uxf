@@ -507,33 +507,6 @@ datasource::DBConnection
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4810</x>
-      <y>5880</y>
-      <w>440</w>
-      <h>260</h>
-    </coordinates>
-    <panel_attributes>/gui.components.customer::ManipulateCustomer/
---
-#firstName: ManipulateCustomerColumn
-#address: ManipulateCustomerColumn
-#city: ManipulateCustomerColumn
-#phoneNumber: ManipulateCustomerColumn
-#lastName: ManipulateCustomerColumn
-#addressNumber: ManipulateCustomerColumn
-#zipCode: ManipulateCustomerColumn
-#email: ManipulateCustomerColumn
-#customerController: CustomerController
-#btnAdd: JButton
---
-+ManipulateCustomer(CustomerController customerController): ctor
-+onSave(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
       <x>5630</x>
       <y>5880</y>
       <w>580</w>
@@ -683,31 +656,6 @@ datasource::DBConnection
 +setProduct(Product product): void
 +getDisplayName(): String
 +setDisplayName(String displayName): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5300</x>
-      <y>6170</y>
-      <w>670</w>
-      <h>230</h>
-    </coordinates>
-    <panel_attributes>gui.components.specifications::SpecificationsLists
---
--specificationsList: JPanel
--chosenSpecifications: JPanel
--panelManager: PanelManager
--chosenMap: Map&lt;Integer, Entry&lt;SpecificationController, SpecificationsSelectedRow&gt;&gt;
--specificationsController: SpecificationsController
---
-+SpecificationsLists(PanelManager panelManager, SpecificationsController specificationsController): ctor
-+setSpecifications(List&lt;Specification&gt; specifications): void
--createListRow(Specification specification, boolean even): Row
--getDisplayName(SpecificationController specController): String
--createChosenRow(SpecificationController specificationController): void
 --
 </panel_attributes>
     <additional_attributes/>
@@ -990,22 +938,22 @@ gui.components.specifications.specification::SpecificationColumnValueField
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5950</x>
-      <y>6640</y>
+      <x>6610</x>
+      <y>4340</y>
       <w>220</w>
       <h>180</h>
     </coordinates>
-    <panel_attributes>model::ProjectStatus
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+ProjectStatus
 --
-+ON_HOLD = 0: int
-+IN_PROGRESS = 1: int
-+AWAITING_PAYMENT = 2: int
-+FINISHED = 3: int
--value: int
+_+ ON_HOLD = 0: int_
+_+ IN_PROGRESS = 1: int_
+_+ AWAITING_PAYMENT = 2: int_
+_+ FINISHED = 3: int_
+- value: int
 --
-~ProjectStatus(int value): ctor
-+getValue(): int
---
+- ProjectStatus(value: int)
++ getValue(): int
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -1465,8 +1413,8 @@ dao::ProductDao
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6740</x>
-      <y>7200</y>
+      <x>7110</x>
+      <y>6890</y>
       <w>400</w>
       <h>110</h>
     </coordinates>
@@ -2324,7 +2272,7 @@ m2=1
 # btnAdd: JButton
 --
 + &lt;&lt;constructor&gt;&gt;(customerController: CustomerController)
-+ onSave()
+/+ onSave()/
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -2356,15 +2304,15 @@ m2=1..*</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>4810</x>
-      <y>1530</y>
+      <y>1520</y>
       <w>230</w>
-      <h>180</h>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1
 m2=1
 </panel_attributes>
-    <additional_attributes>200.0;10.0;200.0;40.0;90.0;40.0;90.0;90.0;10.0;90.0;10.0;160.0</additional_attributes>
+    <additional_attributes>200.0;10.0;200.0;50.0;90.0;50.0;90.0;100.0;10.0;100.0;10.0;170.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -2406,7 +2354,7 @@ m2=1
       <x>4900</x>
       <y>1500</y>
       <w>210</w>
-      <h>40</h>
+      <h>30</h>
     </coordinates>
     <panel_attributes>CreateCustomerUI
 --
@@ -2529,16 +2477,16 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5150</x>
+      <x>5140</x>
       <y>1650</y>
-      <w>370</w>
+      <w>380</w>
       <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..1
 m2=1
 </panel_attributes>
-    <additional_attributes>10.0;140.0;10.0;70.0;340.0;70.0;340.0;10.0</additional_attributes>
+    <additional_attributes>10.0;140.0;10.0;70.0;350.0;70.0;350.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -2600,6 +2548,45 @@ m2=1</panel_attributes>
 m1=1
 m2=1
 </panel_attributes>
-    <additional_attributes>1320.0;10.0;1230.0;10.0;1230.0;530.0;1370.0;530.0;1370.0;720.0;990.0;720.0;990.0;850.0;580.0;850.0;580.0;680.0;10.0;680.0;10.0;620.0</additional_attributes>
+    <additional_attributes>1320.0;10.0;1230.0;10.0;1230.0;520.0;1370.0;520.0;1370.0;720.0;990.0;720.0;990.0;850.0;580.0;850.0;580.0;680.0;10.0;680.0;10.0;620.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>6440</x>
+      <y>1420</y>
+      <w>440</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>SpecificationsLists
+--
+- specificationsList: JPanel
+- chosenSpecifications: JPanel
+- panelManager: PanelManager
+- chosenMap: Map&lt;Integer, 
+    Entry&lt;SpecificationController, SpecificationsSelectedRow&gt;&gt;
+- specificationsController: SpecificationsController
+--
++ &lt;&lt;constructor&gt;&gt;(panelManager: PanelManager, 
+    specificationsController: SpecificationsController)
++ setSpecifications(specifications: List&lt;Specification&gt;)
+- createListRow(specification: Specification, even: boolean): Row
+- getDisplayName(specController: SpecificationController): String
+- createChosenRow(specificationController: SpecificationController)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>6650</x>
+      <y>1330</y>
+      <w>40</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
 </diagram>

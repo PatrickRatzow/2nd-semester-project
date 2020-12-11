@@ -1,7 +1,7 @@
 package gui.components.specifications;
 
 import gui.components.core.Row;
-import gui.util.Colors;
+import util.Colors;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

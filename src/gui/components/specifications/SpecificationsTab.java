@@ -5,7 +5,7 @@ import controller.SpecificationController;
 import controller.SpecificationsController;
 import gui.Frame;
 import gui.components.core.PanelManager;
-import gui.util.Colors;
+import util.Colors;
 
 import javax.swing.*;
 import java.awt.*;

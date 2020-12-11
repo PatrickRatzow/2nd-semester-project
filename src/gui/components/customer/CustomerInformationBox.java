@@ -1,8 +1,8 @@
 package gui.components.customer;
 
 import gui.components.core.BackgroundTitle;
-import gui.util.Colors;
 import model.Customer;
+import util.Colors;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

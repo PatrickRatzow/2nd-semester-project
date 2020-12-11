@@ -7,8 +7,8 @@ import gui.components.core.PanelManager;
 import gui.components.core.PlaceholderTextField;
 import gui.components.core.TitleBar;
 import gui.components.customer.CustomerInformationBox;
-import gui.util.Colors;
 import model.Customer;
+import util.Colors;
 
 import javax.swing.*;
 import java.awt.*;
