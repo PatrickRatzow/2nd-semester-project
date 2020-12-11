@@ -62,6 +62,7 @@ public class Projects extends Tab {
         );
         projectController.getAll();
     }
+    
     private void createRow(Project project) {
         boolean even = (panel.getComponents().length + 1) % 2 == 0;
 

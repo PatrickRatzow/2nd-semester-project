@@ -18,7 +18,6 @@ import static gui.Frame.createErrorPopup;
 public class ProjectFindOrCreateCustomer extends JPanel {
     private final PlaceholderTextField searchTextField;
     private JComponent resultComponent;
-    private final JPanel container;
     private final JButton btnAddCustomer;
     private final JPanel resultContainer;
     private Customer customer;
@@ -36,8 +35,8 @@ public class ProjectFindOrCreateCustomer extends JPanel {
 
         BackgroundTitle backgroundTitle = new BackgroundTitle("Kunde (1/3)");
         add(backgroundTitle, BorderLayout.CENTER);
-
-        container = new JPanel();
+    
+        JPanel container = new JPanel();
         container.setOpaque(false);
         container.setLayout(new BorderLayout(0, 0));
         backgroundTitle.add(container);

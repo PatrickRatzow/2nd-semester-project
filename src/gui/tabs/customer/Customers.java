@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Customers extends Tab {
-    private final PanelManager panelManager;
     private final CustomerController customerController;
     private final JPanel container;
     private String currentId;

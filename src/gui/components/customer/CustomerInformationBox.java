@@ -13,7 +13,6 @@ import java.util.List;
 
 public class CustomerInformationBox extends BackgroundTitle {
     private final JPanel panel;
-    private Customer customer;
 
     public CustomerInformationBox(Customer customer) {
         setBackground(Colors.PRIMARY.getColor());
