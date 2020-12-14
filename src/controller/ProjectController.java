@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class ProjectController {
-    private Project project;
+    private final Project project;
     private OrderController orderController;
     private final List<Consumer<List<Project>>> onFindListeners = new LinkedList<>();
     private final List<Consumer<Project>> onFindFullListeners = new LinkedList<>();

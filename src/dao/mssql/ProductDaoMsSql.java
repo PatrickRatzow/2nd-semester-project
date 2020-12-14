@@ -11,7 +11,10 @@ import model.Specification;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ProductDaoMsSql implements ProductDao {
@@ -120,8 +123,6 @@ public class ProductDaoMsSql implements ProductDao {
 
     @Override
     public List<Product> findByIds(List<Integer> ids) throws DataAccessException {
-        if (ids.size() == 0) throw new DataAccessException("Empty list passed! You need at least 1 entry");
-
         List<Product> products = new LinkedList<>();
 
         try {
@@ -130,10 +131,9 @@ public class ProductDaoMsSql implements ProductDao {
                     "AND GETUTCDATE() BETWEEN price_start_time AND price_end_time " +
                     "ORDER BY price_end_time DESC";
             PreparedStatement stmt = connection.prepareStatement(query);
-            int size = ids.size();
             int i = 0;
-            for (Iterator<Integer> iterator = ids.iterator(); iterator.hasNext();) {
-            	stmt.setInt(++i, iterator.next());
+            for (Integer id : ids) {
+                stmt.setInt(++i, id);
             }
             ResultSet rs = stmt.executeQuery();
 

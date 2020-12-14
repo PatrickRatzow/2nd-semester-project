@@ -48,8 +48,8 @@ public class OrderDaoMsSql implements OrderDao {
         final Order order = new Order(id, createdAt, delivered);
 
         if (fullAssociation) {
+            // Setup variables
             AtomicReference<DataAccessException> exception = new AtomicReference<>();
-            // Setup objects
             AtomicReference<List<OrderLine>> orderLines = new AtomicReference<>();
 
             Thread thread = DBManager.getInstance().getConnectionThread(conn -> {
