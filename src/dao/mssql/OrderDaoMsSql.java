@@ -8,7 +8,6 @@ import datasource.DataAccessException;
 import model.Order;
 import model.OrderLine;
 import model.Project;
-import util.SQLDateConverter;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -43,8 +42,7 @@ public class OrderDaoMsSql implements OrderDao {
     private Order buildObject(final ResultSet rs, boolean fullAssociation) throws SQLException, DataAccessException {
         final int id = rs.getInt("project_id");
         final boolean delivered = rs.getBoolean("delivered");
-        final LocalDateTime createdAt = SQLDateConverter.timestampToLocalDateTime(
-                rs.getTimestamp("created_at"));
+        final LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
         final Order order = new Order(id, createdAt, delivered);
 
         if (fullAssociation) {

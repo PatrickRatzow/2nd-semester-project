@@ -3608,20 +3608,4 @@ EmailValidationRule
 </panel_attributes>
     <additional_attributes/>
   </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5364</x>
-      <y>3114</y>
-      <w>405</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>SQLDateConverter
---
-_+ localDateTimeToTimestamp(dateTime: LocalDateTime): Timestamp_
-_+ timestampToLocalDateTime(timestamp: Timestamp): LocalDateTime_
-_+ localDateToDate(localDate: LocalDate): Date_
-</panel_attributes>
-    <additional_attributes/>
-  </element>
 </diagram>
