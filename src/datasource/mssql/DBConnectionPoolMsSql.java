@@ -43,9 +43,9 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
 			} catch (InterruptedException e) {}
         }
         
-        //if (options.isTest()) {
+        if (options.isTest()) {
             setupDatabase();
-        //}
+        }
     }
 
     private void setupDatabase() {

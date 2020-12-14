@@ -35,8 +35,8 @@ public class SpecificationTab extends JPanel {
 
         setLayout(new BorderLayout(0, 0));
         TitleBar title = new TitleBar();
-        title.setTitle("Specification");
-        title.setButtonName("Gaa Tilbage");
+        title.setTitle("Specifikation");
+        title.setButtonName("Gå Tilbage");
         title.addActionListener(e -> panelManager.setActiveAndRemoveCurrent(previousId));
         add(title, BorderLayout.NORTH);
 

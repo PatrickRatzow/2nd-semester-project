@@ -7,7 +7,7 @@ public class SpecificationColumnColor implements SpecificationColumnValueField<S
     private final JComboBox<String> component;
 
     public SpecificationColumnColor() {
-        component = new JComboBox<String>();
+        component = new JComboBox<>();
     }
 
     @Override

@@ -29,7 +29,7 @@ public class ProjectFindOrCreateCustomer extends JPanel {
 
         TitleBar titleBar = new TitleBar();
         titleBar.setTitle("Opret Projekt");
-        titleBar.setButtonName("Gaa tilbage");
+        titleBar.setButtonName("Gå tilbage");
         titleBar.addActionListener(l -> panelManager.setActiveAndRemoveCurrent(previousId));
         add(titleBar, BorderLayout.NORTH);
 
@@ -59,7 +59,7 @@ public class ProjectFindOrCreateCustomer extends JPanel {
         searchTextField.setPlaceholder("Telefonnummer/email");
         topContainer.add(searchTextField);
 
-        btnAddCustomer = new JButton("Tilknyt kunde");
+        btnAddCustomer = new JButton("Vælg Kunde");
         btnAddCustomer.setBackground(Colors.GREEN.getColor());
         btnAddCustomer.setVisible(false);
         btnAddCustomer.addActionListener(e -> {
@@ -70,7 +70,7 @@ public class ProjectFindOrCreateCustomer extends JPanel {
         });
         bottomContainer.add(btnAddCustomer);
 
-        JButton btnSearch = new JButton("Anmod");
+        JButton btnSearch = new JButton("Søg");
         btnSearch.addActionListener(e -> customerController.getSearch(searchTextField.getText()));
         topContainer.add(btnSearch);
 
@@ -115,7 +115,12 @@ public class ProjectFindOrCreateCustomer extends JPanel {
     }
 
     private void createNoResultDisplay() {
-        createErrorPopup(new Exception(searchTextField.getText() + " findes ikke"));
+    	String text = searchTextField.getText();
+    	if (text.isEmpty()) {
+    		createErrorPopup(new Exception("Indtast et telefonnummer eller email først!"));
+    	} else {
+    		createErrorPopup(new Exception(text + " findes ikke"));
+    	}
         
         this.customer = null;
         

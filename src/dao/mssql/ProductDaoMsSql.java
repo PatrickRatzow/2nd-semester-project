@@ -21,9 +21,12 @@ public class ProductDaoMsSql implements ProductDao {
     private DBConnection connection;
 
     public ProductDaoMsSql(DBConnection conn) {
-    	connection = conn;
+        init(conn);
     }
     
+    private void init(DBConnection conn) {
+        connection = conn;
+    }
     private Product buildObject(ResultSet rs) throws SQLException {
         final Product product = new Product();
 

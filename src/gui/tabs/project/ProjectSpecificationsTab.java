@@ -15,8 +15,8 @@ public class ProjectSpecificationsTab extends JPanel {
         setLayout(new BorderLayout(0, 0));
 
         TitleBar titleBar = new TitleBar();
-        titleBar.setTitle("Opret projekt");
-        titleBar.setButtonName("Gaa tilbage");
+        titleBar.setTitle("Opret Projekt");
+        titleBar.setButtonName("Gå tilbage");
         titleBar.addActionListener(e -> panelManager.setActiveAndRemoveCurrent(previousId));
         add(titleBar, BorderLayout.NORTH);
 

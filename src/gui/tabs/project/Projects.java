@@ -25,7 +25,7 @@ public class Projects extends Tab {
         TitleBar titleBar = new TitleBar();
         titleBar.setTitle("Projekter");
         titleBar.setButtonName("Opret nyt projekt");
-        JTextField searchBar = titleBar.createSearchBar("Soeg efter projekter");
+        JTextField searchBar = titleBar.createSearchBar("Søg efter projekter");
         searchBar.addActionListener(e -> {
             String text = searchBar.getText();
             if (text.isEmpty()) {
@@ -68,7 +68,7 @@ public class Projects extends Tab {
 
         ProjectRow row = new ProjectRow(even);
         row.setTitleText(project.getName());
-        row.setButtonText("Aaben");
+        row.setButtonText("Åben");
         row.setCompleted(project.getStatus().equals(ProjectStatus.FINISHED));
         row.addActionListener(e -> projectController.getFullProject(project));
         panel.add(row);

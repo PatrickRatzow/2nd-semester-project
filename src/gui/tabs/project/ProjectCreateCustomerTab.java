@@ -16,7 +16,7 @@ public class ProjectCreateCustomerTab extends JComponent {
 
         TitleBar titleBar = new TitleBar();
         titleBar.setTitle("Opret Projekt");
-        titleBar.setButtonName("G� Tilbage");
+        titleBar.setButtonName("Gå Tilbage");
         titleBar.addActionListener(l -> panelManager.setActiveAndRemoveCurrent(previousId));
         add(titleBar, BorderLayout.NORTH);
 

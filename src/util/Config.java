@@ -8,8 +8,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-    public static volatile Properties properties;
-    public static Config instance;
+    private static volatile Properties properties;
+    private static Config instance;
 
     private Config() throws IOException {
         Properties props = new Properties();
