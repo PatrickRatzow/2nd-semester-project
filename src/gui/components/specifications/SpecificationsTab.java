@@ -33,7 +33,7 @@ public class SpecificationsTab extends JPanel {
         Component rigidArea = Box.createRigidArea(new Dimension(0, 5));
         panel.add(rigidArea, BorderLayout.NORTH);
 
-        continueBtn = new JButton("G\u00E5 videre");
+        continueBtn = new JButton("Gå videre");
         continueBtn.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         continueBtn.setBackground(Colors.GREEN.getColor());
         continueBtn.addActionListener(l -> continueToNextTab());

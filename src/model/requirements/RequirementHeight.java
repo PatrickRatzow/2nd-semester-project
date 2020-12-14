@@ -13,11 +13,6 @@ public class RequirementHeight extends Requirement<Integer> {
     }
 
     @Override
-    public String getDescription() {
-        return "The height of the window";
-    }
-
-    @Override
     public String getId() {
         return "height";
     }

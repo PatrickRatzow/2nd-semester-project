@@ -17,7 +17,7 @@ public class ProjectOverviewTab extends BackgroundTitle {
 		
 		TitleBar titleBar = new TitleBar();
 		titleBar.setTitle("Opret Projekt");
-		titleBar.setButtonName("Gå Tilbage");
+		titleBar.setButtonName("GÃ¥ Tilbage");
 		titleBar.addActionListener(l -> panelManager.setActiveAndRemoveCurrent(previousId));
 		add(titleBar, BorderLayout.NORTH);
 

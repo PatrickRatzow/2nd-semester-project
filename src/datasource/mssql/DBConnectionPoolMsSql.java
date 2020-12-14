@@ -1,8 +1,8 @@
 package datasource.mssql;
 
 import datasource.DBConnection;
+import datasource.DBConnectionOptions;
 import datasource.DBConnectionPool;
-import util.JUnit;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,21 +15,20 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class DBConnectionPoolMsSql implements DBConnectionPool {
-    private static final int POOL_SIZE = 15;
-    private final BlockingQueue<DBConnection> pool = new ArrayBlockingQueue<>(POOL_SIZE);
-    private final String user;
-    private final String database;
-    private static final String host = "hildur.ucn.dk";
-    private static final int port = 1433;
-    private static final String password = "Password1!";
+    private final BlockingQueue<DBConnection> pool;
 
-    public DBConnectionPoolMsSql() {
-        final boolean isJUnit = JUnit.isJUnitTest();
-        user = isJUnit ? "dmaa0220_1083802" : "dmaa0220_1083750";
-        database = user;
+    public DBConnectionPoolMsSql(DBConnectionOptions options) {
+        String host = options.getHost();
+        String user = options.getUser();
+        String password = options.getPassword();
+        String database = options.getDatabase();
+        int port = options.getPort();
+        int poolSize = options.getPoolSize();
+        
+        pool = new ArrayBlockingQueue<>(poolSize);
 
         List<Thread> threads = new LinkedList<>();
-        for (int i = 0; i < POOL_SIZE; i++) {
+        for (int i = 0; i < poolSize; i++) {
             threads.add(new Thread(() -> {
             	DBConnectionMsSql conn = new DBConnectionMsSql(host, port, user, password, database);
             	pool.add(conn);
@@ -44,9 +43,9 @@ public class DBConnectionPoolMsSql implements DBConnectionPool {
 			} catch (InterruptedException e) {}
         }
         
-        //if (!isJUnit) {
+        if (options.isTest()) {
             setupDatabase();
-        //}
+        }
     }
 
     private void setupDatabase() {

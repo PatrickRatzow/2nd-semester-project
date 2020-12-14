@@ -35,7 +35,7 @@ public class Customers extends Tab {
             currentId = panelManager.getCurrentId();
 
             panelManager.setActive("create_customer", () ->
-                    new CreateCustomerTab(panelManager, customerController, "Opret Kunde", "G� Tilbage"));
+                    new CreateCustomerTab(panelManager, customerController, "Opret Kunde", "Gå Tilbage"));
         });
 
         JTextField searchBar = titleBar.createSearchBar("Kunde telefon/email");
@@ -88,7 +88,7 @@ public class Customers extends Tab {
                 customerController.setCustomer(customer);
 
                 return new UpdateCustomerTab(panelManager, customerController,
-                        "Opdater Kunde", "G� Tilbage", customer);
+                        "Opdater Kunde", "Gå Tilbage", customer);
             });
         });
     }

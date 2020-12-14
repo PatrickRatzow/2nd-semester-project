@@ -15,7 +15,7 @@ public class RequirementWidthTest {
     }
 
     @Test
-    void testCanValidateHeight() throws Exception {
+    void testCanValidateWidth() throws Exception {
         //Arrange
         int input = 150;
 
@@ -25,7 +25,7 @@ public class RequirementWidthTest {
     }
 
     @Test
-    void testCantValidateInvalidHeight() {
+    void testCantValidateInvalidWidth() {
         //Arrange
         int input = -1;
 
@@ -33,6 +33,15 @@ public class RequirementWidthTest {
         width.setValue(input);
 
         //Assert
+        assertThrows(Exception.class, () -> width.validate());
+    }
+
+    @Test
+    void testCantValidateEmptyWidth() {
+        // Act
+        width.setValue(null);
+
+        // Assert
         assertThrows(Exception.class, () -> width.validate());
     }
 }

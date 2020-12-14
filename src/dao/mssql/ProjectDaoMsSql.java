@@ -119,9 +119,11 @@ public class ProjectDaoMsSql implements ProjectDao {
 
             project.setId(rs.getInt(1));
             
-            OrderDao dao = connection.getDaoFactory().createOrderDao();
-            Order order = dao.create(project.getOrder(), project);
-            project.setOrder(order);
+            if (project.getOrder() != null) {
+                OrderDao dao = connection.getDaoFactory().createOrderDao();
+                Order order = dao.create(project.getOrder(), project);
+                project.setOrder(order);
+            }
         } catch (SQLException e) {
             throw new DataAccessException("Unable to create project");
         }
@@ -149,9 +151,9 @@ public class ProjectDaoMsSql implements ProjectDao {
     }
 
     private Project buildObject(ResultSet rs, boolean fullAssociation) throws SQLException, DataAccessException {
-        final int id = rs.getInt("id");
-        final String name = rs.getString("name");
-        final Project project = new Project(id, name);
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        Project project = new Project(id, name);
         project.setStatus(ProjectStatus.values()[rs.getInt("status")]);
         project.setPrice(new Price(rs.getInt("price")));
         project.setEstimatedHours(rs.getInt("estimated_hours"));
@@ -163,8 +165,8 @@ public class ProjectDaoMsSql implements ProjectDao {
             AtomicReference<Employee> employee = new AtomicReference<>();
             AtomicReference<Order> order = new AtomicReference<>();
             // Setup ids
-            final int customerId = rs.getInt("customer_id");
-            final int employeeId = rs.getInt("employee_id");
+            int customerId = rs.getInt("customer_id");
+            int employeeId = rs.getInt("employee_id");
 
             List<Thread> threads = new LinkedList<>();
             threads.add(DBManager.getInstance().getConnectionThread(conn -> {

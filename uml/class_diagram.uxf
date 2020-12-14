@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2140</x>
-      <y>4220</y>
-      <w>450</w>
-      <h>630</h>
+      <x>3150</x>
+      <y>1728</y>
+      <w>387</w>
+      <h>531</h>
     </coordinates>
-    <panel_attributes>controller::ProjectController
+    <panel_attributes>ProjectController
 --
--project: Project
--orderController: OrderController
--onFindListeners = new LinkedList(): List&lt;Consumer&lt;List&lt;Project&gt;&gt;&gt;
--onFindFullListeners = new LinkedList(): List&lt;Consumer&lt;Project&gt;&gt;
--onSaveListeners = new LinkedList(): List&lt;Consumer&lt;Project&gt;&gt;
+- project: Project
+- orderController: OrderController
+- onFindListeners: List&lt;Consumer&lt;List&lt;Project&gt;&gt;&gt;
+- onFindFullListeners: List&lt;Consumer&lt;Project&gt;&gt;
+- onSaveListener: List&lt;Consumer&lt;Project&gt;&gt;
 --
-+ProjectController(): ctor
-+ProjectController(Project project): ctor
-+setOrderController(OrderController orderController): void
-+getOrderController(): OrderController
-+setCustomer(Customer customer): void
-+getCustomer(): Customer
-+setLeadEmployee(Employee employee): void
-+getLeadEmployee(): Employee
-+setPrice(Price price): void
-+setPrice(int price): void
-+getPrice(): Price
-+setStatus(ProjectStatus status): void
-+getStatus(): ProjectStatus
-+setName(String name): void
-+getName(): String
-+setEstimatedHours(int hours): void
-+getEstimatedHours(): int
-+addFindListener(Consumer&lt;List&lt;Project&gt;&gt; listener): void
-+addFindProjectListener(Consumer&lt;Project&gt; listener): void
-+addSaveListener(Consumer&lt;Project&gt; listener): void
--findById(int id): Project
-+save(): void
--create(): void
--update(): void
-+getFullProject(Project project): void
-+getAll(): void
-+getSearchByName(String name): void
--findAll(): List&lt;Project&gt;
--findByName(String name, boolean fullAssociation): List&lt;Project&gt;
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(project: Project)
++ setOrderController(orderController: OrderController)
++ getOrderController(): OrderController
++ setCustomer(customer: Customer)
++ getCustomer(): Customer
++ setLeadEmployee(employee: Employee)
++ getLeadEmployee(): Employee
++ setPrice(price: Price)
++ setPrice(price: int)
++ getPrice(): Price
++ setStatus(status: ProjectStatus)
++ getStatus(): ProjectStatus
++ setName(name: String)
++ getName(): String
++ setEstimatedHours(hours: int)
++ getEstimatedHours(): int
++ addFindListener(listener: Consumer&lt;List&lt;Project&gt;&gt;)
++ addFindProjectListener(listener: Consumer&lt;Project&gt;)
++ addSaveListener(listener: Consumer&lt;Project&gt;)
+- findById(id: int): Project
++ save()
+- create()
+- update()
++ getFullProject(project: Project)
++ getAll()
++ getSearchByName(name: String)
+- findAll(): List&lt;Project&gt;
+- findByName(name: String, fullAssociation: boolean): List&lt;Project&gt;
 
 </panel_attributes>
     <additional_attributes/>
@@ -53,245 +53,170 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3230</x>
-      <y>5000</y>
-      <w>900</w>
-      <h>530</h>
+      <x>2484</x>
+      <y>2430</y>
+      <w>351</w>
+      <h>459</h>
     </coordinates>
-    <panel_attributes>model::Project
+    <panel_attributes>Project
 --
--id: int
--name: String
--order: Order
--employee: Employee
--price: Price
--estimatedHours: int
--status: ProjectStatus
--customer: Customer
+- id: int
+- name: String
+- order: Order
+- employee: Employee
+- price: Price
+- estimatedHours: int
+- status: ProjectStatus
+- customer: Customer
 --
-+Project(): ctor
-+Project(int id, String name): ctor
-+Project(int id, String name, Order order, Employee employee, Price price, int estimatedHours, ProjectStatus status, Customer customer): ctor
-+getName(): String
-+setName(String name): void
-+getId(): int
-+setId(int id): void
-+getOrder(): Order
-+setOrder(Order order): void
-+getEmployee(): Employee
-+setEmployee(Employee employee): void
-+getPrice(): Price
-+setPrice(Price price): void
-+getEstimatedHours(): int
-+setEstimatedHours(int estimatedHours): void
-+getStatus(): ProjectStatus
-+setStatus(ProjectStatus status): void
-+getCustomer(): Customer
-+setCustomer(Customer customer): void
-+validate(): void
---
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(id: int, name: String)
++ &lt;&lt;constructor&gt;&gt;(id: int, name: String, order: Order,
+    employee: Employee, price: Price, estimatedHours: int,
+    status: ProjectStatus, customer: Customer)
++ getName(): String
++ setName(name: String)
++ getId(): int
++ setId(id: int): void
++ getOrder(): Order
++ setOrder(order: Order)
++ getEmployee(): Employee
++ setEmployee(employee: Employee)
++ getPrice(): Price
++ setPrice(price: Price)
++ getEstimatedHours(): int
++ setEstimatedHours(estimatedHours: int)
++ getStatus(): ProjectStatus
++ setStatus(status: ProjectStatus)
++ getCustomer(): Customer
++ setCustomer(customer: Customer)
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3270</x>
-      <y>3980</y>
-      <w>510</w>
-      <h>410</h>
+      <x>4311</x>
+      <y>3627</y>
+      <w>423</w>
+      <h>252</h>
     </coordinates>
-    <panel_attributes>SpecificationController
+    <panel_attributes>ProjectDaoMsSql
 --
--displayId: int
--displayName: String
--resultAmount: int
--specification: Specification
--onSaveListeners = new LinkedList(): List&lt;Consumer&lt;SpecificationController&gt;&gt;
--onErrorListeners = new LinkedList(): List&lt;Consumer&lt;Exception&gt;&gt;
---
-+SpecificationController(Specification specification): ctor
-+getRequirements(): List&lt;Requirement&gt;
-+setRequirements(List&lt;Requirement&gt; requirements): void
-+addSaveListener(Consumer&lt;SpecificationController&gt; listener): void
-+removeAllSaveListeners(): void
-+addErrorListener(Consumer&lt;Exception&gt; listener): void
-+save(): void
-+setDisplayName(String name): void
-+getDisplayName(): String
-+getName(): String
-+setResultAmount(int amount): void
-+getResultAmount(): int
-+getSpecification(): Specification
-+getDisplayId(): int
-+setDisplayId(int displayId): void
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4920</x>
-      <y>4880</y>
-      <w>900</w>
-      <h>400</h>
-    </coordinates>
-    <panel_attributes>dao.mssql::ProjectDaoMsSql
---
--FIND_ALL_Q = "SELECT * FROM project": String
--findAllPS: PreparedStatement
--FIND_BY_NAME_Q = FIND_ALL_Q + " WHERE name LIKE CONCAT('%', ?, '%')": String
+_- FIND_ALL_Q: String_
+- findAllPS: PreparedStatement
+_- FIND_BY_NAME_Q: String_
 -findByNamePS: PreparedStatement
--FIND_BY_ID_Q = FIND_ALL_Q + " WHERE id = ?": String
--findByIdPS: PreparedStatement
--INSERT_Q = " INSERT INTO project(name, status, price, estimated_hours, customer_id," + " employee_id) VALUES (?, ?, ?, ?, ?, ?)": String
--insertPS: PreparedStatement
--UPDATE_Q = " UPDATE project SET name = ?, status = ?, price = ?, " + "estimated_hours = ?, employee_id = ? " + "WHERE id = ?": String
--updatePS: PreparedStatement
--connection: DBConnection
+_- FIND_BY_ID_Q: String_
+- findByIdPS: PreparedStatement
+_- INSERT_Q: String_
+- insertPS: PreparedStatement
+_ -UPDATE_Q: String_
+- updatePS: PreparedStatement
+- connection: DBConnection
 --
-+ProjectDaoMsSql(DBConnection conn): ctor
--init(DBConnection conn): void
-+findAll(boolean fullAssociation): List&lt;Project&gt;
-+findByName(String name, boolean fullAssociation): List&lt;Project&gt;
-+findById(int id, boolean fullAssociation): Project
-+create(Project project): Project
-+update(Project project): void
--buildObject(ResultSet rs, boolean fullAssociation): Project
--buildObjects(ResultSet rs, boolean fullAssociation): List&lt;Project&gt;
---
++ &lt;&lt;constructor&gt;&gt;(conn: DBConnection)
+- init(conn: DBConnection)
+- buildObject(ResultSet rs, fullAssociation: boolean): Project
+- buildObjects(ResultSet rs, fullAssociation: boolean): List&lt;Project&gt;
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5830</x>
-      <y>4880</y>
-      <w>740</w>
-      <h>380</h>
+      <x>4788</x>
+      <y>3627</y>
+      <w>504</w>
+      <h>252</h>
     </coordinates>
-    <panel_attributes>dao.mssql::CustomerDaoMsSql
+    <panel_attributes>CustomerDaoMsSql
 --
--FIND_ALL_Q = "SELECT * FROM view_customer": String
--findAllPS: PreparedStatement
--FIND_BY_PHONE_NUMBER_OR_EMAIL_Q = FIND_ALL_Q + " WHERE phone_number = ? OR email = ?": String
--findByPhoneNumberOrEmailPS: PreparedStatement
--FIND_ID_Q = "SELECT * FROM view_customer WHERE id = ?": String
--findIdPS: PreparedStatement
--INSERT_Q = "{CALL InsertCustomer(?, ?, ?, ?, ?, ?, ?, ?, ?)}": String
--insertPC: CallableStatement
--UPDATE_Q = "{CALL UpdateCustomer(?, ?, ?, ?, ?, ?, ?, ?, ?)}": String
--updatePC: CallableStatement
+_- FIND_ALL_Q: String_
+- findAllPS: PreparedStatement
+_- FIND_BY_PHONE_NUMBER_OR_EMAIL_Q: String_
+- findByPhoneNumberOrEmailPS: PreparedStatement
+_- FIND_ID_Q: String_
+- findIdPS: PreparedStatement
+_- INSERT_Q: String_
+- insertPC: CallableStatement
+_- UPDATE_Q: String_
+- updatePC: CallableStatement
 --
-+CustomerDaoMsSql(DBConnection conn): ctor
--init(DBConnection conn): void
--buildObject(ResultSet rs): Customer
--buildObjects(ResultSet rs): List&lt;Customer&gt;
-+findAll(): List&lt;Customer&gt;
-+findByPhoneNumberOrEmail(String phoneNumber, String email): List&lt;Customer&gt;
-+findById(int id): Customer
-+create(Customer customer): Customer
-+update(Customer customer): void
---
++ &lt;&lt;constructor&gt;&gt;(conn: DBConnection)
+- init(conn: DBConnection)
+- buildObject(rs: ResultSet): Customer
+- buildObjects(rs: ResultSet): List&lt;Customer&gt;
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6580</x>
-      <y>4880</y>
-      <w>380</w>
-      <h>380</h>
+      <x>3402</x>
+      <y>2430</y>
+      <w>360</w>
+      <h>315</h>
     </coordinates>
-    <panel_attributes>model::Product
+    <panel_attributes>Product
 --
--id: int
--name: String
--desc: String
--price: Price
--fields = new HashMap(): Map&lt;String, Object&gt;
+- id: int
+- name: String
+- desc: String
+- price: Price
+- fields: Map&lt;String, Object&gt;
 --
-+Product(): ctor
-+Product(String name, String desc, Price price): ctor
-+Product(int id, String name, String desc, Price price): ctor
-+getId(): int
-+setId(int id): void
-+setField(String key, Object value): void
-+getFields(): Map&lt;String, Object&gt;
-+getName(): String
-+setName(String name): void
-+getDesc(): String
-+setDesc(String desc): void
-+getPrice(): Price
-+setPrice(Price price): void
-+hashCode(): int
---
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(name: String, desc: String, price: Price)
++ &lt;&lt;constructor&gt;&gt;(id: int, name: String, desc: String, price: Price)
++ getId(): int
++ setId(id: int)
++ setField(key: String, value: Object)
++ getFields(): Map&lt;String, Object&gt;
++ getName(): String
++ setName(name: String)
++ getDesc(): String
++ setDesc(desc: String)
++ getPrice(): Price
++ setPrice(price: Price)
++ hashCode(): int
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6970</x>
-      <y>4880</y>
-      <w>640</w>
-      <h>360</h>
-    </coordinates>
-    <panel_attributes>datasource.mssql::DBConnectionMsSql
---
--connection: Connection
--driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver": String
--onRelease: Runnable
--factory: DaoFactory
---
-+DBConnectionMsSql(String host, int port, String username, String password, String database): ctor
-+startTransaction(): void
-+setSavepoint(): Savepoint
-+commitTransaction(): void
-+rollbackTransaction(): void
-+rollbackTransaction(Savepoint savepoint): void
-+getConnection(): Connection
-+prepareStatement(String sql): PreparedStatement
-+prepareCall(String sql): CallableStatement
-+prepareStatement(String sql, int autoGeneratedKeys): PreparedStatement
-+disconnect(): void
-+setOnRelease(Runnable runnable): void
-+release(): void
-+getDaoFactory(): DaoFactory
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5150</x>
-      <y>4200</y>
-      <w>1130</w>
-      <h>350</h>
+      <x>2034</x>
+      <y>1728</y>
+      <w>423</w>
+      <h>351</h>
     </coordinates>
     <panel_attributes>CustomerController
 --
--customer: Customer
--onFindListeners = new LinkedList(): List&lt;Consumer&lt;List&lt;Customer&gt;&gt;&gt;
--onSaveListeners = new LinkedList(): List&lt;Consumer&lt;Customer&gt;&gt;
--onErrorListeners = new LinkedList(): List&lt;Consumer&lt;Exception&gt;&gt;
+- customer: Customer
+- onFindListeners: List&lt;Consumer&lt;List&lt;Customer&gt;&gt;&gt;
+ -onSaveListener: List&lt;Consumer&lt;Customer&gt;&gt;
+- onErrorListeners: List&lt;Consumer&lt;Exception&gt;&gt;
 --
-+addFindListener(Consumer&lt;List&lt;Customer&gt;&gt; consumer): void
-+addSaveListener(Consumer&lt;Customer&gt; consumer): void
-+addErrorListener(Consumer&lt;Exception&gt; error): void
-+getAll(): void
-+getSearch(String search): void
--findAll(): List&lt;Customer&gt;
--findByPhoneNumberOrEmail(String search): List&lt;Customer&gt;
-+setCustomerInformation(int id, String firstName, String lastName, String email, String phoneNumber, String city, String streetName, String streetNumber, String zipCode): boolean
-+setCustomerInformation(String firstName, String lastName, String email, String phoneNumber, String city, String streetName, String streetNumber, String zipCode): boolean
-+setCustomer(Customer customer): void
-+save(): void
--create(): void
--update(): void
++ addFindListener(consumer: Consumer&lt;List&lt;Customer&gt;&gt;)
++ addSaveListener(consumer: Consumer&lt;Customer&gt;)
++ addErrorListener(error: Consumer&lt;Exception&gt;)
++ getAll()
++ getSearch(search: String)
+- findAll(): List&lt;Customer&gt;
+- findByPhoneNumberOrEmail(search: String): List&lt;Customer&gt;
++ setCustomerInformation(id: int, firstName: String, lastName: String, 
+    email: String, phoneNumber: String, city: String, 
+    streetName: String, streetNumber: String, zipCode: String): boolean
++ setCustomerInformation(firstName: String, lastName: String, 
+    email: String, phoneNumber: String, city: String, 
+    streetName: String, streetNumber: String, zipCode: String): boolean
++ setCustomer(customer: Customer)
++ save()
+- create()
+- update()
 
 </panel_attributes>
     <additional_attributes/>
@@ -299,150 +224,115 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4170</x>
-      <y>5520</y>
-      <w>640</w>
-      <h>350</h>
+      <x>2052</x>
+      <y>3132</y>
+      <w>324</w>
+      <h>261</h>
     </coordinates>
-    <panel_attributes>gui.components.specifications.specification::SpecificationTab
+    <panel_attributes>Address
 --
--panelManager: PanelManager
--previousId: String
--specificationController: SpecificationController
--nameColumn: SpecificationColumn
--amountColumn: SpecificationColumn
--columns: Map&lt;Requirement, SpecificationColumn&gt;
--widthContainer: JPanel
--requirements: List&lt;Requirement&gt;
+- streetName: String
+- streetNumber: int
+- city: String
+- zipCode: int
 --
-+SpecificationTab(PanelManager panelManager, SpecificationController specificationController): ctor
--createError(Exception error): void
--saveSpecification(): void
--createDynamicFieldsFromRequirements(): void
-+fillColumnsWithRequirementValues(): void
--createSpecificationColumns(): void
--createRequirementColumn(Requirement&lt;?&gt; requirement): SpecificationColumn
--createSpecificationColumn(String displayValue): SpecificationColumn
--createSpacer(): Component
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4820</x>
-      <y>5520</y>
-      <w>490</w>
-      <h>310</h>
-    </coordinates>
-    <panel_attributes>model::Address
---
--streetName: String
--streetNumber: int
--city: String
--zipCode: int
---
-+Address(): ctor
-+Address(String streetName, int streetNumber, String city, int zipCode): ctor
-+validate(): void
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(streetName: String, streetNumber: int, 
+   city: String, zipCode: int)
 +getStreetName(): String
-+setStreetName(String streetName): void
++setStreetName(streetName: String)
 +getStreetNumber(): int
-+setStreetNumber(int streetNumber): void
++setStreetNumber(streetNumber: int)
 +getCity(): String
-+setCity(String city): void
++setCity(city: String)
 +getZipCode(): int
-+setZipCode(int zipCode): void
---
++setZipCode(zipCode: int)
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5320</x>
-      <y>5520</y>
-      <w>620</w>
-      <h>310</h>
+      <x>2916</x>
+      <y>2430</y>
+      <w>378</w>
+      <h>270</h>
     </coordinates>
-    <panel_attributes>model::Order
+    <panel_attributes>Order
 --
--id: int
--date: LocalDateTime
--delivered: boolean
--orderLines: Map&lt;Integer, OrderLine&gt;
+- id: int
+- date: LocalDateTime
+- delivered: boolean
+- orderLines: Map&lt;Integer, OrderLine&gt;
 --
-+Order(): ctor
-+Order(int id, LocalDateTime date, boolean delivered): ctor
-+Order(int id, LocalDateTime date, boolean delivered, Map&lt;Integer, OrderLine&gt; orderLines): ctor
-+getOrderLines(): Map&lt;Integer, OrderLine&gt;
-+addOrderLine(OrderLine orderLine): void
-+getId(): int
-+setId(int id): void
-+getDate(): LocalDateTime
-+setDate(LocalDateTime date): void
-+isDelivered(): boolean
-+setDelivered(boolean delivered): void
---
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(id: int, date: LocalDateTime, delivered: boolean)
++ &lt;&lt;constructor&gt;&gt;(id: int, date: LocalDateTime, delivered: boolean, 
+    orderLines: Map&lt;Integer, OrderLine&gt;)
++ getOrderLines(): Map&lt;Integer, OrderLine&gt;
++ addOrderLine(orderLine: OrderLine)
++ getId(): int
++ setId(id: int)
++ getDate(): LocalDateTime
++ setDate(date: LocalDateTime)
++ isDelivered(): boolean
++ setDelivered(delivered: boolean)
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5950</x>
-      <y>5520</y>
-      <w>360</w>
-      <h>310</h>
+      <x>1881</x>
+      <y>2430</y>
+      <w>342</w>
+      <h>243</h>
     </coordinates>
-    <panel_attributes>/model::Person/
+    <panel_attributes>/Person/
 --
--id: int
--firstName: String
--lastName: String
+- id: int
+- firstName: String
+- lastName: String
 --
-+Person(): ctor
-+Person(String firstName, String lastName): ctor
-+Person(int id, String firstName, String lastName): ctor
-+getFirstName(): String
-+setFirstName(String firstName): void
-+getLastName(): String
-+setLastName(String lastName): void
-+getId(): int
-+setId(int id): void
-+validate(): void
-+equals(Object object): boolean
-+hashCode(): int
---
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(firstName: String, lastName: String)
++ &lt;&lt;constructor&gt;&gt;(id: int, firstName: String, lastName: String)
++ getFirstName(): String
++ setFirstName(firstName: String)
++ getLastName(): String
++ setLastName(lastName: String)
++ getId(): int
++ setId(id: int)
++ equals(object: Object): boolean
++ hashCode(): int
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5500</x>
-      <y>3880</y>
-      <w>530</w>
-      <h>290</h>
+      <x>4086</x>
+      <y>1728</y>
+      <w>477</w>
+      <h>261</h>
     </coordinates>
     <panel_attributes>SpecificationsController
 --
--productController: ProductController
--onFindListeners = new LinkedList(): List&lt;Consumer&lt;List&lt;Specification&gt;&gt;&gt;
--onSaveListeners = new LinkedList(): List&lt;Consumer&lt;OrderController&gt;&gt;
--onErrorListeners = new LinkedList(): List&lt;Consumer&lt;Exception&gt;&gt;
--specificationControllers = new HashMap(): Map&lt;Integer, SpecificationController&gt;
+- productController: ProductController
+- onFindListeners: List&lt;Consumer&lt;List&lt;Specification&gt;&gt;&gt;
+- onSaveListeners: List&lt;Consumer&lt;OrderController&gt;&gt;
+- onErrorListeners: List&lt;Consumer&lt;Exception&gt;&gt;
+- specificationControllers: Map&lt;Integer, SpecificationController&gt;
 --
-+SpecificationsController(): ctor
-+SpecificationsController(ProductController productController): ctor
-+addFindListener(Consumer&lt;List&lt;Specification&gt;&gt; listener): void
-+addSaveListener(Consumer&lt;OrderController&gt; listener): void
-+addErrorListener(Consumer&lt;Exception&gt; listener): void
-+addSpecificationController(SpecificationController specificationController): void
-+getSpecificationControllers(): Collection&lt;SpecificationController&gt;
-+getSpecifications(): void
-+getProductsFromSpecifications(): void
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(productController: ProductController)
++ addFindListener(listener: Consumer&lt;List&lt;Specification&gt;&gt;)
++ addSaveListener(listener: Consumer&lt;OrderController&gt;)
++ addErrorListener(listener: Consumer&lt;Exception&gt;)
++ addSpecificationController(specificationController: SpecificationController)
++ getSpecificationControllers(): Collection&lt;SpecificationController&gt;
++ getSpecifications()
++ getProductsFromSpecifications()
 
 </panel_attributes>
     <additional_attributes/>
@@ -450,498 +340,81 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6860</x>
-      <y>5520</y>
-      <w>490</w>
-      <h>290</h>
+      <x>2970</x>
+      <y>2853</y>
+      <w>270</w>
+      <h>216</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-datasource::DBConnection
+    <panel_attributes>OrderLine
 --
+- product: Product
+- quantity: int
+- displayName: String
 --
-~startTransaction(): void
-~setSavepoint(): Savepoint
-~commitTransaction(): void
-~rollbackTransaction(): void
-~rollbackTransaction(Savepoint savepoint): void
-~getConnection(): Connection
-~prepareStatement(String sql): PreparedStatement
-~prepareStatement(String sql, int autoGeneratedKeys): PreparedStatement
-~prepareCall(String sql): CallableStatement
-~disconnect(): void
-~setOnRelease(Runnable runnable): void
-~release(): void
-~getDaoFactory(): DaoFactory
---
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(product: Product, quantity: int, 
+    displayName: String)
++ getQuantity(): int
++ setQuantity(quantity: int)
++ getProduct(): Product
++ setProduct(product: Product)
++ getDisplayName(): String
++ setDisplayName(displayName: String)
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3600</x>
-      <y>5880</y>
-      <w>700</w>
-      <h>280</h>
-    </coordinates>
-    <panel_attributes>model::Customer
---
--email: String
--phoneNumber: String
--address: Address
---
-+Customer(): ctor
-+Customer(int id, String firstName, String lastName, String email, String phoneNumber, Address address): ctor
-+Customer(String firstName, String lastName, String email, String phoneNumber, Address address): ctor
-+validate(): void
-+getEmail(): String
-+setEmail(String email): void
-+getPhoneNumber(): String
-+setPhoneNumber(String phoneNumber): void
-+getAddress(): Address
-+setAddress(Address address): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5630</x>
-      <y>5880</y>
-      <w>580</w>
-      <h>240</h>
-    </coordinates>
-    <panel_attributes>dao.mssql::EmployeeDaoMsSql
---
--FIND_BY_ID_Q = "SELECT * FROM view_employee WHERE id = ?": String
--findByIdPS: PreparedStatement
--FIND_BY_ROLE_Q = "SELECT * FROM view_employee WHERE role_name = ?": String
--findByRolePS: PreparedStatement
--connection: DBConnection
---
-+EmployeeDaoMsSql(DBConnection conn): ctor
--init(DBConnection conn): void
--buildObject(ResultSet rs): Employee
--buildObjects(ResultSet rs): List&lt;Employee&gt;
-+findById(int id): Employee
-+findByRole(String role): List&lt;Employee&gt;
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6220</x>
-      <y>5880</y>
-      <w>710</w>
-      <h>240</h>
-    </coordinates>
-    <panel_attributes>dao.mssql::OrderDaoMsSql
---
--FIND_BY_ID_Q = "SELECT project_id, delivered, created_at FROM [order] " + "WHERE project_id = ?": String
--findByIdPS: PreparedStatement
--INSERT_Q = "INSERT INTO [order](project_id, delivered, created_at) " + "VALUES (?, ?, ?)": String
--insertPS: PreparedStatement
--connection: DBConnection
---
-+OrderDaoMsSql(DBConnection conn): ctor
--init(DBConnection conn): void
--buildObject(final ResultSet rs, boolean fullAssociation): Order
--buildObjects(ResultSet rs, boolean fullAssociation): List&lt;Order&gt;
-+findById(int id, boolean fullAssociation): Order
-+create(Order order, Project project): Order
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6990</x>
-      <y>5880</y>
-      <w>830</w>
-      <h>240</h>
-    </coordinates>
-    <panel_attributes>dao.mssql::OrderLineDaoMsSql
---
--FIND_ALL_BY_ORDER_ID_Q = "SELECT quantity, product_id, display_name" + " FROM order_line WHERE order_id = ?": String
--findAllByOrderIdPS: PreparedStatement
--INSERT_Q = "INSERT INTO order_line(order_id, product_id, quantity, display_name)" + " VALUES (?, ?, ?, ?)": String
--insertPS: PreparedStatement
--connection: DBConnection
---
-+OrderLineDaoMsSql(DBConnection conn): ctor
--init(DBConnection conn): void
--buildObject(ResultSet rs): Entry&lt;Integer, OrderLine&gt;
--buildObjects(ResultSet rs): Map&lt;Integer, OrderLine&gt;
-+findByOrderId(int id): List&lt;OrderLine&gt;
-+create(Order order, OrderLine orderLine): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3030</x>
-      <y>6170</y>
-      <w>520</w>
-      <h>240</h>
-    </coordinates>
-    <panel_attributes>datasource.mssql::DBConnectionPoolMsSql
---
--POOL_SIZE = 15: int
--pool = new ArrayBlockingQueue(POOL_SIZE): BlockingQueue&lt;DBConnection&gt;
--user: String
--database: String
--host = "hildur.ucn.dk": String
--port = 1433: int
--password = "Password1!": String
---
-+DBConnectionPoolMsSql(): ctor
--setupDatabase(): void
-+getConnection(): DBConnection
--releaseConnection(DBConnection connection): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3960</x>
-      <y>6170</y>
-      <w>350</w>
-      <h>240</h>
-    </coordinates>
-    <panel_attributes>gui.components.core::TitleBar
---
--title: JLabel
--actionButton: JButton
-#container: JPanel
--searchTextField: PlaceholderTextField
--searchContainer: JPanel
---
-+TitleBar(): ctor
-+setTitle(String titleName): void
-+setButtonName(String buttonName): void
-+addActionListener(ActionListener listener): void
-+hideButton(): void
-+createSearchBar(String placeholderText): JTextField
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4320</x>
-      <y>6170</y>
-      <w>430</w>
-      <h>240</h>
-    </coordinates>
-    <panel_attributes>model::OrderLine
---
--product: Product
--quantity: int
--displayName: String
---
-+OrderLine(): ctor
-+OrderLine(Product product, int quantity, String displayName): ctor
-+getQuantity(): int
-+setQuantity(int quantity): void
-+getProduct(): Product
-+setProduct(Product product): void
-+getDisplayName(): String
-+setDisplayName(String displayName): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5980</x>
-      <y>6170</y>
-      <w>280</w>
-      <h>230</h>
-    </coordinates>
-    <panel_attributes>/model::Requirement/
---
--value: T
---
-+getName(): String
-+getDescription(): String
-+getId(): String
-+getSQLKey(): String
-+getSQLValue(): String
-+setValueFromSQLValue(String sql): void
-+getValue(): T
-+setValue(T value): void
-+toString(): String
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4430</x>
-      <y>4120</y>
-      <w>440</w>
-      <h>210</h>
+      <x>3636</x>
+      <y>1728</y>
+      <w>378</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>OrderController
 --
--order: Order
+- order: Order
 --
-+OrderController(): ctor
-+OrderController(Order order): ctor
-+getOrderLines(): Collection&lt;OrderLine&gt;
-+hasOrder(): boolean
-+getPrice(): Price
-+addProduct(Product product, int quantity, String displayName): void
-+findById(int id, boolean fullAssociation): Order
-+getOrder(): Order
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(order: Order)
++ getOrderLines(): Collection&lt;OrderLine&gt;
++ hasOrder(): boolean
++ getPrice(): Price
++ addProduct(product: Product, quantity: int, displayName: String)
++ findById(id: int, fullAssociation: boolean): Order
++ getOrder(): Order
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3030</x>
-      <y>6420</y>
-      <w>450</w>
-      <h>210</h>
+      <x>1647</x>
+      <y>2808</y>
+      <w>342</w>
+      <h>162</h>
     </coordinates>
-    <panel_attributes>datasource::DBManager
+    <panel_attributes>Employee
 --
--instance: DBManager
--pool: DBConnectionPool
--dataSource: String
--factory: DaoFactory
+- role: String
 --
--DBManager(): ctor
--loadSource(): void
-+getPool(): DBConnectionPool
-+getConnectionThread(Consumer&lt;DBConnection&gt; callback): Thread
-+getInstance(): DBManager
---
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(firstName: String, lastName: String)
++ &lt;&lt;constructor&gt;&gt;(id: int, firstName: String, lastName: String)
++ &lt;&lt;constructor&gt;&gt;(id: int, firstName: String, lastName: String, 
+    role: String)
++ getRole(): String
++ toString(): String
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4450</x>
-      <y>6420</y>
-      <w>340</w>
-      <h>190</h>
-    </coordinates>
-    <panel_attributes>dao.mssql::DaoFactoryMsSql
---
--connection: DBConnection
---
-+DaoFactoryMsSql(DBConnection connection): ctor
-+createCustomerDao(): CustomerDao
-+createEmployeeDao(): EmployeeDao
-+createOrderDao(): OrderDao
-+createOrderLineDao(): OrderLineDao
-+createProductDao(): ProductDao
-+createProjectDao(): ProjectDao
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4800</x>
-      <y>6420</y>
-      <w>460</w>
-      <h>190</h>
-    </coordinates>
-    <panel_attributes>gui.components.specifications.specification::SpecificationColumnColor
---
--component: JComboBox&lt;String&gt;
---
-+SpecificationColumnColor(): ctor
-+getValue(): String
-+setValue(String value): void
-+setOptions(Collection&lt;String&gt; options): void
-+setValueAsString(String value): void
-+getValueAsString(): String
-+getComponent(): JComboBox&lt;String&gt;
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5270</x>
-      <y>6420</y>
-      <w>480</w>
-      <h>190</h>
-    </coordinates>
-    <panel_attributes>gui.components.specifications.specification::SpecificationColumnTextField
---
--component: JTextField
---
-+SpecificationColumnTextField(): ctor
-+getValue(): String
-+setValue(String value): void
-+setOptions(Void options): void
-+setValueAsString(String value): void
-+getValueAsString(): String
-+getComponent(): JTextField
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6530</x>
-      <y>6420</y>
-      <w>200</w>
-      <h>190</h>
-    </coordinates>
-    <panel_attributes>model::Price
---
--amount: int
---
-+Price(): ctor
-+Price(int amount): ctor
-+getAmount(): int
-+setAmount(int amount): void
-+getNumberString(): String
-+toString(): String
-+compareTo(Price price): int
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3030</x>
-      <y>6640</y>
-      <w>300</w>
-      <h>190</h>
-    </coordinates>
-    <panel_attributes>util.validation::Validator
---
-~errors = new Stack(): Stack&lt;Exception&gt;
---
-+addRule(ValidationRule&lt;?&gt; rule): void
-+addException(Exception exception): void
-+addValidatable(Validatable validatable): void
-+hasErrors(): boolean
-+getErrors(): Collection&lt;Exception&gt;
-+getCompositeException(): Exception
-+addError(String error): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3340</x>
-      <y>6640</y>
-      <w>260</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-dao::DaoFactory
---
---
-~createCustomerDao(): CustomerDao
-~createEmployeeDao(): EmployeeDao
-~createOrderDao(): OrderDao
-~createOrderLineDao(): OrderLineDao
-~createProductDao(): ProductDao
-~createProjectDao(): ProjectDao
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3610</x>
-      <y>6640</y>
-      <w>610</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>gui.components.specifications.specification::SpecificationColumn
---
--valueField: SpecificationColumnValueField&lt;?, ?, ?&gt;
--titleName: JLabel
---
-+SpecificationColumn(String titleText, SpecificationColumnValueField&lt;?, ?, ?&gt; valueField): ctor
-+setTitleName(String name): void
-+getTitleName(): JLabel
-+setStringValue(String value): void
-+getStringValue(): String
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4230</x>
-      <y>6640</y>
-      <w>490</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-gui.components.specifications.specification::SpecificationColumnValueField
---
---
-~getValue(): T
-~setValue(T value): void
-~setOptions(Z options): void
-~setValueAsString(String value): void
-~getValueAsString(): String
-~getComponent(): Y
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5490</x>
-      <y>6640</y>
-      <w>450</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>model::Employee
---
--role: String
---
-+Employee(): ctor
-+Employee(String firstName, String lastName): ctor
-+Employee(int id, String firstName, String lastName): ctor
-+Employee(int id, String firstName, String lastName, String role): ctor
-+getRole(): String
-+toString(): String
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6610</x>
-      <y>4340</y>
-      <w>220</w>
-      <h>180</h>
+      <x>2556</x>
+      <y>2988</y>
+      <w>198</w>
+      <h>162</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enumeration&gt;&gt;
 ProjectStatus
@@ -960,326 +433,17 @@ _+ FINISHED = 3: int_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6180</x>
-      <y>6640</y>
-      <w>280</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>model.requirements::RequirementColor
---
---
-+getName(): String
-+getDescription(): String
-+getId(): String
-+getSQLKey(): String
-+getSQLValue(): String
-+setValueFromSQLValue(String sql): void
-+validate(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6470</x>
-      <y>6640</y>
-      <w>270</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>model.requirements::RequirementHeight
---
---
-+getName(): String
-+getDescription(): String
-+getId(): String
-+getSQLKey(): String
-+getSQLValue(): String
-+setValueFromSQLValue(String sql): void
-+validate(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6750</x>
-      <y>6640</y>
-      <w>280</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>model.requirements::RequirementWidth
---
---
-+getName(): String
-+getDescription(): String
-+getId(): String
-+getSQLKey(): String
-+getSQLValue(): String
-+setValueFromSQLValue(String sql): void
-+validate(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3030</x>
-      <y>6840</y>
-      <w>380</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>/model::Specification/
---
--requirements: List&lt;Requirement&gt;
---
-+clone(): Specification
-+getId(): String
-+getName(): String
-+validate(): void
-+getRequirements(): List&lt;Requirement&gt;
-+setRequirements(List&lt;Requirement&gt; requirements): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4450</x>
-      <y>6840</y>
-      <w>350</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>/util.validation::ValidationRule/
---
--errorReplacement: String
--rule: T
---
-+ValidationRule(T rule): ctor
-+ValidationRule(T rule, String errorReplacement): ctor
-#createException(String error): Exception
--getErrorMessage(String error): String
-+getRule(): T
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4810</x>
-      <y>6840</y>
-      <w>530</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-dao::CustomerDao
---
---
-~findAll(): List&lt;Customer&gt;
-~findByPhoneNumberOrEmail(String phoneNumber, String email): List&lt;Customer&gt;
-~findById(int id): Customer
-~update(Customer customer): void
-~create(Customer customer): Customer
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5350</x>
-      <y>6840</y>
-      <w>370</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>dao.mssql::ProductDaoMsSql
---
--connection: DBConnection
---
-+ProductDaoMsSql(DBConnection conn): ctor
--buildObject(ResultSet rs): Product
--buildObjects(ResultSet rs): List&lt;Product&gt;
-+findBySpecification(Specification specification): Product
-+findByIds(List&lt;Integer&gt; ids): List&lt;Product&gt;
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5730</x>
-      <y>6840</y>
-      <w>430</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-dao::ProjectDao
---
---
-~findAll(boolean fullAssociation): List&lt;Project&gt;
-~findByName(String name, boolean fullAssociation): List&lt;Project&gt;
-~findById(int id, boolean fullAssociation): Project
-~create(Project project): Project
-~update(Project project): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3030</x>
-      <y>7030</y>
-      <w>210</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>util::Config
---
-+properties: Properties
-+instance: Config
---
--Config(): ctor
-+getInstance(): Config
-+getProperties(): Properties
-+getProperty(String key): String
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3250</x>
-      <y>7030</y>
-      <w>290</w>
-      <h>140</h>
-    </coordinates>
-    <panel_attributes>gui.components.core::PlaceholderTextField
---
--placeholder: String
---
-+PlaceholderTextField(): ctor
-+setPlaceholder(String text): void
-+getPlaceholder(): String
-#paintComponent(final Graphics pG): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4210</x>
-      <y>7030</y>
-      <w>580</w>
-      <h>140</h>
-    </coordinates>
-    <panel_attributes>util.validation.rules::IntegerRangeValidationRule
---
--min: int
--max: int
---
-+IntegerRangeValidationRule(Integer rule, int min, int max): ctor
-+IntegerRangeValidationRule(Integer rule, String errorReplacement, int min, int max): ctor
-+validate(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6300</x>
-      <y>7030</y>
-      <w>180</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>model.specifications::Roof
---
---
-+Roof(): ctor
-+clone(): Specification
-+getId(): String
-+getName(): String
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6490</x>
-      <y>7030</y>
-      <w>200</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>model.specifications::Window
---
---
-+Window(): ctor
-+clone(): Specification
-+getId(): String
-+getName(): String
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6700</x>
-      <y>7030</y>
-      <w>460</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>util.validation.rules::EmailValidationRule
---
-- emailPattern: Pattern
---
-+ EmailValidationRule(String rule): ctor
-+ EmailValidationRule(String rule, String errorReplacement): ctor
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3030</x>
-      <y>7200</y>
-      <w>540</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>util.validation.rules::IntegerMinimumValidationRule
---
--min: int
---
-+IntegerMinimumValidationRule(Integer rule, int min): ctor
-+IntegerMinimumValidationRule(Integer rule, String errorReplacement, int min): ctor
-+validate(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>2650</x>
-      <y>4310</y>
-      <w>470</w>
-      <h>110</h>
+      <x>2637</x>
+      <y>1728</y>
+      <w>423</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>EmployeeController
 --
--onFindListeners = new LinkedList(): List&lt;Consumer&lt;List&lt;Employee&gt;&gt;&gt;
+-onFindListeners: List&lt;Consumer&lt;List&lt;Employee&gt;&gt;&gt;
 --
-+addFindListener(Consumer&lt;List&lt;Employee&gt;&gt; listener): void
-+getDirectors(): void
++addFindListener(listener: Consumer&lt;List&lt;Employee&gt;&gt;)
++getDirectors()
 
 </panel_attributes>
     <additional_attributes/>
@@ -1287,339 +451,24 @@ dao::ProjectDao
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4060</x>
-      <y>7200</y>
-      <w>280</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-dao::EmployeeDao
---
---
-~findById(int id): Employee
-~findByRole(String role): List&lt;Employee&gt;
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4350</x>
-      <y>7200</y>
-      <w>310</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-dao::OrderDao
---
---
-~findById(int id, boolean fullAssociation): Order
-~create(Order order, Project project): Order
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4670</x>
-      <y>7200</y>
-      <w>310</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-dao::OrderLineDao
---
---
-~findByOrderId(int id): List&lt;OrderLine&gt;
-~create(Order order, OrderLine orderLine): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4990</x>
-      <y>7200</y>
-      <w>370</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-dao::ProductDao
---
---
-~findByIds(List&lt;Integer&gt; ids): List&lt;Product&gt;
-~findBySpecification(Specification specification): Product
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5370</x>
-      <y>7200</y>
-      <w>450</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>gui.components.specifications::SpecificationsSelectedRow
---
--removeBtn: JButton
---
-+SpecificationsSelectedRow(String displayName, boolean even): ctor
-+addRemoveButtonActionListener(ActionListener listener): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5830</x>
-      <y>7200</y>
-      <w>470</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>util::SQLDateConverter
---
---
-+localDateTimeToTimestamp(final LocalDateTime dateTime): Timestamp
-+timestampToLocalDateTime(final Timestamp timestamp): LocalDateTime
-+localDateToDate(final LocalDate localDate): Date
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6310</x>
-      <y>7200</y>
-      <w>420</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>util.validation.rules::EmptyValidationRule
---
---
-+EmptyValidationRule(String rule): ctor
-+EmptyValidationRule(String rule, String errorReplacement): ctor
-+validate(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>7110</x>
-      <y>6890</y>
-      <w>400</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>util.validation.rules::NotNullValidationRule
---
---
-+NotNullValidationRule(T rule): ctor
-+NotNullValidationRule(T rule, String errorReplacement): ctor
-+validate(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3030</x>
-      <y>7330</y>
-      <w>420</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>util.validation.rules::PhoneValidationRule
---
---
-+PhoneValidationRule(String rule): ctor
-+PhoneValidationRule(String rule, String errorReplacement): ctor
-+validate(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3460</x>
-      <y>7330</y>
-      <w>440</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>util.validation.rules::StringToIntegerValidationRule
---
---
-+StringToIntegerValidationRule(String rule): ctor
-+StringToIntegerValidationRule(String rule, String replacement): ctor
-+validate(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3910</x>
-      <y>7330</y>
-      <w>440</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>util.validation.rules::ZipCodeValidationRule
---
---
-+ZipCodeValidationRule(Integer rule): ctor
-+ZipCodeValidationRule(Integer rule, String errorReplacement): ctor
-+validate(): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4360</x>
-      <y>7330</y>
-      <w>210</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-datasource::DBConnectionPool
---
---
-~getConnection(): DBConnection
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4990</x>
-      <y>7330</y>
-      <w>530</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>gui.components.specifications.specification::SpecificationColumnValueFieldFactory
---
--checks = new LinkedList(): List&lt;ValueFieldCheck&gt;
---
-+create(Requirement requirement): SpecificationColumnValueField&lt;?, ?, ?&gt;
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6140</x>
-      <y>7330</y>
+      <x>3960</x>
+      <y>3681</y>
       <w>180</w>
-      <h>90</h>
+      <h>45</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-util.validation::Validatable
+    <panel_attributes>DataAccessException
 --
---
-~validate(): void
---
++ &lt;&lt;constructor&gt;&gt;(msg: String)
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3470</x>
-      <y>4610</y>
-      <w>600</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>ProductController
---
---
-+getBySpecification(Specification specification, Consumer&lt;Product&gt; productConsumer): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>6940</x>
-      <y>7330</y>
-      <w>270</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>datasource::DataAccessException
---
---
-+DataAccessException(String msg): ctor
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>3030</x>
-      <y>7450</y>
-      <w>570</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>gui.components.product::ProductRow
---
---
-+ProductRow(String productName, String displayName, String price, boolean even): ctor
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5010</x>
-      <y>7530</y>
-      <w>170</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>util::Converter
---
---
-+tryParse(String text): int
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5190</x>
-      <y>7530</y>
-      <w>160</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>util::JUnit
---
---
-+isJUnitTest(): boolean
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>5730</x>
-      <y>820</y>
-      <w>380</w>
-      <h>160</h>
+      <x>3123</x>
+      <y>207</y>
+      <w>342</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>Frame
 --
@@ -1637,10 +486,10 @@ _+ createErrorPopup(error: Exception)_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6170</x>
-      <y>820</y>
-      <w>310</w>
-      <h>70</h>
+      <x>3519</x>
+      <y>207</y>
+      <w>279</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>/Tab/
 --
@@ -1652,10 +501,10 @@ _+ createErrorPopup(error: Exception)_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>6100</x>
-      <y>850</y>
-      <w>90</w>
-      <h>30</h>
+      <x>3456</x>
+      <y>234</y>
+      <w>81</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
@@ -1663,10 +512,10 @@ _+ createErrorPopup(error: Exception)_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6170</x>
-      <y>1030</y>
-      <w>310</w>
-      <h>30</h>
+      <x>3519</x>
+      <y>396</y>
+      <w>279</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>ProductFinderUI
 -
@@ -1676,10 +525,10 @@ _+ createErrorPopup(error: Exception)_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6110</x>
-      <y>1150</y>
-      <w>310</w>
-      <h>70</h>
+      <x>3519</x>
+      <y>504</y>
+      <w>279</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>ProductFinderResultUI
 --
@@ -1691,10 +540,10 @@ _+ createErrorPopup(error: Exception)_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>6330</x>
-      <y>880</y>
-      <w>30</w>
-      <h>170</h>
+      <x>3663</x>
+      <y>261</y>
+      <w>27</w>
+      <h>153</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
@@ -1702,10 +551,10 @@ _+ createErrorPopup(error: Exception)_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>6250</x>
-      <y>1050</y>
-      <w>50</w>
-      <h>120</h>
+      <x>3645</x>
+      <y>414</y>
+      <w>45</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
@@ -1715,10 +564,10 @@ m2=0..1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6690</x>
-      <y>820</y>
-      <w>490</w>
-      <h>250</h>
+      <x>3942</x>
+      <y>207</y>
+      <w>441</w>
+      <h>225</h>
     </coordinates>
     <panel_attributes>PanelManager
 --
@@ -1741,32 +590,32 @@ m2=0..1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>6470</x>
-      <y>850</y>
-      <w>240</w>
-      <h>30</h>
+      <x>3789</x>
+      <y>234</y>
+      <w>171</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>220.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>170.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>6470</x>
-      <y>1040</y>
-      <w>240</w>
-      <h>30</h>
+      <x>3789</x>
+      <y>405</y>
+      <w>171</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>220.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>170.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5800</x>
-      <y>210</y>
-      <w>330</w>
-      <h>160</h>
+      <x>3492</x>
+      <y>648</y>
+      <w>297</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>Colors
 --
@@ -1784,10 +633,10 @@ _+ RED = Color(252, 92, 101)_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5760</x>
-      <y>1110</y>
-      <w>310</w>
-      <h>90</h>
+      <x>3150</x>
+      <y>468</y>
+      <w>279</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>ProjectsUI
 --
@@ -1802,10 +651,10 @@ _+ RED = Color(252, 92, 101)_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5790</x>
-      <y>1330</y>
-      <w>270</w>
-      <h>90</h>
+      <x>3177</x>
+      <y>666</y>
+      <w>243</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>ProjectRowUI
 --
@@ -1819,10 +668,10 @@ _+ RED = Color(252, 92, 101)_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5910</x>
-      <y>880</y>
-      <w>430</w>
-      <h>250</h>
+      <x>3285</x>
+      <y>261</y>
+      <w>387</w>
+      <h>225</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>410.0;10.0;410.0;130.0;10.0;130.0;10.0;230.0</additional_attributes>
@@ -1830,67 +679,17 @@ _+ RED = Color(252, 92, 101)_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2360</x>
-      <y>5730</y>
-      <w>280</w>
-      <h>210</h>
+      <x>2367</x>
+      <y>135</y>
+      <w>324</w>
+      <h>216</h>
     </coordinates>
-    <panel_attributes>gui.components.core::BackgroundTitle
---
--titleLabel: JLabel
--container: JPanel
--titleContainer: JPanel
---
-+BackgroundTitle(): ctor
-+BackgroundTitle(String titleText): ctor
-+setTitleBorder(Border border): void
-+setContainerBorder(Border border): void
-+setTitle(String text): void
-+add(Component component): Component
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>2290</x>
-      <y>6060</y>
-      <w>390</w>
-      <h>240</h>
-    </coordinates>
-    <panel_attributes>gui.components.core::Row
---
-#title: JLabel
-#mainButton: JButton
-#rightContainer: JPanel
-#leftContainer: JPanel
---
-+Row(): ctor
-+Row(boolean even): ctor
-+Row(String titleText, String buttonText, boolean even): ctor
-+setTitleText(String text): void
-+setButtonText(String text): void
-+removeAllActionListeners(): void
-+addActionListener(ActionListener listener): void
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>4430</x>
-      <y>380</y>
-      <w>360</w>
-      <h>220</h>
-    </coordinates>
-    <panel_attributes>TitleBar
+    <panel_attributes>TitleBarUI
 --
 - title: JLabel
 - actionButton: JButton
 # container: JPanel
-- searchTextField: PlaceholderTextField
+- searchTextField: PlaceholderTextFieldUI
 - searchContainer: JPanel
 --
 + &lt;&lt;constructor&gt;&gt;()
@@ -1905,10 +704,10 @@ _+ RED = Color(252, 92, 101)_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5920</x>
-      <y>1190</y>
-      <w>50</w>
-      <h>160</h>
+      <x>3294</x>
+      <y>540</y>
+      <w>45</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m1=1
@@ -1919,10 +718,10 @@ m2=0..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5290</x>
-      <y>740</y>
-      <w>390</w>
-      <h>240</h>
+      <x>2727</x>
+      <y>135</y>
+      <w>351</w>
+      <h>216</h>
     </coordinates>
     <panel_attributes>RowUI
 --
@@ -1945,45 +744,44 @@ m2=0..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4660</x>
-      <y>60</y>
-      <w>280</w>
-      <h>210</h>
+      <x>2070</x>
+      <y>135</y>
+      <w>261</w>
+      <h>216</h>
     </coordinates>
-    <panel_attributes>BackgroundTitle
+    <panel_attributes>BackgroundTitleUI
 --
 - titleLabel: JLabel
 - container: JPanel
 - titleContainer: JPanel
 --
-+ BackgroundTitle(): ctor
-+ BackgroundTitle(String titleText): ctor
-+ setTitleBorder(Border border): void
-+ setContainerBorder(Border border): void
-+ setTitle(String text): void
-+ add(Component component): Component
---
++ &lt;&lt;constructor&gt;&gt;()
++ BackgroundTitle(titleText: String):
++ setTitleBorder(border: Border)
++ setContainerBorder(border: Border)
++ setTitle(text: String)
++ add(component: Component): Component
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5480</x>
-      <y>970</y>
-      <w>440</w>
-      <h>380</h>
+      <x>2907</x>
+      <y>342</y>
+      <w>387</w>
+      <h>342</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0;250.0;40.0;250.0;310.0;420.0;310.0;420.0;360.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;240.0;40.0;240.0;310.0;410.0;310.0;410.0;360.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4900</x>
-      <y>1110</y>
-      <w>350</w>
-      <h>140</h>
+      <x>2367</x>
+      <y>468</y>
+      <w>324</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>CustomersUI
 --
@@ -2000,10 +798,10 @@ m2=0..*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5070</x>
-      <y>880</y>
-      <w>1250</w>
-      <h>250</h>
+      <x>2529</x>
+      <y>261</y>
+      <w>1125</w>
+      <h>225</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>1230.0;10.0;1230.0;110.0;1070.0;110.0;1070.0;160.0;10.0;160.0;10.0;230.0</additional_attributes>
@@ -2011,10 +809,10 @@ m2=0..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5770</x>
-      <y>1500</y>
-      <w>310</w>
-      <h>70</h>
+      <x>3159</x>
+      <y>819</y>
+      <w>279</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>ProjectViewUI
 --
@@ -2026,10 +824,10 @@ m2=0..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5770</x>
-      <y>1640</y>
-      <w>310</w>
-      <h>70</h>
+      <x>3159</x>
+      <y>945</y>
+      <w>279</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>ProjectOverviewUI
 --
@@ -2041,10 +839,10 @@ m2=0..*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5920</x>
-      <y>1410</y>
-      <w>50</w>
-      <h>110</h>
+      <x>3294</x>
+      <y>738</y>
+      <w>45</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..1
@@ -2055,12 +853,12 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5920</x>
-      <y>1560</y>
-      <w>40</w>
-      <h>100</h>
+      <x>3294</x>
+      <y>873</y>
+      <w>36</w>
+      <h>90</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;
 m1=1
 m2=1
 </panel_attributes>
@@ -2069,10 +867,10 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5380</x>
-      <y>1790</y>
-      <w>360</w>
-      <h>90</h>
+      <x>2808</x>
+      <y>1080</y>
+      <w>324</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>CustomerInformationBoxUI
 --
@@ -2086,10 +884,10 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6120</x>
-      <y>1790</y>
-      <w>370</w>
-      <h>140</h>
+      <x>3474</x>
+      <y>1080</y>
+      <w>333</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>ProductsBoxUI
 --
@@ -2105,10 +903,10 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5760</x>
-      <y>1790</y>
-      <w>340</w>
-      <h>270</h>
+      <x>3150</x>
+      <y>1080</y>
+      <w>306</w>
+      <h>243</h>
     </coordinates>
     <panel_attributes>ProjectDetailsUI
 --
@@ -2134,52 +932,52 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5920</x>
-      <y>1700</y>
-      <w>40</w>
-      <h>110</h>
+      <x>3294</x>
+      <y>999</y>
+      <w>90</w>
+      <h>99</h>
     </coordinates>
-    <panel_attributes>lt=-&gt;
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1
-</panel_attributes>
+contains v</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5960</x>
-      <y>1700</y>
-      <w>370</w>
-      <h>110</h>
+      <x>3330</x>
+      <y>999</y>
+      <w>333</w>
+      <h>99</h>
     </coordinates>
-    <panel_attributes>lt=-&gt;
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1
-</panel_attributes>
+contains v</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0;340.0;60.0;340.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5550</x>
-      <y>1700</y>
-      <w>370</w>
-      <h>110</h>
+      <x>2961</x>
+      <y>999</y>
+      <w>333</w>
+      <h>99</h>
     </coordinates>
-    <panel_attributes>lt=-&gt;
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1
-</panel_attributes>
+contains v</panel_attributes>
     <additional_attributes>340.0;10.0;340.0;60.0;10.0;60.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5330</x>
-      <y>1470</y>
-      <w>320</w>
-      <h>190</h>
+      <x>2763</x>
+      <y>792</y>
+      <w>288</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>ProjectFindOrCreateCustomerUI
 --
@@ -2200,14 +998,14 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3560</x>
-      <y>1510</y>
-      <w>360</w>
-      <h>140</h>
+      <x>1170</x>
+      <y>828</y>
+      <w>324</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>ManipulateCustomerColumnUI
 --
--content: PlaceholderTextField
+-content: PlaceholderTextFieldUI
 -title: JLabel
 --
 +ManipulateCustomerColumn(String titleText): ctor
@@ -2220,10 +1018,10 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4650</x>
-      <y>1690</y>
-      <w>310</w>
-      <h>70</h>
+      <x>2151</x>
+      <y>990</y>
+      <w>279</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>ProjectCreateCustomerTabUI
 --
@@ -2234,10 +1032,10 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4490</x>
-      <y>1500</y>
-      <w>380</w>
-      <h>100</h>
+      <x>2007</x>
+      <y>819</y>
+      <w>342</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>UpdateCustomerUI
 --
@@ -2253,10 +1051,10 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4010</x>
-      <y>1500</y>
-      <w>430</w>
-      <h>250</h>
+      <x>1575</x>
+      <y>819</y>
+      <w>387</w>
+      <h>225</h>
     </coordinates>
     <panel_attributes>/ManipulateCustomerUI/
 --
@@ -2279,10 +1077,10 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3910</x>
-      <y>1580</y>
-      <w>120</w>
-      <h>40</h>
+      <x>1485</x>
+      <y>891</y>
+      <w>108</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
@@ -2292,10 +1090,10 @@ m2=1..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4430</x>
-      <y>1540</y>
-      <w>80</w>
-      <h>30</h>
+      <x>1953</x>
+      <y>855</y>
+      <w>72</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
@@ -2303,10 +1101,10 @@ m2=1..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4810</x>
-      <y>1520</y>
-      <w>230</w>
-      <h>190</h>
+      <x>2295</x>
+      <y>837</y>
+      <w>207</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1
@@ -2317,10 +1115,10 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5020</x>
-      <y>1330</y>
-      <w>330</w>
-      <h>100</h>
+      <x>2376</x>
+      <y>657</y>
+      <w>297</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>CreateCustomerTab
 --
@@ -2334,10 +1132,10 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4580</x>
-      <y>1330</y>
-      <w>380</w>
-      <h>100</h>
+      <x>2007</x>
+      <y>657</y>
+      <w>342</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>UpdateCustomerTab
 --
@@ -2351,10 +1149,10 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>4900</x>
-      <y>1500</y>
-      <w>210</w>
-      <h>30</h>
+      <x>2376</x>
+      <y>819</y>
+      <w>189</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>CreateCustomerUI
 --
@@ -2365,10 +1163,10 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4220</x>
-      <y>1460</y>
-      <w>800</w>
-      <h>60</h>
+      <x>1764</x>
+      <y>783</y>
+      <w>720</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0;780.0;10.0;780.0;40.0</additional_attributes>
@@ -2376,10 +1174,10 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>4920</x>
-      <y>1600</y>
-      <w>430</w>
-      <h>110</h>
+      <x>2394</x>
+      <y>909</y>
+      <w>387</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..1
@@ -2390,68 +1188,68 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5170</x>
-      <y>1240</y>
-      <w>50</w>
-      <h>110</h>
+      <x>2511</x>
+      <y>585</y>
+      <w>45</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..1
-m2=1
-</panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>4760</x>
-      <y>1170</y>
-      <w>160</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=0..1
-m2=1
-</panel_attributes>
-    <additional_attributes>10.0;160.0;10.0;10.0;140.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>4680</x>
-      <y>1420</y>
-      <w>40</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1=1
-m2=1
-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>5040</x>
-      <y>1420</y>
-      <w>40</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-m1=1
 m2=1
 </panel_attributes>
     <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2178</x>
+      <y>513</y>
+      <w>207</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..1
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2178</x>
+      <y>738</y>
+      <w>36</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2502</x>
+      <y>738</y>
+      <w>36</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>5000</x>
-      <y>1790</y>
-      <w>310</w>
-      <h>70</h>
+      <x>2466</x>
+      <y>1080</y>
+      <w>279</w>
+      <h>63</h>
     </coordinates>
-    <panel_attributes>ProjectSpecificationsTab
+    <panel_attributes>ProjectSpecificationsTabUI
 --
 + &lt;&lt;constructor&gt;&gt;(panelManager: PanelManager, 
    projectController: ProjectController)
@@ -2459,28 +1257,12 @@ m2=1
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>0</x>
-      <y>0</y>
-      <w>600</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>gui.tabs.project::ProjectOverviewTab
---
---
-+ProjectOverviewTab(PanelManager panelManager, ProjectController projectController): ctor
---
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>5140</x>
-      <y>1650</y>
-      <w>380</w>
-      <h>160</h>
+      <x>2592</x>
+      <y>954</y>
+      <w>342</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..1
@@ -2491,10 +1273,10 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5480</x>
-      <y>1190</y>
-      <w>450</w>
-      <h>300</h>
+      <x>2898</x>
+      <y>540</y>
+      <w>405</w>
+      <h>270</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m1=1
@@ -2505,12 +1287,12 @@ m2=0..1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6460</x>
-      <y>1150</y>
-      <w>400</w>
-      <h>190</h>
+      <x>3987</x>
+      <y>504</y>
+      <w>360</w>
+      <h>171</h>
     </coordinates>
-    <panel_attributes>SpecificationsTab
+    <panel_attributes>SpecificationsTabUI
 --
 - panelManager: PanelManager
 - specificationsController: SpecificationsController
@@ -2526,39 +1308,39 @@ m2=0..1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>6410</x>
-      <y>1050</y>
-      <w>280</w>
-      <h>120</h>
+      <x>3708</x>
+      <y>414</y>
+      <w>495</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1
-m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0;250.0;60.0;250.0;100.0</additional_attributes>
+m2=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;510.0;60.0;510.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>5140</x>
-      <y>1240</y>
-      <w>1390</w>
-      <h>870</h>
+      <x>2619</x>
+      <y>585</y>
+      <w>1386</w>
+      <h>828</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=1
 m2=1
 </panel_attributes>
-    <additional_attributes>1320.0;10.0;1230.0;10.0;1230.0;520.0;1370.0;520.0;1370.0;720.0;990.0;720.0;990.0;850.0;580.0;850.0;580.0;680.0;10.0;680.0;10.0;620.0</additional_attributes>
+    <additional_attributes>1520.0;10.0;1340.0;10.0;1340.0;900.0;930.0;900.0;930.0;860.0;550.0;860.0;550.0;680.0;10.0;680.0;10.0;620.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>6440</x>
-      <y>1420</y>
-      <w>440</w>
-      <h>230</h>
+      <x>3969</x>
+      <y>756</y>
+      <w>396</w>
+      <h>207</h>
     </coordinates>
-    <panel_attributes>SpecificationsLists
+    <panel_attributes>SpecificationsListsUI
 --
 - specificationsList: JPanel
 - chosenSpecifications: JPanel
@@ -2579,14 +1361,2251 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>6650</x>
-      <y>1330</y>
-      <w>40</w>
-      <h>110</h>
+      <x>4158</x>
+      <y>666</y>
+      <w>90</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+contains v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3924</x>
+      <y>1053</y>
+      <w>477</w>
+      <h>306</h>
+    </coordinates>
+    <panel_attributes>SpecificationTabUI
+--
+- panelManager: PanelManager
+- previousId: String
+- specificationController: SpecificationController
+- nameColumn: SpecificationColumn
+- amountColumn: SpecificationColumn
+- columns: Map&lt;Requirement, SpecificationColumn&gt;
+- widthContainer: JPanel
+- requirements: List&lt;Requirement&gt;
+--
++ &lt;&lt;constructor&gt;&gt;(panelManager: PanelManager, 
+    specificationController: SpecificationController)
+- createError(error: Exception)
+- saveSpecification()
+- createDynamicFieldsFromRequirements()
++ fillColumnsWithRequirementValues()
+- createSpecificationColumns()
+- createRequirementColumn(requirement: Requirement&lt;?&gt;): SpecificationColumn
+- createSpecificationColumn(displayValue: String): SpecificationColumn
+- createSpacer(): Component
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4158</x>
+      <y>954</y>
+      <w>72</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..1
+opens v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5598</x>
+      <y>1323</y>
+      <w>279</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>template=String, JTextField, Void
+SpecificationColumnTextFieldUI
+--
+- component: JTextField
+--
++ &lt;&lt;constructor&gt;&gt;()
++ getValue(): String
++ setValue(value: String)
++ setOptions(options: void)
++ setValueAsString(value: String)
++ getValueAsString(): String
++ getComponent(): JTextField
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5175</x>
+      <y>1323</y>
+      <w>396</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>template=String, JComboBox&lt;String&gt;, Collection&lt;String&gt;
+SpecificationColumnColorUI
+--
+- component: JComboBox&lt;String&gt;
+--
++ &lt;&lt;constructor&gt;&gt;()
++ getValue(): String
++ setValue(value: String)
++ setOptions(options: Collection&lt;String&gt;)
++ setValueAsString(value: String)
++ getValueAsString(): String
++ getComponent(): JComboBox&lt;String&gt;
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5229</x>
+      <y>1107</y>
+      <w>522</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>template=T, Y extends JComponent, Z
+&lt;&lt;interface&gt;&gt;
+SpecificationColumnValueFieldUI
+--
++ getValue(): T
++ setValue(value: T)
++ setOptions(options: Z)
++ setValueAsString(value: String)
++ getValueAsString(): String
++ getComponent(): Y</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4554</x>
+      <y>1107</y>
+      <w>549</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>SpecificationColumnUI
+--
+- valueField: SpecificationColumnValueField&lt;?, ?, ?&gt;
+- titleName: JLabel
+--
++ &lt;&lt;constructor&gt;&gt;(titleText: String, valueField:  SpecificationColumnValueField&lt;?, ?, ?&gt;)
++ setTitleName(name: String)
++ getTitleName(): JLabel
++ setStringValue(value: String)
++ getStringValue(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4392</x>
+      <y>1179</y>
+      <w>180</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..n
+contains &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;180.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5094</x>
+      <y>1170</y>
+      <w>153</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+has v</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5292</x>
+      <y>1260</y>
+      <w>27</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>5607</x>
+      <y>1260</y>
+      <w>108</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;100.0;50.0;100.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4590</x>
+      <y>1323</y>
+      <w>468</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>SpecificationColumnValueFieldFactory
+--
+_- checks: List&lt;ValueFieldCheck&gt;_
+{innerclass
+ValueFieldCheck
+--
+- requirement: Class&lt;? extends Requirement&gt;
+- field: Callable&lt;SpecificationColumnValueField&lt;?, ?, ?&gt;&gt;
+--
++ &lt;&lt;constructor&gt;&gt;(requirement: Class&lt;? extends Requirement&gt;, 
+    field: Callable&lt;SpecificationColumnValueField&lt;?, ?, ?&gt;&gt;)
++ equalsRequirement(requirement: Requirement): boolean
++ getField(): SpecificationColumnValueField&lt;?, ?, ?&gt;
+innerclass}
+--
+_+ create(requirement: Requirement): SpecificationColumnValueField&lt;?, ?, ?&gt;_
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4815</x>
+      <y>1260</y>
+      <w>27</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4842</x>
+      <y>1485</y>
+      <w>477</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>510.0;10.0;510.0;70.0;10.0;70.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4788</x>
+      <y>1485</y>
+      <w>963</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1050.0;10.0;1050.0;100.0;10.0;100.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1764</x>
+      <y>225</y>
+      <w>261</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>PlaceholderTextFieldUI
+--
+- placeholder: String
+--
++ &lt;&lt;constructor&gt;&gt;()
++ setPlaceholder(text: String)
++ getPlaceholder(): String
+# paintComponent(pG: Graphics2D)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4356</x>
+      <y>837</y>
+      <w>216</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..n
+contains &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4554</x>
+      <y>810</y>
+      <w>405</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>SpecificationsSelectedRowUI
+--
+- removeBtn: JButton
+--
++ &lt;&lt;constructor&gt;&gt;(displayName: String, even: boolean)
++ addRemoveButtonActionListener(listener: ActionListener)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2457</x>
+      <y>1242</y>
+      <w>288</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>ProjectOverviewTabUI
+--
++ &lt;&lt;constructor&gt;&gt;(panelManager: PanelManager, 
+    projectController: ProjectController)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2547</x>
+      <y>1134</y>
+      <w>81</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+creates v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2736</x>
+      <y>972</y>
+      <w>441</w>
+      <h>333</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m1=1</panel_attributes>
+    <additional_attributes>10.0;340.0;60.0;340.0;60.0;70.0;250.0;70.0;250.0;10.0;470.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2898</x>
+      <y>90</y>
+      <w>1881</w>
+      <h>738</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0;2070.0;10.0;2070.0;800.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1314</x>
+      <y>279</y>
+      <w>468</w>
+      <h>567</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>500.0;10.0;10.0;10.0;10.0;610.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2682</x>
+      <y>342</y>
+      <w>225</w>
+      <h>207</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>230.0;10.0;230.0;210.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3627</x>
+      <y>783</y>
+      <w>360</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;380.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3492</x>
+      <y>1287</y>
+      <w>297</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>ProductRow
+--
++ &lt;&lt;constructor&gt;&gt;(productName: String, 
+    displayName: String, price: String, 
+    even: boolean)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3636</x>
+      <y>1197</y>
+      <w>63</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..*
+has v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1899</x>
+      <y>90</y>
+      <w>657</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0;700.0;10.0;700.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1035</x>
+      <y>0</y>
+      <w>4905</w>
+      <h>1611</h>
+    </coordinates>
+    <panel_attributes>GUI</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2205</x>
+      <y>585</y>
+      <w>513</w>
+      <h>1161</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>450.0;10.0;450.0;60.0;550.0;60.0;550.0;450.0;370.0;450.0;370.0;530.0;10.0;530.0;10.0;1270.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2268</x>
+      <y>855</y>
+      <w>513</w>
+      <h>891</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>550.0;10.0;490.0;10.0;490.0;160.0;310.0;160.0;310.0;240.0;10.0;240.0;10.0;970.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2853</x>
+      <y>1206</y>
+      <w>315</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+uses v</panel_attributes>
+    <additional_attributes>330.0;20.0;10.0;20.0;10.0;580.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3528</x>
+      <y>1809</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3897</x>
+      <y>621</y>
+      <w>441</w>
+      <h>1125</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0;10.0;950.0;460.0;950.0;460.0;1230.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4086</x>
+      <y>2061</y>
+      <w>477</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>ProductController
+--
++ getBySpecification(specification: Specification, 
+    productConsumer: Consumer&lt;Product&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4320</x>
+      <y>1980</y>
+      <w>36</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4680</x>
+      <y>1728</y>
+      <w>378</w>
+      <h>342</h>
+    </coordinates>
+    <panel_attributes>SpecificationController
+--
+- displayId: int
+- displayName: String
+- resultAmount: int
+- specification: Specification
+- onSaveListeners: List&lt;Consumer&lt;SpecificationController&gt;&gt;
+- onErrorListeners: List&lt;Consumer&lt;Exception&gt;&gt;
+--
++ &lt;&lt;constructor&gt;&gt;(specification: Specification)
++ getRequirements(): List&lt;Requirement&gt;
++ setRequirements(requirements: List&lt;Requirement&gt;)
++ addSaveListener(listener: Consumer&lt;SpecificationController&gt;)
++ removeAllSaveListeners(): void
++ addErrorListener(listener: Consumer&lt;Exception&gt;)
++ save()
++ setDisplayName(name: String)
++ getDisplayName(): String
++ getName(): String
++ setResultAmount(amount: int)
++ getResultAmount(): int
++ getSpecification(): Specification
++ getDisplayId(): int
++ setDisplayId(displayId: int)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4545</x>
+      <y>1818</y>
+      <w>153</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4176</x>
+      <y>1350</y>
+      <w>747</w>
+      <h>396</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;430.0;70.0;430.0;270.0;800.0;270.0;800.0;420.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3339</x>
+      <y>540</y>
+      <w>549</w>
+      <h>1206</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>70.0;1320.0;70.0;1100.0;590.0;1100.0;590.0;520.0;150.0;520.0;150.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3366</x>
+      <y>873</y>
+      <w>513</w>
+      <h>873</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;950.0;10.0;720.0;550.0;720.0;550.0;50.0;20.0;50.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3339</x>
+      <y>963</y>
+      <w>531</w>
+      <h>783</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;850.0;10.0;610.0;570.0;610.0;570.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3312</x>
+      <y>1314</y>
+      <w>36</w>
+      <h>432</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;460.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2790</x>
+      <y>954</y>
+      <w>531</w>
+      <h>792</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>560.0;860.0;560.0;530.0;350.0;530.0;350.0;360.0;10.0;360.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2736</x>
+      <y>1107</y>
+      <w>558</w>
+      <h>639</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>590.0;690.0;590.0;370.0;400.0;370.0;400.0;350.0;50.0;350.0;50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2592</x>
+      <y>1296</y>
+      <w>675</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>720.0;480.0;720.0;170.0;540.0;170.0;540.0;150.0;10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3726</x>
+      <y>1197</y>
+      <w>108</w>
+      <h>549</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>90.0;590.0;90.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3645</x>
+      <y>558</y>
+      <w>225</w>
+      <h>1188</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>220.0;1300.0;220.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3906</x>
+      <y>864</y>
+      <w>450</w>
+      <h>882</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>480.0;960.0;480.0;670.0;10.0;670.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4356</x>
+      <y>873</y>
+      <w>540</w>
+      <h>873</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..*
+m2=1</panel_attributes>
+    <additional_attributes>560.0;950.0;560.0;810.0;220.0;810.0;220.0;660.0;90.0;660.0;90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1035</x>
+      <y>1629</y>
+      <w>4905</w>
+      <h>738</h>
+    </coordinates>
+    <panel_attributes>Controller</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4374</x>
+      <y>3285</y>
+      <w>234</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+DaoFactory
+--
++ createCustomerDao(): CustomerDao
++ createEmployeeDao(): EmployeeDao
++ createOrderDao(): OrderDao
++ createOrderLineDao(): OrderLineDao
++ createProductDao(): ProductDao
++ createProjectDao(): ProjectDao
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4293</x>
+      <y>2502</y>
+      <w>405</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>DBManager
+--
+_- instance: DBManager {readOnly}_
+- pool: DBConnectionPool {readOnly}
+- options: DBConnectionOptions {readOnly}
+--
+- &lt;&lt;constructor&gt;&gt;()
+- loadOptions()
++ getPool(): DBConnectionPool
++ getConnectionThread(callback: Consumer&lt;DBConnection&gt;): Thread
++ getInstance(): DBManager
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4338</x>
+      <y>3483</y>
+      <w>306</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>DaoFactoryMsSql
+--
+- connection: DBConnection
+--
++ &lt;&lt;constructor&gt;&gt;(connection: DBConnection)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4392</x>
+      <y>2772</y>
+      <w>207</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+DBConnectionPool
+--
++ getConnection(): DBConnection</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4338</x>
+      <y>2943</y>
+      <w>315</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+DBConnection
+--
++ startTransaction()
++ setSavepoint(): Savepoint
++ commitTransaction()
++ rollbackTransaction()
++ rollbackTransaction(savepoint: Savepoint)
++ getConnection(): Connection
++ prepareStatement(sql: String): PreparedStatement
++ prepareStatement(sql: String, 
+    autoGeneratedKeys: int): PreparedStatement
++ prepareCall(sql: String): CallableStatement
++ disconnect()
++ setOnRelease(runnable: Runnable)
++ release()
++ getDaoFactory(): DaoFactory
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4491</x>
+      <y>2835</y>
+      <w>90</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..*
+manages v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4482</x>
+      <y>3186</y>
+      <w>63</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+has v</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4491</x>
+      <y>2682</y>
+      <w>36</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4482</x>
+      <y>3429</y>
+      <w>27</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4734</x>
+      <y>3231</y>
+      <w>333</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>DBConnectionMsSql
+--
+- connection: Connection
+- driver: String
+- onRelease: Runnable
+- factory: DaoFactory
+--
++ &lt;&lt;constructor&gt;&gt;(host: String, port: int, 
+    username: String, password: String, database: String)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4752</x>
+      <y>2871</y>
+      <w>297</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>DBConnectionPoolMsSql
+--
+- pool: BlockingQueue&lt;DBConnection&gt;
+--
++ &lt;&lt;constructor&gt;&gt;(options: DBConnectionOptions)
+- setupDatabase()
+- releaseConnection(connection: DBConnection)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4644</x>
+      <y>3096</y>
+      <w>279</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;290.0;10.0;290.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4590</x>
+      <y>2799</y>
+      <w>333</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;350.0;10.0;350.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3897</x>
+      <y>2826</y>
+      <w>315</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+CustomerDao
+--
++ findAll(): List&lt;Customer&gt;
++ findByPhoneNumberOrEmail(phoneNumber: String, 
+    email: String): List&lt;Customer&gt;
++ findById(id: int): Customer
++ update(customer: Customer)
++ create(customer: Customer): Customer
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3879</x>
+      <y>3483</y>
+      <w>342</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ProductDao
+--
++ findByIds(ids: List&lt;Integer&gt;): List&lt;Product&gt;
++ findBySpecification(specification: Specification): Product
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3924</x>
+      <y>3357</y>
+      <w>261</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+OrderLineDao
+--
++ findByOrderId(id: int): List&lt;OrderLine&gt;
++ create(order: Order, orderLine: OrderLine)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3906</x>
+      <y>3195</y>
+      <w>288</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+OrderDao
+--
++ findById(id: int, fullAssociation: boolean): Order
++ create(order: Order, project: Project): Order
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3924</x>
+      <y>2691</y>
+      <w>252</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+EmployeeDao
+--
++ findById(id: int): Employee
++ findByRole(role: String): List&lt;Employee&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3852</x>
+      <y>3015</y>
+      <w>387</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ProjectDao
+--
++ findAll(fullAssociation: boolean): List&lt;Project&gt;
++ findByName(name: String, fullAssociation: boolean): List&lt;Project&gt;
++ findById(id: int, fullAssociation: boolean): Project
++ create(project: Project): Project
++ update(project: Project)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4644</x>
+      <y>2961</y>
+      <w>126</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..n</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4167</x>
+      <y>2718</y>
+      <w>225</w>
+      <h>594</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>230.0;640.0;180.0;640.0;180.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4203</x>
+      <y>2889</y>
+      <w>189</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>190.0;480.0;130.0;480.0;130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4230</x>
+      <y>3069</y>
+      <w>162</w>
+      <h>297</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>160.0;310.0;90.0;310.0;90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4185</x>
+      <y>3222</y>
+      <w>207</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>210.0;170.0;130.0;170.0;130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4176</x>
+      <y>3393</y>
+      <w>216</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>220.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4212</x>
+      <y>3420</y>
+      <w>180</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>180.0;10.0;100.0;10.0;100.0;110.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4779</x>
+      <y>2439</y>
+      <w>432</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes>DBConnectionOptions
+--
+- dataSource: String {readOnly}
+- host: String {readOnly}
+- user: String {readOnly}
+- database: String {readOnly}
+- password: String {readOnly}
+- port: int {readOnly}
+- poolSize: int {readOnly}
+- test: boolean {readOnly}
+--
++ &lt;&lt;constructor&gt;&gt;(dataSource: String, host: String, user: String, 
+    database: String, password: String, poolSize: int, port: int, test: boolean)
++ getDataSource(): String
++ getHost(): String
++ getUser(): String
++ getDatabase(): String
++ getPassword(): String
++ getPoolSize(): int
++ getPort(): int
++ isTest(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4689</x>
+      <y>2592</y>
+      <w>108</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4968</x>
+      <y>2745</y>
+      <w>27</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5346</x>
+      <y>3915</y>
+      <w>333</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>EmployeeDaoMsSql
+--
+_- FIND_BY_ID_Q: String_
+- findByIdPS: PreparedStatement
+_- FIND_BY_ROLE_Q: String_
+- findByRolePS: PreparedStatement
+- connection: DBConnection
+--
++ &lt;&lt;constructor&gt;&gt;(conn: DBConnection)
+- init(conn: DBConnection)
+- buildObject(rs: ResultSet): Employee
+- buildObjects(rs: ResultSet): List&lt;Employee&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4311</x>
+      <y>3915</y>
+      <w>423</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>OrderDaoMsSql
+--
+_- FIND_BY_ID_Q: String_
+- findByIdPS: PreparedStatement
+_- INSERT_Q: String_
+- insertPS: PreparedStatement
+- connection: DBConnection
+--
++ &lt;&lt;constructor&gt;&gt;(conn: DBConnection)
+- init(conn: DBConnection)
+- buildObject(rs: ResultSet, fullAssociation: boolean): Order
+- buildObjects(rs: ResultSet, fullAssociation: boolean): List&lt;Order&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>5346</x>
+      <y>3627</y>
+      <w>333</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>OrderLineDaoMsSql
+--
+_- FIND_ALL_BY_ORDER_ID_Q: String_
+- findAllByOrderIdPS: PreparedStatement
+_- INSERT_Q: String_
+- insertPS: PreparedStatement
+- connection: DBConnection
+--
++ &lt;&lt;constructor&gt;&gt;(conn: DBConnection)
+- init(conn: DBConnection)
+- buildObject(rs: ResultSet): Entry&lt;Integer, OrderLine&gt;
+- buildObjects(rs: ResultSet): Map&lt;Integer, OrderLine&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>4788</x>
+      <y>3915</y>
+      <w>504</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>ProductDaoMsSql
+--
+- connection: DBConnection
+--
++ &lt;&lt;constructor&gt;&gt;(conn: DBConnection)
+- init(conn: DBConnection)
+- buildObject(rs: ResultSet): Product
+- buildObjects(rs: ResultSet): List&lt;Product&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4266</x>
+      <y>3537</y>
+      <w>162</w>
+      <h>495</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>160.0;10.0;160.0;60.0;10.0;60.0;10.0;530.0;50.0;530.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4428</x>
+      <y>3537</y>
+      <w>27</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4572</x>
+      <y>3537</y>
+      <w>1152</w>
+      <h>495</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0;1260.0;30.0;1260.0;530.0;1230.0;530.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4536</x>
+      <y>3537</y>
+      <w>999</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;1090.0;40.0;1090.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4500</x>
+      <y>3537</y>
+      <w>837</w>
+      <h>495</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;910.0;50.0;910.0;530.0;880.0;530.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4464</x>
+      <y>3537</y>
+      <w>594</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;640.0;60.0;640.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4230</x>
+      <y>3096</y>
+      <w>99</w>
+      <h>711</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0;70.0;770.0;90.0;770.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4167</x>
+      <y>2736</y>
+      <w>1368</w>
+      <h>1197</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;640.0;10.0;640.0;50.0;1280.0;50.0;1290.0;1290.0;1500.0;1290.0;1500.0;1310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4203</x>
+      <y>2871</y>
+      <w>612</w>
+      <h>963</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;560.0;10.0;560.0;710.0;630.0;710.0;630.0;1050.0;660.0;1050.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4185</x>
+      <y>3240</y>
+      <w>144</w>
+      <h>756</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0;110.0;820.0;140.0;820.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4176</x>
+      <y>3411</y>
+      <w>1287</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0;100.0;210.0;1410.0;210.0;1410.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>4212</x>
+      <y>3528</y>
+      <w>846</w>
+      <h>405</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0;50.0;410.0;920.0;410.0;920.0;430.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>3816</x>
+      <y>2385</y>
+      <w>2124</w>
+      <h>1764</h>
+    </coordinates>
+    <panel_attributes>Data Access Layer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2646</x>
+      <y>2880</y>
+      <w>27</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2043</x>
+      <y>2808</y>
+      <w>342</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>Customer
+--
+- email: String
+- phoneNumber: String
+- address: Address
+--
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(id: int, firstName: String, lastName: String, 
+    email: String, phoneNumber: String, address: Address)
++ &lt;&lt;constructor&gt;&gt;(firstName: String, lastName: String, 
+    email: String, phoneNumber: String, address: Address)
++ getEmail(): String
++ setEmail(email: String): void
++ getPhoneNumber(): String
++ setPhoneNumber(phoneNumber: String): void
++ getAddress(): Address
++ setAddress(address: Address)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3483</x>
+      <y>2853</y>
+      <w>180</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>Price
+--
+- amount: int
+--
++ &lt;&lt;constructor&gt;&gt;()
++ &lt;&lt;constructor&gt;&gt;(amount: int)
++ getAmount(): int
++ setAmount(amount: int)
++ getNumberString(): String
++ toString(): String
++ compareTo(price: Price): int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2124</x>
+      <y>2664</y>
+      <w>117</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;110.0;80.0;110.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1809</x>
+      <y>2664</y>
+      <w>162</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>160.0;10.0;160.0;80.0;10.0;80.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3564</x>
+      <y>2736</y>
+      <w>36</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3096</x>
+      <y>2691</y>
+      <w>36</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3231</x>
+      <y>2574</y>
+      <w>189</w>
+      <h>423</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>190.0;10.0;130.0;10.0;130.0;440.0;10.0;440.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2826</x>
+      <y>2574</y>
+      <w>108</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2376</x>
+      <y>2574</y>
+      <w>126</w>
+      <h>378</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>120.0;10.0;60.0;10.0;60.0;390.0;10.0;390.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2214</x>
+      <y>3033</y>
+      <w>36</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1332</x>
+      <y>2763</y>
+      <w>252</w>
+      <h>207</h>
+    </coordinates>
+    <panel_attributes>template=T
+/Requirement/
+--
+- value: T
+--
++ getName(): String
++ getDescription(): String
++ getId(): String
++ getSQLKey(): String
++ getSQLValue(): String
++ setValueFromSQLValue(value: String)
++ getValue(): T
++ setValue(value: T)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1593</x>
+      <y>3078</y>
+      <w>252</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>template=String
+RequirementColor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1278</x>
+      <y>2430</y>
+      <w>342</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>/Specification/
+--
+- requirements: List&lt;Requirement&gt;
+--
+/+ getId(): String/
+/+ getName(): String/
++ getRequirements(): List&lt;Requirement&gt;
++ setRequirements(requirements: List&lt;Requirement&gt;)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1476</x>
+      <y>2673</y>
+      <w>162</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>Roof
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1251</x>
+      <y>2673</y>
+      <w>171</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>Window
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1332</x>
+      <y>3078</y>
+      <w>252</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>template=int
+RequirementWidth
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>3078</y>
+      <w>243</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>template=int
+RequirementHeight
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1440</x>
+      <y>2961</y>
+      <w>27</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1179</x>
+      <y>2961</y>
+      <w>225</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>230.0;10.0;230.0;60.0;10.0;60.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1503</x>
+      <y>2961</y>
+      <w>216</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;220.0;60.0;220.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1332</x>
+      <y>2583</y>
+      <w>27</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1548</x>
+      <y>2583</y>
+      <w>27</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1440</x>
+      <y>2583</y>
+      <w>45</w>
+      <h>207</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1..n
+m2=1..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1035</x>
+      <y>2385</y>
+      <w>2754</w>
+      <h>1764</h>
+    </coordinates>
+    <panel_attributes>Model</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>1017</w>
+      <h>4149</h>
+    </coordinates>
+    <panel_attributes>Util</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3816</x>
+      <y>2718</y>
+      <w>216</w>
+      <h>981</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>220.0;1070.0;220.0;1040.0;10.0;1040.0;10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3825</x>
+      <y>2889</y>
+      <w>225</w>
+      <h>810</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>230.0;880.0;230.0;840.0;10.0;840.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3834</x>
+      <y>3069</y>
+      <w>234</w>
+      <h>630</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>240.0;680.0;240.0;630.0;10.0;630.0;10.0;10.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3843</x>
+      <y>3213</y>
+      <w>243</w>
+      <h>486</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>250.0;520.0;250.0;460.0;10.0;460.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3852</x>
+      <y>3384</y>
+      <w>252</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>260.0;330.0;260.0;260.0;10.0;260.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3861</x>
+      <y>3510</y>
+      <w>261</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>270.0;190.0;270.0;110.0;10.0;110.0;10.0;10.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>3114</y>
+      <w>288</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>Config
+--
+_- properties: Properties_
+_- instance: Config_
+--
+- &lt;&lt;constructor&gt;&gt;()
++ getInstance(): Config
++ getDataSourceEnvironmentProperty(key: String, 
+    test: boolean)
++ getDatabaseOptions(): DBConnectionOptions
++ getProperty(key: String): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>2448</y>
+      <w>252</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>Validator
+--
+- errors: Stack&lt;Exception&gt;
+--
++ addRule(rule: ValidationRule&lt;?&gt;)
++ addException(exception: Exception)
++ addValidatable(validatable: Validatable)
++ hasErrors(): boolean
++ getErrors(): Collection&lt;Exception&gt;
++ getCompositeException(): Exception
++ addError(error: String)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>2646</y>
+      <w>162</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Validatable
+--
++ validate()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>594</x>
+      <y>2763</y>
+      <w>342</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>template=T
+/ValidationRule/
+--
+- errorReplacement: String
+- rule: T
+--
++ &lt;&lt;constructor(rule: T)
++ &lt;&lt;constructor(rule: T, errorReplacement: String)
++ getRule(): T
+# createException(error: String): Exception
+- getErrorMessage(error: String): String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>747</x>
+      <y>2700</y>
+      <w>27</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>747</x>
+      <y>2592</y>
+      <w>27</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>567</x>
+      <y>2529</y>
+      <w>144</w>
+      <h>261</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>140.0;270.0;140.0;230.0;10.0;230.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>180</x>
+      <y>2673</y>
+      <w>279</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>template=int
+IntegerRangeValidationRule
+--
+- min: int
+- max: int
+--
++ &lt;&lt;constructor&gt;&gt;(rule: int, min: int, max: int)
++ &lt;&lt;constructor&gt;&gt;(rule: int, errorReplacement: 
+    String, min: int, max: int)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>243</x>
+      <y>2916</y>
+      <w>180</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>template=String
+EmailValidationRule
+--
+- emailPattern: Pattern
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>180</x>
+      <y>3006</y>
+      <w>315</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>template=int
+IntegerMinimumValidationRule
+--
+- min: int
+--
++ &lt;&lt;constructor&gt;&gt;(rule: int, min: int)
++ &lt;&lt;constructor&gt;&gt;(rule: int, errorReplacement: String, 
+    min: int)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>252</x>
+      <y>2358</y>
+      <w>162</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>template=String
+EmptyValidationRule
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>243</x>
+      <y>2835</y>
+      <w>162</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>template=T
+NotNullValidationRule
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>252</x>
+      <y>2511</y>
+      <w>162</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>template=String
+PhoneValidationRule
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>225</x>
+      <y>2592</y>
+      <w>216</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>template=String
+StringToIntegerValidationRule
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>243</x>
+      <y>2430</y>
+      <w>162</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>template=int
+ZipCodeValidationRule
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>234</x>
+      <y>2250</y>
+      <w>180</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>template=String
+EmailValidationRule
+--
+- emailPattern: Pattern
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>468</x>
+      <y>2916</y>
+      <w>144</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>140.0;10.0;100.0;10.0;100.0;160.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>387</x>
+      <y>2898</y>
+      <w>225</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>230.0;10.0;100.0;10.0;100.0;60.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>2853</y>
+      <w>234</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>240.0;40.0;100.0;40.0;100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>2727</y>
+      <w>180</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>180.0;160.0;100.0;160.0;100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>405</x>
+      <y>2610</y>
+      <w>207</w>
+      <h>261</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>210.0;270.0;140.0;270.0;140.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>2529</y>
+      <w>234</w>
+      <h>324</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>240.0;340.0;180.0;340.0;180.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>2448</y>
+      <w>234</w>
+      <h>387</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>240.0;410.0;190.0;410.0;190.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>2376</y>
+      <w>234</w>
+      <h>441</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>240.0;470.0;200.0;470.0;200.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>2277</y>
+      <w>234</w>
+      <h>522</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>240.0;560.0;210.0;560.0;210.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>675</x>
+      <y>2268</y>
+      <w>162</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Converter
+--
++ tryParse(text: String): int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>3357</y>
+      <w>144</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>JUnit
+--
++isJUnitTest(): boolean
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>

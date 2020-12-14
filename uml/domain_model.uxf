@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1170</x>
-      <y>252</y>
+      <x>1188</x>
+      <y>288</y>
       <w>90</w>
       <h>117</h>
     </coordinates>
@@ -20,8 +20,8 @@ attributes</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>945</x>
-      <y>252</y>
+      <x>963</x>
+      <y>288</y>
       <w>99</w>
       <h>117</h>
     </coordinates>
@@ -33,8 +33,8 @@ amount</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1035</x>
-      <y>288</y>
+      <x>1053</x>
+      <y>324</y>
       <w>153</w>
       <h>45</h>
     </coordinates>
@@ -47,8 +47,8 @@ uses &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>261</x>
-      <y>54</y>
+      <x>279</x>
+      <y>90</y>
       <w>90</w>
       <h>117</h>
     </coordinates>
@@ -62,8 +62,8 @@ lastName
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>729</x>
-      <y>252</y>
+      <x>747</x>
+      <y>288</y>
       <w>117</w>
       <h>117</h>
     </coordinates>
@@ -76,8 +76,8 @@ status</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>837</x>
-      <y>288</y>
+      <x>855</x>
+      <y>324</y>
       <w>126</w>
       <h>45</h>
     </coordinates>
@@ -90,8 +90,8 @@ creates &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1377</x>
-      <y>252</y>
+      <x>1395</x>
+      <y>288</y>
       <w>90</w>
       <h>117</h>
     </coordinates>
@@ -103,8 +103,8 @@ price</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1251</x>
-      <y>288</y>
+      <x>1269</x>
+      <y>324</y>
       <w>144</w>
       <h>45</h>
     </coordinates>
@@ -118,8 +118,8 @@ m2=1..*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1152</x>
-      <y>459</y>
+      <x>1170</x>
+      <y>495</y>
       <w>126</w>
       <h>72</h>
     </coordinates>
@@ -132,8 +132,8 @@ description</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>414</x>
-      <y>288</y>
+      <x>432</x>
+      <y>324</y>
       <w>117</w>
       <h>45</h>
     </coordinates>
@@ -146,8 +146,8 @@ places &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>945</x>
-      <y>459</y>
+      <x>963</x>
+      <y>495</y>
       <w>99</w>
       <h>72</h>
     </coordinates>
@@ -161,8 +161,8 @@ targetAmount
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1035</x>
-      <y>477</y>
+      <x>1053</x>
+      <y>513</y>
       <w>135</w>
       <h>45</h>
     </coordinates>
@@ -175,8 +175,8 @@ uses &gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1206</x>
-      <y>360</y>
+      <x>1224</x>
+      <y>396</y>
       <w>99</w>
       <h>117</h>
     </coordinates>
@@ -189,8 +189,8 @@ belongs to v</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>900</x>
-      <y>594</y>
+      <x>918</x>
+      <y>630</y>
       <w>81</w>
       <h>27</h>
     </coordinates>
@@ -202,8 +202,8 @@ belongs to v</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>936</x>
-      <y>522</y>
+      <x>954</x>
+      <y>558</y>
       <w>63</w>
       <h>90</h>
     </coordinates>
@@ -213,8 +213,8 @@ belongs to v</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>198</x>
-      <y>297</y>
+      <x>216</x>
+      <y>333</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -226,8 +226,8 @@ belongs to v</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>333</x>
-      <y>252</y>
+      <x>351</x>
+      <y>288</y>
       <w>90</w>
       <h>117</h>
     </coordinates>
@@ -243,8 +243,8 @@ zipcode</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>315</x>
-      <y>162</y>
+      <x>333</x>
+      <y>198</y>
       <w>81</w>
       <h>108</h>
     </coordinates>
@@ -254,8 +254,8 @@ zipcode</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>252</x>
-      <y>315</y>
+      <x>270</x>
+      <y>351</y>
       <w>360</w>
       <h>117</h>
     </coordinates>
@@ -268,8 +268,8 @@ is responsible for &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1170</x>
-      <y>54</y>
+      <x>1188</x>
+      <y>90</y>
       <w>90</w>
       <h>117</h>
     </coordinates>
@@ -285,8 +285,8 @@ zipcode</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1206</x>
-      <y>162</y>
+      <x>1224</x>
+      <y>198</y>
       <w>90</w>
       <h>108</h>
     </coordinates>
@@ -299,8 +299,8 @@ supplies v</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1008</x>
-      <y>594</y>
+      <x>1026</x>
+      <y>630</y>
       <w>81</w>
       <h>27</h>
     </coordinates>
@@ -312,8 +312,8 @@ supplies v</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>999</x>
-      <y>522</y>
+      <x>1017</x>
+      <y>558</y>
       <w>63</w>
       <h>90</h>
     </coordinates>
@@ -323,8 +323,8 @@ supplies v</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>234</x>
-      <y>162</y>
+      <x>252</x>
+      <y>198</y>
       <w>72</w>
       <h>153</h>
     </coordinates>
@@ -334,8 +334,8 @@ supplies v</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>513</x>
-      <y>252</y>
+      <x>531</x>
+      <y>288</y>
       <w>117</w>
       <h>117</h>
     </coordinates>
@@ -349,8 +349,8 @@ status</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>621</x>
-      <y>288</y>
+      <x>639</x>
+      <y>324</y>
       <w>126</w>
       <h>45</h>
     </coordinates>
@@ -363,8 +363,8 @@ creates &gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>567</x>
-      <y>162</y>
+      <x>585</x>
+      <y>198</y>
       <w>99</w>
       <h>108</h>
     </coordinates>
@@ -377,8 +377,8 @@ belongs to v</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>513</x>
-      <y>54</y>
+      <x>531</x>
+      <y>90</y>
       <w>117</w>
       <h>117</h>
     </coordinates>
@@ -393,8 +393,8 @@ hasPaid</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>729</x>
-      <y>459</y>
+      <x>747</x>
+      <y>495</y>
       <w>117</w>
       <h>72</h>
     </coordinates>
@@ -409,8 +409,8 @@ values
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>837</x>
-      <y>477</y>
+      <x>855</x>
+      <y>513</y>
       <w>126</w>
       <h>45</h>
     </coordinates>
@@ -424,8 +424,8 @@ belongs to &gt;
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>216</x>
-      <y>315</y>
+      <x>234</x>
+      <y>351</y>
       <w>612</w>
       <h>135</h>
     </coordinates>

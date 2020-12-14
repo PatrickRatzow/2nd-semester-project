@@ -36,4 +36,13 @@ public class RequirementColorTest {
 		//Assert
 		assertThrows(Exception.class, () -> color.validate());
 	}
+
+	@Test
+	void testCantValidateEmptyColor() {
+		// Act
+		color.setValue(null);
+
+		// Assert
+		assertThrows(Exception.class, () -> color.validate());
+	}
 }

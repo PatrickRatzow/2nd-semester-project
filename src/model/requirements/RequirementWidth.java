@@ -13,11 +13,6 @@ public class RequirementWidth extends Requirement<Integer> {
     }
 
     @Override
-    public String getDescription() {
-        return "The width of the window";
-    }
-
-    @Override
     public String getId() {
         return "width";
     }

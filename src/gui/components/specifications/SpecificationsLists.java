@@ -34,16 +34,16 @@ public class SpecificationsLists extends JPanel {
 
         JPanel listContainer = new JPanel();
         listContainer.setBackground(Colors.PRIMARY.getColor());
-        listContainer.setFont(new Font("Tahoma", Font.BOLD, 15));
+        listContainer.setFont(new Font("Segoe UI", Font.BOLD, 15));
         add(listContainer, "cell 0 0,grow");
 
         JLabel titleList = new JLabel("Specifikationer");
-        titleList.setFont(new Font("Tahoma", Font.BOLD, 15));
+        titleList.setFont(new Font("Segoe UI", Font.BOLD, 15));
         listContainer.add(titleList);
 
         JPanel chosenContainer = new JPanel();
         chosenContainer.setBackground(Colors.PRIMARY.getColor());
-        chosenContainer.setFont(new Font("Tohoma", Font.BOLD, 15));
+        chosenContainer.setFont(new Font("Segoe UI", Font.BOLD, 15));
         add(chosenContainer, "cell 1 0,grow");
 
         JLabel titleChosen = new JLabel("Valgte specifikationer");

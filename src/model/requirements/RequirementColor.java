@@ -11,11 +11,6 @@ public class RequirementColor extends Requirement<String> {
     }
 
     @Override
-    public String getDescription() {
-        return "The color of the window";
-    }
-
-    @Override
     public String getId() {
         return "color";
     }

@@ -7,15 +7,13 @@ public abstract class Requirement<T> implements Validatable {
 
     public abstract String getName();
 
-    public abstract String getDescription();
-
     public abstract String getId();
 
     public abstract String getSQLKey();
 
     public abstract String getSQLValue();
 
-    public abstract void setValueFromSQLValue(String sql);
+    public abstract void setValueFromSQLValue(String value);
 
     public T getValue() {
         return value;
@@ -23,9 +21,5 @@ public abstract class Requirement<T> implements Validatable {
 
     public void setValue(T value) {
         this.value = value;
-    }
-
-    public String toString() {
-        return getName() + " - " + getDescription();
     }
 }

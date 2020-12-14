@@ -1,25 +1,24 @@
 package datasource;
 
-import dao.DaoFactory;
 import datasource.mssql.DBConnectionPoolMsSql;
+import util.Config;
 
 import java.util.function.Consumer;
 
 public class DBManager {
-    private static DBManager instance;
+    private volatile static DBManager instance;
     private volatile DBConnectionPool pool;
-    private volatile String dataSource;
-    private volatile DaoFactory factory;
+    private volatile DBConnectionOptions options;
 
     private DBManager() {
-        loadSource();
+        loadOptions();
     }
     
-    private void loadSource() {
-        if (dataSource == null) {
+    private void loadOptions() {
+        if (options == null) {
             synchronized (this) {
-                if (dataSource == null) {
-                    dataSource = "mssql";//Config.getProperty("dataSource");
+                if (options == null) {
+                    options = Config.getInstance().getDatabaseOptions();
                 }
             }
         }
@@ -29,10 +28,11 @@ public class DBManager {
         if (pool == null) {
             synchronized (this) {
                 if (pool == null) {
-                    loadSource();
-
-                    if (dataSource.equalsIgnoreCase("mssql"))
-                        pool = new DBConnectionPoolMsSql();
+                    loadOptions();
+    
+                    if (options.getDataSource().equalsIgnoreCase("mssql")) {
+                        pool = new DBConnectionPoolMsSql(options);
+                    }
                 }
             }
         }
