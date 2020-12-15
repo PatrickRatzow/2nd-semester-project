@@ -5,11 +5,19 @@ CREATE TABLE city (
 );
 
 CREATE TABLE street (
-    street NVARCHAR(255),
+    street_name NVARCHAR(255),
     zip_code INT,
-    PRIMARY KEY(street, zip_code),
+    PRIMARY KEY(street_name, zip_code),
     FOREIGN KEY(zip_code) REFERENCES city
 );
+
+CREATE TABLE address (
+    street_name NVARCHAR(255),
+    zip_code INT,
+    street_number INT,
+    PRIMARY KEY(street_name, zip_code, street_number),
+    FOREIGN KEY(street_name, zip_code) REFERENCES street(street_name, zip_code)
+)
 
 CREATE TABLE person (
     id INT IDENTITY(1, 1),
@@ -36,12 +44,12 @@ CREATE TABLE customer (
     id INT,
     email NVARCHAR(320) NOT NULL,
     phone_number NVARCHAR(50) NOT NULL,
-    street NVARCHAR(255) NOT NULL,
+    street_name NVARCHAR(255) NOT NULL,
     zip_code INT NOT NULL,
     street_number INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(id) REFERENCES person(id),
-    FOREIGN KEY(street, zip_code) REFERENCES street(street, zip_code)
+    FOREIGN KEY(street_name, zip_code, street_number) REFERENCES address(street_name, zip_code, street_number)
 );
 
 CREATE TABLE project (
@@ -57,12 +65,6 @@ CREATE TABLE project (
     FOREIGN KEY(employee_id) REFERENCES employee(id)
 );
 
-CREATE TABLE supplier (
-    id INT IDENTITY(1, 1),
-    name NVARCHAR(255) NOT NULL,
-    PRIMARY KEY(id)
-);
-
 CREATE TABLE product_category (
     id INT IDENTITY(1, 1),
     name NVARCHAR(255) NOT NULL,
@@ -75,16 +77,14 @@ CREATE TABLE product (
     name NVARCHAR(255) NOT NULL,
     description NVARCHAR(MAX) NOT NULL,
     category_id INT NOT NULL,
-    supplier_id INT NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(category_id) REFERENCES product_category(id),
-    FOREIGN KEY(supplier_id) REFERENCES supplier(id)
+    FOREIGN KEY(category_id) REFERENCES product_category(id)
 );
 
 CREATE TABLE product_field (
     product_id INT,
     field_id NVARCHAR(64),
-    value NVARCHAR(MAX),
+    field_value NVARCHAR(MAX),
     PRIMARY KEY(product_id, field_id),
     FOREIGN KEY(product_id) REFERENCES product(id)
 );

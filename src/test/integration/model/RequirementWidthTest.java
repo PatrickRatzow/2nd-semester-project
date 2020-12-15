@@ -16,23 +16,25 @@ public class RequirementWidthTest {
 
     @Test
     void testCanValidateWidth() throws Exception {
-        //Arrange
+        // Arrange
         int input = 150;
 
-        //Act
+        // Act
         width.setValue(input);
+        
+        // Assert
         width.validate();
     }
 
     @Test
     void testCantValidateInvalidWidth() {
-        //Arrange
+        // Arrange
         int input = -1;
 
-        //Act
+        // Act
         width.setValue(input);
 
-        //Assert
+        // Assert
         assertThrows(Exception.class, () -> width.validate());
     }
 

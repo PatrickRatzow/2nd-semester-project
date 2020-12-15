@@ -21,6 +21,8 @@ public class RequirementHeightTest {
 
         // Act
         height.setValue(input);
+        
+        // Assert
         height.validate();
     }
 
