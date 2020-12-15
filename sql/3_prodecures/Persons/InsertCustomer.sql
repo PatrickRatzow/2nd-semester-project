@@ -9,8 +9,8 @@ CREATE PROCEDURE InsertCustomer
     @StreetNumber INT,
     @PersonId INT = NULL OUTPUT
 AS
-    EXEC InsertIgnoreAddress @StreetName, @ZipCode, @City;
+    EXEC InsertIgnoreAddress @StreetName, @StreetNumber, @ZipCode, @City;
     EXEC InsertPerson @FirstName, @LastName,@PersonId OUT;
-    INSERT INTO customer(id, email, phone_number, street, zip_code, street_number)
+    INSERT INTO customer(id, email, phone_number, street_name, zip_code, street_number)
     VALUES (@PersonId, @Email, @PhoneNo, @StreetName, @ZipCode, @StreetNumber);
 ;

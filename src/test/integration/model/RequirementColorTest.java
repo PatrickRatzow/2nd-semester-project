@@ -16,24 +16,26 @@ public class RequirementColorTest {
 	
 	@Test
 	void testCanValidateColor() throws Exception {
-		//Arrange
+		// Arrange
 		String input = "Gul";
 
-		//Act
+		// Act
 		color.setValue(input);
+		
+		// Assert
 		color.validate();
 	}
 	
 	
 	@Test
 	void testCantValidateInvalidColor() {
-		//Arrange
+		// Arrange
 		String input = "";
 
-		//Act
+		// Act
 		color.setValue(input);
 
-		//Assert
+		// Assert
 		assertThrows(Exception.class, () -> color.validate());
 	}
 

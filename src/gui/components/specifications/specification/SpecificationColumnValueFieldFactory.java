@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 public class SpecificationColumnValueFieldFactory {
-	private static List<ValueFieldCheck> checks = new LinkedList<>();
+	private static final List<ValueFieldCheck> checks = new LinkedList<>();
 	
 	private static class ValueFieldCheck {
-		private Class<? extends Requirement> requirement;
-		private Callable<SpecificationColumnValueField<?, ?, ?>> field;
+		private final Class<? extends Requirement> requirement;
+		private final Callable<SpecificationColumnValueField<?, ?, ?>> field;
 		
 		public ValueFieldCheck(Class<? extends Requirement> requirement, Callable<SpecificationColumnValueField<?, ?, ?>> field) {
 			this.requirement = requirement;

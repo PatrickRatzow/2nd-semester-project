@@ -27,6 +27,7 @@ public class ProductDaoMsSql implements ProductDao {
     private void init(DBConnection conn) {
         connection = conn;
     }
+    
     private Product buildObject(ResultSet rs) throws SQLException {
         final Product product = new Product();
 
@@ -72,7 +73,7 @@ public class ProductDaoMsSql implements ProductDao {
                         parameters.add(e.getSQLKey());
                         parameters.add(e.getSQLValue());
 
-                        return "(pf2.field_id = ? AND pf2.value = ?)";
+                        return "(pf2.field_id = ? AND pf2.field_value = ?)";
                     })
                     .collect(Collectors.joining(" OR "));
 
@@ -81,7 +82,7 @@ public class ProductDaoMsSql implements ProductDao {
                     "    p.description AS description,\n" +
                     "    p.name AS name,\n" +
                     "    pf.field_id AS field_id,\n" +
-                    "    pf.value AS field_value,\n" +
+                    "    pf.field_value AS field_value,\n" +
                     "    pp.price AS price,\n" +
                     "    pp.start_time AS price_start_time,\n" +
                     "    pp.end_time AS price_end_time\n" +
