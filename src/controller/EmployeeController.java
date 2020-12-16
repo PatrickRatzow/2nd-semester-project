@@ -11,20 +11,25 @@ import java.util.function.Consumer;
 
 public class EmployeeController {
     private final List<Consumer<List<Employee>>> onFindListeners = new LinkedList<>();
+    private final List<Consumer<Exception>> onErrorListeners = new LinkedList<>();
 
     public void addFindListener(Consumer<List<Employee>> listener) {
         onFindListeners.add(listener);
+    }
+
+    public void addErrorListener(Consumer<Exception> listener) {
+        onErrorListeners.add(listener);
     }
 
     public void getDirectors() {
         DBManager.getInstance().getConnectionThread(conn -> {
             EmployeeDao dao = conn.getDaoFactory().createEmployeeDao();
             try {
-                List<Employee> employees = dao.findByRole("Direktør");
+                List<Employee> employees = dao.findByRole("DirektÃ¸r");
 
                 onFindListeners.forEach(l -> l.accept(employees));
             } catch (DataAccessException e) {
-                // XD
+                onErrorListeners.forEach(l -> l.accept(e));
             }
         }).start();
     }
