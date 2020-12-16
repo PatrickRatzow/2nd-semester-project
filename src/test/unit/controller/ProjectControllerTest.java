@@ -131,8 +131,8 @@ public class ProjectControllerTest {
 			CountDownLatch lock = new CountDownLatch(1);
 			boolean fullAssociation = false;
 			List<Project> projects = new LinkedList<>();
-			projects.add(new Project(1, ""));
-			projects.add(new Project(2, ""));
+			projects.add(new Project(1, "Test 1"));
+			projects.add(new Project(2, "Test 2"));
 			AtomicReference<List<Project>> returnProjects = new AtomicReference<>();
 			
 			DBManager manager = mock(DBManager.class);
