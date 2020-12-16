@@ -1,9 +1,9 @@
-package test.unit.model;
+package test.integration.model;
 
 import model.Address;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AddressTest {
     private Address address;

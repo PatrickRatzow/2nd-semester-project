@@ -5,7 +5,7 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class Validator {
-	Stack<Exception> errors = new Stack<>();
+	private final Stack<Exception> errors = new Stack<>();
 	
 	public void addRule(ValidationRule<?> rule) {
 		try {
