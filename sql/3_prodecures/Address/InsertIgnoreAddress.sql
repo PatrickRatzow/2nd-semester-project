@@ -5,22 +5,13 @@ CREATE PROCEDURE InsertIgnoreAddress
     @CityName NVARCHAR(255)
 AS
     BEGIN TRANSACTION;
-        IF NOT EXISTS (
-            SELECT *
-            FROM city c
-            WHERE c.zip_code = @ZipCode
-        )
+        IF NOT EXISTS (SELECT * FROM city c WHERE c.zip_code = @ZipCode)
         BEGIN
             INSERT INTO city(zip_code, name)
             VALUES (@ZipCode, @CityName);
         END;
 
-        IF NOT EXISTS (
-            SELECT *
-            FROM street s
-            WHERE s.street_name = @StreetName
-              AND s.zip_code = @ZipCode
-        )
+        IF NOT EXISTS (SELECT * FROM street s WHERE s.street_name = @StreetName AND s.zip_code = @ZipCode)
         BEGIN
             INSERT INTO street(street_name, zip_code)
             VALUES (@StreetName, @ZipCode);
