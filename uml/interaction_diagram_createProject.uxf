@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>5</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>215</x>
-      <y>125</y>
-      <w>30</w>
-      <h>55</h>
+      <x>98</x>
+      <y>0</y>
+      <w>42</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>User</panel_attributes>
     <additional_attributes/>
@@ -15,10 +15,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>225</x>
-      <y>155</y>
-      <w>15</w>
-      <h>40</h>
+      <x>112</x>
+      <y>42</y>
+      <w>21</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -26,10 +26,10 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>225</x>
-      <y>185</y>
-      <w>10</w>
-      <h>100</h>
+      <x>112</x>
+      <y>84</y>
+      <w>14</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -38,10 +38,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>315</x>
-      <y>185</y>
-      <w>10</w>
-      <h>85</h>
+      <x>259</x>
+      <y>84</y>
+      <w>14</w>
+      <h>119</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -50,10 +50,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>295</x>
-      <y>150</y>
-      <w>50</w>
-      <h>15</h>
+      <x>231</x>
+      <y>35</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>_:ProjectUI_</panel_attributes>
     <additional_attributes/>
@@ -61,10 +61,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>315</x>
-      <y>160</y>
-      <w>15</w>
-      <h>35</h>
+      <x>259</x>
+      <y>49</y>
+      <w>21</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
@@ -72,22 +72,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
-      <y>180</y>
-      <w>95</w>
-      <h>20</h>
+      <x>119</x>
+      <y>77</y>
+      <w>154</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 opens system</panel_attributes>
-    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>465</x>
-      <y>190</y>
-      <w>70</w>
-      <h>15</h>
+      <x>469</x>
+      <y>91</y>
+      <w>140</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>_projectCtr : ProjectController_</panel_attributes>
     <additional_attributes/>
@@ -95,10 +95,10 @@ opens system</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>185</y>
-      <w>155</w>
-      <h>20</h>
+      <x>266</x>
+      <y>84</y>
+      <w>217</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;.
 &lt;&lt;create&gt;&gt;</panel_attributes>
@@ -107,10 +107,10 @@ opens system</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
-      <y>200</y>
-      <w>15</w>
-      <h>25</h>
+      <x>525</x>
+      <y>105</y>
+      <w>21</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -118,10 +118,10 @@ opens system</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>225</x>
-      <y>280</y>
-      <w>15</w>
-      <h>25</h>
+      <x>112</x>
+      <y>217</y>
+      <w>21</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -129,10 +129,10 @@ opens system</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>495</x>
-      <y>215</y>
-      <w>10</w>
-      <h>70</h>
+      <x>525</x>
+      <y>126</y>
+      <w>14</w>
+      <h>98</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -141,34 +141,34 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>255</y>
-      <w>185</w>
-      <h>20</h>
+      <x>266</x>
+      <y>182</y>
+      <w>273</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 getAll()</panel_attributes>
-    <additional_attributes>350.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>370.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
-      <y>270</y>
-      <w>275</w>
-      <h>20</h>
+      <x>119</x>
+      <y>203</y>
+      <w>420</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 project UI</panel_attributes>
-    <additional_attributes>10.0;20.0;530.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;580.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>225</x>
-      <y>295</y>
-      <w>10</w>
-      <h>115</h>
+      <x>112</x>
+      <y>238</y>
+      <w>14</w>
+      <h>161</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -177,22 +177,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
-      <y>290</y>
-      <w>95</w>
-      <h>20</h>
+      <x>119</x>
+      <y>231</y>
+      <w>154</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 clicks [create new project]</panel_attributes>
-    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>315</x>
-      <y>295</y>
-      <w>10</w>
-      <h>20</h>
+      <x>259</x>
+      <y>238</y>
+      <w>14</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -201,10 +201,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>315</x>
-      <y>265</y>
-      <w>15</w>
-      <h>40</h>
+      <x>259</x>
+      <y>196</y>
+      <w>21</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
@@ -212,22 +212,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>295</y>
-      <w>235</w>
-      <h>20</h>
+      <x>266</x>
+      <y>238</y>
+      <w>308</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;.
 &lt;&lt;create&gt;&gt;(projectCtr)</panel_attributes>
-    <additional_attributes>450.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>420.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>545</x>
-      <y>300</y>
-      <w>85</w>
-      <h>15</h>
+      <x>560</x>
+      <y>245</y>
+      <w>161</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>_:ProjectFindOrCreateCustomerUI_</panel_attributes>
     <additional_attributes/>
@@ -235,10 +235,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>580</x>
-      <y>310</y>
-      <w>15</w>
-      <h>30</h>
+      <x>630</x>
+      <y>259</y>
+      <w>21</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
@@ -246,10 +246,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>580</x>
-      <y>330</y>
-      <w>10</w>
-      <h>80</h>
+      <x>630</x>
+      <y>287</y>
+      <w>14</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -258,22 +258,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>585</x>
-      <y>325</y>
-      <w>75</w>
-      <h>20</h>
+      <x>637</x>
+      <y>280</y>
+      <w>119</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;.
 &lt;&lt;create&gt;&gt;</panel_attributes>
-    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>650</x>
-      <y>330</y>
-      <w>85</w>
-      <h>15</h>
+      <x>742</x>
+      <y>287</y>
+      <w>161</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>_customerCtr : CustomerController_</panel_attributes>
     <additional_attributes/>
@@ -281,10 +281,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>690</x>
-      <y>340</y>
-      <w>15</w>
-      <h>20</h>
+      <x>819</x>
+      <y>301</y>
+      <w>21</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;20.0</additional_attributes>
@@ -292,22 +292,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>585</x>
-      <y>445</y>
-      <w>165</w>
-      <h>20</h>
+      <x>637</x>
+      <y>448</y>
+      <w>238</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;.
 &lt;&lt;create&gt;&gt;(customerCtr)</panel_attributes>
-    <additional_attributes>310.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>320.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>740</x>
-      <y>450</y>
-      <w>80</w>
-      <h>15</h>
+      <x>861</x>
+      <y>455</y>
+      <w>147</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>_:ProjectCreateCustomerTabUI_</panel_attributes>
     <additional_attributes/>
@@ -315,10 +315,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>225</x>
-      <y>440</y>
-      <w>10</w>
-      <h>75</h>
+      <x>112</x>
+      <y>441</y>
+      <w>14</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -327,22 +327,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
-      <y>435</y>
-      <w>360</w>
-      <h>20</h>
+      <x>119</x>
+      <y>434</y>
+      <w>525</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 clicks [create customer]</panel_attributes>
-    <additional_attributes>700.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>730.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>580</x>
-      <y>440</y>
-      <w>10</w>
-      <h>20</h>
+      <x>630</x>
+      <y>441</y>
+      <w>14</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -351,10 +351,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>775</x>
-      <y>460</y>
-      <w>15</w>
-      <h>25</h>
+      <x>924</x>
+      <y>469</y>
+      <w>21</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -362,10 +362,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>775</x>
-      <y>475</y>
-      <w>10</w>
-      <h>40</h>
+      <x>924</x>
+      <y>490</y>
+      <w>14</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -374,22 +374,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>780</x>
-      <y>470</y>
-      <w>85</w>
-      <h>20</h>
+      <x>931</x>
+      <y>483</y>
+      <w>147</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;.
 &lt;&lt;create&gt;&gt;(customerCtr)</panel_attributes>
-    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>190.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>855</x>
-      <y>475</y>
-      <w>80</w>
-      <h>15</h>
+      <x>1064</x>
+      <y>490</y>
+      <w>112</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>_:CreateCustomerUI_</panel_attributes>
     <additional_attributes/>
@@ -397,10 +397,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
-      <y>485</y>
-      <w>15</w>
-      <h>25</h>
+      <x>1113</x>
+      <y>504</y>
+      <w>21</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -408,10 +408,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>890</x>
-      <y>500</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1113</x>
+      <y>525</y>
+      <w>14</w>
+      <h>14</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -420,22 +420,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
-      <y>500</y>
-      <w>555</w>
-      <h>20</h>
+      <x>119</x>
+      <y>525</y>
+      <w>819</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 display customer information fields</panel_attributes>
-    <additional_attributes>10.0;20.0;1090.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;1150.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>225</x>
-      <y>510</y>
-      <w>15</w>
-      <h>30</h>
+      <x>112</x>
+      <y>539</y>
+      <w>21</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
@@ -443,10 +443,10 @@ display customer information fields</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>225</x>
-      <y>530</y>
-      <w>10</w>
-      <h>220</h>
+      <x>112</x>
+      <y>567</y>
+      <w>14</w>
+      <h>308</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -455,46 +455,46 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>210</y>
-      <w>185</w>
-      <h>20</h>
+      <x>266</x>
+      <y>119</y>
+      <w>273</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 addFindListener(callback)</panel_attributes>
-    <additional_attributes>350.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>370.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>235</y>
-      <w>185</w>
-      <h>20</h>
+      <x>266</x>
+      <y>154</y>
+      <w>273</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 addFindProjectListener(callback)</panel_attributes>
-    <additional_attributes>350.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>370.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>585</x>
-      <y>350</y>
-      <w>115</w>
-      <h>20</h>
+      <x>637</x>
+      <y>315</y>
+      <w>196</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 addFindListener(callback)</panel_attributes>
-    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>260.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>690</x>
-      <y>350</y>
-      <w>10</w>
-      <h>55</h>
+      <x>819</x>
+      <y>315</y>
+      <w>14</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -503,22 +503,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>585</x>
-      <y>370</y>
-      <w>115</w>
-      <h>20</h>
+      <x>637</x>
+      <y>343</y>
+      <w>196</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 addSaveListener(saveCb: callback)</panel_attributes>
-    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>260.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
-      <y>280</y>
-      <w>15</w>
-      <h>340</h>
+      <x>525</x>
+      <y>217</y>
+      <w>21</w>
+      <h>476</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;660.0</additional_attributes>
@@ -526,22 +526,22 @@ addSaveListener(saveCb: callback)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
-      <y>395</y>
-      <w>360</w>
-      <h>20</h>
+      <x>119</x>
+      <y>378</y>
+      <w>525</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 display customer information fields</panel_attributes>
-    <additional_attributes>10.0;20.0;700.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;730.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>225</x>
-      <y>405</y>
-      <w>15</w>
-      <h>45</h>
+      <x>112</x>
+      <y>392</y>
+      <w>21</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -549,35 +549,35 @@ display customer information fields</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>780</x>
-      <y>495</y>
-      <w>120</w>
-      <h>25</h>
+      <x>931</x>
+      <y>518</y>
+      <w>196</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 customer information fields
 </panel_attributes>
-    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;260.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
-      <y>525</y>
-      <w>670</w>
-      <h>20</h>
+      <x>119</x>
+      <y>560</y>
+      <w>1008</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 enters information and clicks [create customer]</panel_attributes>
-    <additional_attributes>1320.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>1420.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
-      <y>505</y>
-      <w>15</w>
-      <h>35</h>
+      <x>1113</x>
+      <y>532</y>
+      <w>21</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
@@ -585,10 +585,10 @@ enters information and clicks [create customer]</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>890</x>
-      <y>530</y>
-      <w>10</w>
-      <h>45</h>
+      <x>1113</x>
+      <y>567</y>
+      <w>14</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -597,10 +597,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>690</x>
-      <y>400</y>
-      <w>15</w>
-      <h>150</h>
+      <x>819</x>
+      <y>385</y>
+      <w>21</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;280.0</additional_attributes>
@@ -608,10 +608,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>690</x>
-      <y>540</y>
-      <w>10</w>
-      <h>40</h>
+      <x>819</x>
+      <y>581</y>
+      <w>14</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -620,22 +620,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>695</x>
-      <y>555</y>
-      <w>205</w>
-      <h>20</h>
+      <x>826</x>
+      <y>602</y>
+      <w>301</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 save()</panel_attributes>
-    <additional_attributes>10.0;20.0;390.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;410.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>580</x>
-      <y>405</y>
-      <w>15</w>
-      <h>45</h>
+      <x>630</x>
+      <y>392</y>
+      <w>21</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -643,10 +643,10 @@ save()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>580</x>
-      <y>455</y>
-      <w>15</w>
-      <h>95</h>
+      <x>630</x>
+      <y>462</y>
+      <w>21</w>
+      <h>133</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
@@ -654,10 +654,10 @@ save()</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>580</x>
-      <y>540</y>
-      <w>10</w>
-      <h>65</h>
+      <x>630</x>
+      <y>581</y>
+      <w>14</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -666,22 +666,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>585</x>
-      <y>545</y>
-      <w>115</w>
-      <h>20</h>
+      <x>637</x>
+      <y>588</y>
+      <w>196</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 saveCb()</panel_attributes>
-    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;260.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>715</x>
-      <y>585</y>
-      <w>90</w>
-      <h>45</h>
+      <x>819</x>
+      <y>644</y>
+      <w>126</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>sd CheapestProduct</panel_attributes>
     <additional_attributes/>
@@ -689,10 +689,10 @@ saveCb()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>895</x>
-      <y>540</y>
-      <w>85</w>
-      <h>25</h>
+      <x>1120</x>
+      <y>581</y>
+      <w>119</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 onSave()</panel_attributes>
@@ -701,10 +701,10 @@ onSave()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>585</x>
-      <y>585</y>
-      <w>140</w>
-      <h>20</h>
+      <x>637</x>
+      <y>644</y>
+      <w>196</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 &lt;&lt;create&gt;&gt;</panel_attributes>
@@ -713,22 +713,22 @@ onSave()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
-      <y>610</y>
-      <w>225</w>
-      <h>20</h>
+      <x>532</x>
+      <y>679</y>
+      <w>301</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 orderCtr</panel_attributes>
-    <additional_attributes>10.0;20.0;430.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;410.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>495</x>
-      <y>610</y>
-      <w>10</w>
-      <h>45</h>
+      <x>525</x>
+      <y>679</y>
+      <w>14</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -737,10 +737,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>945</x>
-      <y>640</y>
-      <w>60</w>
-      <h>15</h>
+      <x>1127</x>
+      <y>721</y>
+      <w>112</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>_:ProjectOverviewTab_</panel_attributes>
     <additional_attributes/>
@@ -748,10 +748,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>970</x>
-      <y>650</y>
-      <w>15</w>
-      <h>20</h>
+      <x>1176</x>
+      <y>735</y>
+      <w>21</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;20.0</additional_attributes>
@@ -759,10 +759,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>970</x>
-      <y>660</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1176</x>
+      <y>749</y>
+      <w>14</w>
+      <h>14</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -771,10 +771,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1045</x>
-      <y>660</y>
-      <w>60</w>
-      <h>15</h>
+      <x>1309</x>
+      <y>749</y>
+      <w>84</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>_:ProjectOverview_</panel_attributes>
     <additional_attributes/>
@@ -782,22 +782,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>975</x>
-      <y>655</y>
-      <w>80</w>
-      <h>20</h>
+      <x>1183</x>
+      <y>742</y>
+      <w>140</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;.
 &lt;&lt;create&gt;&gt;(projectCtr)</panel_attributes>
-    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>180.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1070</x>
-      <y>670</y>
-      <w>15</w>
-      <h>20</h>
+      <x>1337</x>
+      <y>763</y>
+      <w>21</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;20.0</additional_attributes>
@@ -805,9 +805,125 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1070</x>
-      <y>680</y>
-      <w>10</w>
+      <x>1337</x>
+      <y>777</y>
+      <w>14</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1344</x>
+      <y>777</y>
+      <w>133</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;.
+&lt;&lt;create&gt;&gt;(customer)</panel_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1463</x>
+      <y>784</y>
+      <w>126</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>_:CustomerInformationBox_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1589</x>
+      <y>819</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>_:ProductsBox_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1687</x>
+      <y>854</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>_:ProjectDetails_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1344</x>
+      <y>812</y>
+      <w>259</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;.
+&lt;&lt;create&gt;&gt;(orderCtr)</panel_attributes>
+    <additional_attributes>350.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1344</x>
+      <y>847</y>
+      <w>357</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;.
+&lt;&lt;create&gt;&gt;(projectCtr)</panel_attributes>
+    <additional_attributes>490.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>714</y>
+      <w>609</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;.
+&lt;&lt;create&gt;&gt;(projectCtr)</panel_attributes>
+    <additional_attributes>850.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>119</x>
+      <y>854</y>
+      <w>1232</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+displays customer information, products, and project details</panel_attributes>
+    <additional_attributes>10.0;20.0;1740.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>112</x>
+      <y>868</y>
+      <w>21</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>112</x>
+      <y>889</y>
+      <w>14</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>
@@ -817,138 +933,22 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1075</x>
-      <y>680</y>
-      <w>75</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;.
-&lt;&lt;create&gt;&gt;(customer)</panel_attributes>
-    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>1140</x>
-      <y>685</y>
-      <w>70</w>
-      <h>15</h>
-    </coordinates>
-    <panel_attributes>_:CustomerInformationBox_</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>1230</x>
-      <y>710</y>
-      <w>70</w>
-      <h>15</h>
-    </coordinates>
-    <panel_attributes>_:ProductsBox_</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>1305</x>
-      <y>735</y>
-      <w>70</w>
-      <h>15</h>
-    </coordinates>
-    <panel_attributes>_:ProjectDetails_</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1075</x>
-      <y>705</y>
-      <w>165</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;.
-&lt;&lt;create&gt;&gt;(orderCtr)</panel_attributes>
-    <additional_attributes>310.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1075</x>
-      <y>730</y>
-      <w>240</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;.
-&lt;&lt;create&gt;&gt;(projectCtr)</panel_attributes>
-    <additional_attributes>460.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>500</x>
-      <y>635</y>
-      <w>455</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;.
-&lt;&lt;create&gt;&gt;(projectCtr)</panel_attributes>
-    <additional_attributes>890.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>230</x>
-      <y>735</y>
-      <w>850</w>
-      <h>20</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-displays customer information, products, and project details</panel_attributes>
-    <additional_attributes>10.0;20.0;1680.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>225</x>
-      <y>745</y>
-      <w>15</w>
-      <h>25</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>225</x>
-      <y>760</y>
-      <w>10</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>
-bg=yellow</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>230</x>
-      <y>760</y>
-      <w>850</w>
-      <h>20</h>
+      <x>119</x>
+      <y>889</y>
+      <w>1232</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 enters project information and clicks [save and create]</panel_attributes>
-    <additional_attributes>1680.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>1740.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1070</x>
-      <y>745</y>
-      <w>15</w>
-      <h>30</h>
+      <x>1337</x>
+      <y>868</y>
+      <w>21</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
@@ -956,10 +956,10 @@ enters project information and clicks [save and create]</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1070</x>
-      <y>765</y>
-      <w>10</w>
-      <h>30</h>
+      <x>1337</x>
+      <y>896</y>
+      <w>14</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -968,10 +968,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>315</x>
-      <y>310</y>
-      <w>15</w>
-      <h>480</h>
+      <x>259</x>
+      <y>259</y>
+      <w>21</w>
+      <h>672</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;940.0</additional_attributes>
@@ -979,10 +979,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>315</x>
-      <y>780</y>
-      <w>10</w>
-      <h>30</h>
+      <x>259</x>
+      <y>917</y>
+      <w>14</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>
 bg=yellow</panel_attributes>
@@ -991,25 +991,25 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>780</y>
-      <w>760</w>
-      <h>20</h>
+      <x>266</x>
+      <y>917</y>
+      <w>1085</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 project created</panel_attributes>
-    <additional_attributes>10.0;20.0;1500.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;1530.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>230</x>
-      <y>795</y>
-      <w>95</w>
-      <h>20</h>
+      <x>119</x>
+      <y>938</y>
+      <w>154</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 displays projectUI</panel_attributes>
-    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
   </element>
 </diagram>
