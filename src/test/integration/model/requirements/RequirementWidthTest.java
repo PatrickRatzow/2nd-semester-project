@@ -1,4 +1,4 @@
-package test.integration.model;
+package test.integration.model.requirements;
 
 import model.requirements.RequirementWidth;
 import org.junit.jupiter.api.BeforeEach;
