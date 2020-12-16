@@ -5,14 +5,14 @@ import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
 import model.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ProjectDaoMsSqlTest {
     private static DBConnection connection;
     private static ProjectDao dao;
@@ -23,6 +23,7 @@ public class ProjectDaoMsSqlTest {
         dao = connection.getDaoFactory().createProjectDao();
     }
 
+    @Order(1)
     @Test
     void testCanFindAllExpectedProjects() throws DataAccessException {
         // Arrange
@@ -34,7 +35,8 @@ public class ProjectDaoMsSqlTest {
         // Assert
         assertEquals(projects.size(), 4);
     }
-
+    
+    @Order(2)
     @Test
     void testCanFindById() throws DataAccessException {
         //Arrange
@@ -46,7 +48,8 @@ public class ProjectDaoMsSqlTest {
         //assert
         assertNotNull(project);
     }
-
+    
+    @Order(3)
     @Test
     void testCantFindByIdIfItDoesntExistInDatabase() throws DataAccessException {
         //Arrange
@@ -58,7 +61,8 @@ public class ProjectDaoMsSqlTest {
         //assert
         assertNull(project);
     }
-
+    
+    @Order(4)
     @Test
     void testCanFindByName() throws DataAccessException {
         //Arrange
@@ -71,7 +75,8 @@ public class ProjectDaoMsSqlTest {
         //assert
         assertEquals(projects.size(), 1);
     }
-
+    
+    @Order(5)
     @Test
     void testCantFindByNameIfItDoesntExistInDatabase() throws DataAccessException {
         //Arrange

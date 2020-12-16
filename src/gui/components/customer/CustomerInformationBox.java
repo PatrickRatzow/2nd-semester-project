@@ -12,8 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CustomerInformationBox extends BackgroundTitle {
-    private final JPanel panel;
-
     public CustomerInformationBox(Customer customer) {
         setBackground(Colors.PRIMARY.getColor());
         setTitle("Kunde");
@@ -23,8 +21,8 @@ public class CustomerInformationBox extends BackgroundTitle {
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         add(scrollPane);
-
-        panel = new JPanel();
+        
+        JPanel panel = new JPanel();
         panel.setOpaque(false);
         panel.setBorder(new EmptyBorder(0, 0, 0, 0));
         panel.setMinimumSize(new Dimension(400, 10));

@@ -69,7 +69,7 @@ public class ProjectTest {
 				String name = requirement.getName();
 				switch (name) {
 					case "Color":
-						requirement.setValueFromSQLValue("Roed");
+						requirement.setValueFromSQLValue("Rød");
 						break;
 					
 					case "Width":

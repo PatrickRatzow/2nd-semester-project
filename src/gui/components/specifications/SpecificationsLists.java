@@ -47,7 +47,7 @@ public class SpecificationsLists extends JPanel {
         add(chosenContainer, "cell 1 0,grow");
 
         JLabel titleChosen = new JLabel("Valgte specifikationer");
-        titleChosen.setFont(new Font("Tahoma", Font.BOLD, 15));
+        titleChosen.setFont(new Font("Segoe UI", Font.BOLD, 15));
         chosenContainer.add(titleChosen);
 
         JScrollPane listScrollPane = new JScrollPane();

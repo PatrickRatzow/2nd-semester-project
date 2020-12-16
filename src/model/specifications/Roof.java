@@ -18,11 +18,6 @@ public class Roof extends Specification {
     }
 
     @Override
-    public Specification clone() {
-        return new Roof();
-    }
-
-    @Override
     public String getId() {
         return "roof";
     }

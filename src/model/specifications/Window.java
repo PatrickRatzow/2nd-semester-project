@@ -22,11 +22,6 @@ public class Window extends Specification {
     }
 
     @Override
-    public Specification clone() {
-        return new Window();
-    }
-
-    @Override
     public String getId() {
         return "window";
     }

@@ -99,7 +99,7 @@ public class Customers extends Tab {
         boolean even = (rows.size() + 1) % 2 == 0;
         Row row = new Row(even);
         row.setTitleText(customer.getFirstName() + " " + customer.getLastName() + " (tlf. " + customer.getPhoneNumber() + ")");
-        row.setButtonText("Aaben");
+        row.setButtonText("Åben");
         addRowListener(customer, row);
 
         rows.put(customer, row);

@@ -39,9 +39,9 @@ public class SpecificationColumnValueFieldFactory {
 		checks.add(new ValueFieldCheck(RequirementColor.class, () -> {
 			SpecificationColumnColor field = new SpecificationColumnColor();
 			List<String> options = new LinkedList<>();
-			options.add("Roed");
-			options.add("Blaa");
-			options.add("Groen");
+			options.add("Rød");
+			options.add("Blå");
+			options.add("Grøn");
 			options.add("Lilla");
 			field.setOptions(options);
 			field.setValue(options.get(0));

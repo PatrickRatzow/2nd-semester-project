@@ -3,7 +3,7 @@ package model;
 import util.validation.Validatable;
 import util.validation.Validator;
 import util.validation.rules.EmptyValidationRule;
-import util.validation.rules.IntegerRangeValidationRule;
+import util.validation.rules.IntegerMinimumValidationRule;
 import util.validation.rules.ZipCodeValidationRule;
 
 public class Address implements Validatable {
@@ -26,8 +26,8 @@ public class Address implements Validatable {
     	Validator validator = new Validator();
         validator.addRule(new EmptyValidationRule(getCity(), "By er tom!"));
         validator.addRule(new EmptyValidationRule(getStreetName(), "Adresse er tom!"));
-        validator.addRule(new IntegerRangeValidationRule(getStreetNumber(),
-                "Addresse nummer er ugyldig. Skal v�re mellem 0-100000", 0, 100000));
+        validator.addRule(new IntegerMinimumValidationRule(getStreetNumber(),
+                "Adresse skal minimum være 0!", 0));
         validator.addRule(new ZipCodeValidationRule(getZipCode()));
         
         if (validator.hasErrors()) {

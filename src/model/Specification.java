@@ -10,7 +10,6 @@ import java.util.List;
  */
 public abstract class Specification implements Validatable {
     private List<Requirement> requirements;
-    public abstract Specification clone();
     public abstract String getId();
     public abstract String getName();
 
