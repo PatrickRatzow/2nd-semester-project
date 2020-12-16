@@ -32,7 +32,7 @@ public class EmployeeDaoMsSqlTest {
     @Test
     void testCanFindById() throws DataAccessException {
         // Arrange
-        Employee employee = null;
+        Employee employee;
         
         // Act
         employee = dao.findById(1);
@@ -44,7 +44,7 @@ public class EmployeeDaoMsSqlTest {
     @Test
     void testCannotFindById() throws DataAccessException {
         // Arrange
-        Employee employee = null;
+        Employee employee;
 
         // Act
         employee = dao.findById(10);

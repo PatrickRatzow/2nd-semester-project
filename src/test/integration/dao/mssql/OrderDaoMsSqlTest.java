@@ -26,7 +26,7 @@ public class OrderDaoMsSqlTest {
     @Test
     void testCanFindById() throws DataAccessException {
         // Arrange
-        Order order = null;
+        Order order;
 
         // Act
         order = dao.findById(1, true);
@@ -38,7 +38,7 @@ public class OrderDaoMsSqlTest {
     @Test
     void testCannotFindById() throws DataAccessException {
         // Arrange
-        Order order = null;
+        Order order;
 
         // Act
         order = dao.findById(1312312, true);
