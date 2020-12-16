@@ -107,9 +107,9 @@ public class Project implements Validatable {
 		validator.addRule(new EmptyValidationRule(name, "Projekt navn er tomt!"));
 		validator.addRule(new NotNullValidationRule<Price>(price, "Projektet har ikke nogen pris!"));
 		validator.addRule(new IntegerMinimumValidationRule(price.getAmount(), 
-				"Pris er for lavt! Skal v�re mindst 1", 1));
+				"Pris er for lavt! Skal være mindst 1", 1));
 		validator.addRule(new IntegerMinimumValidationRule(estimatedHours, 
-				"Estimerede timer er for lavt! Skal v�re mindst 1", 1));
+				"Estimerede timer er for lavt! Skal være mindst 1", 1));
 		validator.addRule(new NotNullValidationRule<ProjectStatus>(status, "Projekt status er ikke sat!"));
 		validator.addRule(new NotNullValidationRule<Customer>(customer, "Projektet har ikke nogen kunde tilknyttet!"));
 		validator.addRule(new NotNullValidationRule<Employee>(employee, 

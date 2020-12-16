@@ -1,7 +1,6 @@
 package controller;
 
 import dao.CustomerDao;
-import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
 import model.Address;
@@ -32,9 +31,10 @@ public class CustomerController {
     }
 
     public void getAll() {
-        new Thread(() -> {
+        DBManager.getInstance().getConnectionThread(conn -> {
             try {
-                List<Customer> customers = findAll();
+                CustomerDao dao = conn.getDaoFactory().createCustomerDao();
+                List<Customer> customers = dao.findAll();
                 onFindListeners.forEach(l -> l.accept(customers));
             } catch (DataAccessException e) {
                 onErrorListeners.forEach(l -> l.accept(new Exception("Noget gik galt, kan ikke finde all kunder")));
@@ -43,34 +43,15 @@ public class CustomerController {
     }
 
     public void getSearch(String search) {
-        new Thread(() -> {
+        DBManager.getInstance().getConnectionThread(conn -> {
             try {
-                List<Customer> customers = findByPhoneNumberOrEmail(search);
+                CustomerDao dao = conn.getDaoFactory().createCustomerDao();
+                List<Customer> customers = dao.findByPhoneNumberOrEmail(search, search);
                 onFindListeners.forEach(l -> l.accept(customers));
             } catch (DataAccessException e) {
-                onErrorListeners.forEach(l -> l.accept(new Exception("Noget gik galt, kan ikke s�ge i kunder")));
+                onErrorListeners.forEach(l -> l.accept(new Exception("Noget gik galt, kan ikke søge i kunder")));
             }
         }).start();
-    }
-
-    private List<Customer> findAll() throws DataAccessException {
-        final DBConnection connection = DBManager.getInstance().getPool().getConnection();
-        final CustomerDao dao = connection.getDaoFactory().createCustomerDao();
-        final List<Customer> customers = dao.findAll();
-
-        connection.release();
-
-        return customers;
-    }
-
-    private List<Customer> findByPhoneNumberOrEmail(String search) throws DataAccessException {
-        final DBConnection connection = DBManager.getInstance().getPool().getConnection();
-        final CustomerDao dao = connection.getDaoFactory().createCustomerDao();
-        final List<Customer> customers = dao.findByPhoneNumberOrEmail(search, search);
-
-        connection.release();
-
-        return customers;
     }
 
     public boolean setCustomerInformation(int id, String firstName, String lastName, String email, String phoneNumber,

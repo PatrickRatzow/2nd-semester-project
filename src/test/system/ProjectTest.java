@@ -117,7 +117,7 @@ public class ProjectTest {
 			customerLock.countDown();
 		});
 		// Give it 200ms to find & set before we continue
-		customerLock.await(200, TimeUnit.MILLISECONDS);
+		customerLock.await(300, TimeUnit.MILLISECONDS);
 		
 		// Step 2 out of 3. Specifications
 		CountDownLatch specificationsLock = new CountDownLatch(1);
@@ -127,7 +127,7 @@ public class ProjectTest {
 			specificationsLock.countDown();
 		});
 		// Give it 500ms to find & set before we continue
-		specificationsLock.await(400, TimeUnit.MILLISECONDS);
+		specificationsLock.await(600, TimeUnit.MILLISECONDS);
 		
 		// Step 3 out of 3. Set last details
 		CountDownLatch projectLock = new CountDownLatch(1);
@@ -144,7 +144,7 @@ public class ProjectTest {
 		});
 		projectController.save();
 		// Give it 200ms to find & set before we continue
-		projectLock.await(600, TimeUnit.MILLISECONDS);
+		projectLock.await(900, TimeUnit.MILLISECONDS);
 		
 		// Asserts
 		Project project = returnProject.get();
