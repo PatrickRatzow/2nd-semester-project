@@ -1,7 +1,6 @@
 package controller;
 
 import dao.ProjectDao;
-import datasource.DBConnection;
 import datasource.DBManager;
 import datasource.DataAccessException;
 import model.*;
@@ -103,16 +102,6 @@ public class ProjectController {
     	onSaveListeners.add(listener);
 	}
 	
-    private Project findById(int id) throws DataAccessException {
-        DBConnection connection = DBManager.getInstance().getPool().getConnection();
-        ProjectDao projectDao = connection.getDaoFactory().createProjectDao();
-        Project project = projectDao.findById(id, true);
-
-        connection.release();
-
-        return project;
-    }
-    
     public void save() throws Exception {
     	if (project == null) throw new IllegalArgumentException("Project is null!");
     	
@@ -158,9 +147,10 @@ public class ProjectController {
 	}
 	
     public void getFullProject(Project project) {
-    	new Thread(() -> {
+    	DBManager.getInstance().getConnectionThread(conn -> {
     		try {
-    			Project fullProject = findById(project.getId());
+				ProjectDao dao = conn.getDaoFactory().createProjectDao();
+    			Project fullProject = dao.findById(project.getId(), true);
     			onFindFullListeners.forEach(l -> l.accept(fullProject));
     		} catch (DataAccessException e) {
     			e.printStackTrace();
@@ -169,9 +159,10 @@ public class ProjectController {
     }
 
     public void getAll() {
-        new Thread(() -> {
+		DBManager.getInstance().getConnectionThread(conn -> {
             try {
-                List<Project> projects = findAll();
+            	ProjectDao dao = conn.getDaoFactory().createProjectDao();
+                List<Project> projects = dao.findAll(false);
                 onFindListeners.forEach(l -> l.accept(projects));
             } catch (DataAccessException e) {
                 e.printStackTrace();
@@ -180,33 +171,14 @@ public class ProjectController {
     }
 
     public void getSearchByName(String name) {
-        new Thread(() -> {
-            try {
-                List<Project> projects = findByName(name, false);
-                onFindListeners.forEach(l -> l.accept(projects));
-            } catch (DataAccessException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
-
-    private List<Project> findAll() throws DataAccessException {
-        DBConnection connection = DBManager.getInstance().getPool().getConnection();
-        ProjectDao projectDao = connection.getDaoFactory().createProjectDao();
-        List<Project> projects = projectDao.findAll(false);
-
-        connection.release();
-
-        return projects;
-    }
-
-    private List<Project> findByName(String name, boolean fullAssociation) throws DataAccessException {
-        DBConnection connection = DBManager.getInstance().getPool().getConnection();
-        ProjectDao projectDao = connection.getDaoFactory().createProjectDao();
-        List<Project> projects = projectDao.findByName(name, fullAssociation);
-
-        connection.release();
-
-        return projects;
+		DBManager.getInstance().getConnectionThread(conn -> {
+			try {
+				ProjectDao dao = conn.getDaoFactory().createProjectDao();
+				List<Project> projects = dao.findByName(name, false);
+				onFindListeners.forEach(l -> l.accept(projects));
+			} catch (DataAccessException e) {
+				e.printStackTrace();
+			}
+		}).start();
     }
 }

@@ -9,10 +9,7 @@ import datasource.DBManager;
 import datasource.DataAccessException;
 import model.Address;
 import model.Customer;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.MockedStatic;
 
@@ -56,7 +53,7 @@ public class CustomerControllerTest {
             String streetName = "Sofiendalsvej";
             String streetNumber = "60";
             String zipCode = "9200";
-            Customer customer = new Customer(   firstName, lastName, email, phoneNumber,
+            Customer customer = new Customer(firstName, lastName, email, phoneNumber,
                     new Address(streetName, Integer.parseInt(streetNumber), city, Integer.parseInt(zipCode)));
             AtomicReference<Customer> returnCustomer = new AtomicReference<>();
             
@@ -176,6 +173,7 @@ public class CustomerControllerTest {
         try (MockedStatic<DBManager> mocked = mockStatic(DBManager.class)) {
             // Arrange
             CountDownLatch lock = new CountDownLatch(1);
+            int id = 1;
             String firstName = "Allan";
             String lastName = "Jensen";
             String email = "email@email.xd";
@@ -184,13 +182,13 @@ public class CustomerControllerTest {
             String streetName = "Sofiendalsvej";
             String streetNumber = "60";
             String zipCode = "9200";
-            Customer customer = new Customer(   firstName, lastName, email, phoneNumber,
+            Customer customer = new Customer(id, firstName, lastName, email, phoneNumber,
                     new Address(streetName, Integer.parseInt(streetNumber), city, Integer.parseInt(zipCode)));
             AtomicReference<Customer> returnCustomer = new AtomicReference<>();
 
             List<Customer> customerList = new LinkedList<>();
             customerList.add(customer);
-
+    
             DBManager manager = mock(DBManager.class);
             mocked.when(DBManager::getInstance).thenReturn(manager);
             DBConnectionPool pool = mock(DBConnectionPool.class);
@@ -207,16 +205,15 @@ public class CustomerControllerTest {
             }));
 
             // Act
-            customerController.setCustomerInformation(firstName, lastName, email, phoneNumber, city, streetName,
-                    streetNumber, zipCode);
             customerController.addFindListener(customers -> {
                 returnCustomer.set(customers.iterator().next());
 
                 lock.countDown();
             });
+            customerController.addErrorListener(Assertions::fail);
             customerController.getAll();
 
-            lock.await(100, TimeUnit.MILLISECONDS);
+            lock.await(200, TimeUnit.MILLISECONDS);
 
             // Assert
             assertNotNull(returnCustomer.get());
