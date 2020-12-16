@@ -104,7 +104,7 @@ public class CustomerControllerTest {
         String streetName = "Sofiendalsvej";
         String streetNumber = "60";
         String zipCode = "9200";
-        boolean success; 
+        boolean success;
         
         // Act
         success = customerController.setCustomerInformation(firstName, lastName, email, phoneNumber, city, streetName,
