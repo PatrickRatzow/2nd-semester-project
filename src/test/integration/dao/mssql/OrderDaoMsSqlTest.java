@@ -24,7 +24,7 @@ public class OrderDaoMsSqlTest {
     }
 
     @Test
-    void canFindById() throws DataAccessException {
+    void testCanFindById() throws DataAccessException {
         // Arrange
         Order order = null;
 
@@ -36,7 +36,7 @@ public class OrderDaoMsSqlTest {
     }
 
     @Test
-    void cannotFindById() throws DataAccessException {
+    void testCannotFindById() throws DataAccessException {
         // Arrange
         Order order = null;
 

@@ -30,7 +30,7 @@ public class EmployeeDaoMsSqlTest {
     }
     
     @Test
-    void canFindById() throws DataAccessException {
+    void testCanFindById() throws DataAccessException {
         // Arrange
         Employee employee = null;
         
@@ -42,7 +42,7 @@ public class EmployeeDaoMsSqlTest {
     }
 
     @Test
-    void cannotFindById() throws DataAccessException {
+    void testCannotFindById() throws DataAccessException {
         // Arrange
         Employee employee = null;
 
