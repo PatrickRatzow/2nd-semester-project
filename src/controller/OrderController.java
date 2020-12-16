@@ -37,7 +37,8 @@ public class OrderController {
     public void addProduct(Product product, int quantity, String displayName) {
         if (product == null) throw new IllegalArgumentException("Product was null");
         if (quantity <= 0) throw new IllegalArgumentException("You need to add at least 1 of this product");
-
+        if (displayName.isEmpty()) throw new IllegalArgumentException("Display name cannot be empty");
+        
         if (order == null) {
             order = new Order();
         }
