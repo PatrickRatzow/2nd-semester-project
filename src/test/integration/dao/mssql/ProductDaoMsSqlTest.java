@@ -33,7 +33,7 @@ public class ProductDaoMsSqlTest {
 			String name = requirement.getName();
 			switch(name) {
 				case "Color":
-					requirement.setValueFromSQLValue("Rød");
+					requirement.setValueFromSQLValue("Roed");
 					break;
 					
 				case "Width":

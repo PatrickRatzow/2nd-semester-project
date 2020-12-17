@@ -10,9 +10,10 @@ CREATE PROCEDURE UpdateCustomer
     @PersonId INT
 AS
     EXEC InsertIgnoreAddress @StreetName, @StreetNumber,@ZipCode, @City;
-    EXEC UpdatePerson @FirstName, @LastName,@PersonId;
     UPDATE customer
-    SET email = @Email,
+    SET first_name = @FirstName,
+        last_name = @LastName,
+        email = @Email,
         phone_number = @PhoneNo,
         street_name = @StreetName,
         zip_code = @ZipCode,

@@ -33,7 +33,7 @@ public class CustomerDaoMsSqlTest {
     @Test
     void testCanFindById() throws DataAccessException {
         // Arrange
-        int id = 3;
+        int id = 1;
         Customer customer;
 
         // Act
@@ -59,7 +59,7 @@ public class CustomerDaoMsSqlTest {
     @Test
     void testCanFindByPhoneNumber() throws DataAccessException {
         // Arrange
-        String phoneNumber = "44332211";
+        String phoneNumber = "11223344";
         List<Customer> customers;
 
         // Act
@@ -100,7 +100,7 @@ public class CustomerDaoMsSqlTest {
     @Test
     void testCanUpdateExistingCustomer() throws DataAccessException {
         // Arrange
-        int id = 3;
+        int id = 2;
         Address address = new Address("Testing", 1, "Test", 1);
         Customer customer = new Customer(id, "Test", "Test", "test@ucn.dk",
                 "11111111", address);

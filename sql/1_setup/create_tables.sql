@@ -19,13 +19,6 @@ CREATE TABLE address (
     FOREIGN KEY(street_name, zip_code) REFERENCES street(street_name, zip_code)
 )
 
-CREATE TABLE person (
-    id INT IDENTITY(1, 1),
-    first_name NVARCHAR(127) NOT NULL,
-    last_name NVARCHAR(127) NOT NULL,
-    PRIMARY KEY(id)
-);
-
 CREATE TABLE employee_role (
     id INT IDENTITY(1, 1),
     name NVARCHAR(255),
@@ -33,22 +26,24 @@ CREATE TABLE employee_role (
 )
 
 CREATE TABLE employee (
-    id INT,
+    id INT IDENTITY(1, 1),
+    first_name NVARCHAR(127) NOT NULL,
+    last_name NVARCHAR(127) NOT NULL,
     role_id INT NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(id) REFERENCES person(id),
     FOREIGN KEY(role_id) REFERENCES employee_role
 );
 
 CREATE TABLE customer (
-    id INT,
+    id INT IDENTITY(1, 1),
+    first_name NVARCHAR(127) NOT NULL,
+    last_name NVARCHAR(127) NOT NULL,
     email NVARCHAR(320) NOT NULL,
     phone_number NVARCHAR(50) NOT NULL,
     street_name NVARCHAR(255) NOT NULL,
     zip_code INT NOT NULL,
     street_number INT NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(id) REFERENCES person(id),
     FOREIGN KEY(street_name, zip_code, street_number) REFERENCES address(street_name, zip_code, street_number)
 );
 

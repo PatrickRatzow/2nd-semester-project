@@ -69,7 +69,7 @@ public class ProjectTest {
 				String name = requirement.getName();
 				switch (name) {
 					case "Color":
-						requirement.setValueFromSQLValue("Rød");
+						requirement.setValueFromSQLValue("Roed");
 						break;
 					
 					case "Width":
@@ -107,10 +107,12 @@ public class ProjectTest {
 		ProjectStatus status = ProjectStatus.ON_HOLD;
 		String customerPhoneNumber = "11223344";
 		AtomicReference<Project> returnProject = new AtomicReference<>();
+		Project project = new Project();
+		project.setOrder(new Order());
 		
 		// Step 1 out of 3. Find & set the customer
 		CountDownLatch customerLock = new CountDownLatch(1);
-		ProjectController projectController = new ProjectController();
+		ProjectController projectController = new ProjectController(project);
 		findCustomer(customerPhoneNumber, customer -> {
 			projectController.setCustomer(customer);
 			
@@ -137,8 +139,8 @@ public class ProjectTest {
 		projectController.setLeadEmployee(employee);
 		projectController.setStatus(status);
 		// At last save
-		projectController.addSaveListener(project -> {
-			returnProject.set(project);
+		projectController.addSaveListener(p -> {
+			returnProject.set(p);
 			
 			projectLock.countDown();
 		});
@@ -147,7 +149,7 @@ public class ProjectTest {
 		projectLock.await(900, TimeUnit.MILLISECONDS);
 		
 		// Asserts
-		Project project = returnProject.get();
+		project = returnProject.get();
 		assertNotNull(project);
 		assertNotNull(project.getOrder());
 		assertNotNull(project.getCustomer());
