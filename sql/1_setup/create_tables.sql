@@ -1,29 +1,50 @@
 CREATE TABLE city (
-    zip_code INT,
+    id INT IDENTITY(1, 1),
     name NVARCHAR(255),
-    PRIMARY KEY(zip_code)
+    PRIMARY KEY(id)
 );
 
+CREATE TABLE city_zip (
+    id INT IDENTITY(1, 1),
+    zip_code INT NOT NULL,
+    city_id INT NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (zip_code, city_id),
+    FOREIGN KEY (city_id) REFERENCES city(id)
+)
+
 CREATE TABLE street (
-    street_name NVARCHAR(255),
-    zip_code INT,
-    PRIMARY KEY(street_name, zip_code),
-    FOREIGN KEY(zip_code) REFERENCES city
+    id INT IDENTITY(1, 1),
+    name NVARCHAR(255) NOT NULL,
+    PRIMARY KEY(id),
+    UNIQUE (name)
+);
+
+CREATE TABLE street_number (
+    id INT IDENTITY(1, 1),
+    street_id INT NOT NULL,
+    street_number INT NOT NULL,
+    PRIMARY KEY(id),
+    UNIQUE (street_id, street_number),
+    FOREIGN KEY (street_id) REFERENCES street(id)
 );
 
 CREATE TABLE address (
-    street_name NVARCHAR(255),
-    zip_code INT,
-    street_number INT,
-    PRIMARY KEY(street_name, zip_code, street_number),
-    FOREIGN KEY(street_name, zip_code) REFERENCES street(street_name, zip_code)
-)
+    id INT IDENTITY(1, 1),
+    street_number_id INT NOT NULL,
+    city_zip_id INT NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (street_number_id, city_zip_id),
+    FOREIGN KEY (street_number_id) REFERENCES street_number(id),
+    FOREIGN KEY (city_zip_id) REFERENCES city_zip(id)
+);
+
 
 CREATE TABLE employee_role (
     id INT IDENTITY(1, 1),
     name NVARCHAR(255),
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE employee (
     id INT IDENTITY(1, 1),
@@ -40,11 +61,9 @@ CREATE TABLE customer (
     last_name NVARCHAR(127) NOT NULL,
     email NVARCHAR(320) NOT NULL,
     phone_number NVARCHAR(50) NOT NULL,
-    street_name NVARCHAR(255) NOT NULL,
-    zip_code INT NOT NULL,
-    street_number INT NOT NULL,
+    address_id INT NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(street_name, zip_code, street_number) REFERENCES address(street_name, zip_code, street_number)
+    FOREIGN KEY(address_id) REFERENCES address(id)
 );
 
 CREATE TABLE project (

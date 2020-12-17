@@ -1,27 +1,50 @@
-CREATE PROCEDURE InsertIgnoreAddress
+CREATE PROCEDURE InsertAndGetAddress
     @StreetName NVARCHAR(255),
     @StreetNumber INT,
     @ZipCode INT,
-    @CityName NVARCHAR(255)
+    @CityName NVARCHAR(255),
+    @AddressId INT OUT
 AS
     BEGIN TRANSACTION;
-        IF NOT EXISTS (SELECT * FROM city WHERE zip_code = @ZipCode)
+        DECLARE @CityId INT = (SELECT id FROM city WHERE name = @CityName)
+        IF @CityId IS NULL
         BEGIN
-            INSERT INTO city(zip_code, name)
-            VALUES (@ZipCode, @CityName);
+            INSERT INTO city(name)
+            VALUES (@CityName);
+            SET @CityId = @@IDENTITY
         END;
 
-        IF NOT EXISTS (SELECT * FROM street WHERE street_name = @StreetName AND zip_code = @ZipCode)
+        DECLARE @CityZipId INT = (SELECT id FROM city_zip WHERE zip_code = @ZipCode AND city_id = @CityId)
+        IF @CityZipId IS NULL
         BEGIN
-            INSERT INTO street(street_name, zip_code)
-            VALUES (@StreetName, @ZipCode);
+            INSERT INTO city_zip(zip_code, city_id)
+            VALUES (@ZipCode, @CityId);
+            SET @CityZipId = @@IDENTITY
         END;
 
-        IF NOT EXISTS (SELECT * FROM address WHERE street_name = @StreetName AND zip_code = @ZipCode
-                                               AND street_number = @StreetNumber)
+        DECLARE @StreetId INT = (SELECT id FROM street WHERE name = @StreetName)
+        IF @StreetId IS NULL
         BEGIN
-            INSERT INTO address(street_name, zip_code, street_number)
-            VALUES (@StreetName, @ZipCode, @StreetNumber)
-        END
+            INSERT INTO street(name)
+            VALUES (@StreetName);
+            SET @StreetId = @@IDENTITY
+        END;
+
+        DECLARE @StreetNumberId INT = (SELECT id FROM street_number WHERE street_number = @StreetNumber
+                                                                      AND street_id = @StreetId)
+        IF @StreetNumberId IS NULL
+        BEGIN
+            INSERT INTO street_number(street_id, street_number)
+            VALUES (@StreetId, @StreetNumber);
+            SET @StreetNumberId = @@IDENTITY
+        END;
+
+        SET @AddressId = (SELECT id FROM address WHERE street_number_id = @StreetNumberId AND city_zip_id = @CityZipId)
+        IF @AddressId IS NULL
+        BEGIN
+            INSERT INTO address(street_number_id, city_zip_id)
+            VALUES (@StreetNumberId, @CityZipId);
+            SET @AddressId = @@IDENTITY
+        END;
     COMMIT TRANSACTION;
 ;
