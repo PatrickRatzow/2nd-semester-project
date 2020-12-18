@@ -104,7 +104,7 @@ specificationUI</panel_attributes>
       <h>28</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-saveSpecification(specification)</panel_attributes>
+saveSpecification(requirement)</panel_attributes>
     <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
