@@ -41,7 +41,7 @@ public class SpecificationsTest {
 		AtomicReference<OrderLine> orderLine = new AtomicReference<>();
 		Stack<String> errors = new Stack<>();
 		SpecificationsController specificationsController = new SpecificationsController();
-		List<String> requirementNames = Arrays.asList("Color", "Width", "Height");
+		List<String> requirementIds = Arrays.asList("color", "width", "height");
 		
 		// Get all specifications
 		specificationsController.addFindListener(specifications -> {
@@ -50,17 +50,17 @@ public class SpecificationsTest {
 			specificationController.setResultAmount(resultAmount);
 			List<Requirement> requirementsTemp = specificationController.getRequirements();
 			for (Requirement requirement : requirementsTemp) {
-				String name = requirement.getName();
-				switch (name) {
-					case "Color":
+				String id = requirement.getId();
+				switch(id) {
+					case "color":
 						requirement.setValueFromSQLValue("Roed");
 						break;
-						
-					case "Width":
+					
+					case "width":
 						requirement.setValueFromSQLValue("150");
 						break;
-						
-					case "Height":
+					
+					case "height":
 						requirement.setValueFromSQLValue("100");
 						break;
 				}
@@ -94,9 +94,9 @@ public class SpecificationsTest {
 		
 		// Check that the requirements on the specifications are the needed ones
 		assertTrue(requirements.get().stream()
-				.map(Requirement::getName)
+				.map(Requirement::getId)
 				.collect(Collectors.toList())
-				.containsAll(requirementNames));
+				.containsAll(requirementIds));
 		// Make sure that there are 3 requirements
 		assertEquals(requirements.get().size(), 3);
 		// Make sure that orderLine isn't null
@@ -107,7 +107,7 @@ public class SpecificationsTest {
 		assertTrue(orderLine.get().getProduct().getFields().size() >= 3);
 		// Make sure these are the fields we think they are
 		orderLine.get().getProduct().getFields().forEach((key, obj) -> {
-			assertTrue(requirementNames.stream().anyMatch(name -> name.equalsIgnoreCase(key)));
+			assertTrue(requirementIds.stream().anyMatch(name -> name.equalsIgnoreCase(key)));
 		});
 	}
 }

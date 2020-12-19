@@ -3,7 +3,7 @@ package controller;
 import model.Requirement;
 import model.Specification;
 import util.validation.Validator;
-import util.validation.rules.EmptyValidationRule;
+import util.validation.rules.StringNotEmptyValidationRule;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class SpecificationController {
     
     public void save() throws Exception {
         Validator validator = new Validator();
-        validator.addRule(new EmptyValidationRule(displayName, "Navn må ikke være tom!"));
+        validator.addRule(new StringNotEmptyValidationRule(displayName, "Navn må ikke være tom!"));
         validator.addValidatable(specification);
         
         if (validator.hasErrors()) {

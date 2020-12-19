@@ -2,7 +2,7 @@ package model;
 
 import util.validation.Validatable;
 import util.validation.Validator;
-import util.validation.rules.EmptyValidationRule;
+import util.validation.rules.StringNotEmptyValidationRule;
 
 public abstract class Person implements Validatable {
     private int id;
@@ -51,8 +51,8 @@ public abstract class Person implements Validatable {
     @Override
     public void validate() throws Exception {
     	Validator validator = new Validator();
-        validator.addRule(new EmptyValidationRule(getFirstName(), "Fornavn er tomt!"));
-        validator.addRule(new EmptyValidationRule(getLastName(), "Efternavn er tomt!"));
+        validator.addRule(new StringNotEmptyValidationRule(getFirstName(), "Fornavn er tomt!"));
+        validator.addRule(new StringNotEmptyValidationRule(getLastName(), "Efternavn er tomt!"));
         
         if (validator.hasErrors()) {
         	throw validator.getCompositeException();
