@@ -12,7 +12,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.MockedStatic;
 
 import java.util.LinkedList;
@@ -27,7 +26,6 @@ import static org.mockito.Mockito.*;
 
 @Tag("UnitTest")
 public class ProjectControllerTest {
-	@InjectMocks
 	private ProjectController projectController;
 	private ProjectDao dao;
 	private DBConnection connection;

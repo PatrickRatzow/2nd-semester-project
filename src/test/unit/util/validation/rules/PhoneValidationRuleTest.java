@@ -12,7 +12,7 @@ public class PhoneValidationRuleTest {
 		String input = "333";
 		PhoneValidationRule rule = new PhoneValidationRule(input);
 		
-		// Act
+		// Act + Assert
 		rule.validate();
 	}
 	
@@ -32,7 +32,7 @@ public class PhoneValidationRuleTest {
 		String input = "88888888";
 		PhoneValidationRule rule = new PhoneValidationRule(input);
 		
-		// Act
+		// Act + Assert
 		rule.validate();
 	}
 	
@@ -40,6 +40,46 @@ public class PhoneValidationRuleTest {
 	void testFailsIfPhoneNumberIs9Characters() {
 		// Arrange
 		String input = "999999999";
+		PhoneValidationRule rule = new PhoneValidationRule(input);
+		
+		// Assert + Act
+		assertThrows(Exception.class, rule::validate);
+	}
+	
+	@Test
+	void testFailsIfPhoneNumberContainsNonNumbers() {
+		// Arrange
+		String input = "99test99";
+		PhoneValidationRule rule = new PhoneValidationRule(input);
+		
+		// Assert + Act
+		assertThrows(Exception.class, rule::validate);
+	}
+	
+	@Test
+	void testFailsIfNegativeNumbers() {
+		// Arrange
+		String input = "-9999999";
+		PhoneValidationRule rule = new PhoneValidationRule(input);
+		
+		// Assert + Act
+		assertThrows(Exception.class, rule::validate);
+	}
+	
+	@Test
+	void testSucceedsIfContainsAValidPhoneNumberWithSpaces() throws Exception {
+		// Arrange
+		String input = "45 45 45 45";
+		PhoneValidationRule rule = new PhoneValidationRule(input);
+		
+		// Act + Assert
+		rule.validate();
+	}
+	
+	@Test
+	void testFailsIfContainsAnInvalidPhoneNumberWithSpaces() {
+		// Arrange
+		String input = "232323 233";
 		PhoneValidationRule rule = new PhoneValidationRule(input);
 		
 		// Assert + Act

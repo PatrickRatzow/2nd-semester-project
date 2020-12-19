@@ -7,7 +7,7 @@ import util.validation.rules.EmptyValidationRule;
 public class RequirementColor extends Requirement<String> {
     @Override
     public String getName() {
-        return "Color";
+        return "Farve";
     }
 
     @Override

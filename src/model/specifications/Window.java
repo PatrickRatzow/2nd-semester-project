@@ -28,6 +28,6 @@ public class Window extends Specification {
 
     @Override
     public String getName() {
-        return "Window";
+        return "Vindue";
     }
 }

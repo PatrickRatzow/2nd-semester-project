@@ -8,7 +8,6 @@ import model.Product;
 import model.Requirement;
 import model.Specification;
 
-import java.nio.charset.Charset;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -108,7 +107,7 @@ public class ProductDaoMsSql implements ProductDao {
             int i = 0;
             ps.setString(++i, specificationId);
             for (String value : parameters) {
-                ps.setString(++i, new String(value.getBytes(), Charset.forName("UTF-8")));
+                ps.setString(++i, value);
             }
             ps.setInt(++i, requirements.size());
             ResultSet rs = ps.executeQuery();

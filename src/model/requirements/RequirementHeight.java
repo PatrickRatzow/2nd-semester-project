@@ -9,7 +9,7 @@ import util.validation.rules.IntegerRangeValidationRule;
 public class RequirementHeight extends Requirement<Integer> {
     @Override
     public String getName() {
-        return "Height";
+        return "Højde";
     }
 
     @Override

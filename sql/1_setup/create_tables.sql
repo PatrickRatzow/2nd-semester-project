@@ -108,7 +108,7 @@ CREATE TABLE product_price (
     start_time DATETIME DEFAULT GETUTCDATE(),
     end_time DATETIME DEFAULT DATEFROMPARTS(9999, 12, 30),
     price INT NOT NULL,
-    PRIMARY KEY(product_id, start_time),
+    PRIMARY KEY(product_id, start_time, end_time),
     FOREIGN KEY(product_id) REFERENCES product(id)
 );
 

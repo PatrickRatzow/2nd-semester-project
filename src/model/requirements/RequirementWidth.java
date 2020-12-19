@@ -9,7 +9,7 @@ import util.validation.rules.IntegerRangeValidationRule;
 public class RequirementWidth extends Requirement<Integer> {
     @Override
     public String getName() {
-        return "Width";
+        return "Bredde";
     }
 
     @Override
