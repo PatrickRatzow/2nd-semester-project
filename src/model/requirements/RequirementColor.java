@@ -2,12 +2,12 @@ package model.requirements;
 
 import model.Requirement;
 import util.validation.Validator;
-import util.validation.rules.EmptyValidationRule;
+import util.validation.rules.StringNotEmptyValidationRule;
 
 public class RequirementColor extends Requirement<String> {
     @Override
     public String getName() {
-        return "Color";
+        return "Farve";
     }
 
     @Override
@@ -33,7 +33,7 @@ public class RequirementColor extends Requirement<String> {
     @Override
     public void validate() throws Exception {
         Validator validator = new Validator();
-        validator.addRule(new EmptyValidationRule(getSQLValue(), getName() + " må ikke være tom!"));
+        validator.addRule(new StringNotEmptyValidationRule(getSQLValue(), getName() + " må ikke være tom!"));
         
         if (validator.hasErrors()) {
             throw validator.getCompositeException();

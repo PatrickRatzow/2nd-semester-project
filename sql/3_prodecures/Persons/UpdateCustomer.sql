@@ -9,13 +9,13 @@ CREATE PROCEDURE UpdateCustomer
     @StreetNumber INT,
     @PersonId INT
 AS
-    EXEC InsertIgnoreAddress @StreetName, @StreetNumber,@ZipCode, @City;
-    EXEC UpdatePerson @FirstName, @LastName,@PersonId;
+    DECLARE @AddressId INT;
+    EXEC InsertAndGetAddress @StreetName, @StreetNumber,@ZipCode, @City, @AddressId OUT;
     UPDATE customer
-    SET email = @Email,
+    SET first_name = @FirstName,
+        last_name = @LastName,
+        email = @Email,
         phone_number = @PhoneNo,
-        street_name = @StreetName,
-        zip_code = @ZipCode,
-        street_number = @StreetNumber
+        address_id = @AddressId
     WHERE id = @PersonId
 ;

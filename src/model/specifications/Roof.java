@@ -24,6 +24,6 @@ public class Roof extends Specification {
 
     @Override
     public String getName() {
-        return "Roof";
+        return "Tag";
     }
 }

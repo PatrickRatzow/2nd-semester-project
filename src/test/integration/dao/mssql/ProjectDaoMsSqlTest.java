@@ -99,7 +99,7 @@ public class ProjectDaoMsSqlTest {
         project.setStatus(ProjectStatus.ON_HOLD);
         project.setName("bacon pancakes");
         project.setPrice(new Price(98000));
-        project.setCustomer(new Customer(3, "", "", "", "",
+        project.setCustomer(new Customer(1, "", "", "", "",
                 new Address("", 4, "", 5)));
         Project returnProject;
 

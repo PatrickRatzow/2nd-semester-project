@@ -125,6 +125,8 @@ public class ProjectDaoMsSql implements ProjectDao {
                 project.setOrder(order);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+            
             throw new DataAccessException("Unable to create project");
         }
         

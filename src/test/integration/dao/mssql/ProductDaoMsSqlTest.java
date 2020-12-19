@@ -30,17 +30,17 @@ public class ProductDaoMsSqlTest {
 		Product product;
 		Specification spec = new Window();
 		for (Requirement requirement : spec.getRequirements()) {
-			String name = requirement.getName();
-			switch(name) {
-				case "Color":
-					requirement.setValueFromSQLValue("Rød");
+			String id = requirement.getId();
+			switch(id) {
+				case "color":
+					requirement.setValueFromSQLValue("Roed");
 					break;
 					
-				case "Width":
+				case "width":
 					requirement.setValueFromSQLValue("150");
 					break;
 					
-				case "Height":
+				case "height":
 					requirement.setValueFromSQLValue("100");
 					break;
 			}

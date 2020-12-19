@@ -2,9 +2,9 @@ package model;
 
 import util.validation.Validatable;
 import util.validation.Validator;
-import util.validation.rules.EmptyValidationRule;
 import util.validation.rules.IntegerMinimumValidationRule;
 import util.validation.rules.NotNullValidationRule;
+import util.validation.rules.StringNotEmptyValidationRule;
 
 public class Project implements Validatable {
     private int id;
@@ -104,7 +104,7 @@ public class Project implements Validatable {
 	@Override
 	public void validate() throws Exception {
 		Validator validator = new Validator();
-		validator.addRule(new EmptyValidationRule(name, "Projekt navn er tomt!"));
+		validator.addRule(new StringNotEmptyValidationRule(name, "Projekt navn er tomt!"));
 		validator.addRule(new NotNullValidationRule<Price>(price, "Projektet har ikke nogen pris!"));
 		validator.addRule(new IntegerMinimumValidationRule(price.getAmount(), 
 				"Pris er for lavt! Skal være mindst 1", 1));

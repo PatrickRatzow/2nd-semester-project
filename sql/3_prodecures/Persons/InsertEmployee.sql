@@ -4,13 +4,13 @@ CREATE PROCEDURE InsertEmployee
     @Role NVARCHAR(255),
     @PersonId INT = NULL OUTPUT
 AS
-    EXEC InsertPerson @FirstName, @LastName,@PersonId OUT;
     IF NOT EXISTS (SELECT * FROM employee_role WHERE name = @Role)
         BEGIN
             INSERT INTO employee_role(name)
             VALUES (@Role)
         END
     ;
-    INSERT INTO employee(id, role_id)
-    VALUES (@PersonId, (SELECT id FROM employee_role WHERE name = @Role))
+    INSERT INTO employee(first_name, last_name, role_id)
+    VALUES (@FirstName, @LastName, (SELECT id FROM employee_role WHERE name = @Role));
+    SET @PersonId = @@IDENTITY
 ;

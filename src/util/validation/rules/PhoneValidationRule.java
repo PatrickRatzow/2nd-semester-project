@@ -2,7 +2,11 @@ package util.validation.rules;
 
 import util.validation.ValidationRule;
 
+import java.util.regex.Pattern;
+
 public class PhoneValidationRule extends ValidationRule<String> {
+	private static final Pattern matchPattern = Pattern.compile("[0-9]{3,8}");
+	
 	public PhoneValidationRule(String rule) {
 		super(rule);
 	}
@@ -14,12 +18,11 @@ public class PhoneValidationRule extends ValidationRule<String> {
 	@Override
 	public void validate() throws Exception {
 		String rule = getRule();
-		int length = rule.length();
-		if (length < 3) {
-			throw createException("Telefonnummeret er for kort! Mindst 3 tal");
-		}
-		if (length > 8) {
-			throw createException("Telefonnummeret er for langt! Maks 8 tal");
+		// Trim all spaces
+		rule = rule.replaceAll("\\s", "");
+		
+		if (!matchPattern.matcher(rule).matches()) {
+			throw createException("Ikke gyldig telefonnummer! Telefonnummer skal være tal, og 3-8 tal lange!");
 		}
 	}
 }

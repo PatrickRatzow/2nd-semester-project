@@ -12,7 +12,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.MockedStatic;
 
 import java.util.LinkedList;
@@ -27,7 +26,6 @@ import static org.mockito.Mockito.*;
 
 @Tag("UnitTest")
 public class ProjectControllerTest {
-	@InjectMocks
 	private ProjectController projectController;
 	private ProjectDao dao;
 	private DBConnection connection;
@@ -131,8 +129,8 @@ public class ProjectControllerTest {
 			CountDownLatch lock = new CountDownLatch(1);
 			boolean fullAssociation = false;
 			List<Project> projects = new LinkedList<>();
-			projects.add(new Project(1, ""));
-			projects.add(new Project(2, ""));
+			projects.add(new Project(1, "Test 1"));
+			projects.add(new Project(2, "Test 2"));
 			AtomicReference<List<Project>> returnProjects = new AtomicReference<>();
 			
 			DBManager manager = mock(DBManager.class);
