@@ -5,7 +5,7 @@
     <id>UMLActor</id>
     <coordinates>
       <x>396</x>
-      <y>240</y>
+      <y>216</y>
       <w>96</w>
       <h>132</h>
     </coordinates>
@@ -16,7 +16,7 @@
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>348</y>
+      <y>324</y>
       <w>36</w>
       <h>432</h>
     </coordinates>
@@ -27,7 +27,7 @@
     <id>Relation</id>
     <coordinates>
       <x>972</x>
-      <y>348</y>
+      <y>324</y>
       <w>36</w>
       <h>432</h>
     </coordinates>
@@ -38,7 +38,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>924</x>
-      <y>324</y>
+      <y>300</y>
       <w>120</w>
       <h>36</h>
     </coordinates>
@@ -49,7 +49,7 @@
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>432</y>
+      <y>408</y>
       <w>576</w>
       <h>48</h>
     </coordinates>
@@ -61,19 +61,19 @@ addSpecification(specification)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>492</y>
+      <y>468</y>
       <w>576</w>
       <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-specificationUI</panel_attributes>
+requirementsUI</panel_attributes>
     <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLFrame</id>
     <coordinates>
       <x>348</x>
-      <y>408</y>
+      <y>384</y>
       <w>720</w>
       <h>264</h>
     </coordinates>
@@ -84,19 +84,19 @@ specificationUI</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>552</y>
+      <y>528</y>
       <w>576</w>
       <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-saveSpecification(specification)</panel_attributes>
+saveSpecification(requirement)</panel_attributes>
     <additional_attributes>460.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>612</y>
+      <y>588</y>
       <w>576</w>
       <h>48</h>
     </coordinates>
@@ -108,19 +108,19 @@ specificationsUI</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>684</y>
+      <y>660</y>
       <w>576</w>
       <h>48</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-calculateCheapestProducts()</panel_attributes>
+calculateCheapestProducts(specifications)</panel_attributes>
     <additional_attributes>10.0;20.0;460.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>432</x>
-      <y>732</y>
+      <y>708</y>
       <w>576</w>
       <h>48</h>
     </coordinates>
