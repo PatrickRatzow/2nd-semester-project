@@ -12,7 +12,7 @@ public class PhoneValidationRuleTest {
 		String input = "333";
 		PhoneValidationRule rule = new PhoneValidationRule(input);
 		
-		// Act + Assert
+		// Act
 		rule.validate();
 	}
 	
@@ -32,7 +32,7 @@ public class PhoneValidationRuleTest {
 		String input = "88888888";
 		PhoneValidationRule rule = new PhoneValidationRule(input);
 		
-		// Act + Assert
+		// Act
 		rule.validate();
 	}
 	
@@ -42,7 +42,7 @@ public class PhoneValidationRuleTest {
 		String input = "999999999";
 		PhoneValidationRule rule = new PhoneValidationRule(input);
 		
-		// Assert + Act
+		// Assert
 		assertThrows(Exception.class, rule::validate);
 	}
 	
@@ -72,7 +72,7 @@ public class PhoneValidationRuleTest {
 		String input = "45 45 45 45";
 		PhoneValidationRule rule = new PhoneValidationRule(input);
 		
-		// Act + Assert
+		// Act
 		rule.validate();
 	}
 	

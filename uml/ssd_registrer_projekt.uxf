@@ -4,8 +4,8 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>730</x>
-      <y>60</y>
+      <x>950</x>
+      <y>230</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -15,8 +15,8 @@
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>910</x>
-      <y>0</y>
+      <x>1130</x>
+      <y>170</y>
       <w>100</w>
       <h>110</h>
     </coordinates>
@@ -26,8 +26,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>140</y>
+      <x>400</x>
+      <y>310</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
@@ -38,20 +38,20 @@ openCreateCustomerUI()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>190</y>
+      <x>400</x>
+      <y>360</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-createCustomerUI</panel_attributes>
+create customer UI</panel_attributes>
     <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>250</y>
+      <x>400</x>
+      <y>420</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
@@ -62,20 +62,20 @@ createCustomer(fName, lName, streetName, streetNumber, zipCode, city, phoneNo, e
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>300</y>
+      <x>400</x>
+      <y>470</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-specificationsUI</panel_attributes>
+specifications UI</panel_attributes>
     <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>360</y>
+      <x>400</x>
+      <y>530</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
@@ -86,20 +86,20 @@ addSpecification(specification)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>410</y>
+      <x>400</x>
+      <y>580</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-requirementsUI</panel_attributes>
+specification UI</panel_attributes>
     <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>470</y>
+      <x>400</x>
+      <y>640</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
@@ -110,20 +110,20 @@ saveSpecification(requirements)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>530</y>
+      <x>400</x>
+      <y>700</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-specificationsUI</panel_attributes>
+specifications UI</panel_attributes>
     <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>130</x>
-      <y>340</y>
+      <x>350</x>
+      <y>510</y>
       <w>700</w>
       <h>240</h>
     </coordinates>
@@ -133,8 +133,8 @@ specificationsUI</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>600</y>
+      <x>400</x>
+      <y>770</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
@@ -145,8 +145,8 @@ calculateCheaptestProducts()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>700</y>
+      <x>400</x>
+      <y>870</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
@@ -157,8 +157,8 @@ saveProject(employee, name, estimated work hours, price)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>40</y>
+      <x>400</x>
+      <y>210</y>
       <w>30</w>
       <h>700</h>
     </coordinates>
@@ -169,8 +169,8 @@ saveProject(employee, name, estimated work hours, price)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
-      <y>80</y>
+      <x>990</x>
+      <y>250</y>
       <w>30</w>
       <h>710</h>
     </coordinates>
@@ -181,8 +181,8 @@ saveProject(employee, name, estimated work hours, price)</panel_attributes>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>150</x>
-      <y>10</y>
+      <x>370</x>
+      <y>180</y>
       <w>80</w>
       <h>110</h>
     </coordinates>
@@ -192,8 +192,8 @@ saveProject(employee, name, estimated work hours, price)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>950</x>
-      <y>10</y>
+      <x>1170</x>
+      <y>180</y>
       <w>30</w>
       <h>780</h>
     </coordinates>
@@ -204,8 +204,8 @@ saveProject(employee, name, estimated work hours, price)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
-      <y>750</y>
+      <x>990</x>
+      <y>920</y>
       <w>210</w>
       <h>40</h>
     </coordinates>
@@ -216,13 +216,13 @@ item list</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>650</y>
+      <x>400</x>
+      <y>820</y>
       <w>620</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-newProjectOverviewUI</panel_attributes>
+project confirmation overview UI</panel_attributes>
     <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
   </element>
 </diagram>

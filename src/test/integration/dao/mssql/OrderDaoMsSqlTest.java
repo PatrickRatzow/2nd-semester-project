@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,8 +20,13 @@ public class OrderDaoMsSqlTest {
 
     @BeforeAll
     static void setup() {
-        connection = DBManager.getInstance().getPool().getConnection();
-        dao = connection.getDaoFactory().createOrderDao();
+        try {
+            connection = DBManager.getInstance().getPool().getConnection();
+            connection.startTransaction();
+            dao = connection.getDaoFactory().createOrderDao();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Test
@@ -43,10 +49,9 @@ public class OrderDaoMsSqlTest {
         // Act
         order = dao.findById(1312312, true);
 
-        //Assert
+        // Assert
         assertNull(order);
     }
-
 
     @Test
     void testCreateOrderWithValidInformation() throws DataAccessException {
@@ -57,7 +62,7 @@ public class OrderDaoMsSqlTest {
         Product product = new Product(1, "Lille tagsten", "", new Price(250000));
         order.addOrderLine(new OrderLine(product, 15, "Test"));
         Project project = new Project();
-        project.setId(3);
+        project.setId(5);
         Order returnOrder;
 
         // Act
@@ -84,6 +89,12 @@ public class OrderDaoMsSqlTest {
 
     @AfterAll
     static void teardown() {
+        try {
+            connection.rollbackTransaction();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        
         connection.release();
     }
 }

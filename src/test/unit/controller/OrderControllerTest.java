@@ -130,6 +130,7 @@ public class OrderControllerTest {
             
             // Assert
             assertNotNull(order);
+            verify(dao, times(1)).findById(id, fullAssociation);
         }
     }
     
@@ -161,6 +162,7 @@ public class OrderControllerTest {
             
             // Assert
             assertNull(order);
+            verify(dao, times(1)).findById(id, fullAssociation);
         }
     }
 }
