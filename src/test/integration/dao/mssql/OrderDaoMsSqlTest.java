@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +22,11 @@ public class OrderDaoMsSqlTest {
     static void setup() {
         connection = DBManager.getInstance().getPool().getConnection();
         dao = connection.getDaoFactory().createOrderDao();
+        try {
+            connection.startTransaction();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Test
@@ -43,7 +49,7 @@ public class OrderDaoMsSqlTest {
         // Act
         order = dao.findById(1312312, true);
 
-        //Assert
+        // Assert
         assertNull(order);
     }
 
@@ -84,6 +90,12 @@ public class OrderDaoMsSqlTest {
 
     @AfterAll
     static void teardown() {
+        try {
+            connection.rollbackTransaction();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        
         connection.release();
     }
 }

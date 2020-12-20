@@ -12,6 +12,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ProductDaoMsSqlTest {
@@ -22,6 +24,11 @@ public class ProductDaoMsSqlTest {
 	static void setup() {
 		connection = DBManager.getInstance().getPool().getConnection();
 		dao = connection.getDaoFactory().createProductDao();
+		try {
+			connection.startTransaction();
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -56,6 +63,11 @@ public class ProductDaoMsSqlTest {
 	
 	@AfterAll
 	static void teardown() {
+		try {
+			connection.rollbackTransaction();
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
 		connection.release();
 	}
 }

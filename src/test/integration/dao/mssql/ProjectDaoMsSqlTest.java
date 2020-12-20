@@ -8,6 +8,7 @@ import model.*;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +22,12 @@ public class ProjectDaoMsSqlTest {
     static void setup() {
         connection = DBManager.getInstance().getPool().getConnection();
         dao = connection.getDaoFactory().createProjectDao();
+    
+        try {
+            connection.startTransaction();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Order(1)
@@ -39,80 +46,80 @@ public class ProjectDaoMsSqlTest {
     @Order(2)
     @Test
     void testCanFindById() throws DataAccessException {
-        //Arrange
+        // Arrange
         Project project;
 
-        //act
+        // Act
         project = dao.findById(3, true);
 
-        //assert
+        // Assert
         assertNotNull(project);
     }
     
     @Order(3)
     @Test
     void testCantFindByIdIfItDoesntExistInDatabase() throws DataAccessException {
-        //Arrange
+        // Arrange
         Project project;
 
-        //act
+        // Act
         project = dao.findById(99999999, false);
 
-        //assert
+        // Assert
         assertNull(project);
     }
     
     @Order(4)
     @Test
     void testCanFindByName() throws DataAccessException {
-        //Arrange
+        // Arrange
         String name = "Skur #1";
         List<Project> projects;
 
-        //act
+        // Act
         projects = dao.findByName(name, false);
 
-        //assert
+        // Assert
         assertEquals(projects.size(), 1);
     }
     
     @Order(5)
     @Test
     void testCantFindByNameIfItDoesntExistInDatabase() throws DataAccessException {
-        //Arrange
-        String name = "Egon Olsens vinduer";
+        // Arrange
+        String name = "Ikke eksisterende vinduer!";
         List<Project> projects;
 
-        //act
+        // Act
         projects = dao.findByName(name, false);
 
-        //assert
-        assertNotEquals(1, 0);
+        // Assert
+        assertNotEquals(projects.size(), 0);
     }
 
     @Test
     void testCreateProject() throws DataAccessException {
-        //Arrange
+        // Arrange
         Project project = new Project();
         project.setEmployee(new Employee(1, "", ""));
         project.setEstimatedHours(63);
         project.setStatus(ProjectStatus.ON_HOLD);
-        project.setName("bacon pancakes");
+        project.setName("Test Name 45");
         project.setPrice(new Price(98000));
         project.setCustomer(new Customer(1, "", "", "", "",
                 new Address("", 4, "", 5)));
         Project returnProject;
 
-        //Act
+        // Act
         returnProject = dao.create(project);
 
-        //Assert
+        // Assert
         assertNotNull(returnProject);
     }
 
     @Test
     void testCantUpdateProjectIfItDoesntExistInDatabase() {
-        //Arrange
+        // Arrange
         int id = 7000;
         Project project = new Project();
         project.setEmployee(new Employee(1, "", ""));
@@ -124,6 +131,7 @@ public class ProjectDaoMsSqlTest {
         project.setCustomer(new Customer(3, "", "", "", "",
                 new Address("", 4, "", 5)));
 
+        // Assert + Act
         assertThrows(DataAccessException.class, () -> dao.update(project));
     }
 
@@ -144,6 +152,12 @@ public class ProjectDaoMsSqlTest {
 
     @AfterAll
     static void teardown() {
+        try {
+            connection.rollbackTransaction();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        
         connection.release();
     }
 }

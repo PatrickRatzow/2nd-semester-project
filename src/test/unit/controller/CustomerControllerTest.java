@@ -220,7 +220,6 @@ public class CustomerControllerTest {
             verify(dao, times(1)).findAll();
         }
     }
-
     
     @AfterEach
     void teardown() {
