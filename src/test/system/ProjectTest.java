@@ -118,7 +118,7 @@ public class ProjectTest {
 			
 			customerLock.countDown();
 		});
-		// Give it 200ms to find & set before we continue
+		// Give it 300ms to find & set before we continue
 		customerLock.await(300, TimeUnit.MILLISECONDS);
 		
 		// Step 2 out of 3. Specifications
@@ -128,7 +128,7 @@ public class ProjectTest {
 			
 			specificationsLock.countDown();
 		});
-		// Give it 500ms to find & set before we continue
+		// Give it another 300ms, but offset from last lock.
 		specificationsLock.await(600, TimeUnit.MILLISECONDS);
 		
 		// Step 3 out of 3. Set last details
@@ -145,7 +145,7 @@ public class ProjectTest {
 			projectLock.countDown();
 		});
 		projectController.save();
-		// Give it 200ms to find & set before we continue
+		// Give it another 300ms, but offset from last lock.
 		projectLock.await(900, TimeUnit.MILLISECONDS);
 		
 		// Asserts
@@ -167,7 +167,8 @@ public class ProjectTest {
 		
 		// Act
 		CountDownLatch lock = new CountDownLatch(1);
-		projectController = new ProjectController(projectDao.findById(projectId, true));
+		Project existingProject = projectDao.findById(projectId, true);
+		projectController = new ProjectController(existingProject);
 		projectController.setStatus(ProjectStatus.FINISHED);
 		projectController.addSaveListener(p -> lock.countDown());
 		projectController.save();

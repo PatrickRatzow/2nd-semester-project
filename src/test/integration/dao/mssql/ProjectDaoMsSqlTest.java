@@ -40,7 +40,7 @@ public class ProjectDaoMsSqlTest {
         projects = dao.findAll(false);
 
         // Assert
-        assertEquals(projects.size(), 4);
+        assertEquals(projects.size(), 5);
     }
     
     @Order(2)
@@ -94,7 +94,7 @@ public class ProjectDaoMsSqlTest {
         projects = dao.findByName(name, false);
 
         // Assert
-        assertNotEquals(projects.size(), 0);
+        assertEquals(projects.size(), 0);
     }
 
     @Test

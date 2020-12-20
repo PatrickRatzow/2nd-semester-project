@@ -20,10 +20,10 @@ public class OrderDaoMsSqlTest {
 
     @BeforeAll
     static void setup() {
-        connection = DBManager.getInstance().getPool().getConnection();
-        dao = connection.getDaoFactory().createOrderDao();
         try {
+            connection = DBManager.getInstance().getPool().getConnection();
             connection.startTransaction();
+            dao = connection.getDaoFactory().createOrderDao();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -53,7 +53,6 @@ public class OrderDaoMsSqlTest {
         assertNull(order);
     }
 
-
     @Test
     void testCreateOrderWithValidInformation() throws DataAccessException {
         // Arrange
@@ -63,7 +62,7 @@ public class OrderDaoMsSqlTest {
         Product product = new Product(1, "Lille tagsten", "", new Price(250000));
         order.addOrderLine(new OrderLine(product, 15, "Test"));
         Project project = new Project();
-        project.setId(3);
+        project.setId(5);
         Order returnOrder;
 
         // Act
