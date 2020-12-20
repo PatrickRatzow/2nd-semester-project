@@ -1,4 +1,19 @@
 INSERT INTO product_field(product_id, field_id, field_value)
 VALUES (1, 'color', 'Roed'),
        (1, 'width', '150'),
-       (1, 'height', '100');
+       (1, 'height', '100'),
+       (2, 'color', 'Roed'),
+       (2, 'width', '200'),
+       (2, 'height', '125'),
+       (3, 'color', 'Roed'),
+       (3, 'width', '150'),
+       (3, 'height', '100'),
+       (4, 'color', 'Groen'),
+       (4, 'width', '100'),
+       (4, 'height', '75'),
+       (5, 'color', 'Groen'),
+       (5, 'width', '100'),
+       (5, 'height', '75'),
+       (6, 'color', 'Blaa'),
+       (6, 'width', '200'),
+       (6, 'height', '125');

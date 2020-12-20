@@ -1,4 +1,4 @@
 INSERT INTO product_category(name, description)
-VALUES ('Tagsten', 'Sten til dit tag'),
-       ('Teglsten', 'En form for sten'),
-       ('Obamasten', 'Amerikanske sten')
+VALUES ('Loftsvinduer', 'Alle slags loftsvinduer!'),
+       ('Dannebrogsvinduer', 'Gammeldags dannebrogsvinduer'),
+       ('Frederiksbergvindue', 'De klassiske frederiksbergvinduer!')
