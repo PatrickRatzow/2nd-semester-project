@@ -66,7 +66,7 @@ public class ProjectDaoMsSqlTest {
     @Test
     void testCanFindByName() throws DataAccessException {
         //Arrange
-        String name = "The Project";
+        String name = "Skur #1";
         List<Project> projects;
 
         //act
