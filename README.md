@@ -1,6 +1,5 @@
 # Introduction
 2. semester projects product for DMAA0220 - Group 3 at University College Nordjylland (UCN).
-
 This is a Java project, utilising multithreading, databases, and a multi-tier architecture.
 
 ## Setup
