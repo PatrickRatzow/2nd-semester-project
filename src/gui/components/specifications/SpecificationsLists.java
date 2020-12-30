@@ -81,7 +81,8 @@ public class SpecificationsLists extends JPanel {
         specificationRow.setTitleText(specification.getName());
         specificationRow.setButtonText("Tilf\u00F8j");
         specificationRow.addActionListener(e -> panelManager.setActive("specification_tab", () -> {
-            SpecificationController specificationController = new SpecificationController(specification);
+            Specification newSpecification = specification.getClass().getDeclaredConstructor().newInstance();
+            SpecificationController specificationController = new SpecificationController(newSpecification);
             specificationController.addSaveListener(this::createChosenRow);
             specificationsController.addSpecificationController(specificationController);
 
@@ -117,6 +118,7 @@ public class SpecificationsLists extends JPanel {
                 });
             });
             row.addRemoveButtonActionListener(e -> {
+                specificationsController.removeSpecificationController(specificationController);
                 chosenMap.remove(displayId);
                 chosenSpecifications.remove(row);
                 chosenSpecifications.revalidate();

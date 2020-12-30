@@ -49,6 +49,10 @@ public class SpecificationsController {
         return specificationControllers.values();
     }
     
+    public void removeSpecificationController(SpecificationController specificationController) {
+        specificationControllers.remove(specificationController.getDisplayId());
+    }
+    
     public void getSpecifications() {
         final List<Specification> specifications = new LinkedList<>();
         specifications.add(new Window());
